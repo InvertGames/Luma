@@ -5,5 +5,5 @@ using System.Linq;
 using Invert.ECS;
 
 
-public class PlayerData : PlayerDataBase {
+public class HUDSystem : HUDSystemBase {
 }

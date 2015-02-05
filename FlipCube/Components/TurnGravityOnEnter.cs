@@ -5,5 +5,5 @@ using System.Linq;
 using Invert.ECS;
 
 
-public class TurnGravityOnEnter : TurnGravityOnEnterBase {
+public partial class TurnGravityOnEnter : TurnGravityOnEnterBase {
 }

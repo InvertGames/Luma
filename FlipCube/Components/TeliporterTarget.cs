@@ -5,5 +5,5 @@ using System.Linq;
 using Invert.ECS;
 
 
-public class TeliporterTarget : TeliporterTargetBase {
+public partial class TeliporterTarget : TeliporterTargetBase {
 }

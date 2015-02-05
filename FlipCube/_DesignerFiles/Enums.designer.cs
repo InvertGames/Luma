@@ -144,13 +144,13 @@ public enum NotificationSystemEvents {
 public enum FlipCubeUISystemEvents {
 }
 
+public enum HUDSystemEvents {
+}
+
 public enum XPSystemEvents {
+}
+
+public enum PlayerSystemEvents {
     
-    PlayerDataChanged,
-    
-    LoadExperience,
-    
-    AddExperience,
-    
-    RemoveExperience,
+    PlayerLoaded,
 }

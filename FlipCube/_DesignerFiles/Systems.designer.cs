@@ -1401,6 +1401,13 @@ public class FlipCubeUISystemBase : UnitySystem {
     }
 }
 
+public class HUDSystemBase : UnitySystem {
+    
+    public override void Initialize(Invert.ECS.IGame game) {
+        base.Initialize(game);
+    }
+}
+
 public class XPSystemBase : UnitySystem {
     
     public override void Initialize(Invert.ECS.IGame game) {
@@ -1410,36 +1417,35 @@ public class XPSystemBase : UnitySystem {
     
     protected virtual void RollComplete(Invert.ECS.IEvent e) {
     }
+}
+
+public class PlayerSystemBase : UnitySystem {
     
-    public virtual void SignalPlayerDataChanged(PlayerData data) {
-        Game.EventManager.SignalEvent(new EventData(XPSystemEvents.PlayerDataChanged,data));
+    private ComponentManager<Player> _PlayerManager;
+    
+    public ComponentManager<Player> PlayerManager {
+        get {
+            return _PlayerManager;
+        }
+        set {
+            _PlayerManager = value;
+        }
     }
     
-    public virtual void SignalLoadExperience(PlayerData data) {
-        Game.EventManager.SignalEvent(new EventData(XPSystemEvents.LoadExperience,data));
+    public override void Initialize(Invert.ECS.IGame game) {
+        base.Initialize(game);
+        PlayerManager = game.ComponentSystem.RegisterComponent<Player>();
+        game.EventManager.ListenFor( FrameworkEvents.ComponentCreated, ComponentCreated );
     }
     
-    public virtual void SignalAddExperience(PlayerData data) {
-        Game.EventManager.SignalEvent(new EventData(XPSystemEvents.AddExperience,data));
+    protected virtual void ComponentCreated(Invert.ECS.IEvent e) {
     }
     
-    public virtual void SignalRemoveExperience(PlayerData data) {
-        Game.EventManager.SignalEvent(new EventData(XPSystemEvents.RemoveExperience,data));
+    public virtual void SignalPlayerLoaded(PlayerEventData data) {
+        Game.EventManager.SignalEvent(new EventData(PlayerSystemEvents.PlayerLoaded,data));
     }
     
-    public static void SignalPlayerDataChanged(IGame game, PlayerData data) {
-        game.EventManager.SignalEvent(new EventData(XPSystemEvents.PlayerDataChanged,data));
-    }
-    
-    public static void SignalLoadExperience(IGame game, PlayerData data) {
-        game.EventManager.SignalEvent(new EventData(XPSystemEvents.LoadExperience,data));
-    }
-    
-    public static void SignalAddExperience(IGame game, PlayerData data) {
-        game.EventManager.SignalEvent(new EventData(XPSystemEvents.AddExperience,data));
-    }
-    
-    public static void SignalRemoveExperience(IGame game, PlayerData data) {
-        game.EventManager.SignalEvent(new EventData(XPSystemEvents.RemoveExperience,data));
+    public static void SignalPlayerLoaded(IGame game, PlayerEventData data) {
+        game.EventManager.SignalEvent(new EventData(PlayerSystemEvents.PlayerLoaded,data));
     }
 }

@@ -182,16 +182,16 @@ public class NotificationDataBase : object {
     }
 }
 
-public class PlayerDataBase : object {
+public class PlayerEventDataBase : object {
     
-    private Int32 _XP;
+    private Player _PlayerData;
     
-    public Int32 XP {
+    public Player PlayerData {
         get {
-            return _XP;
+            return _PlayerData;
         }
         set {
-            _XP = value;
+            _PlayerData = value;
         }
     }
 }

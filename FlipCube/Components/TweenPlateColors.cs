@@ -6,5 +6,5 @@ using Invert.ECS;
 using UnityEngine;
 
 
-public class TweenPlateColors : TweenPlateColorsBase {
+public partial class TweenPlateColors : TweenPlateColorsBase {
 }

@@ -5,5 +5,5 @@ using System.Linq;
 using Invert.ECS;
 
 
-public class SwitchPlateTrigger : SwitchPlateTriggerBase {
+public partial class SwitchPlateTrigger : SwitchPlateTriggerBase {
 }

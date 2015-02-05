@@ -5,5 +5,5 @@ using System.Linq;
 using Invert.ECS;
 
 
-public class Plate : PlateBase {
+public partial class Plate : PlateBase {
 }

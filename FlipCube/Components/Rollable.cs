@@ -6,7 +6,7 @@ using Invert.ECS;
 using UnityEngine;
 
 
-public class Rollable : RollableBase {
+public partial class Rollable : RollableBase {
     public RollEventData LastRoll { get; set; }
 
     public virtual Vector3 BottomBackPosition { get; set; }

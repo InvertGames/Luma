@@ -6,5 +6,5 @@ using Invert.ECS;
 using UnityEngine;
 
 
-public class MoveLeftOnLeave : MoveLeftOnLeaveBase {
+public partial class MoveLeftOnLeave : MoveLeftOnLeaveBase {
 }

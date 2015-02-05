@@ -24,8 +24,10 @@ namespace Invert.ECS
             ECSPlugin.Component.AddCodeTemplate<UnityComponentTemplate>();
             ECSPlugin.Component.AddCodeTemplate<VanillaComponentTemplate>();
             ECSPlugin.Component.AddCodeTemplate<ComponentInterfaceTemplate>();
+            ECSPlugin.Component.AddCodeTemplate<UnityComponentTemplatePartial>();
             ECSPlugin.Entity.AddCodeTemplate<EntityAssetTemplate>();
             ECSPlugin.System.AddCodeTemplate<SystemTemplate>();
+            
             //ECSPlugin.System.AddCodeTemplate<SystemSignals>();
 
             ECSPlugin.Event.AddCodeTemplate<EventClassTemplate>();
@@ -139,29 +141,34 @@ namespace Invert.ECS
                 Ctx.SetBaseType(typeof (UnityComponent));
             else
             {
-                var system =
-                    Ctx.Data.Project.Graphs.SelectMany(p => p.NodeItems.OfType<SystemNode>())
-                        .FirstOrDefault(p => p.SystemComponents.Contains(Ctx.Data));
-                if (system != null)
-                {
-                    Ctx.CurrentDecleration.CustomAttributes.Add(new CodeAttributeDeclaration(
-                        new CodeTypeReference(typeof (AddComponentMenu)),
-                        new CodeAttributeArgument(
-                            new CodePrimitiveExpression(string.Format("{0}/{1}", system.Name, Ctx.Data.Name)))));
-                }
+                Ctx.CurrentDecleration.IsPartial = true;
+      
             }
 
         }
     }
-     [TemplateClass("Components", MemberGeneratorLocation.Both, ClassNameFormat = "{0}")]
-    public class UnityComponentTemplatePartial : ComponentTemplate
+     [TemplateClass("Components", MemberGeneratorLocation.DesignerFile, ClassNameFormat = "{0}")]
+    public class UnityComponentTemplatePartial : IClassTemplate<Invert.ECS.Graphs.ComponentNode>
     {
-         public override void TemplateSetup()
+         public void TemplateSetup()
          {
-             base.TemplateSetup();
+             Ctx.CurrentDecleration.BaseTypes.Clear();
+             Ctx.CurrentDecleration.IsPartial = true;
              Ctx.CurrentDecleration.Name = Ctx.Data.Name;
+             var system =
+          Ctx.Data.Project.Graphs.SelectMany(p => p.NodeItems.OfType<SystemNode>())
+              .FirstOrDefault(p => p.SystemComponents.Contains(Ctx.Data));
+             if (system != null)
+             {
+                 Ctx.CurrentDecleration.CustomAttributes.Add(new CodeAttributeDeclaration(
+                     new CodeTypeReference(typeof(AddComponentMenu)),
+                     new CodeAttributeArgument(
+                         new CodePrimitiveExpression(string.Format("{0}/{1}", system.Name, Ctx.Data.Name)))));
+             }
 
          }
+
+         public TemplateContext<ComponentNode> Ctx { get; set; }
     }
     [TemplateClass("Events", MemberGeneratorLocation.Both, ClassNameFormat = "{0}")]
     public class EventClassTemplate : IClassTemplate<Invert.ECS.Graphs.EventNode>

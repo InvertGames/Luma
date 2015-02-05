@@ -5,5 +5,5 @@ using System.Linq;
 using Invert.ECS;
 
 
-public class FailOnCollision : FailOnCollisionBase {
+public partial class FailOnCollision : FailOnCollisionBase {
 }

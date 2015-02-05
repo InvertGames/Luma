@@ -5,5 +5,5 @@ using System.Linq;
 using Invert.ECS;
 
 
-public class NotifyOnEnter : NotifyOnEnterBase {
+public partial class NotifyOnEnter : NotifyOnEnterBase {
 }

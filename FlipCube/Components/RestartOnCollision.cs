@@ -5,5 +5,5 @@ using System.Linq;
 using Invert.ECS;
 
 
-public class RestartOnCollision : RestartOnCollisionBase {
+public partial class RestartOnCollision : RestartOnCollisionBase {
 }

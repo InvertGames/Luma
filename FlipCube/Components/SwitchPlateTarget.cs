@@ -6,7 +6,7 @@ using Invert.ECS;
 using UnityEngine;
 
 
-public class SwitchPlateTarget : SwitchPlateTargetBase {
+public partial class SwitchPlateTarget : SwitchPlateTargetBase {
     public Vector3 PivotLocalPosition
     {
         get

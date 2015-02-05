@@ -5,5 +5,5 @@ using System.Linq;
 using Invert.ECS;
 
 
-public class Cube : CubeBase {
+public partial class Cube : CubeBase {
 }

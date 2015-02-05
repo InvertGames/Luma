@@ -79,6 +79,10 @@ public class RollableBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
+[UnityEngine.AddComponentMenu("CubeSystem/Rollable")]
+public partial class Rollable {
+}
+
 public class CubeBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
@@ -92,6 +96,10 @@ public class CubeBase : Invert.ECS.Unity.UnityComponent {
             _IsSelected = value;
         }
     }
+}
+
+[UnityEngine.AddComponentMenu("CubeInputSystem/Cube")]
+public partial class Cube {
 }
 
 public class MoveDirectionOnEnterBase : Invert.ECS.Unity.UnityComponent {
@@ -121,6 +129,10 @@ public class MoveDirectionOnEnterBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
+[UnityEngine.AddComponentMenu("CubeInputSystem/MoveDirectionOnEnter")]
+public partial class MoveDirectionOnEnter {
+}
+
 public class FollowOnSelectionBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
@@ -136,7 +148,15 @@ public class FollowOnSelectionBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
+[UnityEngine.AddComponentMenu("CameraSystem/FollowOnSelection")]
+public partial class FollowOnSelection {
+}
+
 public class PlateBase : Invert.ECS.Unity.UnityComponent {
+}
+
+[UnityEngine.AddComponentMenu("PlateSystem/Plate")]
+public partial class Plate {
 }
 
 public class TeliporterBase : Invert.ECS.Unity.UnityComponent {
@@ -154,13 +174,29 @@ public class TeliporterBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
+[UnityEngine.AddComponentMenu("TeliporterSystem/Teliporter")]
+public partial class Teliporter {
+}
+
 public class TeliportableBase : Invert.ECS.Unity.UnityComponent {
+}
+
+[UnityEngine.AddComponentMenu("TeliporterSystem/Teliportable")]
+public partial class Teliportable {
 }
 
 public class TeliporterTargetBase : Invert.ECS.Unity.UnityComponent {
 }
 
+[UnityEngine.AddComponentMenu("TeliporterSystem/TeliporterTarget")]
+public partial class TeliporterTarget {
+}
+
 public class GoalPlateBase : Invert.ECS.Unity.UnityComponent {
+}
+
+[UnityEngine.AddComponentMenu("GoalPlateSystem/GoalPlate")]
+public partial class GoalPlate {
 }
 
 public class SwitchPlateTriggerBase : Invert.ECS.Unity.UnityComponent {
@@ -178,10 +214,21 @@ public class SwitchPlateTriggerBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
+[UnityEngine.AddComponentMenu("SwitchPlateSystem/SwitchPlateTrigger")]
+public partial class SwitchPlateTrigger {
+}
+
 public class TurnGravityOnEnterBase : Invert.ECS.Unity.UnityComponent {
 }
 
+public partial class TurnGravityOnEnter {
+}
+
 public class DisableColliderOnCollisionBase : Invert.ECS.Unity.UnityComponent {
+}
+
+[UnityEngine.AddComponentMenu("PlateSystem/DisableColliderOnCollision")]
+public partial class DisableColliderOnCollision {
 }
 
 public class SwitchPlateTargetBase : Invert.ECS.Unity.UnityComponent {
@@ -223,6 +270,10 @@ public class SwitchPlateTargetBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
+[UnityEngine.AddComponentMenu("SwitchPlateSystem/SwitchPlateTarget")]
+public partial class SwitchPlateTarget {
+}
+
 public class MoveLeftOnLeaveBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
@@ -236,6 +287,10 @@ public class MoveLeftOnLeaveBase : Invert.ECS.Unity.UnityComponent {
             _Offset = value;
         }
     }
+}
+
+[UnityEngine.AddComponentMenu("ShiftingPlate/MoveLeftOnLeave")]
+public partial class MoveLeftOnLeave {
 }
 
 public class LevelCompleteOnContactBase : Invert.ECS.Unity.UnityComponent {
@@ -253,16 +308,36 @@ public class LevelCompleteOnContactBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
+[UnityEngine.AddComponentMenu("LevelSystem/LevelCompleteOnContact")]
+public partial class LevelCompleteOnContact {
+}
+
 public class RestartOnMouseDownBase : Invert.ECS.Unity.UnityComponent {
+}
+
+[UnityEngine.AddComponentMenu("LevelSystem/RestartOnMouseDown")]
+public partial class RestartOnMouseDown {
 }
 
 public class EndOnMouseDownBase : Invert.ECS.Unity.UnityComponent {
 }
 
+[UnityEngine.AddComponentMenu("LevelSystem/EndOnMouseDown")]
+public partial class EndOnMouseDown {
+}
+
 public class RestartOnCollisionBase : Invert.ECS.Unity.UnityComponent {
 }
 
+[UnityEngine.AddComponentMenu("LevelSystem/RestartOnCollision")]
+public partial class RestartOnCollision {
+}
+
 public class FailOnCollisionBase : Invert.ECS.Unity.UnityComponent {
+}
+
+[UnityEngine.AddComponentMenu("LevelSystem/FailOnCollision")]
+public partial class FailOnCollision {
 }
 
 public class NotifyOnEnterBase : Invert.ECS.Unity.UnityComponent {
@@ -278,6 +353,10 @@ public class NotifyOnEnterBase : Invert.ECS.Unity.UnityComponent {
             _Message = value;
         }
     }
+}
+
+[UnityEngine.AddComponentMenu("FlipCubeNotifications/NotifyOnEnter")]
+public partial class NotifyOnEnter {
 }
 
 public class TweenPlateColorsBase : Invert.ECS.Unity.UnityComponent {
@@ -329,4 +408,27 @@ public class TweenPlateColorsBase : Invert.ECS.Unity.UnityComponent {
             _IsOn = value;
         }
     }
+}
+
+[UnityEngine.AddComponentMenu("SpecialFXSystem/TweenPlateColors")]
+public partial class TweenPlateColors {
+}
+
+public class PlayerBase : Invert.ECS.Unity.UnityComponent {
+    
+    [UnityEngine.SerializeField()]
+    private String _Name;
+    
+    public virtual String Name {
+        get {
+            return _Name;
+        }
+        set {
+            _Name = value;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("PlayerSystem/Player")]
+public partial class Player {
 }

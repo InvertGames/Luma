@@ -5,5 +5,5 @@ using System.Linq;
 using Invert.ECS;
 
 
-public class MoveDirectionOnEnter : MoveDirectionOnEnterBase {
+public partial class MoveDirectionOnEnter : MoveDirectionOnEnterBase {
 }

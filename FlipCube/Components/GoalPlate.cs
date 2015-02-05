@@ -5,5 +5,5 @@ using System.Linq;
 using Invert.ECS;
 
 
-public class GoalPlate : GoalPlateBase {
+public partial class GoalPlate : GoalPlateBase {
 }

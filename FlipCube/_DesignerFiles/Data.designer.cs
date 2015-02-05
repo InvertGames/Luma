@@ -351,3 +351,19 @@ public class TweenPlateColorsData {
         }
     }
 }
+
+[System.SerializableAttribute()]
+public class PlayerData {
+    
+    [UnityEngine.SerializeField()]
+    private String _Name;
+    
+    public virtual String Name {
+        get {
+            return _Name;
+        }
+        set {
+            _Name = value;
+        }
+    }
+}

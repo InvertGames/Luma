@@ -204,3 +204,12 @@ public interface ITweenPlateColors {
         set;
     }
 }
+
+public interface IPlayer {
+    
+    
+    String Name {
+        get;
+        set;
+    }
+}

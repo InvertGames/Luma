@@ -5,5 +5,5 @@ using System.Linq;
 using Invert.ECS;
 
 
-public class FollowOnSelection : FollowOnSelectionBase {
+public partial class FollowOnSelection : FollowOnSelectionBase {
 }

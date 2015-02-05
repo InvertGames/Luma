@@ -5,5 +5,5 @@ using System.Linq;
 using Invert.ECS;
 
 
-public class DisableColliderOnCollision : DisableColliderOnCollisionBase {
+public partial class DisableColliderOnCollision : DisableColliderOnCollisionBase {
 }

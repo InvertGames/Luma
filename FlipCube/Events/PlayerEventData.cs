@@ -5,5 +5,5 @@ using System.Linq;
 using Invert.ECS;
 
 
-public partial class RestartOnMouseDown : RestartOnMouseDownBase {
+public class PlayerEventData : PlayerEventDataBase {
 }
