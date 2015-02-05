@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1942191683, guid: 07c54b9053789504c99a03a4b826aefb, type: 3}
+  m_Name: FlipCubeProject
+  m_EditorClassIdentifier: 
+  _settingsKeys: []
+  _settingsValues: 
+  _diagrams:
+  - {fileID: 11400000, guid: 021a596345236004f9cffb2885a0814e, type: 2}
+  - {fileID: 11400000, guid: eaed6efbbfa4a1048b44079c9575a86f, type: 2}
+  - {fileID: 11400000, guid: 648eae681133cc643a1ecd70fde080a8, type: 2}
+  - {fileID: 11400000, guid: b912ef37604ea2f449645b1023d88945, type: 2}
+  - {fileID: 11400000, guid: 2b95e6e301af0554789255446ab20b8e, type: 2}
+  - {fileID: 11400000, guid: a69a976d3fbe7274c9427fd223b7abbb, type: 2}
+  - {fileID: 11400000, guid: 680cb464b0c8fb1499fa8b8befe74b6c, type: 2}
+  - {fileID: 11400000, guid: 2db4f8669c897ce4797f848764ffd35e, type: 2}
+  - {fileID: 11400000, guid: 9845e09777c307d4f892d8bb1b7e4422, type: 2}
+  - {fileID: 11400000, guid: 9282782e4828bbf49a38eec1ef4a13d9, type: 2}
+  _projectNamespace: 
+  _currentTabs:
+  - _graphIdentifier: 563729f0-64a8-4494-ad3a-bea845265ea3
+    _graphName: Cube
+    _path: []
+  - _graphIdentifier: 28d8a578-88ec-4c43-88e2-d97815be77ed
+    _graphName: PlateSystem
+    _path: []
+  - _graphIdentifier: 4fbb9388-3ed2-4ded-8aa4-a6e0436d7dbb
+    _graphName: FlipCubeSystem
+    _path: []
+  - _graphIdentifier: 331cf74f-f207-424e-ba54-87b38deb7c40
+    _graphName: SpecialEffectsSystem
+    _path: []
+  - _graphIdentifier: d9677db3-d3eb-45af-b1d6-2378dbb2bd2e
+    _graphName: XPSystem
+    _path: []

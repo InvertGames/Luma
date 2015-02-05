@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1328937199, guid: 019118f6de8965947b2d943bbe59c84b, type: 3}
+  m_Name: FlipCubeUISystem
+  m_EditorClassIdentifier: 
+  _jsonData: '{"Name":"RenameMe", "Version":"1.501", "Identifier":"e1836aaa-f62f-468a-8aa9-d141fa143e6a",
+    "Type":"Invert.ECS.Graphs.SystemsGraph", "RootNode":{"_CLRType":"SystemsNode",
+    "Name":"RenameMe", "IsCollapsed":"false", "Identifier":"7a8e3a17-e677-49f7-886c-01e17b2d5620",
+    "Items":[  ], "CollapsedValues":{}, "Flags":{"_CLRType":"true", "6c039265-dae4-4d7a-b19b-d6e97e32f625":"false",
+    "ac2d59c3-809b-401f-9b64-5bb7353aee3d":"false"}, "DataBag":{"_CLRType":"DataBag"}},
+    "Nodes":[ {"_CLRType":"SystemNode", "Name":"FlipCubeUISystem", "IsCollapsed":"false",
+    "Identifier":"c05bf191-a7a9-478d-8de3-6f7793f554be", "Items":[ {"_CLRType":"SystemEventHandlerReference",
+    "Name":"", "Identifier":"6beb3779-2362-41b7-aeb7-ea10227f898f", "Precompiled":"false",
+    "Flags":{"_CLRType":"true"}, "DataBag":{"_CLRType":"DataBag"}, "SourceIdentifier":"08a856a1-94ef-446a-9cc7-df8a938b4031"}
+    ], "CollapsedValues":{}, "Flags":{"_CLRType":"true", "6c039265-dae4-4d7a-b19b-d6e97e32f625":"false",
+    "ac2d59c3-809b-401f-9b64-5bb7353aee3d":"false"}, "DataBag":{"_CLRType":"DataBag"}},
+    {"_CLRType":"EventHandlerNode", "Name":"ShowNotification", "IsCollapsed":"false",
+    "Identifier":"8e824f50-354f-41a4-a7fd-45c7a85455ec", "Items":[  ], "CollapsedValues":{},
+    "Flags":{"_CLRType":"true"}, "DataBag":{"_CLRType":"DataBag"}} ], "ConnectedItems":[
+    {"_CLRType":"ConnectionData", "OutputIdentifier":"6beb3779-2362-41b7-aeb7-ea10227f898f",
+    "InputIdentifier":"8e824f50-354f-41a4-a7fd-45c7a85455ec"} ], "PositionData":{"_CLRType":"FilterPositionData",
+    "7a8e3a17-e677-49f7-886c-01e17b2d5620":{"7a8e3a17-e677-49f7-886c-01e17b2d5620":{"x":"90",
+    "y":"80"}, "c05bf191-a7a9-478d-8de3-6f7793f554be":{"x":"260", "y":"160"}}, "c05bf191-a7a9-478d-8de3-6f7793f554be":{"c05bf191-a7a9-478d-8de3-6f7793f554be":{"x":"140",
+    "y":"100"}, "8e824f50-354f-41a4-a7fd-45c7a85455ec":{"x":"390", "y":"120"}}}, "FilterState":{"_CLRType":"FilterState",
+    "FilterStack":[ "FlipCubeUISystem" ]}, "Settings":{"_CLRType":"ElementDiagramSettings",
+    "CodeGenDisabled":"false", "SnapSize":"10", "Snap":"true", "CodePathStrategyName":"Default",
+    "GridLinesColor":{"r":"0.271", "g":"0.271", "b":"0.271", "a":"1"}, "GridLinesColorSecondary":{"r":"0.169",
+    "g":"0.169", "b":"0.169", "a":"1"}, "AssociationLinkColor":{"r":"1", "g":"1",
+    "b":"1", "a":"1"}, "DefinitionLinkColor":{"r":"0", "g":"1", "b":"1", "a":"1"},
+    "InheritanceLinkColor":{"r":"0", "g":"1", "b":"0", "a":"1"}, "SceneManagerLinkColor":{"r":"0.5",
+    "g":"0.5", "b":"0.5", "a":"1"}, "SubSystemLinkColor":{"r":"0.5", "g":"0.5", "b":"0.5",
+    "a":"1"}, "TransitionLinkColor":{"r":"1", "g":"0.9215686", "b":"0.01568628", "a":"1"},
+    "ViewLinkColor":{"r":"0", "g":"0", "b":"1", "a":"1"}, "RootNamespace":""}}'

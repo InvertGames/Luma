@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1328937199, guid: 019118f6de8965947b2d943bbe59c84b, type: 3}
+  m_Name: NewUnityGraphData 2
+  m_EditorClassIdentifier: 
+  _jsonData: '{"Name":"RenameMe", "Version":"1.501", "Identifier":"19533b86-4efd-477a-9353-11152e39f7c1",
+    "Type":"InvertGraph", "RootNode":{"_CLRType":"SystemsNode", "Name":"RenameMe",
+    "IsCollapsed":"false", "Identifier":"954f508a-65e1-4e84-a299-15ba4f858afd", "Items":[
+    {"_CLRType":"EventTypeChildItem", "Name":"GameLoaded", "Identifier":"c2d3f37b-6166-4c15-ad4a-16a26ec82e8e",
+    "Flags":{"_CLRType":"true"}, "DataBag":{"_CLRType":"DataBag"}, "ItemType":""},
+    {"_CLRType":"EventTypeChildItem", "Name":"Events", "Identifier":"b98a40b1-7417-4e1c-b984-2dcfe5b3b091",
+    "Flags":{"_CLRType":"true"}, "DataBag":{"_CLRType":"DataBag"}, "ItemType":""}
+    ], "CollapsedValues":{}, "Flags":{"_CLRType":"true", "0a61b0ce-8bf3-4165-9f98-4fe20d376dff":"false",
+    "078eca53-afd0-4d08-b8f2-67067d4ad328":"false", "119012f1-0982-4297-b6c9-4e2ad622f20d":"false",
+    "87dfc2a9-c120-4ff5-918e-7968a724752a":"false", "ac0e94d9-a36e-4d4a-b983-e6f70c56bed0":"false",
+    "a38f1bd8-d2cc-4d95-af1d-c9fcf148701c":"false"}, "DataBag":{"_CLRType":"DataBag"}},
+    "Nodes":[ {"_CLRType":"ComponentNode", "Name":"BluePrintComponent", "IsCollapsed":"false",
+    "Identifier":"0c85effe-433b-4b04-a67a-9f908f40c51a", "Items":[ {"_CLRType":"ComponentPropertyChildItem",
+    "Name":"AutoCreateComponents", "Identifier":"06e6733d-9cc3-44d2-8665-14c582aaf948",
+    "Flags":{"_CLRType":"true"}, "DataBag":{"_CLRType":"DataBag"}, "ItemType":"Boolean"},
+    {"_CLRType":"ComponentPropertyChildItem", "Name":"BluePrintName", "Identifier":"4e7b473f-afd2-40bd-bd5b-1992ea50d22c",
+    "Flags":{"_CLRType":"true"}, "DataBag":{"_CLRType":"DataBag"}, "ItemType":"String"},
+    {"_CLRType":"ComponentPropertyChildItem", "Name":"OverrideExistingValues", "Identifier":"bc27f113-3303-44b6-8cd7-5ae1f0049d0e",
+    "Flags":{"_CLRType":"true"}, "DataBag":{"_CLRType":"DataBag"}, "ItemType":"Boolean"}
+    ], "CollapsedValues":{}, "Flags":{"_CLRType":"true", "0a61b0ce-8bf3-4165-9f98-4fe20d376dff":"false",
+    "078eca53-afd0-4d08-b8f2-67067d4ad328":"false", "119012f1-0982-4297-b6c9-4e2ad622f20d":"false",
+    "87dfc2a9-c120-4ff5-918e-7968a724752a":"false", "ac0e94d9-a36e-4d4a-b983-e6f70c56bed0":"false",
+    "a38f1bd8-d2cc-4d95-af1d-c9fcf148701c":"false"}, "DataBag":{"_CLRType":"DataBag"}},
+    {"_CLRType":"EventNode", "Name":"GameLoadedData", "IsCollapsed":"false", "Identifier":"d028c817-5dad-4741-b432-5b3fc0c9d78d",
+    "Items":[ {"_CLRType":"ComponentPropertyChildItem", "Name":"Properties", "Identifier":"1e74873b-41ce-4a69-9025-0e4765673045",
+    "Flags":{"_CLRType":"true"}, "DataBag":{"_CLRType":"DataBag"}, "ItemType":""}
+    ], "CollapsedValues":{}, "Flags":{"_CLRType":"true", "0a61b0ce-8bf3-4165-9f98-4fe20d376dff":"false",
+    "078eca53-afd0-4d08-b8f2-67067d4ad328":"false", "119012f1-0982-4297-b6c9-4e2ad622f20d":"false",
+    "87dfc2a9-c120-4ff5-918e-7968a724752a":"false", "ac0e94d9-a36e-4d4a-b983-e6f70c56bed0":"false",
+    "a38f1bd8-d2cc-4d95-af1d-c9fcf148701c":"false"}, "DataBag":{"_CLRType":"DataBag"}},
+    {"_CLRType":"UnitySystemNode", "Name":"AssetBluePrintSystem", "IsCollapsed":"false",
+    "Identifier":"fa1d34dc-fd4e-47dd-aa58-ccf54f230dd1", "Items":[ {"_CLRType":"SystemEventHandlerReference",
+    "Name":"", "Identifier":"7ce7fea3-5ee1-43c9-8cb7-d1b63a3701cc", "Flags":{"_CLRType":"true"},
+    "DataBag":{"_CLRType":"DataBag"}, "SourceIdentifier":"c2d3f37b-6166-4c15-ad4a-16a26ec82e8e"}
+    ], "CollapsedValues":{}, "Flags":{"_CLRType":"true", "119012f1-0982-4297-b6c9-4e2ad622f20d":"false",
+    "87dfc2a9-c120-4ff5-918e-7968a724752a":"false", "ac0e94d9-a36e-4d4a-b983-e6f70c56bed0":"false",
+    "a38f1bd8-d2cc-4d95-af1d-c9fcf148701c":"false"}, "DataBag":{"_CLRType":"DataBag"}}
+    ], "ConnectedItems":[ {"_CLRType":"ConnectionData", "OutputIdentifier":"c2d3f37b-6166-4c15-ad4a-16a26ec82e8e",
+    "InputIdentifier":"d028c817-5dad-4741-b432-5b3fc0c9d78d"} ], "PositionData":{"_CLRType":"FilterPositionData",
+    "954f508a-65e1-4e84-a299-15ba4f858afd":{"954f508a-65e1-4e84-a299-15ba4f858afd":{"x":"310",
+    "y":"210"}, "d028c817-5dad-4741-b432-5b3fc0c9d78d":{"x":"570", "y":"290"}, "fa1d34dc-fd4e-47dd-aa58-ccf54f230dd1":{"x":"310",
+    "y":"450"}, "ComponentEventData":{"x":"780", "y":"100"}, "4d2b3484-4b88-4d86-9590-296cc4ce1690":{"x":"650",
+    "y":"50"}, "09487f06-c467-4694-b68b-f39ac5abcddc":{"x":"90", "y":"160"}}, "87dfc2a9-c120-4ff5-918e-7968a724752a":{},
+    "fa1d34dc-fd4e-47dd-aa58-ccf54f230dd1":{"fa1d34dc-fd4e-47dd-aa58-ccf54f230dd1":{"x":"160",
+    "y":"300"}, "0c85effe-433b-4b04-a67a-9f908f40c51a":{"x":"570", "y":"170"}}}, "FilterState":{"_CLRType":"FilterState",
+    "FilterStack":[  ]}, "Settings":{"_CLRType":"ElementDiagramSettings", "CodeGenDisabled":"false",
+    "SnapSize":"10", "Snap":"true", "CodePathStrategyName":"Default", "GridLinesColor":{"r":"0.271",
+    "g":"0.271", "b":"0.271", "a":"1"}, "GridLinesColorSecondary":{"r":"0.169", "g":"0.169",
+    "b":"0.169", "a":"1"}, "AssociationLinkColor":{"r":"1", "g":"1", "b":"1", "a":"1"},
+    "DefinitionLinkColor":{"r":"0", "g":"1", "b":"1", "a":"1"}, "InheritanceLinkColor":{"r":"0",
+    "g":"1", "b":"0", "a":"1"}, "SceneManagerLinkColor":{"r":"0.5", "g":"0.5", "b":"0.5",
+    "a":"1"}, "SubSystemLinkColor":{"r":"0.5", "g":"0.5", "b":"0.5", "a":"1"}, "TransitionLinkColor":{"r":"1",
+    "g":"0.9215686", "b":"0.01568628", "a":"1"}, "ViewLinkColor":{"r":"0", "g":"0",
+    "b":"1", "a":"1"}, "RootNamespace":""}}'

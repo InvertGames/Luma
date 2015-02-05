@@ -1,0 +1,12 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+
+public class Damageable : DamageableBase {
+    public void TakeDamage()
+    {
+        Health -= 10;
+    }
+}

@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1328937199, guid: 019118f6de8965947b2d943bbe59c84b, type: 3}
+  m_Name: XPSystem
+  m_EditorClassIdentifier: 
+  _jsonData: '{"Name":"RenameMe", "Version":"1.501", "Identifier":"d9677db3-d3eb-45af-b1d6-2378dbb2bd2e",
+    "Type":"Invert.ECS.Graphs.SystemsGraph", "RootNode":{"_CLRType":"SystemsNode",
+    "Name":"RenameMe", "IsCollapsed":"false", "Identifier":"0ea1d7e7-54d2-4ed8-97ba-58401e4202c7",
+    "Items":[  ], "CollapsedValues":{}, "Flags":{"_CLRType":"true", "dfb70199-d754-4594-b082-56bd67fe6eaa":"false"},
+    "DataBag":{"_CLRType":"DataBag"}}, "Nodes":[ {"_CLRType":"SystemNode", "Name":"XPSystem",
+    "IsCollapsed":"false", "Identifier":"83ef00b8-c506-46b7-9fd6-016f490954d7", "Items":[
+    {"_CLRType":"SystemEventHandlerReference", "Name":"", "Identifier":"8ff9906a-f497-4799-bea8-c25dc8d06c7b",
+    "Precompiled":"false", "Flags":{"_CLRType":"true"}, "DataBag":{"_CLRType":"DataBag"},
+    "SourceIdentifier":"85b0dee5-a80a-4c9f-b9b7-6f56854a125e"}, {"_CLRType":"EventTypeChildItem",
+    "Name":"PlayerDataChanged", "Identifier":"a1d156f8-eeb0-42fb-ba34-06d2f5afc7d5",
+    "Precompiled":"false", "Flags":{"_CLRType":"true"}, "DataBag":{"_CLRType":"DataBag"},
+    "ItemType":""}, {"_CLRType":"EventTypeChildItem", "Name":"LoadExperience", "Identifier":"94c263ef-166b-42bd-8c0a-dae6f8255b45",
+    "Precompiled":"false", "Flags":{"_CLRType":"true"}, "DataBag":{"_CLRType":"DataBag"},
+    "ItemType":""}, {"_CLRType":"EventTypeChildItem", "Name":"AddExperience", "Identifier":"666316d0-571e-4af2-9bf1-ab26723ff9a0",
+    "Precompiled":"false", "Flags":{"_CLRType":"true"}, "DataBag":{"_CLRType":"DataBag"},
+    "ItemType":"5638969f-dba0-4899-ac4b-b3315fad375d"}, {"_CLRType":"EventTypeChildItem",
+    "Name":"RemoveExperience", "Identifier":"d88fe4ac-46b3-42b9-8720-b261fb92d9cf",
+    "Precompiled":"false", "Flags":{"_CLRType":"true"}, "DataBag":{"_CLRType":"DataBag"},
+    "ItemType":""} ], "CollapsedValues":{}, "Flags":{"_CLRType":"true", "dfb70199-d754-4594-b082-56bd67fe6eaa":"false"},
+    "DataBag":{"_CLRType":"DataBag"}}, {"_CLRType":"EventNode", "Name":"PlayerData",
+    "IsCollapsed":"false", "Identifier":"5638969f-dba0-4899-ac4b-b3315fad375d", "Items":[
+    {"_CLRType":"ComponentPropertyChildItem", "Name":"XP", "Identifier":"5cc74ca1-0452-4f2a-bfc8-b42199a4cbac",
+    "Precompiled":"false", "Flags":{"_CLRType":"true"}, "DataBag":{"_CLRType":"DataBag"},
+    "ItemType":""} ], "CollapsedValues":{}, "Flags":{"_CLRType":"true"}, "DataBag":{"_CLRType":"DataBag"}}
+    ], "ConnectedItems":[ {"_CLRType":"ConnectionData", "OutputIdentifier":"a1d156f8-eeb0-42fb-ba34-06d2f5afc7d5",
+    "InputIdentifier":"5638969f-dba0-4899-ac4b-b3315fad375d"}, {"_CLRType":"ConnectionData",
+    "OutputIdentifier":"94c263ef-166b-42bd-8c0a-dae6f8255b45", "InputIdentifier":"5638969f-dba0-4899-ac4b-b3315fad375d"},
+    {"_CLRType":"ConnectionData", "OutputIdentifier":"666316d0-571e-4af2-9bf1-ab26723ff9a0",
+    "InputIdentifier":"5638969f-dba0-4899-ac4b-b3315fad375d"} ], "PositionData":{"_CLRType":"FilterPositionData",
+    "0ea1d7e7-54d2-4ed8-97ba-58401e4202c7":{"0ea1d7e7-54d2-4ed8-97ba-58401e4202c7":{"x":"70",
+    "y":"120"}, "83ef00b8-c506-46b7-9fd6-016f490954d7":{"x":"290", "y":"130"}, "5638969f-dba0-4899-ac4b-b3315fad375d":{"x":"610",
+    "y":"170"}}, "83ef00b8-c506-46b7-9fd6-016f490954d7":{"83ef00b8-c506-46b7-9fd6-016f490954d7":{"x":"120",
+    "y":"110"}}}, "FilterState":{"_CLRType":"FilterState", "FilterStack":[  ]}, "Settings":{"_CLRType":"ElementDiagramSettings",
+    "CodeGenDisabled":"false", "SnapSize":"10", "Snap":"true", "CodePathStrategyName":"Default",
+    "GridLinesColor":{"r":"0.271", "g":"0.271", "b":"0.271", "a":"1"}, "GridLinesColorSecondary":{"r":"0.169",
+    "g":"0.169", "b":"0.169", "a":"1"}, "AssociationLinkColor":{"r":"1", "g":"1",
+    "b":"1", "a":"1"}, "DefinitionLinkColor":{"r":"0", "g":"1", "b":"1", "a":"1"},
+    "InheritanceLinkColor":{"r":"0", "g":"1", "b":"0", "a":"1"}, "SceneManagerLinkColor":{"r":"0.5",
+    "g":"0.5", "b":"0.5", "a":"1"}, "SubSystemLinkColor":{"r":"0.5", "g":"0.5", "b":"0.5",
+    "a":"1"}, "TransitionLinkColor":{"r":"1", "g":"0.9215686", "b":"0.01568628", "a":"1"},
+    "ViewLinkColor":{"r":"0", "g":"0", "b":"1", "a":"1"}, "RootNamespace":""}}'
