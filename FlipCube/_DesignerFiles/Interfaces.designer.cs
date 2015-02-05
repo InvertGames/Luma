@@ -67,7 +67,7 @@ public interface IMoveDirectionOnEnter {
         set;
     }
     
-    MoveDirection MoveDirection {
+    CubeMoveDirection MoveDirection {
         get;
         set;
     }

@@ -158,7 +158,7 @@ namespace Invert.ECS
             {
                 existing[i](e);
             }
-            Debug.Log(e.EventType.ToString() + "was signaled.");
+           
         }
 
         public void QueueEvent(IEvent e)

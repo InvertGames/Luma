@@ -24,7 +24,7 @@ public enum RollerState {
     LayingForward,
 }
 
-public enum MoveDirection {
+public enum CubeMoveDirection {
     
     Left,
     
@@ -142,4 +142,15 @@ public enum NotificationSystemEvents {
 }
 
 public enum FlipCubeUISystemEvents {
+}
+
+public enum XPSystemEvents {
+    
+    PlayerDataChanged,
+    
+    LoadExperience,
+    
+    AddExperience,
+    
+    RemoveExperience,
 }

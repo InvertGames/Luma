@@ -100,7 +100,7 @@ public class MoveDirectionOnEnterBase : Invert.ECS.Unity.UnityComponent {
     private Int32 _RollableId;
     
     [UnityEngine.SerializeField()]
-    private MoveDirection _MoveDirection;
+    private CubeMoveDirection _MoveDirection;
     
     public virtual Int32 RollableId {
         get {
@@ -111,7 +111,7 @@ public class MoveDirectionOnEnterBase : Invert.ECS.Unity.UnityComponent {
         }
     }
     
-    public virtual MoveDirection MoveDirection {
+    public virtual CubeMoveDirection MoveDirection {
         get {
             return _MoveDirection;
         }

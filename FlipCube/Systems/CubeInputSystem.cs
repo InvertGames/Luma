@@ -19,16 +19,16 @@ public class CubeInputSystem : CubeInputSystemBase {
         base.TriggerMoveDirectionOnEnter(data, cube, movedirectiononenter, rollable);
         switch (movedirectiononenter.MoveDirection)
         {
-            case MoveDirection.Forward:
+            case CubeMoveDirection.Forward:
                 SignalF(new EntityEventData() { EntityId = rollable.EntityId });
                 break;
-            case MoveDirection.Right:
+            case CubeMoveDirection.Right:
                 SignalR(new EntityEventData() { EntityId = rollable.EntityId });
                 break;
-            case MoveDirection.Left:
+            case CubeMoveDirection.Left:
                 SignalL(new EntityEventData() { EntityId = rollable.EntityId });
                 break;
-            case MoveDirection.Backwards:
+            case CubeMoveDirection.Backwards:
                 SignalB(new EntityEventData() { EntityId = rollable.EntityId });
                 break;
         }

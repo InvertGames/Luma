@@ -1400,3 +1400,46 @@ public class FlipCubeUISystemBase : UnitySystem {
     protected virtual void ShowNotification(NotificationData data) {
     }
 }
+
+public class XPSystemBase : UnitySystem {
+    
+    public override void Initialize(Invert.ECS.IGame game) {
+        base.Initialize(game);
+        game.EventManager.ListenFor( CubeSystemEvents.RollComplete, RollComplete );
+    }
+    
+    protected virtual void RollComplete(Invert.ECS.IEvent e) {
+    }
+    
+    public virtual void SignalPlayerDataChanged(PlayerData data) {
+        Game.EventManager.SignalEvent(new EventData(XPSystemEvents.PlayerDataChanged,data));
+    }
+    
+    public virtual void SignalLoadExperience(PlayerData data) {
+        Game.EventManager.SignalEvent(new EventData(XPSystemEvents.LoadExperience,data));
+    }
+    
+    public virtual void SignalAddExperience(PlayerData data) {
+        Game.EventManager.SignalEvent(new EventData(XPSystemEvents.AddExperience,data));
+    }
+    
+    public virtual void SignalRemoveExperience(PlayerData data) {
+        Game.EventManager.SignalEvent(new EventData(XPSystemEvents.RemoveExperience,data));
+    }
+    
+    public static void SignalPlayerDataChanged(IGame game, PlayerData data) {
+        game.EventManager.SignalEvent(new EventData(XPSystemEvents.PlayerDataChanged,data));
+    }
+    
+    public static void SignalLoadExperience(IGame game, PlayerData data) {
+        game.EventManager.SignalEvent(new EventData(XPSystemEvents.LoadExperience,data));
+    }
+    
+    public static void SignalAddExperience(IGame game, PlayerData data) {
+        game.EventManager.SignalEvent(new EventData(XPSystemEvents.AddExperience,data));
+    }
+    
+    public static void SignalRemoveExperience(IGame game, PlayerData data) {
+        game.EventManager.SignalEvent(new EventData(XPSystemEvents.RemoveExperience,data));
+    }
+}
