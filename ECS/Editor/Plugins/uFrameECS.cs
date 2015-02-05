@@ -1,4 +1,5 @@
 using Invert.uFrame.Editor;
+using UnityEditor;
 using UnityEngine;
 
 namespace Invert.ECS.Graphs
@@ -10,10 +11,18 @@ namespace Invert.ECS.Graphs
     using Invert.Core;
     using Invert.Core.GraphDesigner;
 
-
+    [InitializeOnLoad]
+    public class RegisteruFrameECS
+    {
+        static RegisteruFrameECS()
+        {
+            InvertApplication.CachedAssemblies.Add(typeof(uFrameECS).Assembly);
+            InvertApplication.CachedAssemblies.Add(typeof(ISystem).Assembly);
+        }
+    }
     public class uFrameECS : uFrameECSBase
     {
-
+        
         public override Invert.Core.GraphDesigner.SelectItemTypeCommand GetComponentPropertySelectionCommand()
         {
             base.GetComponentPropertySelectionCommand();
