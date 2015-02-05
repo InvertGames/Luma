@@ -72,6 +72,7 @@ namespace Invert.ECS.Unity
             //}
             foreach (var item in _UnitySystems)
             {
+                if (item == null) continue;
                 item.Initialize(this);
             }
         }
