@@ -1,5 +1,4 @@
 using System.CodeDom;
-using SyntaxTree.VisualStudio.Unity.Messaging;
 using UnityEngine;
 
 namespace Invert.ECS.Graphs {
