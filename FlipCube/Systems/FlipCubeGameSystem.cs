@@ -10,13 +10,12 @@ using UnityEngine;
 public class FlipCubeGameSystem : FlipCubeGameSystemBase
 {
     public int StartingCubeId;
-    public override void Initialize(Invert.ECS.IGame game) {
-        base.Initialize(game);
-    }
 
-    protected override void Loaded(IEvent e)
+    public int CurrentZoneId;
+
+    protected override void OnEnteredZone(ZoneEventData data)
     {
-        base.Loaded(e);
+        base.OnEnteredZone(data);
         Cube cube;
         if (Game.ComponentSystem.TryGetComponent(StartingCubeId, out cube))
         {
@@ -29,7 +28,23 @@ public class FlipCubeGameSystem : FlipCubeGameSystemBase
                 EntityId = StartingCubeId
             }));
         }
-        LevelSystem.SignalRestartLevel(Game,0);
+    }
+
+    protected override void OnEnterZone(ZoneEventData data, Zone zone)
+    {
+        base.OnEnterZone(data, zone);
+        //Application.LoadLevelAdditive(zone.SceneName);
+        ZoneSystem.SignalEnteredZone(Game,data);
+    }
+
+    protected override void Loaded(IEvent e)
+    {
+        base.Loaded(e);
+        ZoneSystem.SignalEnterZone(Game, new ZoneEventData()
+        {
+            ZoneId = CurrentZoneId
+        });
+        //LevelSystem.SignalRestartLevel(Game, new LevelEventData(0));
     }
 
     protected override void OnFail(IEvent @event)
@@ -48,25 +63,23 @@ public class FlipCubeGameSystem : FlipCubeGameSystemBase
     public IEnumerator NextLevel()
     {
         yield return new WaitForSeconds(1f);
-        LevelSystem.SignalNextLevel(Game, 0);
+        //LevelSystem.SignalEnterLevel(Game, 0);
     }
     public IEnumerator DelayedRestart()
     {
         yield return new WaitForSeconds(3f);
-        LevelSystem.SignalRestartLevel(Game,0);
+//        LevelSystem.SignalRestartLevel(Game,0);
     }
-    protected override void OnRestart(int data)
+
+    protected override void OnRestart(LevelEventData data)
     {
         base.OnRestart(data);
         foreach (var component in Game.ComponentSystem.GetAllComponents<Rollable>())
         {
-            Game.EventManager.SignalEvent(new EventData(CubeSystemEvents.Reset,new EntityEventData()
+            Game.EventManager.SignalEvent(new EventData(CubeSystemEvents.Reset, new EntityEventData()
             {
                 EntityId = component.EntityId
             }));
-            
         }
-        
-      
     }
 }

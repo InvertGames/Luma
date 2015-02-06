@@ -29,6 +29,17 @@ namespace Invert.ECS.Unity
             Game.EventManager.SignalEvent(new EventData(FrameworkEvents.ComponentCreated,instance));
 
         }
+        public void DestroyComponentInstance(Type componentType, IComponent instance)
+        {
+            ComponentManager existing;
+            if (!ComponentManagers.TryGetValue(componentType, out existing))
+            {
+                return;
+            }
+            existing.UnRegisterComponent(instance);
+            //Game.EventManager.SignalEvent(new EventData(FrameworkEvents.ComponentDestroyed, instance));
+
+        }
         public ComponentManager<TComponent> RegisterComponent<TComponent>() where TComponent : IComponent
         {
             ComponentManager existing;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Invert.ECS
@@ -25,7 +26,8 @@ namespace Invert.ECS
     {
         ComponentCreated,
 
-        Loaded
+        Loaded,
+        ComponentDestroyed
     }
     public class EntityManager
     {
@@ -41,7 +43,7 @@ namespace Invert.ECS
 
         public void UnRegisterComponent(IComponent item)
         {
-          UnRegisterComponent(item);
+            RemoveItem(item);
         }
 
         protected abstract void AddItem(IComponent component);
@@ -49,17 +51,17 @@ namespace Invert.ECS
     }
     public class ComponentManager<TComponentType> : ComponentManager where TComponentType : IComponent
     {
-        private LinkedList<TComponentType> _items;
+        private List<TComponentType> _items;
 
-        public LinkedList<TComponentType> Components
+        public List<TComponentType> Components
         {
-            get { return _items ?? (_items = new LinkedList<TComponentType>()); }
+            get { return _items ?? (_items = new List<TComponentType>()); }
             set { _items = value; }
         }
 
         protected override void AddItem(IComponent component)
         {
-            Components.AddFirst((TComponentType)component);
+            Components.Add((TComponentType)component);
         }
 
         protected override void RemoveItem(IComponent component)
@@ -148,17 +150,18 @@ namespace Invert.ECS
         }
 
         public void SignalEvent(IEvent e)
-        {   
+        {
+            //UnityEngine.Debug.Log(e.EventType + " was signaled");
             List<EventHandlerDelegate> existing;
             if (!Handlers.TryGetValue(e.EventType, out existing))
             {
                 Handlers[e.EventType] = existing = new List<EventHandlerDelegate>();
             }
             for (var i = 0; i < existing.Count; i++)
-            {
+            {   
                 existing[i](e);
             }
-           
+          
         }
 
         public void QueueEvent(IEvent e)
@@ -271,6 +274,15 @@ namespace Invert.ECS
         public virtual void Update()
         {
            
+        }
+        public void Delay(float seconds, Action action)
+        {
+            StartCoroutine(WaitForSecondsRoutine(seconds, action));
+        }
+        public IEnumerator WaitForSecondsRoutine(float seconds, Action action)
+        {
+            yield return new WaitForSeconds(seconds);
+            action();
         }
     }
     public class CollisionEventData : object

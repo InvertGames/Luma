@@ -8,11 +8,18 @@ namespace Invert.ECS.Graphs {
     
     public class SystemNode : SystemNodeBase {
         private static List<ISystemEventHandler> _systemEvents;
-
+        [Invert.Core.GraphDesigner.ReferenceSection("Handlers", SectionVisibility.Always, false, false, typeof(ISystemEventHandler), false, OrderIndex = 0, HasPredefinedOptions = false)]
+        public virtual System.Collections.Generic.IEnumerable<SystemEventHandlerReference> Handlers
+        {
+            get
+            {
+                return ChildItems.OfType<SystemEventHandlerReference>();
+            }
+        }
         [ProxySection("Components",SectionVisibility.WhenNodeIsNotFilter)]
         public IEnumerable<ComponentNode> SystemComponents
         {
-            get { return this.GetContainingNodes(Graph).OfType<ComponentNode>(); }
+            get { return this.GetContainingNodesInProject(Graph.Project).OfType<ComponentNode>(); }
         }
 
         [InspectorProperty]

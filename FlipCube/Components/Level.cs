@@ -5,5 +5,5 @@ using System.Linq;
 using Invert.ECS;
 
 
-public partial class EndOnMouseDown : EndOnMouseDownBase {
+public partial class Level : LevelBase {
 }

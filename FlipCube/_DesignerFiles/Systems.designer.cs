@@ -36,7 +36,7 @@ public class CubeSystemBase : UnitySystem {
         game.EventManager.ListenFor( CubeInputSystemEvents.B, B );
         game.EventManager.ListenFor( CubeInputSystemEvents.R, R );
         game.EventManager.ListenFor( FrameworkEvents.ComponentCreated, ComponentCreated );
-        game.EventManager.ListenFor( LevelSystemEvents.RestartLevel, RestartLevel );
+        game.EventManager.ListenFor( LevelSystemEvents.LevelRestart, LevelRestart );
         game.EventManager.ListenFor( CubeSystemEvents.Reset, Reset );
         game.EventManager.ListenFor( FrameworkEvents.Loaded, Loaded );
         game.EventManager.ListenFor( CubeSystemEvents.MoveTo, MoveTo );
@@ -61,7 +61,7 @@ public class CubeSystemBase : UnitySystem {
     protected virtual void ComponentCreated(Invert.ECS.IEvent e) {
     }
     
-    protected virtual void RestartLevel(Invert.ECS.IEvent e) {
+    protected virtual void LevelRestart(Invert.ECS.IEvent e) {
     }
     
     protected virtual void Reset(Invert.ECS.IEvent e) {
@@ -428,9 +428,31 @@ public class CameraSystemBase : UnitySystem {
 
 public class PlateSystemBase : UnitySystem {
     
+    private ComponentManager<Rollable> _RollableManager;
+    
+    private ComponentManager<Cube> _CubeManager;
+    
     private ComponentManager<Plate> _PlateManager;
     
     private ComponentManager<DisableColliderOnCollision> _DisableColliderOnCollisionManager;
+    
+    public ComponentManager<Rollable> RollableManager {
+        get {
+            return _RollableManager;
+        }
+        set {
+            _RollableManager = value;
+        }
+    }
+    
+    public ComponentManager<Cube> CubeManager {
+        get {
+            return _CubeManager;
+        }
+        set {
+            _CubeManager = value;
+        }
+    }
     
     public ComponentManager<Plate> PlateManager {
         get {
@@ -452,6 +474,8 @@ public class PlateSystemBase : UnitySystem {
     
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
+        RollableManager = game.ComponentSystem.RegisterComponent<Rollable>();
+        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
         PlateManager = game.ComponentSystem.RegisterComponent<Plate>();
         DisableColliderOnCollisionManager = game.ComponentSystem.RegisterComponent<DisableColliderOnCollision>();
         game.EventManager.ListenFor( CubeGravitySystemEvents.RollCompletedStandingUp, RollCompletedStandingUp );
@@ -580,11 +604,22 @@ public class PlateSystemBase : UnitySystem {
 
 public class TeliporterSystemBase : UnitySystem {
     
+    private ComponentManager<Cube> _CubeManager;
+    
     private ComponentManager<Teliporter> _TeliporterManager;
     
     private ComponentManager<Teliportable> _TeliportableManager;
     
     private ComponentManager<TeliporterTarget> _TeliporterTargetManager;
+    
+    public ComponentManager<Cube> CubeManager {
+        get {
+            return _CubeManager;
+        }
+        set {
+            _CubeManager = value;
+        }
+    }
     
     public ComponentManager<Teliporter> TeliporterManager {
         get {
@@ -615,6 +650,7 @@ public class TeliporterSystemBase : UnitySystem {
     
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
+        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
         TeliporterManager = game.ComponentSystem.RegisterComponent<Teliporter>();
         TeliportableManager = game.ComponentSystem.RegisterComponent<Teliportable>();
         TeliporterTargetManager = game.ComponentSystem.RegisterComponent<TeliporterTarget>();
@@ -676,7 +712,7 @@ public class SwitchPlateSystemBase : UnitySystem {
         SwitchPlateTargetManager = game.ComponentSystem.RegisterComponent<SwitchPlateTarget>();
         game.EventManager.ListenFor( CubeGravitySystemEvents.RollCompletedStandingUp, RollCompletedStandingUp );
         game.EventManager.ListenFor( FrameworkEvents.Loaded, Loaded );
-        game.EventManager.ListenFor( LevelSystemEvents.RestartLevel, RestartLevel );
+        game.EventManager.ListenFor( LevelSystemEvents.LevelRestart, LevelRestart );
     }
     
     protected virtual void RollCompletedStandingUp(Invert.ECS.IEvent e) {
@@ -686,7 +722,7 @@ public class SwitchPlateSystemBase : UnitySystem {
     protected virtual void Loaded(Invert.ECS.IEvent e) {
     }
     
-    protected virtual void RestartLevel(Invert.ECS.IEvent e) {
+    protected virtual void LevelRestart(Invert.ECS.IEvent e) {
     }
     
     protected virtual void ActivateSwitchPlate(Invert.ECS.IEvent e) {
@@ -768,9 +804,20 @@ public class ShiftingPlateBase : UnitySystem {
 
 public class GoalPlateSystemBase : UnitySystem {
     
+    private ComponentManager<Cube> _CubeManager;
+    
     private ComponentManager<Plate> _PlateManager;
     
     private ComponentManager<GoalPlate> _GoalPlateManager;
+    
+    public ComponentManager<Cube> CubeManager {
+        get {
+            return _CubeManager;
+        }
+        set {
+            _CubeManager = value;
+        }
+    }
     
     public ComponentManager<Plate> PlateManager {
         get {
@@ -792,6 +839,7 @@ public class GoalPlateSystemBase : UnitySystem {
     
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
+        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
         PlateManager = game.ComponentSystem.RegisterComponent<Plate>();
         GoalPlateManager = game.ComponentSystem.RegisterComponent<GoalPlate>();
         game.EventManager.ListenFor( CubeGravitySystemEvents.RollCompletedStandingUp, RollCompletedStandingUp );
@@ -849,208 +897,94 @@ public class GoalPlateSystemBase : UnitySystem {
 
 public class LevelSystemBase : UnitySystem {
     
-    private ComponentManager<LevelCompleteOnContact> _LevelCompleteOnContactManager;
+    private ComponentManager<Level> _LevelManager;
     
-    private ComponentManager<RestartOnMouseDown> _RestartOnMouseDownManager;
-    
-    private ComponentManager<EndOnMouseDown> _EndOnMouseDownManager;
-    
-    private ComponentManager<RestartOnCollision> _RestartOnCollisionManager;
-    
-    private ComponentManager<FailOnCollision> _FailOnCollisionManager;
-    
-    public ComponentManager<LevelCompleteOnContact> LevelCompleteOnContactManager {
+    public ComponentManager<Level> LevelManager {
         get {
-            return _LevelCompleteOnContactManager;
+            return _LevelManager;
         }
         set {
-            _LevelCompleteOnContactManager = value;
-        }
-    }
-    
-    public ComponentManager<RestartOnMouseDown> RestartOnMouseDownManager {
-        get {
-            return _RestartOnMouseDownManager;
-        }
-        set {
-            _RestartOnMouseDownManager = value;
-        }
-    }
-    
-    public ComponentManager<EndOnMouseDown> EndOnMouseDownManager {
-        get {
-            return _EndOnMouseDownManager;
-        }
-        set {
-            _EndOnMouseDownManager = value;
-        }
-    }
-    
-    public ComponentManager<RestartOnCollision> RestartOnCollisionManager {
-        get {
-            return _RestartOnCollisionManager;
-        }
-        set {
-            _RestartOnCollisionManager = value;
-        }
-    }
-    
-    public ComponentManager<FailOnCollision> FailOnCollisionManager {
-        get {
-            return _FailOnCollisionManager;
-        }
-        set {
-            _FailOnCollisionManager = value;
+            _LevelManager = value;
         }
     }
     
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
-        LevelCompleteOnContactManager = game.ComponentSystem.RegisterComponent<LevelCompleteOnContact>();
-        RestartOnMouseDownManager = game.ComponentSystem.RegisterComponent<RestartOnMouseDown>();
-        EndOnMouseDownManager = game.ComponentSystem.RegisterComponent<EndOnMouseDown>();
-        RestartOnCollisionManager = game.ComponentSystem.RegisterComponent<RestartOnCollision>();
-        FailOnCollisionManager = game.ComponentSystem.RegisterComponent<FailOnCollision>();
-        game.EventManager.ListenFor( LevelSystemEvents.NextLevel, NextLevel );
-        game.EventManager.ListenFor( UnityEvents.CollisionEnter, CollisionEnter );
-        game.EventManager.ListenFor( UnityEvents.MouseDown, MouseDown );
+        LevelManager = game.ComponentSystem.RegisterComponent<Level>();
+        game.EventManager.ListenFor( FrameworkEvents.ComponentCreated, ComponentCreated );
     }
     
-    protected virtual void NextLevel(Invert.ECS.IEvent e) {
-        OnNextLevel(e);
+    protected virtual void ComponentCreated(Invert.ECS.IEvent e) {
     }
     
-    protected virtual void CollisionEnter(Invert.ECS.IEvent e) {
-        OnCollideWith(e);
-        RestartCollision(e);
-        FailCollision(e);
-    }
-    
-    protected virtual void MouseDown(Invert.ECS.IEvent e) {
-        OnMouseDownRestart(e);
-        OnMouseDownEndGame(e);
-    }
-    
-    protected virtual void OnNextLevel(Invert.ECS.IEvent e) {
-        var eventData = (Int32)e.Data;
-        this.OnNextLevel(eventData);
-    }
-    
-    protected virtual void OnNextLevel(Int32 data) {
-    }
-    
-    protected virtual void OnCollideWith(Invert.ECS.IEvent e) {
-        var eventData = (CollisionEventData)e.Data;
-        LevelCompleteOnContact levelcompleteoncontact;
-        if (!Game.ComponentSystem.TryGetComponent<LevelCompleteOnContact>(eventData.CollideeId, out levelcompleteoncontact)) {
-            return;
-        }
-        this.OnCollideWith(eventData, levelcompleteoncontact);
-    }
-    
-    protected virtual void OnCollideWith(CollisionEventData data, LevelCompleteOnContact levelcompleteoncontact) {
-    }
-    
-    protected virtual void RestartCollision(Invert.ECS.IEvent e) {
-        var eventData = (CollisionEventData)e.Data;
-        RestartOnCollision restartoncollision;
-        if (!Game.ComponentSystem.TryGetComponent<RestartOnCollision>(eventData.ColliderId, out restartoncollision)) {
-            return;
-        }
-        this.RestartCollision(eventData, restartoncollision);
-    }
-    
-    protected virtual void RestartCollision(CollisionEventData data, RestartOnCollision restartoncollision) {
-    }
-    
-    protected virtual void FailCollision(Invert.ECS.IEvent e) {
-        var eventData = (CollisionEventData)e.Data;
-        FailOnCollision failoncollision;
-        if (!Game.ComponentSystem.TryGetComponent<FailOnCollision>(eventData.ColliderId, out failoncollision)) {
-            return;
-        }
-        this.FailCollision(eventData, failoncollision);
-    }
-    
-    protected virtual void FailCollision(CollisionEventData data, FailOnCollision failoncollision) {
-    }
-    
-    protected virtual void OnMouseDownRestart(Invert.ECS.IEvent e) {
-        var eventData = (MouseEventData)e.Data;
-        RestartOnMouseDown restartonmousedown;
-        if (!Game.ComponentSystem.TryGetComponent<RestartOnMouseDown>(eventData.EntityId, out restartonmousedown)) {
-            return;
-        }
-        this.OnMouseDownRestart(eventData, restartonmousedown);
-    }
-    
-    protected virtual void OnMouseDownRestart(MouseEventData data, RestartOnMouseDown restartonmousedown) {
-    }
-    
-    protected virtual void OnMouseDownEndGame(Invert.ECS.IEvent e) {
-        var eventData = (MouseEventData)e.Data;
-        EndOnMouseDown endonmousedown;
-        if (!Game.ComponentSystem.TryGetComponent<EndOnMouseDown>(eventData.EntityId, out endonmousedown)) {
-            return;
-        }
-        this.OnMouseDownEndGame(eventData, endonmousedown);
-    }
-    
-    protected virtual void OnMouseDownEndGame(MouseEventData data, EndOnMouseDown endonmousedown) {
-    }
-    
-    public virtual void SignalLevelComplete(Int32 data) {
+    public virtual void SignalLevelComplete(LevelEventData data) {
         Game.EventManager.SignalEvent(new EventData(LevelSystemEvents.LevelComplete,data));
     }
     
-    public virtual void SignalLevelQuit(Int32 data) {
+    public virtual void SignalLevelQuit(LevelEventData data) {
         Game.EventManager.SignalEvent(new EventData(LevelSystemEvents.LevelQuit,data));
     }
     
-    public virtual void SignalRestartLevel(Int32 data) {
-        Game.EventManager.SignalEvent(new EventData(LevelSystemEvents.RestartLevel,data));
+    public virtual void SignalLevelRestart(LevelEventData data) {
+        Game.EventManager.SignalEvent(new EventData(LevelSystemEvents.LevelRestart,data));
     }
     
-    public virtual void SignalLevelFailed(Int32 data) {
-        Game.EventManager.SignalEvent(new EventData(LevelSystemEvents.LevelFailed,data));
+    public virtual void SignalEnterLevel(EnterLevelEventData data) {
+        Game.EventManager.SignalEvent(new EventData(LevelSystemEvents.EnterLevel,data));
     }
     
-    public virtual void SignalNextLevel(Int32 data) {
-        Game.EventManager.SignalEvent(new EventData(LevelSystemEvents.NextLevel,data));
+    public virtual void SignalEnteredLevel(LevelEventData data) {
+        Game.EventManager.SignalEvent(new EventData(LevelSystemEvents.EnteredLevel,data));
     }
     
-    public static void SignalLevelComplete(IGame game, Int32 data) {
+    public static void SignalLevelComplete(IGame game, LevelEventData data) {
         game.EventManager.SignalEvent(new EventData(LevelSystemEvents.LevelComplete,data));
     }
     
-    public static void SignalLevelQuit(IGame game, Int32 data) {
+    public static void SignalLevelQuit(IGame game, LevelEventData data) {
         game.EventManager.SignalEvent(new EventData(LevelSystemEvents.LevelQuit,data));
     }
     
-    public static void SignalRestartLevel(IGame game, Int32 data) {
-        game.EventManager.SignalEvent(new EventData(LevelSystemEvents.RestartLevel,data));
+    public static void SignalLevelRestart(IGame game, LevelEventData data) {
+        game.EventManager.SignalEvent(new EventData(LevelSystemEvents.LevelRestart,data));
     }
     
-    public static void SignalLevelFailed(IGame game, Int32 data) {
-        game.EventManager.SignalEvent(new EventData(LevelSystemEvents.LevelFailed,data));
+    public static void SignalEnterLevel(IGame game, EnterLevelEventData data) {
+        game.EventManager.SignalEvent(new EventData(LevelSystemEvents.EnterLevel,data));
     }
     
-    public static void SignalNextLevel(IGame game, Int32 data) {
-        game.EventManager.SignalEvent(new EventData(LevelSystemEvents.NextLevel,data));
+    public static void SignalEnteredLevel(IGame game, LevelEventData data) {
+        game.EventManager.SignalEvent(new EventData(LevelSystemEvents.EnteredLevel,data));
     }
 }
 
 public class FlipCubeGameSystemBase : UnitySystem {
     
+    private ComponentManager<Zone> _ZoneManager;
+    
+    public ComponentManager<Zone> ZoneManager {
+        get {
+            return _ZoneManager;
+        }
+        set {
+            _ZoneManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
-        game.EventManager.ListenFor( LevelSystemEvents.RestartLevel, RestartLevel );
+        ZoneManager = game.ComponentSystem.RegisterComponent<Zone>();
+        game.EventManager.ListenFor( LevelSystemEvents.LevelRestart, LevelRestart );
         game.EventManager.ListenFor( FrameworkEvents.Loaded, Loaded );
         game.EventManager.ListenFor( CubeGravitySystemEvents.OnFall, OnFall );
         game.EventManager.ListenFor( PlateSystemEvents.GoalPlateHit, GoalPlateHit );
+        game.EventManager.ListenFor( LevelSystemEvents.EnterLevel, EnterLevel );
+        game.EventManager.ListenFor( ZoneSystemEvents.EnterZone, EnterZone );
+        game.EventManager.ListenFor( ZoneSystemEvents.EnteredZone, EnteredZone );
+        game.EventManager.ListenFor( LevelSystemEvents.LevelComplete, LevelComplete );
     }
     
-    protected virtual void RestartLevel(Invert.ECS.IEvent e) {
+    protected virtual void LevelRestart(Invert.ECS.IEvent e) {
         OnRestart(e);
     }
     
@@ -1065,12 +999,29 @@ public class FlipCubeGameSystemBase : UnitySystem {
         GameOver(e);
     }
     
+    protected virtual void EnterLevel(Invert.ECS.IEvent e) {
+    }
+    
+    protected virtual void EnterZone(Invert.ECS.IEvent e) {
+        OnEnterZone(e);
+    }
+    
+    protected virtual void EnteredZone(Invert.ECS.IEvent e) {
+        OnEnteredZone(e);
+    }
+    
+    protected virtual void Missing(Invert.ECS.IEvent e) {
+    }
+    
+    protected virtual void LevelComplete(Invert.ECS.IEvent e) {
+    }
+    
     protected virtual void OnRestart(Invert.ECS.IEvent e) {
-        var eventData = (Int32)e.Data;
+        var eventData = (LevelEventData)e.Data;
         this.OnRestart(eventData);
     }
     
-    protected virtual void OnRestart(Int32 data) {
+    protected virtual void OnRestart(LevelEventData data) {
     }
     
     protected virtual void OnFail(Invert.ECS.IEvent e) {
@@ -1087,6 +1038,26 @@ public class FlipCubeGameSystemBase : UnitySystem {
     }
     
     protected virtual void GameOver(PlateCubeCollsion data) {
+    }
+    
+    protected virtual void OnEnterZone(Invert.ECS.IEvent e) {
+        var eventData = (ZoneEventData)e.Data;
+        Zone zone;
+        if (!Game.ComponentSystem.TryGetComponent<Zone>(eventData.ZoneId, out zone)) {
+            return;
+        }
+        this.OnEnterZone(eventData, zone);
+    }
+    
+    protected virtual void OnEnterZone(ZoneEventData data, Zone zone) {
+    }
+    
+    protected virtual void OnEnteredZone(Invert.ECS.IEvent e) {
+        var eventData = (ZoneEventData)e.Data;
+        this.OnEnteredZone(eventData);
+    }
+    
+    protected virtual void OnEnteredZone(ZoneEventData data) {
     }
     
     public virtual void SignalGameOver(EntityEventData data) {
@@ -1137,9 +1108,261 @@ public class FlipCubeNotificationsBase : UnitySystem {
     }
 }
 
+public class FlipCubeSystemBase : UnitySystem {
+    
+    private ComponentManager<Cube> _CubeManager;
+    
+    private ComponentManager<Level> _LevelManager;
+    
+    private ComponentManager<EnterLevelOnEnter> _EnterLevelOnEnterManager;
+    
+    private ComponentManager<Zone> _ZoneManager;
+    
+    public ComponentManager<Cube> CubeManager {
+        get {
+            return _CubeManager;
+        }
+        set {
+            _CubeManager = value;
+        }
+    }
+    
+    public ComponentManager<Level> LevelManager {
+        get {
+            return _LevelManager;
+        }
+        set {
+            _LevelManager = value;
+        }
+    }
+    
+    public ComponentManager<EnterLevelOnEnter> EnterLevelOnEnterManager {
+        get {
+            return _EnterLevelOnEnterManager;
+        }
+        set {
+            _EnterLevelOnEnterManager = value;
+        }
+    }
+    
+    public ComponentManager<Zone> ZoneManager {
+        get {
+            return _ZoneManager;
+        }
+        set {
+            _ZoneManager = value;
+        }
+    }
+    
+    public override void Initialize(Invert.ECS.IGame game) {
+        base.Initialize(game);
+        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
+        LevelManager = game.ComponentSystem.RegisterComponent<Level>();
+        EnterLevelOnEnterManager = game.ComponentSystem.RegisterComponent<EnterLevelOnEnter>();
+        ZoneManager = game.ComponentSystem.RegisterComponent<Zone>();
+        game.EventManager.ListenFor( ZoneSystemEvents.EnterZone, EnterZone );
+        game.EventManager.ListenFor( LevelSystemEvents.EnterLevel, EnterLevel );
+        game.EventManager.ListenFor( FrameworkEvents.Loaded, Loaded );
+        game.EventManager.ListenFor( FlipCubeSystemEvents.ResetGame, ResetGame );
+        game.EventManager.ListenFor( PlateSystemEvents.CubeEnteredStandingUp, CubeEnteredStandingUp );
+        game.EventManager.ListenFor( CubeGravitySystemEvents.RollCompletedStandingUp, RollCompletedStandingUp );
+        game.EventManager.ListenFor( CubeGravitySystemEvents.OnFall, OnFall );
+        game.EventManager.ListenFor( PlateSystemEvents.GoalPlateHit, GoalPlateHit );
+    }
+    
+    protected virtual void EnterZone(Invert.ECS.IEvent e) {
+        HandleEnterZone(e);
+    }
+    
+    protected virtual void EnterLevel(Invert.ECS.IEvent e) {
+        HandleEnterLevel(e);
+    }
+    
+    protected virtual void Loaded(Invert.ECS.IEvent e) {
+    }
+    
+    protected virtual void ResetGame(Invert.ECS.IEvent e) {
+    }
+    
+    protected virtual void CubeEnteredStandingUp(Invert.ECS.IEvent e) {
+    }
+    
+    protected virtual void RollCompletedStandingUp(Invert.ECS.IEvent e) {
+        HandleEnterLevelOnEnter(e);
+    }
+    
+    protected virtual void OnFall(Invert.ECS.IEvent e) {
+    }
+    
+    protected virtual void GoalPlateHit(Invert.ECS.IEvent e) {
+    }
+    
+    protected virtual void HandleEnterZone(Invert.ECS.IEvent e) {
+        var eventData = (ZoneEventData)e.Data;
+        this.HandleEnterZone(eventData);
+    }
+    
+    protected virtual void HandleEnterZone(ZoneEventData data) {
+    }
+    
+    protected virtual void HandleEnterLevel(Invert.ECS.IEvent e) {
+        var eventData = (EnterLevelEventData)e.Data;
+        this.HandleEnterLevel(eventData);
+    }
+    
+    protected virtual void HandleEnterLevel(EnterLevelEventData data) {
+    }
+    
+    protected virtual void HandleEnterLevelOnEnter(Invert.ECS.IEvent e) {
+        var eventData = (PlateCubeCollsion)e.Data;
+        EnterLevelOnEnter enterlevelonenter;
+        if (!Game.ComponentSystem.TryGetComponent<EnterLevelOnEnter>(eventData.PlateId, out enterlevelonenter)) {
+            return;
+        }
+        this.HandleEnterLevelOnEnter(eventData, enterlevelonenter);
+    }
+    
+    protected virtual void HandleEnterLevelOnEnter(PlateCubeCollsion data, EnterLevelOnEnter enterlevelonenter) {
+    }
+    
+    public virtual void SignalGameReady(EntityEventData data) {
+        Game.EventManager.SignalEvent(new EventData(FlipCubeSystemEvents.GameReady,data));
+    }
+    
+    public virtual void SignalResetGame(EntityEventData data) {
+        Game.EventManager.SignalEvent(new EventData(FlipCubeSystemEvents.ResetGame,data));
+    }
+    
+    public static void SignalGameReady(IGame game, EntityEventData data) {
+        game.EventManager.SignalEvent(new EventData(FlipCubeSystemEvents.GameReady,data));
+    }
+    
+    public static void SignalResetGame(IGame game, EntityEventData data) {
+        game.EventManager.SignalEvent(new EventData(FlipCubeSystemEvents.ResetGame,data));
+    }
+}
+
+public class BasicGameSystemBase : UnitySystem {
+    
+    private ComponentManager<Cube> _CubeManager;
+    
+    private ComponentManager<Level> _LevelManager;
+    
+    private ComponentManager<BasicGame> _BasicGameManager;
+    
+    private ComponentManager<Zone> _ZoneManager;
+    
+    public ComponentManager<Cube> CubeManager {
+        get {
+            return _CubeManager;
+        }
+        set {
+            _CubeManager = value;
+        }
+    }
+    
+    public ComponentManager<Level> LevelManager {
+        get {
+            return _LevelManager;
+        }
+        set {
+            _LevelManager = value;
+        }
+    }
+    
+    public ComponentManager<BasicGame> BasicGameManager {
+        get {
+            return _BasicGameManager;
+        }
+        set {
+            _BasicGameManager = value;
+        }
+    }
+    
+    public ComponentManager<Zone> ZoneManager {
+        get {
+            return _ZoneManager;
+        }
+        set {
+            _ZoneManager = value;
+        }
+    }
+    
+    public override void Initialize(Invert.ECS.IGame game) {
+        base.Initialize(game);
+        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
+        LevelManager = game.ComponentSystem.RegisterComponent<Level>();
+        BasicGameManager = game.ComponentSystem.RegisterComponent<BasicGame>();
+        ZoneManager = game.ComponentSystem.RegisterComponent<Zone>();
+        game.EventManager.ListenFor( CubeGravitySystemEvents.OnFall, OnFall );
+        game.EventManager.ListenFor( PlateSystemEvents.GoalPlateHit, GoalPlateHit );
+        game.EventManager.ListenFor( FrameworkEvents.ComponentCreated, ComponentCreated );
+        game.EventManager.ListenFor( FlipCubeSystemEvents.GameReady, GameReady );
+        game.EventManager.ListenFor( ZoneSystemEvents.EnteredZone, EnteredZone );
+        game.EventManager.ListenFor( LevelSystemEvents.EnteredLevel, EnteredLevel );
+        game.EventManager.ListenFor( PlateSystemEvents.CubeEnteredStandingUp, CubeEnteredStandingUp );
+    }
+    
+    protected virtual void OnFall(Invert.ECS.IEvent e) {
+    }
+    
+    protected virtual void GoalPlateHit(Invert.ECS.IEvent e) {
+    }
+    
+    protected virtual void ComponentCreated(Invert.ECS.IEvent e) {
+    }
+    
+    protected virtual void GameReady(Invert.ECS.IEvent e) {
+    }
+    
+    protected virtual void EnteredZone(Invert.ECS.IEvent e) {
+    }
+    
+    protected virtual void EnteredLevel(Invert.ECS.IEvent e) {
+        OnEnteredLevel(e);
+    }
+    
+    protected virtual void CubeEnteredStandingUp(Invert.ECS.IEvent e) {
+    }
+    
+    protected virtual void OnEnteredLevel(Invert.ECS.IEvent e) {
+        var eventData = (LevelEventData)e.Data;
+        Level level;
+        if (!Game.ComponentSystem.TryGetComponent<Level>(eventData.LevelId, out level)) {
+            return;
+        }
+        this.OnEnteredLevel(eventData, level);
+    }
+    
+    protected virtual void OnEnteredLevel(LevelEventData data, Level level) {
+    }
+}
+
 public class SpecialFXSystemBase : UnitySystem {
     
+    private ComponentManager<Cube> _CubeManager;
+    
+    private ComponentManager<Plate> _PlateManager;
+    
     private ComponentManager<TweenPlateColors> _TweenPlateColorsManager;
+    
+    public ComponentManager<Cube> CubeManager {
+        get {
+            return _CubeManager;
+        }
+        set {
+            _CubeManager = value;
+        }
+    }
+    
+    public ComponentManager<Plate> PlateManager {
+        get {
+            return _PlateManager;
+        }
+        set {
+            _PlateManager = value;
+        }
+    }
     
     public ComponentManager<TweenPlateColors> TweenPlateColorsManager {
         get {
@@ -1152,11 +1375,13 @@ public class SpecialFXSystemBase : UnitySystem {
     
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
+        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
+        PlateManager = game.ComponentSystem.RegisterComponent<Plate>();
         TweenPlateColorsManager = game.ComponentSystem.RegisterComponent<TweenPlateColors>();
         game.EventManager.ListenFor( PlateSystemEvents.CubeEntered, CubeEntered );
         game.EventManager.ListenFor( PlateSystemEvents.CubeLeft, CubeLeft );
         game.EventManager.ListenFor( FrameworkEvents.Loaded, Loaded );
-        game.EventManager.ListenFor( LevelSystemEvents.RestartLevel, RestartLevel );
+        game.EventManager.ListenFor( LevelSystemEvents.LevelRestart, LevelRestart );
     }
     
     protected virtual void CubeEntered(Invert.ECS.IEvent e) {
@@ -1172,7 +1397,7 @@ public class SpecialFXSystemBase : UnitySystem {
     protected virtual void Loaded(Invert.ECS.IEvent e) {
     }
     
-    protected virtual void RestartLevel(Invert.ECS.IEvent e) {
+    protected virtual void LevelRestart(Invert.ECS.IEvent e) {
     }
     
     protected virtual void OnCubeEntered(Invert.ECS.IEvent e) {
@@ -1226,8 +1451,44 @@ public class SpecialFXSystemBase : UnitySystem {
 
 public class FlipCubeSoundSystemBase : UnitySystem {
     
+    private ComponentManager<Cube> _CubeManager;
+    
+    private ComponentManager<Plate> _PlateManager;
+    
+    private ComponentManager<GoalPlate> _GoalPlateManager;
+    
+    public ComponentManager<Cube> CubeManager {
+        get {
+            return _CubeManager;
+        }
+        set {
+            _CubeManager = value;
+        }
+    }
+    
+    public ComponentManager<Plate> PlateManager {
+        get {
+            return _PlateManager;
+        }
+        set {
+            _PlateManager = value;
+        }
+    }
+    
+    public ComponentManager<GoalPlate> GoalPlateManager {
+        get {
+            return _GoalPlateManager;
+        }
+        set {
+            _GoalPlateManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
+        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
+        PlateManager = game.ComponentSystem.RegisterComponent<Plate>();
+        GoalPlateManager = game.ComponentSystem.RegisterComponent<GoalPlate>();
         game.EventManager.ListenFor( PlateSystemEvents.CubeEntered, CubeEntered );
         game.EventManager.ListenFor( PlateSystemEvents.CubeLeft, CubeLeft );
         game.EventManager.ListenFor( CubeGravitySystemEvents.OnFall, OnFall );
@@ -1447,5 +1708,79 @@ public class PlayerSystemBase : UnitySystem {
     
     public static void SignalPlayerLoaded(IGame game, PlayerEventData data) {
         game.EventManager.SignalEvent(new EventData(PlayerSystemEvents.PlayerLoaded,data));
+    }
+}
+
+public class ScoringSystemBase : UnitySystem {
+    
+    private ComponentManager<Scoring> _ScoringManager;
+    
+    public ComponentManager<Scoring> ScoringManager {
+        get {
+            return _ScoringManager;
+        }
+        set {
+            _ScoringManager = value;
+        }
+    }
+    
+    public override void Initialize(Invert.ECS.IGame game) {
+        base.Initialize(game);
+        ScoringManager = game.ComponentSystem.RegisterComponent<Scoring>();
+    }
+    
+    public virtual void SignalAddToScore(Int32 data) {
+        Game.EventManager.SignalEvent(new EventData(ScoringSystemEvents.AddToScore,data));
+    }
+    
+    public virtual void SignalRemoveFromScore(Int32 data) {
+        Game.EventManager.SignalEvent(new EventData(ScoringSystemEvents.RemoveFromScore,data));
+    }
+    
+    public static void SignalAddToScore(IGame game, Int32 data) {
+        game.EventManager.SignalEvent(new EventData(ScoringSystemEvents.AddToScore,data));
+    }
+    
+    public static void SignalRemoveFromScore(IGame game, Int32 data) {
+        game.EventManager.SignalEvent(new EventData(ScoringSystemEvents.RemoveFromScore,data));
+    }
+}
+
+public class ZoneSystemBase : UnitySystem {
+    
+    private ComponentManager<Zone> _ZoneManager;
+    
+    public ComponentManager<Zone> ZoneManager {
+        get {
+            return _ZoneManager;
+        }
+        set {
+            _ZoneManager = value;
+        }
+    }
+    
+    public override void Initialize(Invert.ECS.IGame game) {
+        base.Initialize(game);
+        ZoneManager = game.ComponentSystem.RegisterComponent<Zone>();
+        game.EventManager.ListenFor( FrameworkEvents.ComponentCreated, ComponentCreated );
+    }
+    
+    protected virtual void ComponentCreated(Invert.ECS.IEvent e) {
+    }
+    
+    public virtual void SignalEnterZone(ZoneEventData data) {
+        Game.EventManager.SignalEvent(new EventData(ZoneSystemEvents.EnterZone,data));
+    }
+    
+    public virtual void SignalEnteredZone(ZoneEventData data) {
+        Game.EventManager.SignalEvent(new EventData(ZoneSystemEvents.EnteredZone,data));
+    }
+    
+    public static void SignalEnterZone(IGame game, ZoneEventData data) {
+        game.EventManager.SignalEvent(new EventData(ZoneSystemEvents.EnterZone,data));
+    }
+    
+    public static void SignalEnteredZone(IGame game, ZoneEventData data) {
+        game.EventManager.SignalEvent(new EventData(ZoneSystemEvents.EnteredZone,data));
     }
 }

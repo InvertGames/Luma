@@ -168,6 +168,34 @@ public class PlateCubeCollsionBase : object {
     }
 }
 
+public class LevelEventDataBase : object {
+    
+    private Int32 _LevelId;
+    
+    public Int32 LevelId {
+        get {
+            return _LevelId;
+        }
+        set {
+            _LevelId = value;
+        }
+    }
+}
+
+public class EnterLevelEventDataBase : object {
+    
+    private String _SceneName;
+    
+    public String SceneName {
+        get {
+            return _SceneName;
+        }
+        set {
+            _SceneName = value;
+        }
+    }
+}
+
 public class NotificationDataBase : object {
     
     private String _Message;
@@ -186,12 +214,48 @@ public class PlayerEventDataBase : object {
     
     private Player _PlayerData;
     
+    private Int32 _PlayerId;
+    
     public Player PlayerData {
         get {
             return _PlayerData;
         }
         set {
             _PlayerData = value;
+        }
+    }
+    
+    public Int32 PlayerId {
+        get {
+            return _PlayerId;
+        }
+        set {
+            _PlayerId = value;
+        }
+    }
+}
+
+public class ZoneEventDataBase : object {
+    
+    private Int32 _ZoneId;
+    
+    private String _SceneName;
+    
+    public Int32 ZoneId {
+        get {
+            return _ZoneId;
+        }
+        set {
+            _ZoneId = value;
+        }
+    }
+    
+    public String SceneName {
+        get {
+            return _SceneName;
+        }
+        set {
+            _SceneName = value;
         }
     }
 }

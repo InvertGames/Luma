@@ -29,7 +29,7 @@ public class EntityComponentEditor : Editor {
 
                 if (entityComponent != null)
                 {
-                    entityComponent.EntityId = t.EntityId + i;
+                    entityComponent.EntityId = t.EntityId + i + 1;
                     foreach (var component in entityComponent.GetComponents<UnityComponent>())
                     {
                         component.EntityId = entityComponent.EntityId;

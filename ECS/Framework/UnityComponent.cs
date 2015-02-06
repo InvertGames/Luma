@@ -55,8 +55,25 @@ namespace Invert.ECS.Unity
         }
         public void OnDisable()
         {
-            //var game = FindObjectOfType<UnityGame>();
-            //game.ComponentSystem.RegisterComponentInstance(this.GetType(), this);
+            if (!_registered) return;
+            var game = UnityGame.Instance;
+            if (game != null)
+            {
+                game.ComponentSystem.DestroyComponentInstance(this.GetType(), this);
+                _registered = false;
+            }
+        }
+
+        public void OnDestroy()
+        {
+            if (!_registered) return;
+            var game = UnityGame.Instance;
+            if (game != null)
+            {
+
+                game.ComponentSystem.DestroyComponentInstance(this.GetType(), this);
+                _registered = false;
+            }
         }
        
     }

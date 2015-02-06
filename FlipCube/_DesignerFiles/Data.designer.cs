@@ -253,35 +253,19 @@ public class MoveLeftOnLeaveData {
 }
 
 [System.SerializableAttribute()]
-public class LevelCompleteOnContactData {
+public class LevelData {
     
     [UnityEngine.SerializeField()]
-    private Int32 _Number;
+    private Int32 _Index;
     
-    public virtual Int32 Number {
+    public virtual Int32 Index {
         get {
-            return _Number;
+            return _Index;
         }
         set {
-            _Number = value;
+            _Index = value;
         }
     }
-}
-
-[System.SerializableAttribute()]
-public class RestartOnMouseDownData {
-}
-
-[System.SerializableAttribute()]
-public class EndOnMouseDownData {
-}
-
-[System.SerializableAttribute()]
-public class RestartOnCollisionData {
-}
-
-[System.SerializableAttribute()]
-public class FailOnCollisionData {
 }
 
 [System.SerializableAttribute()]
@@ -296,6 +280,26 @@ public class NotifyOnEnterData {
         }
         set {
             _Message = value;
+        }
+    }
+}
+
+[System.SerializableAttribute()]
+public class BasicGameData {
+}
+
+[System.SerializableAttribute()]
+public class EnterLevelOnEnterData {
+    
+    [UnityEngine.SerializeField()]
+    private String _SceneName;
+    
+    public virtual String SceneName {
+        get {
+            return _SceneName;
+        }
+        set {
+            _SceneName = value;
         }
     }
 }
@@ -358,12 +362,68 @@ public class PlayerData {
     [UnityEngine.SerializeField()]
     private String _Name;
     
+    [UnityEngine.SerializeField()]
+    private Int32 _XP;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _Rank;
+    
     public virtual String Name {
         get {
             return _Name;
         }
         set {
             _Name = value;
+        }
+    }
+    
+    public virtual Int32 XP {
+        get {
+            return _XP;
+        }
+        set {
+            _XP = value;
+        }
+    }
+    
+    public virtual Int32 Rank {
+        get {
+            return _Rank;
+        }
+        set {
+            _Rank = value;
+        }
+    }
+}
+
+[System.SerializableAttribute()]
+public class ScoringData {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _Score;
+    
+    public virtual Int32 Score {
+        get {
+            return _Score;
+        }
+        set {
+            _Score = value;
+        }
+    }
+}
+
+[System.SerializableAttribute()]
+public class ZoneData {
+    
+    [UnityEngine.SerializeField()]
+    private Int32[] _Levels;
+    
+    public virtual Int32[] Levels {
+        get {
+            return _Levels;
+        }
+        set {
+            _Levels = value;
         }
     }
 }

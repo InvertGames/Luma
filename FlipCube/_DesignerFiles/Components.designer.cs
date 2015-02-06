@@ -293,51 +293,23 @@ public class MoveLeftOnLeaveBase : Invert.ECS.Unity.UnityComponent {
 public partial class MoveLeftOnLeave {
 }
 
-public class LevelCompleteOnContactBase : Invert.ECS.Unity.UnityComponent {
+public class LevelBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
-    private Int32 _Number;
+    private Int32 _Index;
     
-    public virtual Int32 Number {
+    public virtual Int32 Index {
         get {
-            return _Number;
+            return _Index;
         }
         set {
-            _Number = value;
+            _Index = value;
         }
     }
 }
 
-[UnityEngine.AddComponentMenu("LevelSystem/LevelCompleteOnContact")]
-public partial class LevelCompleteOnContact {
-}
-
-public class RestartOnMouseDownBase : Invert.ECS.Unity.UnityComponent {
-}
-
-[UnityEngine.AddComponentMenu("LevelSystem/RestartOnMouseDown")]
-public partial class RestartOnMouseDown {
-}
-
-public class EndOnMouseDownBase : Invert.ECS.Unity.UnityComponent {
-}
-
-[UnityEngine.AddComponentMenu("LevelSystem/EndOnMouseDown")]
-public partial class EndOnMouseDown {
-}
-
-public class RestartOnCollisionBase : Invert.ECS.Unity.UnityComponent {
-}
-
-[UnityEngine.AddComponentMenu("LevelSystem/RestartOnCollision")]
-public partial class RestartOnCollision {
-}
-
-public class FailOnCollisionBase : Invert.ECS.Unity.UnityComponent {
-}
-
-[UnityEngine.AddComponentMenu("LevelSystem/FailOnCollision")]
-public partial class FailOnCollision {
+[UnityEngine.AddComponentMenu("LevelSystem/Level")]
+public partial class Level {
 }
 
 public class NotifyOnEnterBase : Invert.ECS.Unity.UnityComponent {
@@ -357,6 +329,32 @@ public class NotifyOnEnterBase : Invert.ECS.Unity.UnityComponent {
 
 [UnityEngine.AddComponentMenu("FlipCubeNotifications/NotifyOnEnter")]
 public partial class NotifyOnEnter {
+}
+
+public class BasicGameBase : Invert.ECS.Unity.UnityComponent {
+}
+
+[UnityEngine.AddComponentMenu("BasicGameSystem/BasicGame")]
+public partial class BasicGame {
+}
+
+public class EnterLevelOnEnterBase : Invert.ECS.Unity.UnityComponent {
+    
+    [UnityEngine.SerializeField()]
+    private String _SceneName;
+    
+    public virtual String SceneName {
+        get {
+            return _SceneName;
+        }
+        set {
+            _SceneName = value;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("FlipCubeSystem/EnterLevelOnEnter")]
+public partial class EnterLevelOnEnter {
 }
 
 public class TweenPlateColorsBase : Invert.ECS.Unity.UnityComponent {
@@ -419,6 +417,12 @@ public class PlayerBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.SerializeField()]
     private String _Name;
     
+    [UnityEngine.SerializeField()]
+    private Int32 _XP;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _Rank;
+    
     public virtual String Name {
         get {
             return _Name;
@@ -427,8 +431,64 @@ public class PlayerBase : Invert.ECS.Unity.UnityComponent {
             _Name = value;
         }
     }
+    
+    public virtual Int32 XP {
+        get {
+            return _XP;
+        }
+        set {
+            _XP = value;
+        }
+    }
+    
+    public virtual Int32 Rank {
+        get {
+            return _Rank;
+        }
+        set {
+            _Rank = value;
+        }
+    }
 }
 
 [UnityEngine.AddComponentMenu("PlayerSystem/Player")]
 public partial class Player {
+}
+
+public class ScoringBase : Invert.ECS.Unity.UnityComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _Score;
+    
+    public virtual Int32 Score {
+        get {
+            return _Score;
+        }
+        set {
+            _Score = value;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("ScoringSystem/Scoring")]
+public partial class Scoring {
+}
+
+public class ZoneBase : Invert.ECS.Unity.UnityComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32[] _Levels;
+    
+    public virtual Int32[] Levels {
+        get {
+            return _Levels;
+        }
+        set {
+            _Levels = value;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("FlipCubeGameSystem/Zone")]
+public partial class Zone {
 }

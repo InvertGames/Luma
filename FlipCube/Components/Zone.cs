@@ -5,5 +5,5 @@ using System.Linq;
 using Invert.ECS;
 
 
-public partial class FailOnCollision : FailOnCollisionBase {
+public partial class Zone : ZoneBase {
 }

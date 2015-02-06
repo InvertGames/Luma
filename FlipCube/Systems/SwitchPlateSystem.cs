@@ -14,34 +14,34 @@ public class SwitchPlateSystem : SwitchPlateSystemBase {
         
     }
 
-    protected override void RestartLevel(IEvent e)
+    protected override void LevelRestart(IEvent e)
     {
-        base.RestartLevel(e);
-        foreach (var switchPlate in SwitchPlateTargetManager.Components)
-        {
-            if (switchPlate.On && !switchPlate.StartOn)
-            {
-                switchPlate.StartCoroutine(RotateAround(switchPlate, 1f,  -90 ));
-                
-            }
-            switchPlate.On = switchPlate.StartOn;
+        base.LevelRestart(e);
+        //foreach (var switchPlate in SwitchPlateTargetManager.Components)
+        //{
+        //    if (switchPlate.On && !switchPlate.StartOn)
+        //    {
+        //        switchPlate.StartCoroutine(RotateAround(switchPlate, 1f, -90));
 
-        }
+        //    }
+        //    switchPlate.On = switchPlate.StartOn;
+
+        //}
     }
 
     protected override void Loaded(IEvent e)
     {
         base.Loaded(e);
-        foreach (var switchPlate in SwitchPlateTargetManager.Components)
-        {
-            if (!switchPlate.StartOn )
-            {
-                switchPlate.StartCoroutine(RotateAround(switchPlate, 1f, -90));
+        //foreach (var switchPlate in SwitchPlateTargetManager.Components)
+        //{
+        //    if (!switchPlate.StartOn )
+        //    {
+        //        switchPlate.StartCoroutine(RotateAround(switchPlate, 1f, -90));
 
-            }
-            switchPlate.On = switchPlate.StartOn;
+        //    }
+        //    switchPlate.On = switchPlate.StartOn;
 
-        }
+        //}
     }
     
     protected override void RollCompletedStandingUp(Invert.ECS.IEvent e) {

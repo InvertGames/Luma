@@ -16,14 +16,6 @@ public class SpecialFXSystem : SpecialFXSystemBase
         base.Initialize(game);
     }
 
-    protected override void RestartLevel(IEvent e)
-    {
-        base.RestartLevel(e);
-        foreach (var tweenComponent in TweenPlateColorsManager.Components)
-        {
-            tweenComponent.renderer.material.colorTo(0.1f, tweenComponent.IdleColor);
-        }
-    }
 
 
     protected override void OnCubeEntered(PlateCubeCollsion data, Plate plate)

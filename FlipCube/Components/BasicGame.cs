@@ -5,5 +5,5 @@ using System.Linq;
 using Invert.ECS;
 
 
-public partial class LevelCompleteOnContact : LevelCompleteOnContactBase {
+public partial class BasicGame : BasicGameBase {
 }

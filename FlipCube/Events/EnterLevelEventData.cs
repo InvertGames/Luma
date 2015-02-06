@@ -5,5 +5,5 @@ using System.Linq;
 using Invert.ECS;
 
 
-public partial class RestartOnCollision : RestartOnCollisionBase {
+public class EnterLevelEventData : EnterLevelEventDataBase {
 }

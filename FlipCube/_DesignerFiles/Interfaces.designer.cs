@@ -148,31 +148,31 @@ public interface IMoveLeftOnLeave {
     }
 }
 
-public interface ILevelCompleteOnContact {
+public interface ILevel {
     
     
-    Int32 Number {
+    Int32 Index {
         get;
         set;
     }
-}
-
-public interface IRestartOnMouseDown {
-}
-
-public interface IEndOnMouseDown {
-}
-
-public interface IRestartOnCollision {
-}
-
-public interface IFailOnCollision {
 }
 
 public interface INotifyOnEnter {
     
     
     String Message {
+        get;
+        set;
+    }
+}
+
+public interface IBasicGame {
+}
+
+public interface IEnterLevelOnEnter {
+    
+    
+    String SceneName {
         get;
         set;
     }
@@ -208,7 +208,37 @@ public interface ITweenPlateColors {
 public interface IPlayer {
     
     
+    
+    
     String Name {
+        get;
+        set;
+    }
+    
+    Int32 XP {
+        get;
+        set;
+    }
+    
+    Int32 Rank {
+        get;
+        set;
+    }
+}
+
+public interface IScoring {
+    
+    
+    Int32 Score {
+        get;
+        set;
+    }
+}
+
+public interface IZone {
+    
+    
+    Int32[] Levels {
         get;
         set;
     }

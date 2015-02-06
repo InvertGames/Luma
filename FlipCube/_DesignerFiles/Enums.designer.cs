@@ -115,11 +115,11 @@ public enum LevelSystemEvents {
     
     LevelQuit,
     
-    RestartLevel,
+    LevelRestart,
     
-    LevelFailed,
+    EnterLevel,
     
-    NextLevel,
+    EnteredLevel,
 }
 
 public enum FlipCubeGameSystemEvents {
@@ -128,6 +128,16 @@ public enum FlipCubeGameSystemEvents {
 }
 
 public enum FlipCubeNotificationsEvents {
+}
+
+public enum FlipCubeSystemEvents {
+    
+    GameReady,
+    
+    ResetGame,
+}
+
+public enum BasicGameSystemEvents {
 }
 
 public enum SpecialFXSystemEvents {
@@ -153,4 +163,18 @@ public enum XPSystemEvents {
 public enum PlayerSystemEvents {
     
     PlayerLoaded,
+}
+
+public enum ScoringSystemEvents {
+    
+    AddToScore,
+    
+    RemoveFromScore,
+}
+
+public enum ZoneSystemEvents {
+    
+    EnterZone,
+    
+    EnteredZone,
 }
