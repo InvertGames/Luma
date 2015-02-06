@@ -254,6 +254,17 @@ namespace Invert.ECS
         TriggerExit,
         TriggerStay
     }
+    public class ComponentAsset : ScriptableObject, IComponent
+    {
+        [SerializeField]
+        private int _entityId;
+
+        public int EntityId
+        {
+            get { return _entityId; }
+            set { _entityId = value; }
+        }
+    }
     public class UnitySystem : MonoBehaviour, ISystem
     {
         public int Priority

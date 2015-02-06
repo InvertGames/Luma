@@ -44,6 +44,33 @@ public class EntityComponentEditor : Editor {
     }
 }
 
+[CustomEditor(typeof(UnityComponent),true)]
+public class ComponentEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        var property = serializedObject.FindProperty("_Asset");
+        if (property != null)
+        {
+            if (property.objectReferenceValue == null)
+            {
+                base.OnInspectorGUI();
+            }
+            else
+            {
+                serializedObject.Update();
+                EditorGUILayout.PropertyField(property);
+                serializedObject.ApplyModifiedProperties();
+            }
+        }
+        else
+        {
+            base.OnInspectorGUI();    
+        }
+        
+    }
+}
+
 public static class IdHelpers
 {
     [MenuItem("GameObject/ECS/Generate New Id's For Children")]

@@ -25,14 +25,15 @@ namespace Invert.ECS
             ECSPlugin.Component.AddCodeTemplate<VanillaComponentTemplate>();
             ECSPlugin.Component.AddCodeTemplate<ComponentInterfaceTemplate>();
             ECSPlugin.Component.AddCodeTemplate<UnityComponentTemplatePartial>();
-            ECSPlugin.Entity.AddCodeTemplate<EntityAssetTemplate>();
+            ECSPlugin.Component.AddCodeTemplate<ComponentAssetTemplate>();
+            //ECSPlugin.Entity.AddCodeTemplate<EntityAssetTemplate>();
             ECSPlugin.System.AddCodeTemplate<SystemTemplate>();
             
             //ECSPlugin.System.AddCodeTemplate<SystemSignals>();
 
             ECSPlugin.Event.AddCodeTemplate<EventClassTemplate>();
             ECSPlugin.System.AddCodeTemplate<SystemsEventEnum>();
-            ECSPlugin.Entities.AddCodeTemplate<EntityEditorExtensionsTemplate>();
+            ECSPlugin.Component.AddCodeTemplate<EntityEditorExtensionsTemplate>();
 
         }
 
@@ -125,12 +126,93 @@ namespace Invert.ECS
         public override void TemplateSetup()
         {
             base.TemplateSetup();
+            
             Ctx.CurrentDecleration.BaseTypes.Clear();
+            Ctx.CurrentDecleration.BaseTypes.Add(string.Format("I{0}", Ctx.Data.Name).ToCodeReference());
             Ctx.CurrentDecleration.CustomAttributes.Add(
                 new CodeAttributeDeclaration(typeof(SerializableAttribute).ToCodeReference()));
+
         }
     }
 
+    [TemplateClass("Assets", MemberGeneratorLocation.Both, ClassNameFormat = "{0}Asset")]
+    public class ComponentAssetTemplate : IClassTemplate<ComponentNode>
+    {
+        public void TemplateSetup()
+        {
+            Ctx.Namespace.Name = "";
+            Ctx.CurrentDecleration.Name = Ctx.Data.Name + "Asset";
+            Ctx.CurrentDecleration.IsPartial = true;
+            Ctx.CurrentDecleration.BaseTypes.Clear();
+            Ctx.CurrentDecleration.BaseTypes.Add(typeof(ComponentAsset).ToCodeReference());
+            if (Ctx.IsDesignerFile)
+            {
+            //    Ctx.CurrentDecleration.CustomAttributes.Add(new CodeAttributeDeclaration(typeof(SerializableAttribute).ToCodeReference()));
+            }
+            foreach (var property in Ctx.Data.Properties)
+            {
+                var type = InvertApplication.FindTypeByName(property.RelatedTypeName);
+                if (type == null) continue;
+                Ctx.TryAddNamespace(type.Namespace);
+            }
+            foreach (var property in Ctx.Data.Collections)
+            {
+                var type = InvertApplication.FindTypeByName(property.RelatedTypeName);
+                if (type == null) continue;
+                Ctx.TryAddNamespace(type.Namespace);
+            }
+            Ctx.AddIterator("ComponentProperty", _ => _.Properties.Where(p => !p.Precompiled));
+            Ctx.AddIterator("ComponentCollection", _ => _.Collections.Where(p => !p.Precompiled));
+
+            
+        }
+        [TemplateProperty(MemberGeneratorLocation.DesignerFile, "{0}", AutoFillType.NameOnly)]
+        public virtual int ComponentProperty
+        {
+            get
+            {
+                var componentNode = Ctx.Item.OutputTo<ComponentNode>();
+                var type = componentNode == null ? Ctx.TypedItem.RelatedTypeName : componentNode.Name + "Asset";
+
+                Ctx.SetType(type);
+                var field = Ctx.CurrentDecleration._private_(type, "_{0}", Ctx.Item.Name);
+
+                field.CustomAttributes.Add(
+                    new CodeAttributeDeclaration(typeof(SerializeField).ToCodeReference()));
+                Ctx._("return {0}", field.Name);
+                return 0;
+            }
+            set
+            {
+                Ctx._("_{0} = value", Ctx.Item.Name);
+            }
+        }
+
+        [TemplateProperty(MemberGeneratorLocation.DesignerFile, "{0}", AutoFillType.NameOnly)]
+        public virtual int ComponentCollection
+        {
+            get
+            {
+                var componentNode = Ctx.Item.OutputTo<ComponentNode>();
+                var type = componentNode == null ? Ctx.TypedItem.RelatedTypeName : componentNode.Name + "Asset";
+
+                var typeName = type + "[]";
+                Ctx.SetType(typeName);
+                var field = Ctx.CurrentDecleration._private_(typeName, "_{0}", Ctx.Item.Name);
+                field.CustomAttributes.Add(
+                   new CodeAttributeDeclaration(typeof(SerializeField).ToCodeReference()));
+
+                Ctx._("return {0}", field.Name);
+                return 0;
+            }
+            set
+            {
+                Ctx._("_{0} = value", Ctx.Item.Name);
+            }
+        }
+
+        public TemplateContext<ComponentNode> Ctx { get; set; }
+    }
     [TemplateClass("Components", MemberGeneratorLocation.Both, ClassNameFormat = "{0}")]
     public class UnityComponentTemplate : ComponentTemplate
     {
@@ -138,15 +220,64 @@ namespace Invert.ECS
         {
             base.TemplateSetup();
             if (Ctx.IsDesignerFile)
+            {
                 Ctx.SetBaseType(typeof (UnityComponent));
+                Ctx.CurrentDecleration.BaseTypes.Add(string.Format("I{0}", Ctx.Data.Name).ToCodeReference());
+
+                var field = Ctx.CurrentDecleration._private_(string.Format("{0}Asset", Ctx.Data.Name), "_Asset");
+                field.CustomAttributes.Add(new CodeAttributeDeclaration(typeof (SerializeField).ToCodeReference()));
+
+            }
             else
             {
                 Ctx.CurrentDecleration.IsPartial = true;
       
             }
-
+            
         }
+        [TemplateMethod(MemberGeneratorLocation.DesignerFile)]
+        public void Awake()
+        {
+            Ctx.PushStatements(Ctx._if("_Asset != null").TrueStatements);
+
+            Ctx.CurrentMethod.Attributes = MemberAttributes.Override | MemberAttributes.Public; 
+            foreach (var item in Ctx.Data.Properties)
+            {
+                var componentNode = item.OutputTo<ComponentNode>();
+                if (componentNode != null)
+                {
+                    Ctx._("{0} = _Asset.{0}.EntityId", item.Name);
+                }
+                else
+                {
+                    Ctx._("{0} = _Asset.{0}", item.Name);
+                }
+                
+            }
+            foreach (var item in Ctx.Data.Collections)
+            {
+                var componentNode = item.OutputTo<ComponentNode>();
+                if (componentNode != null)
+                {
+                    Ctx._("{0} = _Asset.{0}.Select(p=>p.EntityId).ToArray()", item.Name);
+                }
+                else
+                {
+                    Ctx._("{0} = _Asset.{0}", item.Name);
+                }
+              
+            }
+            Ctx.PopStatements();
+        }
+        //[TemplateProperty]
+        //public ScriptableObject Asset {
+        //    get
+        //    {
+                
+        //    } 
+        //}
     }
+
      [TemplateClass("Components", MemberGeneratorLocation.DesignerFile, ClassNameFormat = "{0}")]
     public class UnityComponentTemplatePartial : IClassTemplate<Invert.ECS.Graphs.ComponentNode>
     {
@@ -170,6 +301,7 @@ namespace Invert.ECS
 
          public TemplateContext<ComponentNode> Ctx { get; set; }
     }
+   
     [TemplateClass("Events", MemberGeneratorLocation.Both, ClassNameFormat = "{0}")]
     public class EventClassTemplate : IClassTemplate<Invert.ECS.Graphs.EventNode>
     {
@@ -545,25 +677,25 @@ namespace Invert.ECS
     }
 
     [TemplateClass("Extensions", "{0}MenuItems", MemberGeneratorLocation.DesignerFile, AutoInherit = false, IsEditorExtension = true)]
-    public class EntityEditorExtensionsTemplate : IClassTemplate<EntitiesNode>
+    public class EntityEditorExtensionsTemplate : IClassTemplate<ComponentNode>
     {
         public void TemplateSetup()
         {
             //Ctx.CurrentDecleration.Name = "static " + 
-            Ctx.AddIterator("CreateEntity", _ => Ctx.Data.Graph.NodeItems.OfType<EntityNode>());
+            //Ctx.AddIterator("CreateComponent", _ => Ctx.Data.Graph.NodeItems.OfType<ComponentNode>());
         }
 
-        public TemplateContext<EntitiesNode> Ctx { get; set; }
+        public TemplateContext<ComponentNode> Ctx { get; set; }
 
         [TemplateMethod("Create{0}", MemberGeneratorLocation.DesignerFile, false)]
-        public void CreateEntity()
+        public void CreateComponent()
         {
             Ctx.CurrentMethod.Attributes |= MemberAttributes.Static;
             Ctx.CurrentMethod.CustomAttributes.Add(new CodeAttributeDeclaration(typeof(MenuItem).ToCodeReference(),
                 new CodeAttributeArgument(
                     new CodePrimitiveExpression(string.Format("Assets/Create/{0}/{1}", Ctx.Data.Graph.Name,
                         Ctx.Item.Name))), new CodeAttributeArgument(new CodePrimitiveExpression(false))));
-            Ctx._("uFrameMenu.CreateAsset<{0}Entity>()", Ctx.Item.Name);
+            Ctx._("uFrameMenu.CreateAsset<{0}Asset>()", Ctx.Item.Name);
         }
     }
 

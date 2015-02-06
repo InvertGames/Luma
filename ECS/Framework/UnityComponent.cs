@@ -19,7 +19,7 @@ namespace Invert.ECS.Unity
             set { _entityId = value; }
         }
 
-        public void Awake()
+        public virtual void Awake()
         {
             if (_AutoAssignId)
             {
