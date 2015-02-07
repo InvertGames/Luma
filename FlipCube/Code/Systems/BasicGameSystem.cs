@@ -49,27 +49,22 @@ public class BasicGameSystem : BasicGameSystemBase
     protected override void OnEnteredLevel(LevelEventData data, Level level)
     {
         base.OnEnteredLevel(data, level);
+        Debug.Log("Level Entered");
         CurrentLevel = level;
         FlipCubeSystem.SignalResetGame(Game, new EntityEventData());
+        CubeInputSystem.SignalSelected(Game, new EntityEventData()
+        {
+            EntityId = 1
+        });
+
+        //FlipCubeSystem.SignalResetGame(Game, new EntityEventData());
     }
 
-    protected override void EnteredLevel(IEvent e)
-    {
-        base.EnteredLevel(e);
-        //Delay(1f, () =>
-        //{
-            FlipCubeSystem.SignalResetGame(Game, new EntityEventData());
-            CubeInputSystem.SignalSelected(Game, new EntityEventData()
-            {
-                EntityId = 1
-            });
 
-        //});
-    }
-    
     protected override void EnteredZone(IEvent e)
     {
         base.EnteredZone(e);
+        Debug.Log("Zone Entered");
         //Delay(1f, () =>
         //{
             FlipCubeSystem.SignalResetGame(Game, new EntityEventData());

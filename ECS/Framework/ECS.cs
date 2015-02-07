@@ -298,11 +298,12 @@ namespace Invert.ECS
 
         private IEnumerator LoadLevelRoutine(AsyncOperation operation, Action complete)
         {
-            while (operation.isDone)
+            while (!operation.isDone)
             {
                 yield return new WaitForEndOfFrame();
             }
             yield return new WaitForEndOfFrame();
+   
             complete();
         }
         public IEnumerator WaitForSecondsRoutine(float seconds, Action action)

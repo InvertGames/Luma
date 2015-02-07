@@ -62,7 +62,11 @@ public class FlipCubeSystem : FlipCubeSystemBase
 
         LoadLevelAsync(CurrentZone.SceneName, () =>
         {
-            ZoneSystem.SignalEnteredZone(Game, new ZoneEventData());
+            ZoneSystem.SignalEnteredZone(Game, new ZoneEventData()
+            {
+                Zone = CurrentZone,
+                ZoneId = CurrentZone.EntityId
+            });
         });
     }
 
@@ -96,7 +100,8 @@ public class FlipCubeSystem : FlipCubeSystemBase
         {
             LevelSystem.SignalEnteredLevel(Game, new LevelEventData()
             {
-                
+                LevelId = CurrentLevel.EntityId,
+                LevelData = CurrentLevel
             });
         });
 
