@@ -37,7 +37,7 @@ public class BasicGameSystem : BasicGameSystemBase
         {
             LevelSystem.SignalLevelComplete(Game, new LevelEventData()
             {
-                LevelId = CurrentLevel.EntityId,
+                //LevelId = CurrentLevel.EntityId,
             });
 
             FlipCubeSystem.SignalBackToZone(Game, new EntityEventData());
@@ -56,21 +56,30 @@ public class BasicGameSystem : BasicGameSystemBase
     protected override void EnteredLevel(IEvent e)
     {
         base.EnteredLevel(e);
-        FlipCubeSystem.SignalResetGame(Game, new EntityEventData());
-        CubeInputSystem.SignalSelected(Game, new EntityEventData()
-        {
-            EntityId = 1
-        });
+        //Delay(1f, () =>
+        //{
+            FlipCubeSystem.SignalResetGame(Game, new EntityEventData());
+            CubeInputSystem.SignalSelected(Game, new EntityEventData()
+            {
+                EntityId = 1
+            });
+
+        //});
     }
     
     protected override void EnteredZone(IEvent e)
     {
         base.EnteredZone(e);
-        FlipCubeSystem.SignalResetGame(Game, new EntityEventData());
-        CubeInputSystem.SignalSelected(Game, new EntityEventData()
-        {
-            EntityId = 1
-        });
+        //Delay(1f, () =>
+        //{
+            FlipCubeSystem.SignalResetGame(Game, new EntityEventData());
+            CubeInputSystem.SignalSelected(Game, new EntityEventData()
+            {
+                EntityId = 1
+            });
+            
+        //});
+   
     }
 
     protected override void GameReady(IEvent e)

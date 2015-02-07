@@ -17,6 +17,14 @@ public class SpecialFXSystem : SpecialFXSystemBase
     }
 
 
+    protected override void OnReset(EntityEventData data)
+    {
+        base.OnReset(data);
+        foreach (var item in TweenPlateColorsManager.Components)
+        {
+            item.renderer.material.color = item.IdleColor;
+        }
+    }
 
     protected override void OnCubeEntered(PlateCubeCollsion data, Plate plate)
     {

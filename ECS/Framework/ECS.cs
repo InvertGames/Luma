@@ -290,6 +290,21 @@ namespace Invert.ECS
         {
             StartCoroutine(WaitForSecondsRoutine(seconds, action));
         }
+
+        public void LoadLevelAsync(string levelName, Action complete)
+        {
+            StartCoroutine(LoadLevelRoutine(Application.LoadLevelAdditiveAsync(levelName),complete));
+        }
+
+        private IEnumerator LoadLevelRoutine(AsyncOperation operation, Action complete)
+        {
+            while (operation.isDone)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+            yield return new WaitForEndOfFrame();
+            complete();
+        }
         public IEnumerator WaitForSecondsRoutine(float seconds, Action action)
         {
             yield return new WaitForSeconds(seconds);

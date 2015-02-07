@@ -26,7 +26,6 @@ namespace Invert.ECS.Unity
                 var entityId = GetComponent<EntityComponent>();
                 EntityId = entityId.EntityId;
             }
-
         }
         private bool _registered;
         public void OnEnable()

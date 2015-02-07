@@ -14,38 +14,18 @@ public class SwitchPlateSystem : SwitchPlateSystemBase {
         
     }
 
-    protected override void LevelRestart(IEvent e)
+    protected override void OnReset(EntityEventData data)
     {
-        base.LevelRestart(e);
-        //foreach (var switchPlate in SwitchPlateTargetManager.Components)
-        //{
-        //    if (switchPlate.On && !switchPlate.StartOn)
-        //    {
-        //        switchPlate.StartCoroutine(RotateAround(switchPlate, 1f, -90));
+        base.OnReset(data);
+        foreach (var switchPlate in SwitchPlateTargetManager.Components)
+        {
+            if (switchPlate.On && !switchPlate.StartOn)
+            {
+                switchPlate.StartCoroutine(RotateAround(switchPlate, 1f, -90));
 
-        //    }
-        //    switchPlate.On = switchPlate.StartOn;
-
-        //}
-    }
-
-    protected override void Loaded(IEvent e)
-    {
-        base.Loaded(e);
-        //foreach (var switchPlate in SwitchPlateTargetManager.Components)
-        //{
-        //    if (!switchPlate.StartOn )
-        //    {
-        //        switchPlate.StartCoroutine(RotateAround(switchPlate, 1f, -90));
-
-        //    }
-        //    switchPlate.On = switchPlate.StartOn;
-
-        //}
-    }
-    
-    protected override void RollCompletedStandingUp(Invert.ECS.IEvent e) {
-        base.RollCompletedStandingUp(e);
+            }
+            switchPlate.On = switchPlate.StartOn;
+        }
     }
 
     protected override void ActivateSwitchPlate(PlateCubeCollsion data, SwitchPlateTrigger plateid, SwitchPlateTarget[] targets)
@@ -80,7 +60,5 @@ public class SwitchPlateSystem : SwitchPlateSystemBase {
 
 
     }
-    protected override void ActivateSwitchPlate(Invert.ECS.IEvent e) {
-        base.ActivateSwitchPlate(e);
-    }
+
 }

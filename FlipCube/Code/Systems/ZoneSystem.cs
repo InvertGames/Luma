@@ -12,14 +12,14 @@ public class ZoneSystem : ZoneSystemBase
     protected override void ComponentCreated(IEvent e)
     {
         base.ComponentCreated(e);
-        var zone = e.Data as Zone;
-        if (zone != null)
-        {
-            SignalEnteredZone(new ZoneEventData()
-            {
-                ZoneId = zone.EntityId
-            });
-        }
+        //var zone = e.Data as Zone;
+        //if (zone != null)
+        //{
+        //    SignalEnteredZone(new ZoneEventData()
+        //    {
+        //        ZoneId = zone.EntityId
+        //    });
+        //}
     }
     
 }

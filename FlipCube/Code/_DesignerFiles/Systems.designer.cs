@@ -711,18 +711,15 @@ public class SwitchPlateSystemBase : UnitySystem {
         SwitchPlateTriggerManager = game.ComponentSystem.RegisterComponent<SwitchPlateTrigger>();
         SwitchPlateTargetManager = game.ComponentSystem.RegisterComponent<SwitchPlateTarget>();
         game.EventManager.ListenFor( CubeGravitySystemEvents.RollCompletedStandingUp, RollCompletedStandingUp );
-        game.EventManager.ListenFor( FrameworkEvents.Loaded, Loaded );
-        game.EventManager.ListenFor( LevelSystemEvents.LevelRestart, LevelRestart );
+        game.EventManager.ListenFor( FlipCubeSystemEvents.ResetGame, ResetGame );
     }
     
     protected virtual void RollCompletedStandingUp(Invert.ECS.IEvent e) {
         ActivateSwitchPlate(e);
     }
     
-    protected virtual void Loaded(Invert.ECS.IEvent e) {
-    }
-    
-    protected virtual void LevelRestart(Invert.ECS.IEvent e) {
+    protected virtual void ResetGame(Invert.ECS.IEvent e) {
+        OnReset(e);
     }
     
     protected virtual void ActivateSwitchPlate(Invert.ECS.IEvent e) {
@@ -739,6 +736,14 @@ public class SwitchPlateSystemBase : UnitySystem {
     }
     
     protected virtual void ActivateSwitchPlate(PlateCubeCollsion data, SwitchPlateTrigger switchplatetrigger, SwitchPlateTarget[] switchplatetarget) {
+    }
+    
+    protected virtual void OnReset(Invert.ECS.IEvent e) {
+        var eventData = (EntityEventData)e.Data;
+        this.OnReset(eventData);
+    }
+    
+    protected virtual void OnReset(EntityEventData data) {
     }
     
     public virtual void SignalPlateActivatedOn(PlateCubeCollsion data) {
@@ -1415,6 +1420,7 @@ public class SpecialFXSystemBase : UnitySystem {
         game.EventManager.ListenFor( PlateSystemEvents.CubeLeft, CubeLeft );
         game.EventManager.ListenFor( FrameworkEvents.Loaded, Loaded );
         game.EventManager.ListenFor( LevelSystemEvents.LevelRestart, LevelRestart );
+        game.EventManager.ListenFor( FlipCubeSystemEvents.ResetGame, ResetGame );
     }
     
     protected virtual void CubeEntered(Invert.ECS.IEvent e) {
@@ -1431,6 +1437,10 @@ public class SpecialFXSystemBase : UnitySystem {
     }
     
     protected virtual void LevelRestart(Invert.ECS.IEvent e) {
+    }
+    
+    protected virtual void ResetGame(Invert.ECS.IEvent e) {
+        OnReset(e);
     }
     
     protected virtual void OnCubeEntered(Invert.ECS.IEvent e) {
@@ -1479,6 +1489,14 @@ public class SpecialFXSystemBase : UnitySystem {
     }
     
     protected virtual void TweenPlateOff(PlateCubeCollsion data, TweenPlateColors tweenplatecolors) {
+    }
+    
+    protected virtual void OnReset(Invert.ECS.IEvent e) {
+        var eventData = (EntityEventData)e.Data;
+        this.OnReset(eventData);
+    }
+    
+    protected virtual void OnReset(EntityEventData data) {
     }
 }
 

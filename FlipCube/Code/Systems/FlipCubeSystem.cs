@@ -59,8 +59,11 @@ public class FlipCubeSystem : FlipCubeSystemBase
         {
             Destroy(item.gameObject);
         }
-        
-        Application.LoadLevelAdditive(CurrentZone.SceneName);
+
+        LoadLevelAsync(CurrentZone.SceneName, () =>
+        {
+            ZoneSystem.SignalEnteredZone(Game, new ZoneEventData());
+        });
     }
 
     protected override void HandleNextLevel(EntityEventData data)
@@ -87,8 +90,16 @@ public class FlipCubeSystem : FlipCubeSystemBase
             Destroy(item.gameObject);
         }
         CurrentLevel = data.LevelData;
-        Application.LoadLevelAdditive(CurrentLevel.SceneName);
+        //Application.LoadLevelAdditive(CurrentLevel.SceneName);
         
+        LoadLevelAsync(CurrentLevel.SceneName, () =>
+        {
+            LevelSystem.SignalEnteredLevel(Game, new LevelEventData()
+            {
+                
+            });
+        });
+
     }
 
     protected override void BackToZone(IEvent e)
@@ -105,7 +116,6 @@ public class FlipCubeSystem : FlipCubeSystemBase
         base.HandleEnterLevelOnEnter(data, enterlevelonenter);
         LevelSystem.SignalEnterLevel(Game, new EnterLevelEventData()
         {
-    
             LevelData = enterlevelonenter.Level
         });
   
