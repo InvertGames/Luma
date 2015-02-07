@@ -36,6 +36,12 @@ public class RollableBase : Invert.ECS.Unity.UnityComponent, IRollable {
     [UnityEngine.SerializeField()]
     private Vector3 _StartingPosition;
     
+    public RollableAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
     public virtual Single RollSpeed {
         get {
             return _RollSpeed;
@@ -105,6 +111,12 @@ public class CubeBase : Invert.ECS.Unity.UnityComponent, ICube {
     [UnityEngine.SerializeField()]
     private Boolean _IsSelected;
     
+    public CubeAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
     public virtual Boolean IsSelected {
         get {
             return _IsSelected;
@@ -136,6 +148,12 @@ public class MoveDirectionOnEnterBase : Invert.ECS.Unity.UnityComponent, IMoveDi
     
     [UnityEngine.SerializeField()]
     private CubeMoveDirection _MoveDirection;
+    
+    public MoveDirectionOnEnterAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
     
     public virtual Int32 RollableId {
         get {
@@ -176,6 +194,12 @@ public class FollowOnSelectionBase : Invert.ECS.Unity.UnityComponent, IFollowOnS
     [UnityEngine.SerializeField()]
     private Single _Distance;
     
+    public FollowOnSelectionAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
     public virtual Single Distance {
         get {
             return _Distance;
@@ -202,6 +226,12 @@ public class PlateBase : Invert.ECS.Unity.UnityComponent, IPlate {
     [UnityEngine.SerializeField()]
     private PlateAsset _Asset;
     
+    public PlateAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
     public override void Awake() {
         if (_Asset != null) {
             EntityId = _Asset.EntityId;
@@ -220,6 +250,12 @@ public class TeliporterBase : Invert.ECS.Unity.UnityComponent, ITeliporter {
     
     [UnityEngine.SerializeField()]
     private Int32 _PlateId;
+    
+    public TeliporterAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
     
     public virtual Int32 PlateId {
         get {
@@ -247,6 +283,12 @@ public class TeliportableBase : Invert.ECS.Unity.UnityComponent, ITeliportable {
     [UnityEngine.SerializeField()]
     private TeliportableAsset _Asset;
     
+    public TeliportableAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
     public override void Awake() {
         if (_Asset != null) {
             EntityId = _Asset.EntityId;
@@ -263,6 +305,12 @@ public class TeliporterTargetBase : Invert.ECS.Unity.UnityComponent, ITeliporter
     [UnityEngine.SerializeField()]
     private TeliporterTargetAsset _Asset;
     
+    public TeliporterTargetAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
     public override void Awake() {
         if (_Asset != null) {
             EntityId = _Asset.EntityId;
@@ -278,6 +326,12 @@ public class GoalPlateBase : Invert.ECS.Unity.UnityComponent, IGoalPlate {
     
     [UnityEngine.SerializeField()]
     private GoalPlateAsset _Asset;
+    
+    public GoalPlateAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
     
     public override void Awake() {
         if (_Asset != null) {
@@ -297,6 +351,12 @@ public class SwitchPlateTriggerBase : Invert.ECS.Unity.UnityComponent, ISwitchPl
     
     [UnityEngine.SerializeField()]
     private Int32[] _Targets;
+    
+    public SwitchPlateTriggerAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
     
     public virtual Int32[] Targets {
         get {
@@ -324,6 +384,12 @@ public class TurnGravityOnEnterBase : Invert.ECS.Unity.UnityComponent, ITurnGrav
     [UnityEngine.SerializeField()]
     private TurnGravityOnEnterAsset _Asset;
     
+    public TurnGravityOnEnterAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
     public override void Awake() {
         if (_Asset != null) {
             EntityId = _Asset.EntityId;
@@ -338,6 +404,12 @@ public class DisableColliderOnCollisionBase : Invert.ECS.Unity.UnityComponent, I
     
     [UnityEngine.SerializeField()]
     private DisableColliderOnCollisionAsset _Asset;
+    
+    public DisableColliderOnCollisionAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
     
     public override void Awake() {
         if (_Asset != null) {
@@ -363,6 +435,12 @@ public class SwitchPlateTargetBase : Invert.ECS.Unity.UnityComponent, ISwitchPla
     
     [UnityEngine.SerializeField()]
     private Boolean _StartOn;
+    
+    public SwitchPlateTargetAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
     
     public virtual SwitchPlatePivot PivotPoint {
         get {
@@ -413,6 +491,12 @@ public class MoveLeftOnLeaveBase : Invert.ECS.Unity.UnityComponent, IMoveLeftOnL
     [UnityEngine.SerializeField()]
     private Vector3 _Offset;
     
+    public MoveLeftOnLeaveAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
     public virtual Vector3 Offset {
         get {
             return _Offset;
@@ -441,6 +525,12 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel {
     
     [UnityEngine.SerializeField()]
     private String _SceneName;
+    
+    public LevelAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
     
     public virtual String SceneName {
         get {
@@ -471,6 +561,12 @@ public class NotifyOnEnterBase : Invert.ECS.Unity.UnityComponent, INotifyOnEnter
     [UnityEngine.SerializeField()]
     private String _Message;
     
+    public NotifyOnEnterAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
     public virtual String Message {
         get {
             return _Message;
@@ -497,6 +593,12 @@ public class BasicGameBase : Invert.ECS.Unity.UnityComponent, IBasicGame {
     [UnityEngine.SerializeField()]
     private BasicGameAsset _Asset;
     
+    public BasicGameAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
     public override void Awake() {
         if (_Asset != null) {
             EntityId = _Asset.EntityId;
@@ -515,6 +617,12 @@ public class EnterLevelOnEnterBase : Invert.ECS.Unity.UnityComponent, IEnterLeve
     
     [UnityEngine.SerializeField()]
     private String _SceneName;
+    
+    public EnterLevelOnEnterAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
     
     public virtual String SceneName {
         get {
@@ -553,6 +661,12 @@ public class TweenPlateColorsBase : Invert.ECS.Unity.UnityComponent, ITweenPlate
     
     [UnityEngine.SerializeField()]
     private Boolean _IsOn;
+    
+    public TweenPlateColorsAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
     
     public virtual Color IdleColor {
         get {
@@ -619,6 +733,12 @@ public class PlayerBase : Invert.ECS.Unity.UnityComponent, IPlayer {
     [UnityEngine.SerializeField()]
     private Int32 _Rank;
     
+    public PlayerAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
     public virtual String Name {
         get {
             return _Name;
@@ -668,6 +788,12 @@ public class ScoringBase : Invert.ECS.Unity.UnityComponent, IScoring {
     [UnityEngine.SerializeField()]
     private Int32 _Score;
     
+    public ScoringAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
     public virtual Int32 Score {
         get {
             return _Score;
@@ -699,6 +825,12 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent, IZone {
     
     [UnityEngine.SerializeField()]
     private Int32[] _Levels;
+    
+    public ZoneAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
     
     public virtual String SceneName {
         get {

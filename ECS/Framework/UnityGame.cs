@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,9 +14,11 @@ namespace Invert.ECS.Unity
         private IEventManager _eventManager;
         private readonly LinkedList<ISystem> _systems = new LinkedList<ISystem>();
         public UnitySystem[] _UnitySystems;
+        public string[] _SystemScenes;
+
         public void AddSystems(ISystem[] systems)
         {
-            foreach (var system in systems.OrderBy(p=>p.Priority))
+            foreach (var system in systems.OrderBy(p => p.Priority))
             {
                 _systems.AddLast(system);
             }
@@ -43,51 +46,37 @@ namespace Invert.ECS.Unity
 
         public virtual void System()
         {
-            
+
         }
 
         public virtual void Awake()
         {
             Instance = this;
-            //var systems = new List<ISystem>();
-            //foreach (var item in AppDomain.CurrentDomain.GetAssemblies())
-            //{
-            //    foreach (var type in item.GetTypes())
-            //    {
-            //        if (typeof (SystemBase).IsAssignableFrom(type))
-            //        {
-            //            var instance = Activator.CreateInstance(type) as ISystem;
-            //            systems.Add(instance);
-            //        }
-            //    }
-              
-            //}
-            //AddSystems(systems.ToArray());
-            //if (_UnitySystems != null) 
-            //    AddSystems(_UnitySystems.Cast<ISystem>().ToArray());
-            //foreach (var item in _systems)
-            //{
-            //    //Debug.Log(item.GetType().Name + " Initialized");
-            //    item.Initialize(this);
-            //}
             foreach (var item in _UnitySystems)
             {
-                if (item == null) continue;
                 item.Initialize(this);
             }
         }
-        public virtual void Start()
+        private IEnumerator Start()
         {
-            this.EventManager.SignalEvent(new EventData(FrameworkEvents.Loaded, null));
-        }
+            foreach (var systemScene in _SystemScenes)
+            {
+                AsyncOperation operation = Application.LoadLevelAdditiveAsync(systemScene);
+                while (!operation.isDone)
+                {
+                    yield return new WaitForEndOfFrame();
+                }
 
-        public virtual void Update()
-        {
-            //foreach (var item in _systems)
-            //{
-            //    if (item is UnitySystem) continue;
-            //    item.Update();
-            //}
+            }
+            var asyncSystems = FindObjectsOfType<UnitySystem>();
+            foreach (var s in asyncSystems)
+            {
+                if (_UnitySystems.Contains(s)) continue;
+                Debug.Log(string.Format("Loaded {0} system", s.name));
+                s.Initialize(this);
+            }
+            yield return new WaitForEndOfFrame();
+            this.EventManager.SignalEvent(new EventData(FrameworkEvents.Loaded, null));
         }
     }
 }

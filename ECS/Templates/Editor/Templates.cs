@@ -235,6 +235,16 @@ namespace Invert.ECS
             }
             
         }
+        [TemplateProperty(MemberGeneratorLocation.DesignerFile)]
+        public ComponentAsset Asset
+        {
+            get
+            {
+                Ctx.SetType(string.Format("{0}Asset", Ctx.Data.Name));
+                Ctx._("return _Asset");
+                return null;
+            }
+        }
         [TemplateMethod(MemberGeneratorLocation.DesignerFile)]
         public void Awake()
         {

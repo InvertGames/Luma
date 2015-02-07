@@ -31,7 +31,6 @@ public class CubeGravitySystem : CubeGravitySystemBase
                     PlateId = over[0].collider.GetComponent<EntityComponent>().EntityId
                 });
             }
-
         }
         else
         {

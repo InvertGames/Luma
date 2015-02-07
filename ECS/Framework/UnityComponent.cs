@@ -26,6 +26,13 @@ namespace Invert.ECS.Unity
                 var entityId = GetComponent<EntityComponent>();
                 EntityId = entityId.EntityId;
             }
+            var game = UnityGame.Instance;
+            if (game != null)
+            {
+
+                game.ComponentSystem.RegisterComponentInstance(this.GetType(), this);
+                _registered = true;
+            }
         }
         private bool _registered;
         public void OnEnable()
@@ -49,6 +56,7 @@ namespace Invert.ECS.Unity
             {
                 var game = UnityGame.Instance;
                 game.ComponentSystem.RegisterComponentInstance(this.GetType(), this);
+                _registered = true;
             }
             
         }
@@ -69,7 +77,6 @@ namespace Invert.ECS.Unity
             var game = UnityGame.Instance;
             if (game != null)
             {
-
                 game.ComponentSystem.DestroyComponentInstance(this.GetType(), this);
                 _registered = false;
             }

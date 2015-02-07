@@ -12,12 +12,13 @@ public class FlipCubeSystem : FlipCubeSystemBase
     public ZoneAsset[] _Zones;
 
     private ZoneAsset CurrentZone;
-
     private LevelAsset CurrentLevel;
 
     protected override void Loaded(IEvent e)
     {
         base.Loaded(e);
+        // Tell the rest of the world the game is ready, this might be
+        // delayed in the future in order to load data from a user profile.
         SignalGameReady(new EntityEventData()); 
     }
 
@@ -33,6 +34,11 @@ public class FlipCubeSystem : FlipCubeSystemBase
         
     }
 
+    /// <summary>
+    /// The game needs to reset.  Here we tell every cube to reset its position.  This is standard
+    /// flip cube behaviour :)
+    /// </summary>
+    /// <param name="e"></param>
     protected override void ResetGame(IEvent e)
     {
         base.ResetGame(e);
@@ -45,6 +51,37 @@ public class FlipCubeSystem : FlipCubeSystemBase
         }
     }
 
+    /// <summary>
+    /// When a zone has been entered, this can sometimes be called if starting
+    /// from a zone directly in its scene, the enter zone will be called but not
+    /// have the "CurrentZone" set yet.
+    /// </summary>
+    /// <param name="data"></param>
+    protected override void OnEnteredZone(ZoneEventData data)
+    {
+        base.OnEnteredZone(data);
+        CurrentZone = data.Zone;
+    }
+
+    /// <summary>
+    /// When a level has been entered, make sure we know about it and update the
+    /// currentlevel property.  This assures that when starting from a level it
+    /// is appropriately set in this system.
+    /// </summary>
+    /// <param name="data"></param>
+    protected override void OnEnteredLevel(LevelEventData data)
+    {
+        base.OnEnteredLevel(data);
+        // Double ensure the current level is set
+        CurrentLevel = data.LevelData;
+        // Only happens when we start directly in a level
+        if (CurrentZone == null)
+        CurrentZone = _Zones.FirstOrDefault(p => p.Levels.Contains(data.LevelData));
+    }
+    /// <summary>
+    /// Actually handles moving to a zone.
+    /// </summary>
+    /// <param name="data"></param>
     protected override void HandleEnterZone(ZoneEventData data)
     {
         base.HandleEnterZone(data);
@@ -70,6 +107,10 @@ public class FlipCubeSystem : FlipCubeSystemBase
         });
     }
 
+    /// <summary>
+    /// Actually handles moving to the next level
+    /// </summary>
+    /// <param name="data"></param>
     protected override void HandleNextLevel(EntityEventData data)
     {
         base.HandleNextLevel(data);
@@ -81,7 +122,10 @@ public class FlipCubeSystem : FlipCubeSystemBase
         });
 
     }
-
+    /// <summary>
+    /// Actuall handles moving into a specific level
+    /// </summary>
+    /// <param name="data"></param>
     protected override void HandleEnterLevel(EnterLevelEventData data)
     {
         base.HandleEnterLevel(data);
@@ -106,7 +150,10 @@ public class FlipCubeSystem : FlipCubeSystemBase
         });
 
     }
-
+    /// <summary>
+    /// Navigate back to the current zone.  Usually when you are in a level already
+    /// </summary>
+    /// <param name="e"></param>
     protected override void BackToZone(IEvent e)
     {
         base.BackToZone(e);
@@ -116,6 +163,11 @@ public class FlipCubeSystem : FlipCubeSystemBase
         });
     }
 
+    /// <summary>
+    /// Handles when a "EnterLevelOnEnter" component has been entered "StandingUp"
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="enterlevelonenter"></param>
     protected override void HandleEnterLevelOnEnter(PlateCubeCollsion data, EnterLevelOnEnter enterlevelonenter)
     {
         base.HandleEnterLevelOnEnter(data, enterlevelonenter);

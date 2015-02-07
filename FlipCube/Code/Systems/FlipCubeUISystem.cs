@@ -10,7 +10,9 @@ using UnityEngine.UI;
 public class FlipCubeUISystem : FlipCubeUISystemBase
 {
     public GameObject panel;
-    public Text text;
+    public Text notificationText;
+
+    //public Text text;
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
         panel.SetActive(false);
@@ -19,7 +21,7 @@ public class FlipCubeUISystem : FlipCubeUISystemBase
     protected override void ShowNotification(NotificationData data) {
         base.ShowNotification(data);
         panel.SetActive(true);
-        text.text = data.Message;
+        notificationText.text = data.Message;
         StartCoroutine(Hide());
     }
 

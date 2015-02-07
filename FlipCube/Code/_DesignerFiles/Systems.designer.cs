@@ -848,7 +848,7 @@ public class GoalPlateSystemBase : UnitySystem {
         PlateManager = game.ComponentSystem.RegisterComponent<Plate>();
         GoalPlateManager = game.ComponentSystem.RegisterComponent<GoalPlate>();
         game.EventManager.ListenFor( CubeGravitySystemEvents.RollCompletedStandingUp, RollCompletedStandingUp );
-        game.EventManager.ListenFor( CubeSystemEvents.Reset, Reset );
+        game.EventManager.ListenFor( FlipCubeSystemEvents.ResetGame, ResetGame );
     }
     
     protected virtual void RollCompletedStandingUp(Invert.ECS.IEvent e) {
@@ -856,7 +856,7 @@ public class GoalPlateSystemBase : UnitySystem {
         GravityOnEnter(e);
     }
     
-    protected virtual void Reset(Invert.ECS.IEvent e) {
+    protected virtual void ResetGame(Invert.ECS.IEvent e) {
     }
     
     protected virtual void OnGoalPlate(Invert.ECS.IEvent e) {
@@ -1175,6 +1175,8 @@ public class FlipCubeSystemBase : UnitySystem {
         game.EventManager.ListenFor( PlateSystemEvents.GoalPlateHit, GoalPlateHit );
         game.EventManager.ListenFor( FlipCubeSystemEvents.NextLevel, NextLevel );
         game.EventManager.ListenFor( FlipCubeSystemEvents.BackToZone, BackToZone );
+        game.EventManager.ListenFor( ZoneSystemEvents.EnteredZone, EnteredZone );
+        game.EventManager.ListenFor( LevelSystemEvents.EnteredLevel, EnteredLevel );
     }
     
     protected virtual void EnterZone(Invert.ECS.IEvent e) {
@@ -1211,6 +1213,14 @@ public class FlipCubeSystemBase : UnitySystem {
     protected virtual void BackToZone(Invert.ECS.IEvent e) {
     }
     
+    protected virtual void EnteredZone(Invert.ECS.IEvent e) {
+        OnEnteredZone(e);
+    }
+    
+    protected virtual void EnteredLevel(Invert.ECS.IEvent e) {
+        OnEnteredLevel(e);
+    }
+    
     protected virtual void HandleEnterZone(Invert.ECS.IEvent e) {
         var eventData = (ZoneEventData)e.Data;
         this.HandleEnterZone(eventData);
@@ -1245,6 +1255,22 @@ public class FlipCubeSystemBase : UnitySystem {
     }
     
     protected virtual void HandleNextLevel(EntityEventData data) {
+    }
+    
+    protected virtual void OnEnteredZone(Invert.ECS.IEvent e) {
+        var eventData = (ZoneEventData)e.Data;
+        this.OnEnteredZone(eventData);
+    }
+    
+    protected virtual void OnEnteredZone(ZoneEventData data) {
+    }
+    
+    protected virtual void OnEnteredLevel(Invert.ECS.IEvent e) {
+        var eventData = (LevelEventData)e.Data;
+        this.OnEnteredLevel(eventData);
+    }
+    
+    protected virtual void OnEnteredLevel(LevelEventData data) {
     }
     
     public virtual void SignalGameReady(EntityEventData data) {

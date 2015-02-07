@@ -7,9 +7,9 @@ using UnityEngine;
 
 
 public class GoalPlateSystem : GoalPlateSystemBase {
-    protected override void Reset(IEvent e)
+    protected override void ResetGame(IEvent e)
     {
-        base.Reset(e);
+        base.ResetGame(e);
         foreach (var plate in GoalPlateManager.Components)
         {
             plate.GetComponent<BoxCollider>().enabled = true;
