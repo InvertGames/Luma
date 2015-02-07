@@ -52,7 +52,13 @@ public interface IRollable {
 public interface ICube {
     
     
+    
     Boolean IsSelected {
+        get;
+        set;
+    }
+    
+    Int32 Properties {
         get;
         set;
     }
@@ -143,6 +149,21 @@ public interface IMoveLeftOnLeave {
     
     
     Vector3 Offset {
+        get;
+        set;
+    }
+}
+
+public interface ITransporterPlate {
+    
+    
+    
+    Vector3 MoveOffset {
+        get;
+        set;
+    }
+    
+    Boolean IsOn {
         get;
         set;
     }

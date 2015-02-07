@@ -84,12 +84,24 @@ public partial class CubeAsset : Invert.ECS.ComponentAsset {
     [UnityEngine.SerializeField()]
     private Boolean _IsSelected;
     
+    [UnityEngine.SerializeField()]
+    private Int32 _Properties;
+    
     public virtual Boolean IsSelected {
         get {
             return _IsSelected;
         }
         set {
             _IsSelected = value;
+        }
+    }
+    
+    public virtual Int32 Properties {
+        get {
+            return _Properties;
+        }
+        set {
+            _Properties = value;
         }
     }
 }
@@ -234,6 +246,33 @@ public partial class MoveLeftOnLeaveAsset : Invert.ECS.ComponentAsset {
         }
         set {
             _Offset = value;
+        }
+    }
+}
+
+public partial class TransporterPlateAsset : Invert.ECS.ComponentAsset {
+    
+    [UnityEngine.SerializeField()]
+    private Vector3 _MoveOffset;
+    
+    [UnityEngine.SerializeField()]
+    private Boolean _IsOn;
+    
+    public virtual Vector3 MoveOffset {
+        get {
+            return _MoveOffset;
+        }
+        set {
+            _MoveOffset = value;
+        }
+    }
+    
+    public virtual Boolean IsOn {
+        get {
+            return _IsOn;
+        }
+        set {
+            _IsOn = value;
         }
     }
 }

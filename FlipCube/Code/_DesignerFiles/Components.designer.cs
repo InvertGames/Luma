@@ -111,6 +111,9 @@ public class CubeBase : Invert.ECS.Unity.UnityComponent, ICube {
     [UnityEngine.SerializeField()]
     private Boolean _IsSelected;
     
+    [UnityEngine.SerializeField()]
+    private Int32 _Properties;
+    
     public CubeAsset Asset {
         get {
             return _Asset;
@@ -126,9 +129,19 @@ public class CubeBase : Invert.ECS.Unity.UnityComponent, ICube {
         }
     }
     
+    public virtual Int32 Properties {
+        get {
+            return _Properties;
+        }
+        set {
+            _Properties = value;
+        }
+    }
+    
     public override void Awake() {
         if (_Asset != null) {
             IsSelected = _Asset.IsSelected;
+            Properties = _Asset.Properties;
             EntityId = _Asset.EntityId;
         }
     }
@@ -516,6 +529,54 @@ public class MoveLeftOnLeaveBase : Invert.ECS.Unity.UnityComponent, IMoveLeftOnL
 
 [UnityEngine.AddComponentMenu("ShiftingPlate/MoveLeftOnLeave")]
 public partial class MoveLeftOnLeave {
+}
+
+public class TransporterPlateBase : Invert.ECS.Unity.UnityComponent, ITransporterPlate {
+    
+    [UnityEngine.SerializeField()]
+    private TransporterPlateAsset _Asset;
+    
+    [UnityEngine.SerializeField()]
+    private Vector3 _MoveOffset;
+    
+    [UnityEngine.SerializeField()]
+    private Boolean _IsOn;
+    
+    public TransporterPlateAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
+    public virtual Vector3 MoveOffset {
+        get {
+            return _MoveOffset;
+        }
+        set {
+            _MoveOffset = value;
+        }
+    }
+    
+    public virtual Boolean IsOn {
+        get {
+            return _IsOn;
+        }
+        set {
+            _IsOn = value;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            MoveOffset = _Asset.MoveOffset;
+            IsOn = _Asset.IsOn;
+            EntityId = _Asset.EntityId;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("ShiftingPlate/TransporterPlate")]
+public partial class TransporterPlate {
 }
 
 public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel {

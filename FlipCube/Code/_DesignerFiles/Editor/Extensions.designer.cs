@@ -127,6 +127,14 @@ public class MoveLeftOnLeaveMenuItems : object {
     }
 }
 
+public class TransporterPlateMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/Create/Plates/TransporterPlate", false)]
+    public static void CreateTransporterPlate() {
+        uFrameMenu.CreateAsset<TransporterPlateAsset>();
+    }
+}
+
 public class LevelMenuItems : object {
     
     [UnityEditor.MenuItem("Assets/Create/Levels/Level", false)]

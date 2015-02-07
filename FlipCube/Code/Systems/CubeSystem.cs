@@ -36,9 +36,9 @@ public class CubeSystem : CubeSystemBase {
         cube.StopAllCoroutines();
         
         cube.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        cube.transform.position = new Vector3(targetPosition.x, 15f, targetPosition.z);
+        cube.transform.position = new Vector3(targetPosition.x, targetPosition.y + 15f, targetPosition.z);
         cube.IsRolling = true;
-        cube.transform.positionTo(1f, new Vector3(targetPosition.x, 1f, targetPosition.z)).setOnCompleteHandler((s) =>
+        cube.transform.positionTo(1f, new Vector3(targetPosition.x, targetPosition.y + 1f, targetPosition.z)).setOnCompleteHandler((s) =>
         {
             cube.IsRolling = false;
         });

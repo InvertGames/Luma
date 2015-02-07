@@ -765,7 +765,20 @@ public class SwitchPlateSystemBase : UnitySystem {
 
 public class ShiftingPlateBase : UnitySystem {
     
+    private ComponentManager<Cube> _CubeManager;
+    
     private ComponentManager<MoveLeftOnLeave> _MoveLeftOnLeaveManager;
+    
+    private ComponentManager<TransporterPlate> _TransporterPlateManager;
+    
+    public ComponentManager<Cube> CubeManager {
+        get {
+            return _CubeManager;
+        }
+        set {
+            _CubeManager = value;
+        }
+    }
     
     public ComponentManager<MoveLeftOnLeave> MoveLeftOnLeaveManager {
         get {
@@ -776,12 +789,24 @@ public class ShiftingPlateBase : UnitySystem {
         }
     }
     
+    public ComponentManager<TransporterPlate> TransporterPlateManager {
+        get {
+            return _TransporterPlateManager;
+        }
+        set {
+            _TransporterPlateManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
+        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
         MoveLeftOnLeaveManager = game.ComponentSystem.RegisterComponent<MoveLeftOnLeave>();
+        TransporterPlateManager = game.ComponentSystem.RegisterComponent<TransporterPlate>();
         game.EventManager.ListenFor( PlateSystemEvents.CubeLeft, CubeLeft );
         game.EventManager.ListenFor( PlateSystemEvents.CubeEntered, CubeEntered );
         game.EventManager.ListenFor( CubeSystemEvents.RollBegin, RollBegin );
+        game.EventManager.ListenFor( CubeGravitySystemEvents.RollCompletedStandingUp, RollCompletedStandingUp );
     }
     
     protected virtual void CubeLeft(Invert.ECS.IEvent e) {
@@ -794,6 +819,10 @@ public class ShiftingPlateBase : UnitySystem {
     protected virtual void RollBegin(Invert.ECS.IEvent e) {
     }
     
+    protected virtual void RollCompletedStandingUp(Invert.ECS.IEvent e) {
+        OnRollCompleted(e);
+    }
+    
     protected virtual void OnCubeLeave(Invert.ECS.IEvent e) {
         var eventData = (PlateCubeCollsion)e.Data;
         MoveLeftOnLeave moveleftonleave;
@@ -804,6 +833,22 @@ public class ShiftingPlateBase : UnitySystem {
     }
     
     protected virtual void OnCubeLeave(PlateCubeCollsion data, MoveLeftOnLeave moveleftonleave) {
+    }
+    
+    protected virtual void OnRollCompleted(Invert.ECS.IEvent e) {
+        var eventData = (PlateCubeCollsion)e.Data;
+        Cube cube;
+        if (!Game.ComponentSystem.TryGetComponent<Cube>(eventData.CubeId, out cube)) {
+            return;
+        }
+        TransporterPlate transporterplate;
+        if (!Game.ComponentSystem.TryGetComponent<TransporterPlate>(eventData.PlateId, out transporterplate)) {
+            return;
+        }
+        this.OnRollCompleted(eventData, cube, transporterplate);
+    }
+    
+    protected virtual void OnRollCompleted(PlateCubeCollsion data, Cube cube, TransporterPlate transporterplate) {
     }
 }
 
