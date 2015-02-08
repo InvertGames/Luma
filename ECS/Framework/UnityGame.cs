@@ -15,6 +15,7 @@ namespace Invert.ECS.Unity
         private readonly LinkedList<ISystem> _systems = new LinkedList<ISystem>();
         public UnitySystem[] _UnitySystems;
         public string[] _SystemScenes;
+        private IEntityManager _entityManager;
 
         public void AddSystems(ISystem[] systems)
         {
@@ -37,6 +38,12 @@ namespace Invert.ECS.Unity
         {
             get { return _eventManager ?? (_eventManager = new EventManager()); }
             set { _eventManager = value; }
+        }
+
+        public IEntityManager EntityManager
+        {
+            get { return _entityManager ?? (_entityManager = new EntityManager()); }
+            set { _entityManager = value; }
         }
 
         IEventManager IGame.EventManager

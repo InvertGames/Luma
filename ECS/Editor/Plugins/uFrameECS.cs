@@ -53,7 +53,7 @@ namespace Invert.ECS.Graphs
             typeContainer.RegisterInstance(new GraphTypeInfo() {  Group = "",Name="ENTITY", Label = "ENTITY", IsPrimitive = true }, "ENTITY");
             typeContainer.RegisterInstance(new GraphTypeInfo() { Type=typeof(UnityEngine.Color), Group = "",Name="Color", Label = "Color", IsPrimitive = true }, "Color");
             System.AddFlag("Unity System");
-            EventHandler.Name = "Require Components";
+            EventHandler.Name = "Event Handler";
             Systems.HasSubNode<EnumNode>();
             System.HasSubNode<EnumNode>();
 

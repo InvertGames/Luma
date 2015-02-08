@@ -16,7 +16,7 @@ namespace Invert.ECS.Graphs
             get { return this.InputFrom<SystemEventHandlerReference>(); }
         }
 
-        [ReferenceSection("Lookups", SectionVisibility.WhenNodeIsNotFilter, 
+        [ReferenceSection("Required Components", SectionVisibility.WhenNodeIsNotFilter, 
             true, false, typeof(IEventHandlerEntityMapping), true, 
             OrderIndex = 0, HasPredefinedOptions = false,
             AddCommandType = typeof(VariableSelectionCommand<EventHandlerEntityMappingReference>))]

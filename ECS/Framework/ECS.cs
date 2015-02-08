@@ -17,11 +17,18 @@ namespace Invert.ECS
     }
     public interface IEntityManager
     {
-        int GetUniqueEntityId();
+        bool EnsureUniqueEntityId(IEntityComponent component);
         void SpawnEntity();
-
+    }
+    public interface IEntityComponent
+    {
+        int EntityId { get; set; }
     }
 
+    public interface IProxyComponent : IEntityComponent
+    {
+        
+    }
     public enum FrameworkEvents
     {
         ComponentCreated,
@@ -29,9 +36,49 @@ namespace Invert.ECS
         Loaded,
         ComponentDestroyed
     }
-    public class EntityManager
+    public class EntityManager : IEntityManager
     {
+        private Dictionary<int, int> _swap;
+        public int EntityCount { get; set; }
+
+        public Dictionary<int, int> Swap
+        {
+            get { return _swap ?? (_swap = new Dictionary<int, int>()); }
+            set { _swap = value; }
+        }
+        public List<bool> EntityIds { get; set; }
+
         
+        
+
+        /// <summary>
+        /// Return true if the id has been changed, if it has it should have its components updated.
+        /// This should be handled by the entity component.
+        /// </summary>
+        /// <param name="entityComponent"></param>
+        /// <returns></returns>
+        public bool EnsureUniqueEntityId(IEntityComponent entityComponent)
+        {
+            var proxy = entityComponent as IProxyComponent;
+            if (proxy != null)
+            {
+                
+            }
+            else
+            {
+                if (Swap.ContainsKey(entityComponent.EntityId))
+                {
+                    Swap.Add(entityComponent.EntityId, entityComponent.EntityId = EntityCount++);
+                    return true;
+                } // Otherwise just let it use the id it has choosen
+            }
+            return false;
+        }
+
+        public void SpawnEntity()
+        {
+            EntityCount++;
+        }
     }
 
     public abstract class ComponentManager
@@ -97,6 +144,7 @@ namespace Invert.ECS
     {
         IComponentSystem ComponentSystem { get; }
         IEventManager EventManager { get;  }
+        IEntityManager EntityManager { get; }
     }
 
     public interface IComponentSystem
