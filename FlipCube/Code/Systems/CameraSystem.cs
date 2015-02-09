@@ -47,21 +47,17 @@ public class CameraSystem : CameraSystemBase
            
             _delta = (_goal.position - Following.transform.position) * 0.5f;
         }
-        //FollowCamera.transform.position  = Following.transform.position + (Vector3.back * Following.Distance) + (Vector3.up * Following.Distance);
-        //FollowCamera.transform.LookAt(Following.transform);
-
-      
-        //var delta = Vector3.forward;
 
         var between = Following.transform.position + (_delta * 0.2f);
 
         if (Following != null)
         {
             var velocityX = Following.transform.rigidbody.velocity.x;
-            var velocityY = Following.transform.rigidbody.velocity.z;
+            var velocityY = Following.transform.rigidbody.velocity.y;
+            var velocityZ = Following.transform.rigidbody.velocity.z;
             FollowCamera.transform.position = new Vector3(Mathf.SmoothDamp(FollowCamera.transform.position.x, between.x, ref velocityX, smoothTime),
-                FollowCamera.transform.position.y,
-                Mathf.SmoothDamp(FollowCamera.transform.position.z, between.z, ref velocityY, smoothTime));
+                Mathf.SmoothDamp(FollowCamera.transform.position.y, between.y, ref velocityY, smoothTime),
+                Mathf.SmoothDamp(FollowCamera.transform.position.z, between.z, ref velocityZ, smoothTime));
         }
     }
 

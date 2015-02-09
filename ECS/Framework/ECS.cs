@@ -15,6 +15,7 @@ namespace Invert.ECS
         public Vector2 ScreenPoint { get; set; }
 
     }
+    
     public interface IEntityManager
     {
         bool EnsureUniqueEntityId(IEntityComponent component);
@@ -290,6 +291,17 @@ namespace Invert.ECS
 {
     using UnityEngine;
     using Invert.ECS;
+
+    
+    public class ToolbarArgs
+    {
+        public GameObject SelectedObject { get; set; }
+        public KeyCode LastKeyPressed { get; set; }
+        public bool IsReplacement { get; set; }
+        public bool IsShiftKey { get; set; }
+        public bool ShouldAdd { get; set; }
+        public Action AddAction { get; set; }
+    }
 
     public enum UnityEvents
     {

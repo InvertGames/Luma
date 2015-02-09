@@ -680,6 +680,14 @@ public class TeliporterSystemBase : UnitySystem {
     
     protected virtual void HandleCollision(PlateCubeCollsion data, Cube cube, Teliporter teliporter, TeliporterTarget teliportertarget) {
     }
+    
+    public virtual void SignalTeliporting(EntityEventData data) {
+        Game.EventManager.SignalEvent(new EventData(TeliporterSystemEvents.Teliporting,data));
+    }
+    
+    public static void SignalTeliporting(IGame game, EntityEventData data) {
+        game.EventManager.SignalEvent(new EventData(TeliporterSystemEvents.Teliporting,data));
+    }
 }
 
 public class SwitchPlateSystemBase : UnitySystem {
@@ -1453,6 +1461,10 @@ public class SpecialFXSystemBase : UnitySystem {
     
     private ComponentManager<Plate> _PlateManager;
     
+    private ComponentManager<Teliporter> _TeliporterManager;
+    
+    private ComponentManager<GoalPlate> _GoalPlateManager;
+    
     private ComponentManager<TweenPlateColors> _TweenPlateColorsManager;
     
     public ComponentManager<Cube> CubeManager {
@@ -1473,6 +1485,24 @@ public class SpecialFXSystemBase : UnitySystem {
         }
     }
     
+    public ComponentManager<Teliporter> TeliporterManager {
+        get {
+            return _TeliporterManager;
+        }
+        set {
+            _TeliporterManager = value;
+        }
+    }
+    
+    public ComponentManager<GoalPlate> GoalPlateManager {
+        get {
+            return _GoalPlateManager;
+        }
+        set {
+            _GoalPlateManager = value;
+        }
+    }
+    
     public ComponentManager<TweenPlateColors> TweenPlateColorsManager {
         get {
             return _TweenPlateColorsManager;
@@ -1486,12 +1516,17 @@ public class SpecialFXSystemBase : UnitySystem {
         base.Initialize(game);
         CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
         PlateManager = game.ComponentSystem.RegisterComponent<Plate>();
+        TeliporterManager = game.ComponentSystem.RegisterComponent<Teliporter>();
+        GoalPlateManager = game.ComponentSystem.RegisterComponent<GoalPlate>();
         TweenPlateColorsManager = game.ComponentSystem.RegisterComponent<TweenPlateColors>();
         game.EventManager.ListenFor( PlateSystemEvents.CubeEntered, CubeEntered );
         game.EventManager.ListenFor( PlateSystemEvents.CubeLeft, CubeLeft );
         game.EventManager.ListenFor( FrameworkEvents.Loaded, Loaded );
         game.EventManager.ListenFor( LevelSystemEvents.LevelRestart, LevelRestart );
         game.EventManager.ListenFor( FlipCubeSystemEvents.ResetGame, ResetGame );
+        game.EventManager.ListenFor( CubeSystemEvents.Reset, Reset );
+        game.EventManager.ListenFor( PlateSystemEvents.GoalPlateHit, GoalPlateHit );
+        game.EventManager.ListenFor( TeliporterSystemEvents.Teliporting, Teliporting );
     }
     
     protected virtual void CubeEntered(Invert.ECS.IEvent e) {
@@ -1512,6 +1547,18 @@ public class SpecialFXSystemBase : UnitySystem {
     
     protected virtual void ResetGame(Invert.ECS.IEvent e) {
         OnReset(e);
+    }
+    
+    protected virtual void Reset(Invert.ECS.IEvent e) {
+        OnCubeReset(e);
+    }
+    
+    protected virtual void GoalPlateHit(Invert.ECS.IEvent e) {
+        OnGoalPlate(e);
+    }
+    
+    protected virtual void Teliporting(Invert.ECS.IEvent e) {
+        OnTeliporting(e);
     }
     
     protected virtual void OnCubeEntered(Invert.ECS.IEvent e) {
@@ -1568,6 +1615,42 @@ public class SpecialFXSystemBase : UnitySystem {
     }
     
     protected virtual void OnReset(EntityEventData data) {
+    }
+    
+    protected virtual void OnCubeReset(Invert.ECS.IEvent e) {
+        var eventData = (EntityEventData)e.Data;
+        Cube cube;
+        if (!Game.ComponentSystem.TryGetComponent<Cube>(eventData.EntityId, out cube)) {
+            return;
+        }
+        this.OnCubeReset(eventData, cube);
+    }
+    
+    protected virtual void OnCubeReset(EntityEventData data, Cube cube) {
+    }
+    
+    protected virtual void OnGoalPlate(Invert.ECS.IEvent e) {
+        var eventData = (PlateCubeCollsion)e.Data;
+        GoalPlate goalplate;
+        if (!Game.ComponentSystem.TryGetComponent<GoalPlate>(eventData.PlateId, out goalplate)) {
+            return;
+        }
+        this.OnGoalPlate(eventData, goalplate);
+    }
+    
+    protected virtual void OnGoalPlate(PlateCubeCollsion data, GoalPlate goalplate) {
+    }
+    
+    protected virtual void OnTeliporting(Invert.ECS.IEvent e) {
+        var eventData = (EntityEventData)e.Data;
+        Teliporter teliporter;
+        if (!Game.ComponentSystem.TryGetComponent<Teliporter>(eventData.EntityId, out teliporter)) {
+            return;
+        }
+        this.OnTeliporting(eventData, teliporter);
+    }
+    
+    protected virtual void OnTeliporting(EntityEventData data, Teliporter teliporter) {
     }
 }
 

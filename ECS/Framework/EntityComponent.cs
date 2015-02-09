@@ -2,10 +2,11 @@ using UnityEngine;
 
 namespace Invert.ECS.Unity
 {
+    [ExecuteInEditMode]
     public class EntityComponent : MonoBehaviour,IEntityComponent
     {
-
-
+        public ToolboxAsset _Toolbox;
+       
 
         [SerializeField]
         private int _EntityId;

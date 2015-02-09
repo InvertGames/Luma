@@ -11,11 +11,39 @@ public class SpecialFXSystem : SpecialFXSystemBase
 {
 
     public GameObject CubeLandedEffect;
-
-    public override void Initialize(Invert.ECS.IGame game) {
-        base.Initialize(game);
+    public GameObject TeliportingEffect;
+    public GameObject SpawnEffect;
+    public GameObject GoalEffect;
+    protected override void OnGoalPlate(PlateCubeCollsion data, GoalPlate goalplate)
+    {
+        base.OnGoalPlate(data, goalplate);
+        if (GoalEffect != null)
+        {
+            Instantiate(GoalEffect, goalplate.transform.position, Quaternion.identity);
+        }
     }
 
+    protected override void OnCubeReset(EntityEventData data, Cube cube)
+    {
+        base.OnCubeReset(data, cube);
+        Delay(1f, () =>
+        {
+            if (SpawnEffect != null)
+            {
+                Instantiate(SpawnEffect, cube.transform.position, Quaternion.identity);
+            }
+        });
+       
+    }
+
+    protected override void OnTeliporting(EntityEventData data, Teliporter teliporter)
+    {
+        base.OnTeliporting(data, teliporter);
+        if (TeliportingEffect != null)
+        {
+            Instantiate(TeliportingEffect, teliporter.transform.position, Quaternion.identity);
+        }
+    }
 
     protected override void OnReset(EntityEventData data)
     {

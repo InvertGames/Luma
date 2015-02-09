@@ -52,13 +52,7 @@ public interface IRollable {
 public interface ICube {
     
     
-    
     Boolean IsSelected {
-        get;
-        set;
-    }
-    
-    Int32 Properties {
         get;
         set;
     }

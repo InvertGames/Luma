@@ -94,6 +94,8 @@ public enum PlateSystemEvents {
 }
 
 public enum TeliporterSystemEvents {
+    
+    Teliporting,
 }
 
 public enum SwitchPlateSystemEvents {

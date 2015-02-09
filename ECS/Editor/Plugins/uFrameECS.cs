@@ -14,6 +14,12 @@ namespace Invert.ECS.Graphs
     [InitializeOnLoad]
     public class RegisteruFrameECS
     {
+        [UnityEditor.MenuItem("Assets/Create Toolbox",false)]
+        public static void CreateToolboxAsset()
+        {
+            uFrameMenu.CreateAsset<ToolboxAsset>();
+        }
+
         static RegisteruFrameECS()
         {
             InvertApplication.CachedAssemblies.Add(typeof(uFrameECS).Assembly);

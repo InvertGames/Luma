@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 namespace Invert.ECS.Unity
@@ -37,7 +38,10 @@ namespace Invert.ECS.Unity
         private bool _registered;
         public void OnEnable()
         {
-        
+#if (UNITY_EDITOR)
+            if (!Application.isPlaying)
+                return;
+#endif
             if (_registered) return;
             var game = UnityGame.Instance;
             if (game != null)
@@ -52,6 +56,10 @@ namespace Invert.ECS.Unity
 
         public void Start()
         {
+#if (UNITY_EDITOR)
+            if (!Application.isPlaying)
+                return;
+#endif
             if (!_registered)
             {
                 var game = UnityGame.Instance;
@@ -62,6 +70,10 @@ namespace Invert.ECS.Unity
         }
         public void OnDisable()
         {
+#if (UNITY_EDITOR)
+            if (!Application.isPlaying)
+            return;
+#endif
             if (!_registered) return;
             var game = UnityGame.Instance;
             if (game != null)
@@ -73,6 +85,10 @@ namespace Invert.ECS.Unity
 
         public void OnDestroy()
         {
+#if (UNITY_EDITOR)
+            if (!Application.isPlaying)
+                return;
+#endif
             if (!_registered) return;
             var game = UnityGame.Instance;
             if (game != null)

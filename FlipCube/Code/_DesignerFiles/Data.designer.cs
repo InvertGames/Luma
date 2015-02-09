@@ -86,24 +86,12 @@ public class CubeData : ICube {
     [UnityEngine.SerializeField()]
     private Boolean _IsSelected;
     
-    [UnityEngine.SerializeField()]
-    private Int32 _Properties;
-    
     public virtual Boolean IsSelected {
         get {
             return _IsSelected;
         }
         set {
             _IsSelected = value;
-        }
-    }
-    
-    public virtual Int32 Properties {
-        get {
-            return _Properties;
-        }
-        set {
-            _Properties = value;
         }
     }
 }
