@@ -81,7 +81,8 @@ public class CubeSystem : CubeSystemBase {
     public override void Update()
     {
         base.Update();
-        foreach (var component in Game.ComponentSystem.GetAllComponents<Rollable>())
+        if (RollableManager == null) return;
+        foreach (var component in RollableManager.Components)
         {
             CalculatePositions(component);
         }
