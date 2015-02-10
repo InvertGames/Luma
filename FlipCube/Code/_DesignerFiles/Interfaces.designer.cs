@@ -88,7 +88,7 @@ public interface IPlate {
 public interface ITeliporter {
     
     
-    Int32 PlateId {
+    PlateRegister Register {
         get;
         set;
     }
@@ -98,6 +98,12 @@ public interface ITeliportable {
 }
 
 public interface ITeliporterTarget {
+    
+    
+    PlateRegister Register {
+        get;
+        set;
+    }
 }
 
 public interface IGoalPlate {
@@ -106,7 +112,7 @@ public interface IGoalPlate {
 public interface ISwitchPlateTrigger {
     
     
-    Int32[] Targets {
+    PlateRegister Register {
         get;
         set;
     }
@@ -123,6 +129,7 @@ public interface ISwitchPlateTarget {
     
     
     
+    
     SwitchPlatePivot PivotPoint {
         get;
         set;
@@ -134,6 +141,11 @@ public interface ISwitchPlateTarget {
     }
     
     Boolean StartOn {
+        get;
+        set;
+    }
+    
+    PlateRegister Register {
         get;
         set;
     }
@@ -163,10 +175,40 @@ public interface ITransporterPlate {
     }
 }
 
+public interface IDissolvePlate {
+    
+    
+    Boolean IsDissolved {
+        get;
+        set;
+    }
+}
+
+public interface IYingYangPlate {
+    
+    
+    
+    Int32 PlateA {
+        get;
+        set;
+    }
+    
+    Int32 PlateB {
+        get;
+        set;
+    }
+}
+
 public interface ILevel {
     
     
+    
     String SceneName {
+        get;
+        set;
+    }
+    
+    Int32 LevelNumber {
         get;
         set;
     }
@@ -220,6 +262,15 @@ public interface ITweenPlateColors {
     }
 }
 
+public interface IWindow {
+    
+    
+    FlipCubeWindow WindowType {
+        get;
+        set;
+    }
+}
+
 public interface IPlayer {
     
     
@@ -254,7 +305,13 @@ public interface IZone {
     
     
     
+    
     String SceneName {
+        get;
+        set;
+    }
+    
+    String ZoneName {
         get;
         set;
     }

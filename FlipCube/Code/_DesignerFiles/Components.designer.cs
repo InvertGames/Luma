@@ -249,7 +249,7 @@ public class TeliporterBase : Invert.ECS.Unity.UnityComponent, ITeliporter {
     private TeliporterAsset _Asset;
     
     [UnityEngine.SerializeField()]
-    private Int32 _PlateId;
+    private PlateRegister _Register;
     
     public TeliporterAsset Asset {
         get {
@@ -257,18 +257,18 @@ public class TeliporterBase : Invert.ECS.Unity.UnityComponent, ITeliporter {
         }
     }
     
-    public virtual Int32 PlateId {
+    public virtual PlateRegister Register {
         get {
-            return _PlateId;
+            return _Register;
         }
         set {
-            _PlateId = value;
+            _Register = value;
         }
     }
     
     public override void Awake() {
         if (_Asset != null) {
-            PlateId = _Asset.PlateId;
+            Register = _Asset.Register;
             EntityId = _Asset.EntityId;
         }
     }
@@ -305,14 +305,27 @@ public class TeliporterTargetBase : Invert.ECS.Unity.UnityComponent, ITeliporter
     [UnityEngine.SerializeField()]
     private TeliporterTargetAsset _Asset;
     
+    [UnityEngine.SerializeField()]
+    private PlateRegister _Register;
+    
     public TeliporterTargetAsset Asset {
         get {
             return _Asset;
         }
     }
     
+    public virtual PlateRegister Register {
+        get {
+            return _Register;
+        }
+        set {
+            _Register = value;
+        }
+    }
+    
     public override void Awake() {
         if (_Asset != null) {
+            Register = _Asset.Register;
             EntityId = _Asset.EntityId;
         }
     }
@@ -350,7 +363,7 @@ public class SwitchPlateTriggerBase : Invert.ECS.Unity.UnityComponent, ISwitchPl
     private SwitchPlateTriggerAsset _Asset;
     
     [UnityEngine.SerializeField()]
-    private Int32[] _Targets;
+    private PlateRegister _Register;
     
     public SwitchPlateTriggerAsset Asset {
         get {
@@ -358,19 +371,19 @@ public class SwitchPlateTriggerBase : Invert.ECS.Unity.UnityComponent, ISwitchPl
         }
     }
     
-    public virtual Int32[] Targets {
+    public virtual PlateRegister Register {
         get {
-            return _Targets;
+            return _Register;
         }
         set {
-            _Targets = value;
+            _Register = value;
         }
     }
     
     public override void Awake() {
         if (_Asset != null) {
+            Register = _Asset.Register;
             EntityId = _Asset.EntityId;
-            Targets = _Asset.Targets;
         }
     }
 }
@@ -436,6 +449,9 @@ public class SwitchPlateTargetBase : Invert.ECS.Unity.UnityComponent, ISwitchPla
     [UnityEngine.SerializeField()]
     private Boolean _StartOn;
     
+    [UnityEngine.SerializeField()]
+    private PlateRegister _Register;
+    
     public SwitchPlateTargetAsset Asset {
         get {
             return _Asset;
@@ -469,11 +485,21 @@ public class SwitchPlateTargetBase : Invert.ECS.Unity.UnityComponent, ISwitchPla
         }
     }
     
+    public virtual PlateRegister Register {
+        get {
+            return _Register;
+        }
+        set {
+            _Register = value;
+        }
+    }
+    
     public override void Awake() {
         if (_Asset != null) {
             PivotPoint = _Asset.PivotPoint;
             On = _Asset.On;
             StartOn = _Asset.StartOn;
+            Register = _Asset.Register;
             EntityId = _Asset.EntityId;
         }
     }
@@ -566,6 +592,89 @@ public class TransporterPlateBase : Invert.ECS.Unity.UnityComponent, ITransporte
 public partial class TransporterPlate {
 }
 
+public class DissolvePlateBase : Invert.ECS.Unity.UnityComponent, IDissolvePlate {
+    
+    [UnityEngine.SerializeField()]
+    private DissolvePlateAsset _Asset;
+    
+    [UnityEngine.SerializeField()]
+    private Boolean _IsDissolved;
+    
+    public DissolvePlateAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
+    public virtual Boolean IsDissolved {
+        get {
+            return _IsDissolved;
+        }
+        set {
+            _IsDissolved = value;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            IsDissolved = _Asset.IsDissolved;
+            EntityId = _Asset.EntityId;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("DissolvePlateSystem/DissolvePlate")]
+public partial class DissolvePlate {
+}
+
+public class YingYangPlateBase : Invert.ECS.Unity.UnityComponent, IYingYangPlate {
+    
+    [UnityEngine.SerializeField()]
+    private YingYangPlateAsset _Asset;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _PlateA;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _PlateB;
+    
+    public YingYangPlateAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
+    public virtual Int32 PlateA {
+        get {
+            return _PlateA;
+        }
+        set {
+            _PlateA = value;
+        }
+    }
+    
+    public virtual Int32 PlateB {
+        get {
+            return _PlateB;
+        }
+        set {
+            _PlateB = value;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            PlateA = _Asset.PlateA;
+            PlateB = _Asset.PlateB;
+            EntityId = _Asset.EntityId;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("PlateSystem/YingYangPlate")]
+public partial class YingYangPlate {
+}
+
 public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel {
     
     [UnityEngine.SerializeField()]
@@ -573,6 +682,9 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel {
     
     [UnityEngine.SerializeField()]
     private String _SceneName;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _LevelNumber;
     
     public LevelAsset Asset {
         get {
@@ -589,9 +701,19 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel {
         }
     }
     
+    public virtual Int32 LevelNumber {
+        get {
+            return _LevelNumber;
+        }
+        set {
+            _LevelNumber = value;
+        }
+    }
+    
     public override void Awake() {
         if (_Asset != null) {
             SceneName = _Asset.SceneName;
+            LevelNumber = _Asset.LevelNumber;
             EntityId = _Asset.EntityId;
         }
     }
@@ -767,6 +889,41 @@ public class TweenPlateColorsBase : Invert.ECS.Unity.UnityComponent, ITweenPlate
 public partial class TweenPlateColors {
 }
 
+public class WindowBase : Invert.ECS.Unity.UnityComponent, IWindow {
+    
+    [UnityEngine.SerializeField()]
+    private WindowAsset _Asset;
+    
+    [UnityEngine.SerializeField()]
+    private FlipCubeWindow _WindowType;
+    
+    public WindowAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
+    public virtual FlipCubeWindow WindowType {
+        get {
+            return _WindowType;
+        }
+        set {
+            _WindowType = value;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            WindowType = _Asset.WindowType;
+            EntityId = _Asset.EntityId;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("WindowSystem/Window")]
+public partial class Window {
+}
+
 public class PlayerBase : Invert.ECS.Unity.UnityComponent, IPlayer {
     
     [UnityEngine.SerializeField()]
@@ -872,6 +1029,9 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent, IZone {
     private String _SceneName;
     
     [UnityEngine.SerializeField()]
+    private String _ZoneName;
+    
+    [UnityEngine.SerializeField()]
     private Int32[] _Levels;
     
     public ZoneAsset Asset {
@@ -889,6 +1049,15 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent, IZone {
         }
     }
     
+    public virtual String ZoneName {
+        get {
+            return _ZoneName;
+        }
+        set {
+            _ZoneName = value;
+        }
+    }
+    
     public virtual Int32[] Levels {
         get {
             return _Levels;
@@ -901,6 +1070,7 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent, IZone {
     public override void Awake() {
         if (_Asset != null) {
             SceneName = _Asset.SceneName;
+            ZoneName = _Asset.ZoneName;
             EntityId = _Asset.EntityId;
             Levels = _Asset.Levels.Select(p=>p.EntityId).ToArray();
         }

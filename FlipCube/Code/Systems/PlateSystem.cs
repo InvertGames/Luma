@@ -15,23 +15,22 @@ public class PlateSystem : PlateSystemBase
         base.Initialize(game);
     }
 
-
-    
-
-    //protected override void OnGoalPlate(PlateCubeCollsion data, Plate plate, Cube cube, GoalPlate goalplate)
-    //{
-    //    base.OnGoalPlate(data, plate, cube, goalplate);
-    //    //cube.StartCoroutine(WaitForSecondsRoutine(1f, () =>
-    //    //{
-    //    //    SignalGoalPlateHit(new PlateCubeCollsion() { CubeId = cube.EntityId, PlateId = plate.EntityId });
-    //    //    plate.GetComponent<BoxCollider>().enabled = true;
-    //    //}));
-    //}
+    protected override void SplitCube(PlateCubeCollsion data, YingYangPlate yingyangplate, Cube cube, Plate plateA)//, Plate plateB)
+    {
+        base.SplitCube(data, yingyangplate, cube, plateA);//, plateB);
+        CubeSystem.SignalSplitCube(Game, new SplitCubeData()
+        {
+            CubeId = cube.EntityId,
+            TargetPositionA = plateA.transform.position,
+            //TargetPositionB = plateB.transform.position
+        });
+    }
 
     protected override void DisableColliderCollsion(PlateCubeCollsion data, DisableColliderOnCollision disablecollideroncollision)
     {
         base.DisableColliderCollsion(data, disablecollideroncollision);
         disablecollideroncollision.GetComponent<Collider>().enabled = false;
+
     }
 
     public IEnumerator WaitForSecondsRoutine(float seconds, Action action)

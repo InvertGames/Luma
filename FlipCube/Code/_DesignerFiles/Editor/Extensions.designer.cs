@@ -135,6 +135,22 @@ public class TransporterPlateMenuItems : object {
     }
 }
 
+public class DissolvePlateMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/Create/Plates/DissolvePlate", false)]
+    public static void CreateDissolvePlate() {
+        uFrameMenu.CreateAsset<DissolvePlateAsset>();
+    }
+}
+
+public class YingYangPlateMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/Create/Plates/YingYangPlate", false)]
+    public static void CreateYingYangPlate() {
+        uFrameMenu.CreateAsset<YingYangPlateAsset>();
+    }
+}
+
 public class LevelMenuItems : object {
     
     [UnityEditor.MenuItem("Assets/Create/Levels/Level", false)]
@@ -172,6 +188,14 @@ public class TweenPlateColorsMenuItems : object {
     [UnityEditor.MenuItem("Assets/Create/RenameMe/TweenPlateColors", false)]
     public static void CreateTweenPlateColors() {
         uFrameMenu.CreateAsset<TweenPlateColorsAsset>();
+    }
+}
+
+public class WindowMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/Create/UI/Window", false)]
+    public static void CreateWindow() {
+        uFrameMenu.CreateAsset<WindowAsset>();
     }
 }
 

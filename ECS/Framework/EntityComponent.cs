@@ -14,9 +14,21 @@ namespace Invert.ECS.Unity
         public int EntityId
         {
             get { return _EntityId; }
-            set { _EntityId = value; }
+            set
+            {
+                _EntityId = value;
+                
+            }
         }
 
+        public void SetEntityId(int id)
+        {
+            this.EntityId = id;
+            foreach (var item in this.GetComponents<UnityComponent>())
+            {
+                item.EntityId = id;
+            }
+        }
         public void Awake()
         {
             var instance = UnityGame.Instance;

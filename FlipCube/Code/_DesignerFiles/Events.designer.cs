@@ -143,6 +143,42 @@ public class MoveCubeDataBase : object {
     }
 }
 
+public class SplitCubeDataBase : object {
+    
+    private Int32 _CubeId;
+    
+    private Vector3 _TargetPositionA;
+    
+    private Vector3 _TargetPositionB;
+    
+    public Int32 CubeId {
+        get {
+            return _CubeId;
+        }
+        set {
+            _CubeId = value;
+        }
+    }
+    
+    public Vector3 TargetPositionA {
+        get {
+            return _TargetPositionA;
+        }
+        set {
+            _TargetPositionA = value;
+        }
+    }
+    
+    public Vector3 TargetPositionB {
+        get {
+            return _TargetPositionB;
+        }
+        set {
+            _TargetPositionB = value;
+        }
+    }
+}
+
 public class PlateCubeCollsionBase : object {
     
     private Int32 _CubeId;
@@ -195,6 +231,20 @@ public class NotificationDataBase : object {
         }
         set {
             _Message = value;
+        }
+    }
+}
+
+public class WindowEventDataBase : object {
+    
+    private FlipCubeWindow _Window;
+    
+    public FlipCubeWindow Window {
+        get {
+            return _Window;
+        }
+        set {
+            _Window = value;
         }
     }
 }

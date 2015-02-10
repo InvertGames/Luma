@@ -40,6 +40,7 @@ public class CubeSystemBase : UnitySystem {
         game.EventManager.ListenFor( CubeSystemEvents.Reset, Reset );
         game.EventManager.ListenFor( FrameworkEvents.Loaded, Loaded );
         game.EventManager.ListenFor( CubeSystemEvents.MoveTo, MoveTo );
+        game.EventManager.ListenFor( CubeSystemEvents.SplitCube, SplitCube );
     }
     
     protected virtual void L(Invert.ECS.IEvent e) {
@@ -73,6 +74,10 @@ public class CubeSystemBase : UnitySystem {
     
     protected virtual void MoveTo(Invert.ECS.IEvent e) {
         MoveCube(e);
+    }
+    
+    protected virtual void SplitCube(Invert.ECS.IEvent e) {
+        OnSplit(e);
     }
     
     protected virtual void OnLeft(Invert.ECS.IEvent e) {
@@ -147,6 +152,18 @@ public class CubeSystemBase : UnitySystem {
     protected virtual void MoveCube(MoveCubeData data, Rollable rollable) {
     }
     
+    protected virtual void OnSplit(Invert.ECS.IEvent e) {
+        var eventData = (SplitCubeData)e.Data;
+        Rollable rollable;
+        if (!Game.ComponentSystem.TryGetComponent<Rollable>(eventData.CubeId, out rollable)) {
+            return;
+        }
+        this.OnSplit(eventData, rollable);
+    }
+    
+    protected virtual void OnSplit(SplitCubeData data, Rollable rollable) {
+    }
+    
     public virtual void SignalRollBegin(RollEventData data) {
         Game.EventManager.SignalEvent(new EventData(CubeSystemEvents.RollBegin,data));
     }
@@ -163,6 +180,10 @@ public class CubeSystemBase : UnitySystem {
         Game.EventManager.SignalEvent(new EventData(CubeSystemEvents.MoveTo,data));
     }
     
+    public virtual void SignalSplitCube(SplitCubeData data) {
+        Game.EventManager.SignalEvent(new EventData(CubeSystemEvents.SplitCube,data));
+    }
+    
     public static void SignalRollBegin(IGame game, RollEventData data) {
         game.EventManager.SignalEvent(new EventData(CubeSystemEvents.RollBegin,data));
     }
@@ -177,6 +198,10 @@ public class CubeSystemBase : UnitySystem {
     
     public static void SignalMoveTo(IGame game, MoveCubeData data) {
         game.EventManager.SignalEvent(new EventData(CubeSystemEvents.MoveTo,data));
+    }
+    
+    public static void SignalSplitCube(IGame game, SplitCubeData data) {
+        game.EventManager.SignalEvent(new EventData(CubeSystemEvents.SplitCube,data));
     }
 }
 
@@ -436,6 +461,8 @@ public class PlateSystemBase : UnitySystem {
     
     private ComponentManager<DisableColliderOnCollision> _DisableColliderOnCollisionManager;
     
+    private ComponentManager<YingYangPlate> _YingYangPlateManager;
+    
     public ComponentManager<Rollable> RollableManager {
         get {
             return _RollableManager;
@@ -472,12 +499,22 @@ public class PlateSystemBase : UnitySystem {
         }
     }
     
+    public ComponentManager<YingYangPlate> YingYangPlateManager {
+        get {
+            return _YingYangPlateManager;
+        }
+        set {
+            _YingYangPlateManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
         RollableManager = game.ComponentSystem.RegisterComponent<Rollable>();
         CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
         PlateManager = game.ComponentSystem.RegisterComponent<Plate>();
         DisableColliderOnCollisionManager = game.ComponentSystem.RegisterComponent<DisableColliderOnCollision>();
+        YingYangPlateManager = game.ComponentSystem.RegisterComponent<YingYangPlate>();
         game.EventManager.ListenFor( CubeGravitySystemEvents.RollCompletedStandingUp, RollCompletedStandingUp );
         game.EventManager.ListenFor( UnityEvents.CollisionEnter, CollisionEnter );
         game.EventManager.ListenFor( UnityEvents.CollisionExit, CollisionExit );
@@ -485,6 +522,7 @@ public class PlateSystemBase : UnitySystem {
     
     protected virtual void RollCompletedStandingUp(Invert.ECS.IEvent e) {
         DisableColliderCollsion(e);
+        SplitCube(e);
     }
     
     protected virtual void CollisionEnter(Invert.ECS.IEvent e) {
@@ -505,6 +543,26 @@ public class PlateSystemBase : UnitySystem {
     }
     
     protected virtual void DisableColliderCollsion(PlateCubeCollsion data, DisableColliderOnCollision disablecollideroncollision) {
+    }
+    
+    protected virtual void SplitCube(Invert.ECS.IEvent e) {
+        var eventData = (PlateCubeCollsion)e.Data;
+        YingYangPlate yingyangplate;
+        if (!Game.ComponentSystem.TryGetComponent<YingYangPlate>(eventData.PlateId, out yingyangplate)) {
+            return;
+        }
+        Cube cube;
+        if (!Game.ComponentSystem.TryGetComponent<Cube>(eventData.CubeId, out cube)) {
+            return;
+        }
+        Plate plate;
+        if (!Game.ComponentSystem.TryGetComponent<Plate>(yingyangplate.PlateA, out plate)) {
+            return;
+        }
+        this.SplitCube(eventData, yingyangplate, cube, plate);
+    }
+    
+    protected virtual void SplitCube(PlateCubeCollsion data, YingYangPlate yingyangplate, Cube cube, Plate plate) {
     }
     
     protected virtual void PlateEnter(Invert.ECS.IEvent e) {
@@ -671,14 +729,10 @@ public class TeliporterSystemBase : UnitySystem {
         if (!Game.ComponentSystem.TryGetComponent<Teliporter>(eventData.PlateId, out teliporter)) {
             return;
         }
-        TeliporterTarget teliportertarget;
-        if (!Game.ComponentSystem.TryGetComponent<TeliporterTarget>(teliporter.PlateId, out teliportertarget)) {
-            return;
-        }
-        this.HandleCollision(eventData, cube, teliporter, teliportertarget);
+        this.HandleCollision(eventData, cube, teliporter);
     }
     
-    protected virtual void HandleCollision(PlateCubeCollsion data, Cube cube, Teliporter teliporter, TeliporterTarget teliportertarget) {
+    protected virtual void HandleCollision(PlateCubeCollsion data, Cube cube, Teliporter teliporter) {
     }
     
     public virtual void SignalTeliporting(EntityEventData data) {
@@ -736,14 +790,10 @@ public class SwitchPlateSystemBase : UnitySystem {
         if (!Game.ComponentSystem.TryGetComponent<SwitchPlateTrigger>(eventData.PlateId, out switchplatetrigger)) {
             return;
         }
-        SwitchPlateTarget[] switchplatetarget;
-        if (!Game.ComponentSystem.TryGetComponent<SwitchPlateTarget>(switchplatetrigger.Targets, out switchplatetarget)) {
-            return;
-        }
-        this.ActivateSwitchPlate(eventData, switchplatetrigger, switchplatetarget);
+        this.ActivateSwitchPlate(eventData, switchplatetrigger);
     }
     
-    protected virtual void ActivateSwitchPlate(PlateCubeCollsion data, SwitchPlateTrigger switchplatetrigger, SwitchPlateTarget[] switchplatetarget) {
+    protected virtual void ActivateSwitchPlate(PlateCubeCollsion data, SwitchPlateTrigger switchplatetrigger) {
     }
     
     protected virtual void OnReset(Invert.ECS.IEvent e) {
@@ -812,23 +862,20 @@ public class ShiftingPlateBase : UnitySystem {
         MoveLeftOnLeaveManager = game.ComponentSystem.RegisterComponent<MoveLeftOnLeave>();
         TransporterPlateManager = game.ComponentSystem.RegisterComponent<TransporterPlate>();
         game.EventManager.ListenFor( PlateSystemEvents.CubeLeft, CubeLeft );
-        game.EventManager.ListenFor( PlateSystemEvents.CubeEntered, CubeEntered );
-        game.EventManager.ListenFor( CubeSystemEvents.RollBegin, RollBegin );
         game.EventManager.ListenFor( CubeGravitySystemEvents.RollCompletedStandingUp, RollCompletedStandingUp );
+        game.EventManager.ListenFor( FlipCubeSystemEvents.ResetGame, ResetGame );
     }
     
     protected virtual void CubeLeft(Invert.ECS.IEvent e) {
         OnCubeLeave(e);
     }
     
-    protected virtual void CubeEntered(Invert.ECS.IEvent e) {
-    }
-    
-    protected virtual void RollBegin(Invert.ECS.IEvent e) {
-    }
-    
     protected virtual void RollCompletedStandingUp(Invert.ECS.IEvent e) {
         OnRollCompleted(e);
+    }
+    
+    protected virtual void ResetGame(Invert.ECS.IEvent e) {
+        OnReset(e);
     }
     
     protected virtual void OnCubeLeave(Invert.ECS.IEvent e) {
@@ -857,6 +904,14 @@ public class ShiftingPlateBase : UnitySystem {
     }
     
     protected virtual void OnRollCompleted(PlateCubeCollsion data, Cube cube, TransporterPlate transporterplate) {
+    }
+    
+    protected virtual void OnReset(Invert.ECS.IEvent e) {
+        var eventData = (EntityEventData)e.Data;
+        this.OnReset(eventData);
+    }
+    
+    protected virtual void OnReset(EntityEventData data) {
     }
 }
 
@@ -950,6 +1005,55 @@ public class GoalPlateSystemBase : UnitySystem {
     }
     
     protected virtual void GravityOnEnter(PlateCubeCollsion data, TurnGravityOnEnter turngravityonenter, Cube cube) {
+    }
+}
+
+public class DissolvePlateSystemBase : UnitySystem {
+    
+    private ComponentManager<DissolvePlate> _DissolvePlateManager;
+    
+    public ComponentManager<DissolvePlate> DissolvePlateManager {
+        get {
+            return _DissolvePlateManager;
+        }
+        set {
+            _DissolvePlateManager = value;
+        }
+    }
+    
+    public override void Initialize(Invert.ECS.IGame game) {
+        base.Initialize(game);
+        DissolvePlateManager = game.ComponentSystem.RegisterComponent<DissolvePlate>();
+        game.EventManager.ListenFor( PlateSystemEvents.CubeLeft, CubeLeft );
+        game.EventManager.ListenFor( FlipCubeSystemEvents.ResetGame, ResetGame );
+    }
+    
+    protected virtual void CubeLeft(Invert.ECS.IEvent e) {
+        OnDissolve(e);
+    }
+    
+    protected virtual void ResetGame(Invert.ECS.IEvent e) {
+        OnReset(e);
+    }
+    
+    protected virtual void OnDissolve(Invert.ECS.IEvent e) {
+        var eventData = (PlateCubeCollsion)e.Data;
+        DissolvePlate dissolveplate;
+        if (!Game.ComponentSystem.TryGetComponent<DissolvePlate>(eventData.PlateId, out dissolveplate)) {
+            return;
+        }
+        this.OnDissolve(eventData, dissolveplate);
+    }
+    
+    protected virtual void OnDissolve(PlateCubeCollsion data, DissolvePlate dissolveplate) {
+    }
+    
+    protected virtual void OnReset(Invert.ECS.IEvent e) {
+        var eventData = (EntityEventData)e.Data;
+        this.OnReset(eventData);
+    }
+    
+    protected virtual void OnReset(EntityEventData data) {
     }
 }
 
@@ -1852,10 +1956,30 @@ public class FlipCubeUISystemBase : UnitySystem {
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
         game.EventManager.ListenFor( NotificationSystemEvents.Display, Display );
+        game.EventManager.ListenFor( FrameworkEvents.LoadingProgress, LoadingProgress );
+        game.EventManager.ListenFor( FlipCubeSystemEvents.GameReady, GameReady );
+        game.EventManager.ListenFor( LevelSystemEvents.EnteredLevel, EnteredLevel );
+        game.EventManager.ListenFor( ZoneSystemEvents.EnteredZone, EnteredZone );
     }
     
     protected virtual void Display(Invert.ECS.IEvent e) {
         ShowNotification(e);
+    }
+    
+    protected virtual void LoadingProgress(Invert.ECS.IEvent e) {
+        OnLoadingProgress(e);
+    }
+    
+    protected virtual void GameReady(Invert.ECS.IEvent e) {
+        OnGameReady(e);
+    }
+    
+    protected virtual void EnteredLevel(Invert.ECS.IEvent e) {
+        OnLevelEntered(e);
+    }
+    
+    protected virtual void EnteredZone(Invert.ECS.IEvent e) {
+        OnZoneEntered(e);
     }
     
     protected virtual void ShowNotification(Invert.ECS.IEvent e) {
@@ -1865,12 +1989,84 @@ public class FlipCubeUISystemBase : UnitySystem {
     
     protected virtual void ShowNotification(NotificationData data) {
     }
+    
+    protected virtual void OnLoadingProgress(Invert.ECS.IEvent e) {
+        var eventData = (LoadingProgressData)e.Data;
+        this.OnLoadingProgress(eventData);
+    }
+    
+    protected virtual void OnLoadingProgress(LoadingProgressData data) {
+    }
+    
+    protected virtual void OnGameReady(Invert.ECS.IEvent e) {
+        var eventData = (EntityEventData)e.Data;
+        this.OnGameReady(eventData);
+    }
+    
+    protected virtual void OnGameReady(EntityEventData data) {
+    }
+    
+    protected virtual void OnLevelEntered(Invert.ECS.IEvent e) {
+        var eventData = (LevelEventData)e.Data;
+        this.OnLevelEntered(eventData);
+    }
+    
+    protected virtual void OnLevelEntered(LevelEventData data) {
+    }
+    
+    protected virtual void OnZoneEntered(Invert.ECS.IEvent e) {
+        var eventData = (ZoneEventData)e.Data;
+        this.OnZoneEntered(eventData);
+    }
+    
+    protected virtual void OnZoneEntered(ZoneEventData data) {
+    }
 }
 
 public class HUDSystemBase : UnitySystem {
     
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
+    }
+}
+
+public class WindowSystemBase : UnitySystem {
+    
+    private ComponentManager<Window> _WindowManager;
+    
+    public ComponentManager<Window> WindowManager {
+        get {
+            return _WindowManager;
+        }
+        set {
+            _WindowManager = value;
+        }
+    }
+    
+    public override void Initialize(Invert.ECS.IGame game) {
+        base.Initialize(game);
+        WindowManager = game.ComponentSystem.RegisterComponent<Window>();
+        game.EventManager.ListenFor( WindowSystemEvents.ShowWindow, ShowWindow );
+    }
+    
+    protected virtual void ShowWindow(Invert.ECS.IEvent e) {
+        HandleShowWindow(e);
+    }
+    
+    protected virtual void HandleShowWindow(Invert.ECS.IEvent e) {
+        var eventData = (WindowEventData)e.Data;
+        this.HandleShowWindow(eventData);
+    }
+    
+    protected virtual void HandleShowWindow(WindowEventData data) {
+    }
+    
+    public virtual void SignalShowWindow(WindowEventData data) {
+        Game.EventManager.SignalEvent(new EventData(WindowSystemEvents.ShowWindow,data));
+    }
+    
+    public static void SignalShowWindow(IGame game, WindowEventData data) {
+        game.EventManager.SignalEvent(new EventData(WindowSystemEvents.ShowWindow,data));
     }
 }
 

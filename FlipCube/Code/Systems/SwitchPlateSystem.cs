@@ -28,15 +28,18 @@ public class SwitchPlateSystem : SwitchPlateSystemBase {
         }
     }
 
-    protected override void ActivateSwitchPlate(PlateCubeCollsion data, SwitchPlateTrigger plateid, SwitchPlateTarget[] targets)
+    protected override void ActivateSwitchPlate(PlateCubeCollsion data, SwitchPlateTrigger switchplatetrigger)
     {
-        base.ActivateSwitchPlate(data, plateid, targets);
-        foreach (var target in targets)
+        base.ActivateSwitchPlate(data, switchplatetrigger);
+        foreach (var target in SwitchPlateTargetManager.Components.Where(p => p.Register == switchplatetrigger.Register))
         {
             target.StartCoroutine(RotateAround(target, 0.2f, !target.On ? 90 : -90));
             target.On = !target.On;
+            
         }
     }
+
+
     public IEnumerator RotateAround(SwitchPlateTarget target, float timeInSeconds, float angle)
     {
 

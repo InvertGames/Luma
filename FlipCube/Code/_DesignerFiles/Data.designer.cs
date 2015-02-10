@@ -148,14 +148,14 @@ public class PlateData : IPlate {
 public class TeliporterData : ITeliporter {
     
     [UnityEngine.SerializeField()]
-    private Int32 _PlateId;
+    private PlateRegister _Register;
     
-    public virtual Int32 PlateId {
+    public virtual PlateRegister Register {
         get {
-            return _PlateId;
+            return _Register;
         }
         set {
-            _PlateId = value;
+            _Register = value;
         }
     }
 }
@@ -166,6 +166,18 @@ public class TeliportableData : ITeliportable {
 
 [System.SerializableAttribute()]
 public class TeliporterTargetData : ITeliporterTarget {
+    
+    [UnityEngine.SerializeField()]
+    private PlateRegister _Register;
+    
+    public virtual PlateRegister Register {
+        get {
+            return _Register;
+        }
+        set {
+            _Register = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
@@ -176,14 +188,14 @@ public class GoalPlateData : IGoalPlate {
 public class SwitchPlateTriggerData : ISwitchPlateTrigger {
     
     [UnityEngine.SerializeField()]
-    private Int32[] _Targets;
+    private PlateRegister _Register;
     
-    public virtual Int32[] Targets {
+    public virtual PlateRegister Register {
         get {
-            return _Targets;
+            return _Register;
         }
         set {
-            _Targets = value;
+            _Register = value;
         }
     }
 }
@@ -207,6 +219,9 @@ public class SwitchPlateTargetData : ISwitchPlateTarget {
     
     [UnityEngine.SerializeField()]
     private Boolean _StartOn;
+    
+    [UnityEngine.SerializeField()]
+    private PlateRegister _Register;
     
     public virtual SwitchPlatePivot PivotPoint {
         get {
@@ -232,6 +247,15 @@ public class SwitchPlateTargetData : ISwitchPlateTarget {
         }
         set {
             _StartOn = value;
+        }
+    }
+    
+    public virtual PlateRegister Register {
+        get {
+            return _Register;
+        }
+        set {
+            _Register = value;
         }
     }
 }
@@ -281,10 +305,57 @@ public class TransporterPlateData : ITransporterPlate {
 }
 
 [System.SerializableAttribute()]
+public class DissolvePlateData : IDissolvePlate {
+    
+    [UnityEngine.SerializeField()]
+    private Boolean _IsDissolved;
+    
+    public virtual Boolean IsDissolved {
+        get {
+            return _IsDissolved;
+        }
+        set {
+            _IsDissolved = value;
+        }
+    }
+}
+
+[System.SerializableAttribute()]
+public class YingYangPlateData : IYingYangPlate {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _PlateA;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _PlateB;
+    
+    public virtual Int32 PlateA {
+        get {
+            return _PlateA;
+        }
+        set {
+            _PlateA = value;
+        }
+    }
+    
+    public virtual Int32 PlateB {
+        get {
+            return _PlateB;
+        }
+        set {
+            _PlateB = value;
+        }
+    }
+}
+
+[System.SerializableAttribute()]
 public class LevelData : ILevel {
     
     [UnityEngine.SerializeField()]
     private String _SceneName;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _LevelNumber;
     
     public virtual String SceneName {
         get {
@@ -292,6 +363,15 @@ public class LevelData : ILevel {
         }
         set {
             _SceneName = value;
+        }
+    }
+    
+    public virtual Int32 LevelNumber {
+        get {
+            return _LevelNumber;
+        }
+        set {
+            _LevelNumber = value;
         }
     }
 }
@@ -385,6 +465,22 @@ public class TweenPlateColorsData : ITweenPlateColors {
 }
 
 [System.SerializableAttribute()]
+public class WindowData : IWindow {
+    
+    [UnityEngine.SerializeField()]
+    private FlipCubeWindow _WindowType;
+    
+    public virtual FlipCubeWindow WindowType {
+        get {
+            return _WindowType;
+        }
+        set {
+            _WindowType = value;
+        }
+    }
+}
+
+[System.SerializableAttribute()]
 public class PlayerData : IPlayer {
     
     [UnityEngine.SerializeField()]
@@ -447,6 +543,9 @@ public class ZoneData : IZone {
     private String _SceneName;
     
     [UnityEngine.SerializeField()]
+    private String _ZoneName;
+    
+    [UnityEngine.SerializeField()]
     private Int32[] _Levels;
     
     public virtual String SceneName {
@@ -455,6 +554,15 @@ public class ZoneData : IZone {
         }
         set {
             _SceneName = value;
+        }
+    }
+    
+    public virtual String ZoneName {
+        get {
+            return _ZoneName;
+        }
+        set {
+            _ZoneName = value;
         }
     }
     

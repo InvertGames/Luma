@@ -33,9 +33,14 @@ namespace Invert.ECS
     public enum FrameworkEvents
     {
         ComponentCreated,
-
+        LoadingProgress,
         Loaded,
         ComponentDestroyed
+    }
+    public class LoadingProgressData
+    {
+        public string Message { get; set; }
+        public float Progress { get; set; }
     }
     public class EntityManager : IEntityManager
     {

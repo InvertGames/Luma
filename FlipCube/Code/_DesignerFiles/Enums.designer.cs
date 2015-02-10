@@ -46,6 +46,42 @@ public enum SwitchPlatePivot {
     Right,
 }
 
+public enum PlateRegister {
+    
+    A,
+    
+    B,
+    
+    C,
+    
+    D,
+    
+    E,
+    
+    F,
+    
+    G,
+    
+    H,
+    
+    I,
+    
+    J,
+}
+
+public enum FlipCubeWindow {
+    
+    Zones,
+    
+    Friends,
+    
+    Profile,
+    
+    Messages,
+    
+    LeaderBoard,
+}
+
 public enum CubeSystemEvents {
     
     RollBegin,
@@ -55,6 +91,8 @@ public enum CubeSystemEvents {
     Reset,
     
     MoveTo,
+    
+    SplitCube,
 }
 
 public enum CubeInputSystemEvents {
@@ -111,6 +149,9 @@ public enum ShiftingPlateEvents {
 public enum GoalPlateSystemEvents {
 }
 
+public enum DissolvePlateSystemEvents {
+}
+
 public enum LevelSystemEvents {
     
     LevelComplete,
@@ -161,6 +202,11 @@ public enum FlipCubeUISystemEvents {
 }
 
 public enum HUDSystemEvents {
+}
+
+public enum WindowSystemEvents {
+    
+    ShowWindow,
 }
 
 public enum XPSystemEvents {

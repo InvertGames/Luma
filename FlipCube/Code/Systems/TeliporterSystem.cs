@@ -9,12 +9,12 @@ using UnityEngine.EventSystems;
 
 // Base class initializes the event listeners.
 public class TeliporterSystem : TeliporterSystemBase {
-    
-    protected override void HandleCollision(PlateCubeCollsion data, Cube cube, Teliporter teliporter, TeliporterTarget targetplate)
+    protected override void HandleCollision(PlateCubeCollsion data, Cube cube, Teliporter teliporter)
     {
-        base.HandleCollision(data, cube, teliporter, targetplate);
-        CubeSystem.SignalMoveTo(Game, new MoveCubeData() { CubeId = cube.EntityId, Position = targetplate.transform.position });
-    }
+        base.HandleCollision(data, cube, teliporter);
+        var targetPlate = TeliporterTargetManager.Components.FirstOrDefault(p => p.Register == teliporter.Register);
 
+        CubeSystem.SignalMoveTo(Game, new MoveCubeData() { CubeId = cube.EntityId, Position = targetPlate.transform.position });
+    }
 
 }

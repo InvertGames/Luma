@@ -11,7 +11,20 @@ public class ShiftingPlate : ShiftingPlateBase {
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
     }
-    
+
+    protected override void OnReset(EntityEventData data)
+    {
+        base.OnReset(data);
+        foreach (var item in TransporterPlateManager.Components)
+        {
+            if (item.IsOn)
+            {
+                item.transform.position -= item.MoveOffset;
+                item.IsOn = false;
+            }
+        }
+    }
+
     protected override void OnCubeLeave(PlateCubeCollsion data, MoveLeftOnLeave plateid) {
         base.OnCubeLeave(data, plateid);
         plateid.transform.positionTo(1f, plateid.Offset, true);

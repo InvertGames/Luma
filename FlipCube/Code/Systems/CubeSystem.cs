@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Invert.ECS;
+using Invert.ECS.Unity;
 using UnityEngine;
 
 
@@ -16,6 +17,35 @@ public class CubeSystem : CubeSystemBase {
             CalculatePositions(item);
         }
         
+    }
+
+    protected override void OnSplit(SplitCubeData data, Rollable rollable)
+    {
+        base.OnSplit(data, rollable);
+        foreach (var item in rollable.gameObject.GetComponents<UnityComponent>())
+        {
+            item.enabled = false;
+        }
+        rollable.GetComponent<BoxCollider>().enabled = false;
+        for (var i = 0; i < rollable.transform.childCount; i++)
+        {
+            var childCube = rollable.transform.GetChild(i);
+            foreach (var item in childCube.GetComponents<UnityComponent>())
+            {
+                item.enabled = true;
+            }
+            childCube.GetComponent<BoxCollider>().enabled = true;
+            SignalMoveTo(new MoveCubeData()
+            {
+                CubeId = rollable.transform.GetChild(0).GetComponent<EntityComponent>().EntityId,
+                Position = data.TargetPositionA,
+            });
+            SignalMoveTo(new MoveCubeData()
+            {
+                CubeId = rollable.transform.GetChild(1).GetComponent<EntityComponent>().EntityId,
+                Position = data.TargetPositionB,
+            });
+        }
     }
 
     protected override void OnReset(EntityEventData data, Rollable component)
@@ -167,17 +197,26 @@ public class CubeSystem : CubeSystemBase {
     protected void CalculatePositions(Rollable roller)
     {
         var transform = roller.transform;
-        roller.BottomBackPosition = roller.RestState == RollerState.StandingUp
-                ? transform.localPosition + Vector3.down + (Vector3.back * 0.5f)
-                : roller.RestState == RollerState.LayingAcross
-                    ? transform.localPosition + (Vector3.down * 0.5f) + (Vector3.back * 0.5f)
-                    : transform.localPosition + (Vector3.down * 0.5f) + Vector3.back;
+        var cubes = roller.transform.childCount;
+        if (cubes == 0) cubes = 1;
 
-        roller.BottomForwardPosition = roller.RestState == RollerState.StandingUp
-                ? transform.localPosition + Vector3.down + (Vector3.forward * 0.5f)
-                : roller.RestState == RollerState.LayingAcross
-                    ? transform.localPosition + (Vector3.down * 0.5f) + (Vector3.forward * 0.5f)
-                    : transform.localPosition + (Vector3.down * 0.5f) + Vector3.forward;
+        if (roller.RestState == RollerState.StandingUp)
+            roller.BottomBackPosition = transform.localPosition + Vector3.down + (Vector3.back*0.5f);
+        else
+        {
+            if (roller.RestState == RollerState.LayingAcross)
+                roller.BottomBackPosition = transform.localPosition + (Vector3.down*0.5f) + (Vector3.back*0.5f);
+            else roller.BottomBackPosition = transform.localPosition + (Vector3.down*0.5f) + Vector3.back;
+        }
+
+        if (roller.RestState == RollerState.StandingUp)
+            roller.BottomForwardPosition = transform.localPosition + Vector3.down + (Vector3.forward*0.5f);
+        else
+        {
+            if (roller.RestState == RollerState.LayingAcross)
+                roller.BottomForwardPosition = transform.localPosition + (Vector3.down*0.5f) + (Vector3.forward*0.5f);
+            else roller.BottomForwardPosition = transform.localPosition + (Vector3.down*0.5f) + Vector3.forward;
+        }
 
         if (roller.RestState == RollerState.StandingUp)
             roller.BottomLeftPosition = transform.localPosition + Vector3.down + (Vector3.left * 0.5f);
@@ -213,68 +252,3 @@ public class CubeSystem : CubeSystemBase {
     }
 
 }
-//public class RollArgs
-//{
-//    public float Angle { get; set; }
-
-//    public Vector3 Axis { get; set; }
-
-//    public Vector3 Center { get; set; }
-
-//    public Quaternion CurrentAngles
-//    {
-//        get;
-//        set;
-//    }
-
-//    public Vector3 CurrentPosition
-//    {
-//        get;
-//        set;
-//    }
-
-//    public Vector3 Direction { get; set; }
-
-//    public Quaternion FutureAngles
-//    {
-//        get;
-//        set;
-//    }
-
-//    public Vector3 FuturePosition
-//    {
-//        get;
-//        set;
-//    }
-
-//    public Vector3 PositionDelta
-//    {
-//        get
-//        {
-//            return FuturePosition - CurrentPosition;
-//        }
-//    }
-
-//    public RollArgs(Vector3 center, Vector3 axis, Vector3 direction, float angle, Vector3 currentPosition, Quaternion currentAngles)
-//    {
-//        Center = center;
-//        Axis = axis;
-//        Direction = direction;
-//        Angle = angle;
-//        CurrentPosition = currentPosition;
-//        CurrentAngles = currentAngles;
-//        RotateAround(center, axis, angle);
-//    }
-
-//    public void RotateAround(Vector3 center, Vector3 axis, float angle)
-//    {
-//        var pos = CurrentPosition;
-//        var rot = Quaternion.AngleAxis(angle, axis); // get the desired rotation
-//        var dir = pos - center; // find current direction relative to center
-//        dir = rot * dir; // rotate the direction
-//        FuturePosition = center + dir; // define new position
-//        // rotate object to keep looking at the center:
-//        var myRot = CurrentAngles;
-//        FutureAngles = CurrentAngles * (Quaternion.Inverse(myRot) * rot * myRot);
-//    }
-//}

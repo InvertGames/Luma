@@ -142,14 +142,14 @@ public partial class PlateAsset : Invert.ECS.ComponentAsset {
 public partial class TeliporterAsset : Invert.ECS.ComponentAsset {
     
     [UnityEngine.SerializeField()]
-    private Int32 _PlateId;
+    private PlateRegister _Register;
     
-    public virtual Int32 PlateId {
+    public virtual PlateRegister Register {
         get {
-            return _PlateId;
+            return _Register;
         }
         set {
-            _PlateId = value;
+            _Register = value;
         }
     }
 }
@@ -158,6 +158,18 @@ public partial class TeliportableAsset : Invert.ECS.ComponentAsset {
 }
 
 public partial class TeliporterTargetAsset : Invert.ECS.ComponentAsset {
+    
+    [UnityEngine.SerializeField()]
+    private PlateRegister _Register;
+    
+    public virtual PlateRegister Register {
+        get {
+            return _Register;
+        }
+        set {
+            _Register = value;
+        }
+    }
 }
 
 public partial class GoalPlateAsset : Invert.ECS.ComponentAsset {
@@ -166,14 +178,14 @@ public partial class GoalPlateAsset : Invert.ECS.ComponentAsset {
 public partial class SwitchPlateTriggerAsset : Invert.ECS.ComponentAsset {
     
     [UnityEngine.SerializeField()]
-    private Int32[] _Targets;
+    private PlateRegister _Register;
     
-    public virtual Int32[] Targets {
+    public virtual PlateRegister Register {
         get {
-            return _Targets;
+            return _Register;
         }
         set {
-            _Targets = value;
+            _Register = value;
         }
     }
 }
@@ -194,6 +206,9 @@ public partial class SwitchPlateTargetAsset : Invert.ECS.ComponentAsset {
     
     [UnityEngine.SerializeField()]
     private Boolean _StartOn;
+    
+    [UnityEngine.SerializeField()]
+    private PlateRegister _Register;
     
     public virtual SwitchPlatePivot PivotPoint {
         get {
@@ -219,6 +234,15 @@ public partial class SwitchPlateTargetAsset : Invert.ECS.ComponentAsset {
         }
         set {
             _StartOn = value;
+        }
+    }
+    
+    public virtual PlateRegister Register {
+        get {
+            return _Register;
+        }
+        set {
+            _Register = value;
         }
     }
 }
@@ -265,10 +289,55 @@ public partial class TransporterPlateAsset : Invert.ECS.ComponentAsset {
     }
 }
 
+public partial class DissolvePlateAsset : Invert.ECS.ComponentAsset {
+    
+    [UnityEngine.SerializeField()]
+    private Boolean _IsDissolved;
+    
+    public virtual Boolean IsDissolved {
+        get {
+            return _IsDissolved;
+        }
+        set {
+            _IsDissolved = value;
+        }
+    }
+}
+
+public partial class YingYangPlateAsset : Invert.ECS.ComponentAsset {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _PlateA;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _PlateB;
+    
+    public virtual Int32 PlateA {
+        get {
+            return _PlateA;
+        }
+        set {
+            _PlateA = value;
+        }
+    }
+    
+    public virtual Int32 PlateB {
+        get {
+            return _PlateB;
+        }
+        set {
+            _PlateB = value;
+        }
+    }
+}
+
 public partial class LevelAsset : Invert.ECS.ComponentAsset {
     
     [UnityEngine.SerializeField()]
     private String _SceneName;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _LevelNumber;
     
     public virtual String SceneName {
         get {
@@ -276,6 +345,15 @@ public partial class LevelAsset : Invert.ECS.ComponentAsset {
         }
         set {
             _SceneName = value;
+        }
+    }
+    
+    public virtual Int32 LevelNumber {
+        get {
+            return _LevelNumber;
+        }
+        set {
+            _LevelNumber = value;
         }
     }
 }
@@ -364,6 +442,21 @@ public partial class TweenPlateColorsAsset : Invert.ECS.ComponentAsset {
     }
 }
 
+public partial class WindowAsset : Invert.ECS.ComponentAsset {
+    
+    [UnityEngine.SerializeField()]
+    private FlipCubeWindow _WindowType;
+    
+    public virtual FlipCubeWindow WindowType {
+        get {
+            return _WindowType;
+        }
+        set {
+            _WindowType = value;
+        }
+    }
+}
+
 public partial class PlayerAsset : Invert.ECS.ComponentAsset {
     
     [UnityEngine.SerializeField()]
@@ -424,6 +517,9 @@ public partial class ZoneAsset : Invert.ECS.ComponentAsset {
     private String _SceneName;
     
     [UnityEngine.SerializeField()]
+    private String _ZoneName;
+    
+    [UnityEngine.SerializeField()]
     private LevelAsset[] _Levels;
     
     public virtual String SceneName {
@@ -432,6 +528,15 @@ public partial class ZoneAsset : Invert.ECS.ComponentAsset {
         }
         set {
             _SceneName = value;
+        }
+    }
+    
+    public virtual String ZoneName {
+        get {
+            return _ZoneName;
+        }
+        set {
+            _ZoneName = value;
         }
     }
     

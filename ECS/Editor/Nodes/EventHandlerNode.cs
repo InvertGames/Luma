@@ -161,6 +161,12 @@ namespace Invert.ECS.Graphs
                 var componentOutput = item.OutputTo<ComponentNode>();
                 if (componentOutput != null)
                 {
+                    //var variableStart = item.Name.Split('.').Last();
+                    //variableStart = variableStart.Substring(0, 1).ToLower() + variableStart.Substring(1);
+                    //if (variableStart.ToLower().EndsWith("id"))
+                    //{
+                    //    variableStart = variableStart.Substring(0, variableStart.Length - 2);
+                    //}
                     var componentVariable = componentOutput.ClassName.ToLower();
                     if (ctx.IsDesignerFile)
                     {

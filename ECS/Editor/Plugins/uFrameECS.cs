@@ -99,6 +99,7 @@ namespace Invert.ECS.Graphs
             var node = CreatePrecompiledNode<SystemNode>("Framework",
                 CreateTypedChild<EventTypeChildItem>( "IComponent", "ComponentCreated"),
                 CreateTypedChild<EventTypeChildItem>( "IComponent", "ComponentDestroyed"),
+                CreateTypedChild<EventTypeChildItem>("LoadingProgressData", "LoadingProgress"),
                 CreateTypedChild<EventTypeChildItem>("ENTITY", "EntityDestroyed"),
                 CreateTypedChild<EventTypeChildItem>("void", "Loaded")
                 );
