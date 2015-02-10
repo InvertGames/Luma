@@ -73,6 +73,9 @@ namespace Invert.ECS.Unity
                 AsyncOperation operation = Application.LoadLevelAdditiveAsync(systemScene);
                 while (!operation.isDone)
                 {
+#if UNITY_EDITOR
+                    yield return new WaitForSeconds(1f);
+#endif
                     yield return new WaitForEndOfFrame();
                 }
             }
@@ -102,6 +105,9 @@ namespace Invert.ECS.Unity
                 AsyncOperation operation = Application.LoadLevelAdditiveAsync(backgroundScene);
                 while (!operation.isDone)
                 {
+#if UNITY_EDITOR
+                    yield return new WaitForSeconds(3f);
+#endif
                     this.SignalProgress("Loading " + backgroundScene, operation.progress);
                     yield return new WaitForEndOfFrame();
                 }

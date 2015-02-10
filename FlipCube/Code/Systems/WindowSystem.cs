@@ -12,7 +12,7 @@ public class WindowSystem : WindowSystemBase {
         var window = WindowManager.Components.FirstOrDefault(p => p.WindowType == data.Window);
         if (window != null)
         {
-            window.gameObject.SetActive(true);
+            window.gameObject.SetActive(!window.gameObject.activeSelf);
         }
     }
 }

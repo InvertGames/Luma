@@ -31,7 +31,10 @@ public class FlipCubeUISystem : FlipCubeUISystemBase
         _LoadingPanel.SetActive(true);
         zonesButton.onClick.AddListener(() =>
         {
-            _ZonePanel.SetActive(!_ZonePanel.activeSelf);
+            WindowSystem.SignalShowWindow(Game, new WindowEventData()
+            {
+                Window = FlipCubeWindow.Zones
+            });
         });
     }
 
