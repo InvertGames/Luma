@@ -23,6 +23,7 @@ public interface IRollable {
     
     
     
+    
     Single RollSpeed {
         get;
         set;
@@ -44,6 +45,11 @@ public interface IRollable {
     }
     
     Vector3 StartingPosition {
+        get;
+        set;
+    }
+    
+    Boolean IsSplit {
         get;
         set;
     }
@@ -187,13 +193,7 @@ public interface IDissolvePlate {
 public interface IYingYangPlate {
     
     
-    
-    Int32 PlateA {
-        get;
-        set;
-    }
-    
-    Int32 PlateB {
+    Int32[] TargetPlates {
         get;
         set;
     }
@@ -269,6 +269,15 @@ public interface IWindow {
         get;
         set;
     }
+}
+
+public interface ICloseWindowOnClick {
+}
+
+public interface IZonesWindow {
+}
+
+public interface IFriendsWindow {
 }
 
 public interface IPlayer {

@@ -199,6 +199,30 @@ public class WindowMenuItems : object {
     }
 }
 
+public class CloseWindowOnClickMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/Create/UI/CloseWindowOnClick", false)]
+    public static void CreateCloseWindowOnClick() {
+        uFrameMenu.CreateAsset<CloseWindowOnClickAsset>();
+    }
+}
+
+public class ZonesWindowMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/Create/UI/ZonesWindow", false)]
+    public static void CreateZonesWindow() {
+        uFrameMenu.CreateAsset<ZonesWindowAsset>();
+    }
+}
+
+public class FriendsWindowMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/Create/UI/FriendsWindow", false)]
+    public static void CreateFriendsWindow() {
+        uFrameMenu.CreateAsset<FriendsWindowAsset>();
+    }
+}
+
 public class PlayerMenuItems : object {
     
     [UnityEditor.MenuItem("Assets/Create/RenameMe/Player", false)]

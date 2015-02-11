@@ -179,6 +179,42 @@ public class SplitCubeDataBase : object {
     }
 }
 
+public class CubeInteractionDataBase : object {
+    
+    private Int32 _CubeA;
+    
+    private Int32 _CubeB;
+    
+    private CubeMoveDirection _ToThe;
+    
+    public Int32 CubeA {
+        get {
+            return _CubeA;
+        }
+        set {
+            _CubeA = value;
+        }
+    }
+    
+    public Int32 CubeB {
+        get {
+            return _CubeB;
+        }
+        set {
+            _CubeB = value;
+        }
+    }
+    
+    public CubeMoveDirection ToThe {
+        get {
+            return _ToThe;
+        }
+        set {
+            _ToThe = value;
+        }
+    }
+}
+
 public class PlateCubeCollsionBase : object {
     
     private Int32 _CubeId;
@@ -219,6 +255,9 @@ public class LevelEventDataBase : object {
 }
 
 public class EnterLevelEventDataBase : object {
+}
+
+public class GameReadyDataBase : object {
 }
 
 public class NotificationDataBase : object {

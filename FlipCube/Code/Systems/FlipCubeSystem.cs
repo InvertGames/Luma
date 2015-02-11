@@ -19,6 +19,10 @@ public class FlipCubeSystem : FlipCubeSystemBase
         base.Loaded(e);
         // Tell the rest of the world the game is ready, this might be
         // delayed in the future in order to load data from a user profile.
+        SignalGameDataReady(new GameReadyData()
+        {
+            Zones = _Zones
+        });
         SignalGameReady(new EntityEventData()); 
     }
 

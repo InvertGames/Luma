@@ -113,6 +113,8 @@ public enum CubeGravitySystemEvents {
     OnFall,
     
     RollCompletedStandingUp,
+    
+    RolledNextToCube,
 }
 
 public enum CameraSystemEvents {
@@ -182,6 +184,8 @@ public enum FlipCubeSystemEvents {
     NextLevel,
     
     BackToZone,
+    
+    GameDataReady,
 }
 
 public enum BasicGameSystemEvents {
@@ -207,6 +211,19 @@ public enum HUDSystemEvents {
 public enum WindowSystemEvents {
     
     ShowWindow,
+    
+    CloseWindow,
+    
+    ToggleWindow,
+}
+
+public enum ZonesWindowSystemEvents {
+}
+
+public enum FriendsWindowSystemEvents {
+}
+
+public enum ProfileWindowSystemEvents {
 }
 
 public enum XPSystemEvents {

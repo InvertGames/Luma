@@ -33,6 +33,9 @@ public partial class RollableAsset : Invert.ECS.ComponentAsset {
     [UnityEngine.SerializeField()]
     private Vector3 _StartingPosition;
     
+    [UnityEngine.SerializeField()]
+    private Boolean _IsSplit;
+    
     public virtual Single RollSpeed {
         get {
             return _RollSpeed;
@@ -75,6 +78,15 @@ public partial class RollableAsset : Invert.ECS.ComponentAsset {
         }
         set {
             _StartingPosition = value;
+        }
+    }
+    
+    public virtual Boolean IsSplit {
+        get {
+            return _IsSplit;
+        }
+        set {
+            _IsSplit = value;
         }
     }
 }
@@ -307,26 +319,14 @@ public partial class DissolvePlateAsset : Invert.ECS.ComponentAsset {
 public partial class YingYangPlateAsset : Invert.ECS.ComponentAsset {
     
     [UnityEngine.SerializeField()]
-    private Int32 _PlateA;
+    private Int32[] _TargetPlates;
     
-    [UnityEngine.SerializeField()]
-    private Int32 _PlateB;
-    
-    public virtual Int32 PlateA {
+    public virtual Int32[] TargetPlates {
         get {
-            return _PlateA;
+            return _TargetPlates;
         }
         set {
-            _PlateA = value;
-        }
-    }
-    
-    public virtual Int32 PlateB {
-        get {
-            return _PlateB;
-        }
-        set {
-            _PlateB = value;
+            _TargetPlates = value;
         }
     }
 }
@@ -455,6 +455,15 @@ public partial class WindowAsset : Invert.ECS.ComponentAsset {
             _WindowType = value;
         }
     }
+}
+
+public partial class CloseWindowOnClickAsset : Invert.ECS.ComponentAsset {
+}
+
+public partial class ZonesWindowAsset : Invert.ECS.ComponentAsset {
+}
+
+public partial class FriendsWindowAsset : Invert.ECS.ComponentAsset {
 }
 
 public partial class PlayerAsset : Invert.ECS.ComponentAsset {

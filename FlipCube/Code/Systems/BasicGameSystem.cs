@@ -28,6 +28,10 @@ public class BasicGameSystem : BasicGameSystemBase
         base.OnFall(e); Delay(2f, () =>
       {
           FlipCubeSystem.SignalResetGame(Game, new EntityEventData());
+          CubeInputSystem.SignalSelected(Game, new EntityEventData()
+          {
+              EntityId = 1
+          });
           //LevelSystem.SignalLevelRestart(Game, new LevelEventData()); 
       });
     }

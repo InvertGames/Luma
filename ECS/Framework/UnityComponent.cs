@@ -8,7 +8,14 @@ namespace Invert.ECS.Unity
     [RequireComponent(typeof(EntityComponent))]
     public class UnityComponent : MonoBehaviour, IComponent
     {
-
+        public void Reset()
+        {
+            var entityComponent = this.gameObject.GetComponent<EntityComponent>();
+            if (entityComponent != null)
+            {
+                this.EntityId = entityComponent.EntityId;
+            }
+        }
         public bool _AutoAssignId = true;
 
         [SerializeField]
@@ -70,17 +77,17 @@ namespace Invert.ECS.Unity
         }
         public void OnDisable()
         {
-#if (UNITY_EDITOR)
-            if (!Application.isPlaying)
-            return;
-#endif
-            if (!_registered) return;
-            var game = UnityGame.Instance;
-            if (game != null)
-            {
-                game.ComponentSystem.DestroyComponentInstance(this.GetType(), this);
-                _registered = false;
-            }
+//#if (UNITY_EDITOR)
+//            if (!Application.isPlaying)
+//            return;
+//#endif
+//            if (!_registered) return;
+//            var game = UnityGame.Instance;
+//            if (game != null)
+//            {
+//                game.ComponentSystem.DestroyComponentInstance(this.GetType(), this);
+//                _registered = false;
+//            }
         }
 
         public void OnDestroy()

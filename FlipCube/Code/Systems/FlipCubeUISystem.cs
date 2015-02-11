@@ -44,7 +44,7 @@ public class FlipCubeUISystem : FlipCubeUISystemBase
 
         //_LoadingPanel.SetActive(true);
         _ProgressImage.fillAmount = data.Progress;
-        _PercentText.text = (data.Progress*100f) + "%";
+        _PercentText.text = (Mathf.RoundToInt(data.Progress*100f)) + "%";
         
     }
 
@@ -57,6 +57,12 @@ public class FlipCubeUISystem : FlipCubeUISystemBase
         }
         
     }
+
+    //protected override void OnGameReady(GameReadyData data)
+    //{
+    //    base.OnGameReady(data);
+ 
+    //}
 
     
 

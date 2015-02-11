@@ -189,6 +189,10 @@ namespace Invert.ECS
             {
                 Handlers[eventType] = existing =  new List<EventHandlerDelegate>();
             }
+            if (existing.Contains(handler))
+            {
+                existing.Remove(handler);
+            }
             existing.Add(handler);
             return () => { StopListeningFor(eventType, handler); };
         }

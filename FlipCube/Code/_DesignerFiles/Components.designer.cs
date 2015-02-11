@@ -36,6 +36,9 @@ public class RollableBase : Invert.ECS.Unity.UnityComponent, IRollable {
     [UnityEngine.SerializeField()]
     private Vector3 _StartingPosition;
     
+    [UnityEngine.SerializeField()]
+    private Boolean _IsSplit;
+    
     public RollableAsset Asset {
         get {
             return _Asset;
@@ -87,6 +90,15 @@ public class RollableBase : Invert.ECS.Unity.UnityComponent, IRollable {
         }
     }
     
+    public virtual Boolean IsSplit {
+        get {
+            return _IsSplit;
+        }
+        set {
+            _IsSplit = value;
+        }
+    }
+    
     public override void Awake() {
         if (_Asset != null) {
             RollSpeed = _Asset.RollSpeed;
@@ -94,6 +106,7 @@ public class RollableBase : Invert.ECS.Unity.UnityComponent, IRollable {
             IsRolling = _Asset.IsRolling;
             Length = _Asset.Length;
             StartingPosition = _Asset.StartingPosition;
+            IsSplit = _Asset.IsSplit;
             EntityId = _Asset.EntityId;
         }
     }
@@ -633,10 +646,7 @@ public class YingYangPlateBase : Invert.ECS.Unity.UnityComponent, IYingYangPlate
     private YingYangPlateAsset _Asset;
     
     [UnityEngine.SerializeField()]
-    private Int32 _PlateA;
-    
-    [UnityEngine.SerializeField()]
-    private Int32 _PlateB;
+    private Int32[] _TargetPlates;
     
     public YingYangPlateAsset Asset {
         get {
@@ -644,29 +654,19 @@ public class YingYangPlateBase : Invert.ECS.Unity.UnityComponent, IYingYangPlate
         }
     }
     
-    public virtual Int32 PlateA {
+    public virtual Int32[] TargetPlates {
         get {
-            return _PlateA;
+            return _TargetPlates;
         }
         set {
-            _PlateA = value;
-        }
-    }
-    
-    public virtual Int32 PlateB {
-        get {
-            return _PlateB;
-        }
-        set {
-            _PlateB = value;
+            _TargetPlates = value;
         }
     }
     
     public override void Awake() {
         if (_Asset != null) {
-            PlateA = _Asset.PlateA;
-            PlateB = _Asset.PlateB;
             EntityId = _Asset.EntityId;
+            TargetPlates = _Asset.TargetPlates;
         }
     }
 }
@@ -922,6 +922,70 @@ public class WindowBase : Invert.ECS.Unity.UnityComponent, IWindow {
 
 [UnityEngine.AddComponentMenu("WindowSystem/Window")]
 public partial class Window {
+}
+
+public class CloseWindowOnClickBase : Invert.ECS.Unity.UnityComponent, ICloseWindowOnClick {
+    
+    [UnityEngine.SerializeField()]
+    private CloseWindowOnClickAsset _Asset;
+    
+    public CloseWindowOnClickAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            EntityId = _Asset.EntityId;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("WindowSystem/CloseWindowOnClick")]
+public partial class CloseWindowOnClick {
+}
+
+public class ZonesWindowBase : Invert.ECS.Unity.UnityComponent, IZonesWindow {
+    
+    [UnityEngine.SerializeField()]
+    private ZonesWindowAsset _Asset;
+    
+    public ZonesWindowAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            EntityId = _Asset.EntityId;
+        }
+    }
+}
+
+public partial class ZonesWindow {
+}
+
+public class FriendsWindowBase : Invert.ECS.Unity.UnityComponent, IFriendsWindow {
+    
+    [UnityEngine.SerializeField()]
+    private FriendsWindowAsset _Asset;
+    
+    public FriendsWindowAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            EntityId = _Asset.EntityId;
+        }
+    }
+}
+
+public partial class FriendsWindow {
 }
 
 public class PlayerBase : Invert.ECS.Unity.UnityComponent, IPlayer {

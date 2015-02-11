@@ -50,11 +50,12 @@ public class CameraSystem : CameraSystemBase
 
         var between = Following.transform.position + (_delta * 0.2f);
 
-        if (Following != null)
+        var rb = Following.rigidbody;
+        if (Following != null && rb != null)
         {
-            var velocityX = Following.transform.rigidbody.velocity.x;
-            var velocityY = Following.transform.rigidbody.velocity.y;
-            var velocityZ = Following.transform.rigidbody.velocity.z;
+            var velocityX = rb.velocity.x;
+            var velocityY = rb.velocity.y;
+            var velocityZ = rb.velocity.z;
             FollowCamera.transform.position = new Vector3(Mathf.SmoothDamp(FollowCamera.transform.position.x, between.x, ref velocityX, smoothTime),
                 Mathf.SmoothDamp(FollowCamera.transform.position.y, between.y, ref velocityY, smoothTime),
                 Mathf.SmoothDamp(FollowCamera.transform.position.z, between.z, ref velocityZ, smoothTime));

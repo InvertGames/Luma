@@ -65,6 +65,7 @@ namespace Invert.ECS.Unity
 
         public IEnumerator LoadSystems()
         {
+            
             this.SignalProgress("Loading Scenes", 0.1f);
             for (int index = 0; index < _SystemScenes.Length; index++)
             {
@@ -79,38 +80,35 @@ namespace Invert.ECS.Unity
                     yield return new WaitForEndOfFrame();
                 }
             }
-            for (int index = 0; index < _UnitySystems.Length; index++)
-            {
-                var item = _UnitySystems[index];
-                item.Initialize(this);
-                this.SignalProgress("Initializing " + item.name, 0.1f * index);
-                yield return new WaitForEndOfFrame();
-            }
-
+            
             var asyncSystems = FindObjectsOfType<UnitySystem>();
+            var totalOperations = asyncSystems.Length + _BackgroundScenes.Length;
+            var factor = 1f/totalOperations;
+            var total = 0f;
             for (int index = 0; index < asyncSystems.Length; index++)
             {
                 var s = asyncSystems[index];
-                if (_UnitySystems.Contains(s)) continue;
-                Debug.Log(string.Format("Loaded {0} system", s.name));
+               // if (_UnitySystems.Contains(s)) continue;
+                //Debug.Log(string.Format("Loaded {0} system", s.name));
                 s.Initialize(this);
-                this.SignalProgress("Initializing " + s.name, 0.1f * index);
+                this.SignalProgress("Initializing " + s.name, total);
                 yield return new WaitForEndOfFrame();
+                total += factor;
             }
 
             for (int index = 0; index < _BackgroundScenes.Length; index++)
             {
                 var backgroundScene = _BackgroundScenes[index];
-               
                 AsyncOperation operation = Application.LoadLevelAdditiveAsync(backgroundScene);
                 while (!operation.isDone)
                 {
 #if UNITY_EDITOR
                     yield return new WaitForSeconds(3f);
 #endif
-                    this.SignalProgress("Loading " + backgroundScene, operation.progress);
+                    this.SignalProgress("Loading " + backgroundScene, total + (operation.progress * factor));
                     yield return new WaitForEndOfFrame();
                 }
+                total += factor;
             }
   
 

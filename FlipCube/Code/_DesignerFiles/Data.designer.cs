@@ -34,6 +34,9 @@ public class RollableData : IRollable {
     [UnityEngine.SerializeField()]
     private Vector3 _StartingPosition;
     
+    [UnityEngine.SerializeField()]
+    private Boolean _IsSplit;
+    
     public virtual Single RollSpeed {
         get {
             return _RollSpeed;
@@ -76,6 +79,15 @@ public class RollableData : IRollable {
         }
         set {
             _StartingPosition = value;
+        }
+    }
+    
+    public virtual Boolean IsSplit {
+        get {
+            return _IsSplit;
+        }
+        set {
+            _IsSplit = value;
         }
     }
 }
@@ -324,26 +336,14 @@ public class DissolvePlateData : IDissolvePlate {
 public class YingYangPlateData : IYingYangPlate {
     
     [UnityEngine.SerializeField()]
-    private Int32 _PlateA;
+    private Int32[] _TargetPlates;
     
-    [UnityEngine.SerializeField()]
-    private Int32 _PlateB;
-    
-    public virtual Int32 PlateA {
+    public virtual Int32[] TargetPlates {
         get {
-            return _PlateA;
+            return _TargetPlates;
         }
         set {
-            _PlateA = value;
-        }
-    }
-    
-    public virtual Int32 PlateB {
-        get {
-            return _PlateB;
-        }
-        set {
-            _PlateB = value;
+            _TargetPlates = value;
         }
     }
 }
@@ -478,6 +478,18 @@ public class WindowData : IWindow {
             _WindowType = value;
         }
     }
+}
+
+[System.SerializableAttribute()]
+public class CloseWindowOnClickData : ICloseWindowOnClick {
+}
+
+[System.SerializableAttribute()]
+public class ZonesWindowData : IZonesWindow {
+}
+
+[System.SerializableAttribute()]
+public class FriendsWindowData : IFriendsWindow {
 }
 
 [System.SerializableAttribute()]
