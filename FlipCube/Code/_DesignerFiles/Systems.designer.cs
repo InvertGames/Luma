@@ -201,6 +201,10 @@ public class CubeSystemBase : UnitySystem {
         Game.EventManager.SignalEvent(new EventData(CubeSystemEvents.SplitCube,data));
     }
     
+    public virtual void SignalCubeMoved(MoveCubeData data) {
+        Game.EventManager.SignalEvent(new EventData(CubeSystemEvents.CubeMoved,data));
+    }
+    
     public static void SignalRollBegin(IGame game, RollEventData data) {
         game.EventManager.SignalEvent(new EventData(CubeSystemEvents.RollBegin,data));
     }
@@ -219,6 +223,10 @@ public class CubeSystemBase : UnitySystem {
     
     public static void SignalSplitCube(IGame game, SplitCubeData data) {
         game.EventManager.SignalEvent(new EventData(CubeSystemEvents.SplitCube,data));
+    }
+    
+    public static void SignalCubeMoved(IGame game, MoveCubeData data) {
+        game.EventManager.SignalEvent(new EventData(CubeSystemEvents.CubeMoved,data));
     }
 }
 
@@ -755,6 +763,9 @@ public class TeliporterSystemBase : UnitySystem {
             return;
         }
         this.HandleCollision(eventData, cube, teliporter);
+        EntityEventData teliportingData = new EntityEventData();
+        teliportingData.EntityId = cube.EntityId;
+        TeliporterSystem.SignalTeliporting(this.Game, teliportingData);
     }
     
     protected virtual void HandleCollision(PlateCubeCollsion data, Cube cube, Teliporter teliporter) {
@@ -1502,7 +1513,11 @@ public class BasicGameSystemBase : UnitySystem {
     
     private ComponentManager<Level> _LevelManager;
     
+    private ComponentManager<LevelSpawnPoint> _LevelSpawnPointManager;
+    
     private ComponentManager<BasicGame> _BasicGameManager;
+    
+    private ComponentManager<CubeSpawnPoint> _CubeSpawnPointManager;
     
     private ComponentManager<Zone> _ZoneManager;
     
@@ -1524,12 +1539,30 @@ public class BasicGameSystemBase : UnitySystem {
         }
     }
     
+    public ComponentManager<LevelSpawnPoint> LevelSpawnPointManager {
+        get {
+            return _LevelSpawnPointManager;
+        }
+        set {
+            _LevelSpawnPointManager = value;
+        }
+    }
+    
     public ComponentManager<BasicGame> BasicGameManager {
         get {
             return _BasicGameManager;
         }
         set {
             _BasicGameManager = value;
+        }
+    }
+    
+    public ComponentManager<CubeSpawnPoint> CubeSpawnPointManager {
+        get {
+            return _CubeSpawnPointManager;
+        }
+        set {
+            _CubeSpawnPointManager = value;
         }
     }
     
@@ -1546,7 +1579,9 @@ public class BasicGameSystemBase : UnitySystem {
         base.Initialize(game);
         CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
         LevelManager = game.ComponentSystem.RegisterComponent<Level>();
+        LevelSpawnPointManager = game.ComponentSystem.RegisterComponent<LevelSpawnPoint>();
         BasicGameManager = game.ComponentSystem.RegisterComponent<BasicGame>();
+        CubeSpawnPointManager = game.ComponentSystem.RegisterComponent<CubeSpawnPoint>();
         ZoneManager = game.ComponentSystem.RegisterComponent<Zone>();
         game.EventManager.ListenFor( CubeGravitySystemEvents.OnFall, OnFall );
         game.EventManager.ListenFor( PlateSystemEvents.GoalPlateHit, GoalPlateHit );
@@ -1842,6 +1877,8 @@ public class FlipCubeSoundSystemBase : UnitySystem {
         game.EventManager.ListenFor( CubeSystemEvents.RollComplete, RollComplete );
         game.EventManager.ListenFor( CubeSystemEvents.Reset, Reset );
         game.EventManager.ListenFor( UnityEvents.CollisionEnter, CollisionEnter );
+        game.EventManager.ListenFor( TeliporterSystemEvents.Teliporting, Teliporting );
+        game.EventManager.ListenFor( CubeSystemEvents.CubeMoved, CubeMoved );
     }
     
     protected virtual void CubeEntered(Invert.ECS.IEvent e) {
@@ -1882,6 +1919,14 @@ public class FlipCubeSoundSystemBase : UnitySystem {
     
     protected virtual void CollisionEnter(Invert.ECS.IEvent e) {
         OnComplete(e);
+    }
+    
+    protected virtual void Teliporting(Invert.ECS.IEvent e) {
+        OnTeliporting(e);
+    }
+    
+    protected virtual void CubeMoved(Invert.ECS.IEvent e) {
+        OnCubeMoved(e);
     }
     
     protected virtual void OnCubeEnter(Invert.ECS.IEvent e) {
@@ -1966,6 +2011,22 @@ public class FlipCubeSoundSystemBase : UnitySystem {
     }
     
     protected virtual void OnComplete(CollisionEventData data, GoalPlate goalplate, Cube cube) {
+    }
+    
+    protected virtual void OnTeliporting(Invert.ECS.IEvent e) {
+        var eventData = (EntityEventData)e.Data;
+        this.OnTeliporting(eventData);
+    }
+    
+    protected virtual void OnTeliporting(EntityEventData data) {
+    }
+    
+    protected virtual void OnCubeMoved(Invert.ECS.IEvent e) {
+        var eventData = (MoveCubeData)e.Data;
+        this.OnCubeMoved(eventData);
+    }
+    
+    protected virtual void OnCubeMoved(MoveCubeData data) {
     }
 }
 

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Invert.Common;
+using Invert.Common.UI;
 using Invert.ECS;
 using Invert.ECS.Unity;
 using UnityEditor;
@@ -7,6 +9,13 @@ using UnityEditor;
 [CustomEditor(typeof(EntityComponent))]
 public class EntityComponentEditor : Editor
 {
+    private static ECSUserSettings _userSettings;
+    public static ECSUserSettings UserSettings
+    {
+        get { return _userSettings ?? (_userSettings = AssetDatabase.LoadAssetAtPath("Assets/UserSettings.asset", typeof(ECSUserSettings)) as ECSUserSettings); }
+        set { _userSettings = value; }
+    }
+
     public static bool ReplaceMode { get; set; }
     public static KeyCode LastKeyCode;
     public static bool IsMouseDown { get; set; }
@@ -16,41 +25,51 @@ public class EntityComponentEditor : Editor
         base.OnInspectorGUI();
         //serializedObject.Update();
         serializedObject.Update();
-        if (GUILayout.Button("Assign To All"))
+        if (UserSettings == null)
         {
-            var t = target as EntityComponent;
-            foreach (var component in t.GetComponents<UnityComponent>())
-            {
-                component.EntityId = t.EntityId;
-                EditorUtility.SetDirty(component);
-            }
+            EditorGUILayout.HelpBox("User Setting is not defined.", MessageType.Warning);
+
         }
-        if (GUILayout.Button("Assign New To Children"))
+        else
         {
-            var t = target as EntityComponent;
-            for (var i = 0; i < t.transform.childCount; i++)
+            if (GUILayout.Button("Assign New Id"))
             {
-                var child = t.transform.GetChild(i);
-                var entityComponent = child.GetComponent<EntityComponent>();
-
-                if (entityComponent != null)
+                var t = target as EntityComponent;
+                UserSettings._StartingId++;
+                t.SetEntityId(UserSettings._StartingId);
+            }
+            //if (GUILayout.Button("Assign To All"))
+            //{
+            //    var t = target as EntityComponent;
+            //    foreach (var component in t.GetComponents<UnityComponent>())
+            //    {
+            //        component.EntityId = t.EntityId;
+            //        EditorUtility.SetDirty(component);
+            //    }
+            //}
+            if (GUILayout.Button("Assign New To Children"))
+            {
+                var t = target as EntityComponent;
+                for (var i = 0; i < t.transform.childCount; i++)
                 {
-                    entityComponent.EntityId = t.EntityId + i + 1;
-                    foreach (var component in entityComponent.GetComponents<UnityComponent>())
-                    {
-                        component.EntityId = entityComponent.EntityId;
-                        EditorUtility.SetDirty(component);
-                    }
-                    EditorUtility.SetDirty(entityComponent);
-
+                    var child = t.transform.GetChild(i);
+                    var entityComponent = child.GetComponent<EntityComponent>();
+                    UserSettings._StartingId++;
+                    entityComponent.SetEntityId(UserSettings._StartingId);
                 }
             }
         }
+       
         serializedObject.ApplyModifiedProperties();
     }
     public virtual void OnSceneGUI()
     {
-        var t = target as EntityComponent;
+        var settings = UserSettings;
+        if (settings == null)
+        {
+            return;
+        }
+        //var t = target as EntityComponent;
         var e = Event.current;
         if (e.isMouse && e.type == EventType.MouseDown)
         {
@@ -60,7 +79,7 @@ public class EntityComponentEditor : Editor
         {
             IsMouseDown = false;
         }
-        
+
         if (e.isKey && e.type == EventType.KeyUp)
         {
             if (e.keyCode == KeyCode.M && !IsMouseDown)
@@ -80,41 +99,41 @@ public class EntityComponentEditor : Editor
             if (!IsMouseDown)
                 e.Use();
         }
-
-        var transform = t.transform;
+        var width = 105;
+        // var transform = t.transform;
         Handles.BeginGUI();
-        GUILayout.BeginVertical(GUILayout.Width(50));
+        GUI.Box(new Rect(0, 0, width, Screen.height), string.Empty, ElementDesignerStyles.Background);
+        GUILayout.BeginVertical(GUILayout.Width(width));
 
-        while (transform != null)
+        foreach (var toolbox in settings._Toolboxes)
         {
-            if (t != null)
+            if (GUIHelpers.DoToolbarEx(toolbox.name))
             {
-                if (t._Toolbox != null && t._Toolbox._ToolboxPrefabs != null)
+
+                foreach (var prefab in toolbox._ToolboxPrefabs)
                 {
-                    foreach (var prefab in t._Toolbox._ToolboxPrefabs)
+                    GUILayout.Label(prefab.name,ElementDesignerStyles.SubHeaderStyle);
+                    DoPrefabButton(prefab, width, 35);
+                    if (LastSelectedPrefab == null)
                     {
-                        DoPrefabButton(prefab, t);
-                        if (LastSelectedPrefab == null)
-                        {
-                            LastSelectedPrefab = prefab;
-                            LastEntityComponent = t;
-                        }
+                        LastSelectedPrefab = prefab;
+                        //LastEntityComponent = t;
                     }
-
                 }
-
-
             }
-            transform = transform.parent;
-            if (transform != null)
-                t = transform.GetComponent<EntityComponent>();
         }
 
-        ReplaceMode = GUILayout.Toggle(ReplaceMode, "Replace Mode");
+
+        //transform = transform.parent;
+        //if (transform != null)
+        //    t = transform.GetComponent<EntityComponent>();
+
+
+        ReplaceMode = GUILayout.Toggle(ReplaceMode, "Replace");
         if (IsShiftDown)
         {
             GUILayout.Label("Quick Add On", EditorStyles.boldLabel);
-            QuickAddIfItShould();
+            //QuickAddIfItShould();
         }
         GUILayout.FlexibleSpace();
         GUILayout.EndVertical();
@@ -139,13 +158,13 @@ public class EntityComponentEditor : Editor
                     ShouldAdd = false,
                     AddAction = () =>
                     {
-                        AddPrefab(LastSelectedPrefab, LastEntityComponent);
+                        AddPrefab(LastSelectedPrefab);
                     }
                 };
                 Selection.activeGameObject.SendMessage("ToolbarAddQuick", args, SendMessageOptions.DontRequireReceiver);
                 if (args.ShouldAdd)
                 {
-                    AddPrefab(LastSelectedPrefab,LastEntityComponent);
+                    AddPrefab(LastSelectedPrefab);
                 }
             }
         }
@@ -153,22 +172,23 @@ public class EntityComponentEditor : Editor
     }
 
     public static bool IsShiftDown { get; set; }
-
-    protected virtual void DoPrefabButton(GameObject prefab, EntityComponent t)
+    protected static void DoPrefabButton(GameObject prefab,int width, int height)
     {
-
-        if (GUILayout.Button(new GUIContent(AssetPreview.GetAssetPreview(prefab)) { tooltip = prefab.name }, GUILayout.Width(50), GUILayout.Height(50)))
+        var oldAlignment = ElementDesignerStyles.EventButtonLargeStyle.alignment;
+        var oldPadding = ElementDesignerStyles.EventButtonLargeStyle.padding;
+        ElementDesignerStyles.EventButtonLargeStyle.alignment = TextAnchor.MiddleCenter;
+        ElementDesignerStyles.EventButtonLargeStyle.padding = new RectOffset(0,0,3,3);
+        if (GUILayout.Button(new GUIContent(AssetPreview.GetAssetPreview(prefab)) { tooltip = prefab.name }, ElementDesignerStyles.EventButtonLargeStyle, GUILayout.Width(width), GUILayout.Height(height)))
         {
 
-            AddPrefab(prefab, t);
+            AddPrefab(prefab);
             LastSelectedPrefab = prefab;
-            LastEntityComponent = t;
         }
+        ElementDesignerStyles.EventButtonLargeStyle.alignment = oldAlignment;
+        ElementDesignerStyles.EventButtonLargeStyle.padding = oldPadding;
     }
 
-    public static GameObject LastSelectedPrefab { get; set; }
-
-    protected virtual void AddPrefab(GameObject prefab, EntityComponent t)
+    protected static void AddPrefab(GameObject prefab)
     {
 
         var go = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
@@ -191,20 +211,31 @@ public class EntityComponentEditor : Editor
                 }
                 else
                 {
-                    t._Toolbox._StartingId++;
-                    entityComponent.EntityId = t._Toolbox._StartingId;
-                    EditorUtility.SetDirty(t._Toolbox);
+                    UserSettings._StartingId++;
+                    entityComponent.EntityId = UserSettings._StartingId;
+                    EditorUtility.SetDirty(UserSettings);
                 }
 
             }
-            DestroyImmediate(Selection.activeGameObject);
+            Object.DestroyImmediate(Selection.activeGameObject);
         }
         else
         {
-            go.transform.parent = t.transform;
-            t._Toolbox._StartingId++;
-            entityComponent.EntityId = t._Toolbox._StartingId;
-            EditorUtility.SetDirty(t._Toolbox);
+            if (Selection.activeGameObject != null)
+            {
+                go.transform.parent = Selection.activeGameObject.transform.parent;
+                if (go.transform.parent == null)
+                {
+                    go.transform.parent = Selection.activeGameObject.transform;
+                }
+            }
+                
+
+            
+
+            UserSettings._StartingId++;
+            entityComponent.EntityId = UserSettings._StartingId;
+            EditorUtility.SetDirty(UserSettings);
         }
 
 
@@ -232,6 +263,9 @@ public class EntityComponentEditor : Editor
 
         AssetDatabase.SaveAssets();
     }
+    public static GameObject LastSelectedPrefab { get; set; }
+
+  
 }
 
 [CustomEditor(typeof(EntityComponent))]
@@ -252,23 +286,10 @@ public class ComponentEditor : Editor
     public override void OnInspectorGUI()
     {
         var property = serializedObject.FindProperty("_Asset");
-        if (property != null)
-        {
-            if (property.objectReferenceValue == null)
-            {
-                base.OnInspectorGUI();
-            }
-            else
-            {
-                serializedObject.Update();
-                EditorGUILayout.PropertyField(property);
-                serializedObject.ApplyModifiedProperties();
-            }
-        }
-        else
-        {
-            base.OnInspectorGUI();
-        }
+        serializedObject.Update();
+        EditorGUILayout.PropertyField(property);
+        serializedObject.ApplyModifiedProperties(); base.OnInspectorGUI();
+        
 
     }
 

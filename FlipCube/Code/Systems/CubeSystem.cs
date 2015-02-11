@@ -140,7 +140,7 @@ public class CubeSystem : CubeSystemBase
                 }
             }
 
-            SignalMoveTo(new MoveCubeData() { CubeId = component.EntityId, Position = component.StartingPosition });
+            //SignalMoveTo(new MoveCubeData() { CubeId = component.EntityId, Position = component.StartingPosition });
             Debug.Log("Moving To Start Position");
         }
         
@@ -154,11 +154,14 @@ public class CubeSystem : CubeSystemBase
         cube.StopAllCoroutines();
         var startingOffset = cube.IsSingleCube ? 0.5f : 1f;
         cube.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        cube.gameObject.SetActive(false);
         cube.transform.position = new Vector3(targetPosition.x, targetPosition.y + 15f, targetPosition.z);
         cube.IsRolling = true;
         cube.transform.positionTo(1f, new Vector3(targetPosition.x, targetPosition.y + startingOffset, targetPosition.z)).setOnCompleteHandler((s) =>
         {
             cube.IsRolling = false;
+//            SignalCubeMoved(data);
+            cube.gameObject.SetActive(true);
         });
 
         cube.RestState = RollerState.StandingUp;

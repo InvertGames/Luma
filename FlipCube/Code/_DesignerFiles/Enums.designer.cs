@@ -93,6 +93,8 @@ public enum CubeSystemEvents {
     MoveTo,
     
     SplitCube,
+    
+    CubeMoved,
 }
 
 public enum CubeInputSystemEvents {

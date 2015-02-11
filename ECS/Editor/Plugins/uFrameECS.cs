@@ -1,6 +1,4 @@
 using Invert.uFrame.Editor;
-using UnityEditor;
-using UnityEngine;
 
 namespace Invert.ECS.Graphs
 {
@@ -8,24 +6,8 @@ namespace Invert.ECS.Graphs
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using Invert.Core;
     using Invert.Core.GraphDesigner;
 
-    [InitializeOnLoad]
-    public class RegisteruFrameECS
-    {
-        [UnityEditor.MenuItem("Assets/Create Toolbox",false)]
-        public static void CreateToolboxAsset()
-        {
-            uFrameMenu.CreateAsset<ToolboxAsset>();
-        }
-
-        static RegisteruFrameECS()
-        {
-            InvertApplication.CachedAssemblies.Add(typeof(uFrameECS).Assembly);
-            InvertApplication.CachedAssemblies.Add(typeof(ISystem).Assembly);
-        }
-    }
     public class uFrameECS : uFrameECSBase
     {
         

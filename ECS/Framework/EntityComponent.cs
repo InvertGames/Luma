@@ -5,9 +5,6 @@ namespace Invert.ECS.Unity
     [ExecuteInEditMode]
     public class EntityComponent : MonoBehaviour,IEntityComponent
     {
-        public ToolboxAsset _Toolbox;
-       
-
         [SerializeField]
         private int _EntityId;
 
@@ -27,6 +24,10 @@ namespace Invert.ECS.Unity
             foreach (var item in this.GetComponents<UnityComponent>())
             {
                 item.EntityId = id;
+#if UNITY_EDITOR
+                UnityEditor.EditorUtility.SetDirty(item);
+                UnityEditor.EditorUtility.SetDirty(this);
+#endif
             }
         }
         public void Awake()

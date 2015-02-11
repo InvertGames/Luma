@@ -213,6 +213,7 @@ namespace Invert.ECS
 
         public TemplateContext<ComponentNode> Ctx { get; set; }
     }
+
     [TemplateClass("Components", MemberGeneratorLocation.Both, ClassNameFormat = "{0}")]
     public class UnityComponentTemplate : ComponentTemplate
     {
@@ -226,6 +227,7 @@ namespace Invert.ECS
 
                 var field = Ctx.CurrentDecleration._private_(string.Format("{0}Asset", Ctx.Data.Name), "_Asset");
                 field.CustomAttributes.Add(new CodeAttributeDeclaration(typeof (SerializeField).ToCodeReference()));
+                field.CustomAttributes.Add(new CodeAttributeDeclaration(typeof (HideInInspector).ToCodeReference()));
 
             }
             else
@@ -279,13 +281,7 @@ namespace Invert.ECS
             }
             Ctx.PopStatements();
         }
-        //[TemplateProperty]
-        //public ScriptableObject Asset {
-        //    get
-        //    {
-                
-        //    } 
-        //}
+
     }
 
      [TemplateClass("Components", MemberGeneratorLocation.DesignerFile, ClassNameFormat = "{0}")]

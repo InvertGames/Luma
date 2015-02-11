@@ -357,6 +357,12 @@ public class LevelData : ILevel {
     [UnityEngine.SerializeField()]
     private Int32 _LevelNumber;
     
+    [UnityEngine.SerializeField()]
+    private Int32 _MaxXP;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _MinimumMoves;
+    
     public virtual String SceneName {
         get {
             return _SceneName;
@@ -374,6 +380,28 @@ public class LevelData : ILevel {
             _LevelNumber = value;
         }
     }
+    
+    public virtual Int32 MaxXP {
+        get {
+            return _MaxXP;
+        }
+        set {
+            _MaxXP = value;
+        }
+    }
+    
+    public virtual Int32 MinimumMoves {
+        get {
+            return _MinimumMoves;
+        }
+        set {
+            _MinimumMoves = value;
+        }
+    }
+}
+
+[System.SerializableAttribute()]
+public class LevelSpawnPointData : ILevelSpawnPoint {
 }
 
 [System.SerializableAttribute()]
@@ -410,6 +438,10 @@ public class EnterLevelOnEnterData : IEnterLevelOnEnter {
             _SceneName = value;
         }
     }
+}
+
+[System.SerializableAttribute()]
+public class CubeSpawnPointData : ICubeSpawnPoint {
 }
 
 [System.SerializableAttribute()]

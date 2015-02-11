@@ -10,15 +10,8 @@ using UnityEngine;
 public class LevelSystem : LevelSystemBase {
     protected override void ComponentCreated(IEvent e)
     {
-        base.ComponentCreated(e); 
+        base.ComponentCreated(e);
 
-        //var level = e.Data as Level;
-        //if (level != null)
-        //{
-        //    SignalEnteredLevel(new LevelEventData()
-        //    {
-        //        LevelId = level.EntityId
-        //    });
-        //}
+ 
     }
 }

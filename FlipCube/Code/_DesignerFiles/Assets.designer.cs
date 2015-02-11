@@ -339,6 +339,12 @@ public partial class LevelAsset : Invert.ECS.ComponentAsset {
     [UnityEngine.SerializeField()]
     private Int32 _LevelNumber;
     
+    [UnityEngine.SerializeField()]
+    private Int32 _MaxXP;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _MinimumMoves;
+    
     public virtual String SceneName {
         get {
             return _SceneName;
@@ -356,6 +362,27 @@ public partial class LevelAsset : Invert.ECS.ComponentAsset {
             _LevelNumber = value;
         }
     }
+    
+    public virtual Int32 MaxXP {
+        get {
+            return _MaxXP;
+        }
+        set {
+            _MaxXP = value;
+        }
+    }
+    
+    public virtual Int32 MinimumMoves {
+        get {
+            return _MinimumMoves;
+        }
+        set {
+            _MinimumMoves = value;
+        }
+    }
+}
+
+public partial class LevelSpawnPointAsset : Invert.ECS.ComponentAsset {
 }
 
 public partial class NotifyOnEnterAsset : Invert.ECS.ComponentAsset {
@@ -389,6 +416,9 @@ public partial class EnterLevelOnEnterAsset : Invert.ECS.ComponentAsset {
             _SceneName = value;
         }
     }
+}
+
+public partial class CubeSpawnPointAsset : Invert.ECS.ComponentAsset {
 }
 
 public partial class TweenPlateColorsAsset : Invert.ECS.ComponentAsset {

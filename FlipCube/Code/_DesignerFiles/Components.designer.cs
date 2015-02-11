@@ -19,6 +19,7 @@ using UnityEngine;
 public class RollableBase : Invert.ECS.Unity.UnityComponent, IRollable {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private RollableAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -119,6 +120,7 @@ public partial class Rollable {
 public class CubeBase : Invert.ECS.Unity.UnityComponent, ICube {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private CubeAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -154,6 +156,7 @@ public partial class Cube {
 public class MoveDirectionOnEnterBase : Invert.ECS.Unity.UnityComponent, IMoveDirectionOnEnter {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private MoveDirectionOnEnterAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -202,6 +205,7 @@ public partial class MoveDirectionOnEnter {
 public class FollowOnSelectionBase : Invert.ECS.Unity.UnityComponent, IFollowOnSelection {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private FollowOnSelectionAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -237,6 +241,7 @@ public partial class FollowOnSelection {
 public class PlateBase : Invert.ECS.Unity.UnityComponent, IPlate {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private PlateAsset _Asset;
     
     public PlateAsset Asset {
@@ -259,6 +264,7 @@ public partial class Plate {
 public class TeliporterBase : Invert.ECS.Unity.UnityComponent, ITeliporter {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private TeliporterAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -294,6 +300,7 @@ public partial class Teliporter {
 public class TeliportableBase : Invert.ECS.Unity.UnityComponent, ITeliportable {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private TeliportableAsset _Asset;
     
     public TeliportableAsset Asset {
@@ -316,6 +323,7 @@ public partial class Teliportable {
 public class TeliporterTargetBase : Invert.ECS.Unity.UnityComponent, ITeliporterTarget {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private TeliporterTargetAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -351,6 +359,7 @@ public partial class TeliporterTarget {
 public class GoalPlateBase : Invert.ECS.Unity.UnityComponent, IGoalPlate {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private GoalPlateAsset _Asset;
     
     public GoalPlateAsset Asset {
@@ -373,6 +382,7 @@ public partial class GoalPlate {
 public class SwitchPlateTriggerBase : Invert.ECS.Unity.UnityComponent, ISwitchPlateTrigger {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private SwitchPlateTriggerAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -408,6 +418,7 @@ public partial class SwitchPlateTrigger {
 public class TurnGravityOnEnterBase : Invert.ECS.Unity.UnityComponent, ITurnGravityOnEnter {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private TurnGravityOnEnterAsset _Asset;
     
     public TurnGravityOnEnterAsset Asset {
@@ -429,6 +440,7 @@ public partial class TurnGravityOnEnter {
 public class DisableColliderOnCollisionBase : Invert.ECS.Unity.UnityComponent, IDisableColliderOnCollision {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private DisableColliderOnCollisionAsset _Asset;
     
     public DisableColliderOnCollisionAsset Asset {
@@ -451,6 +463,7 @@ public partial class DisableColliderOnCollision {
 public class SwitchPlateTargetBase : Invert.ECS.Unity.UnityComponent, ISwitchPlateTarget {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private SwitchPlateTargetAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -525,6 +538,7 @@ public partial class SwitchPlateTarget {
 public class MoveLeftOnLeaveBase : Invert.ECS.Unity.UnityComponent, IMoveLeftOnLeave {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private MoveLeftOnLeaveAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -560,6 +574,7 @@ public partial class MoveLeftOnLeave {
 public class TransporterPlateBase : Invert.ECS.Unity.UnityComponent, ITransporterPlate {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private TransporterPlateAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -608,6 +623,7 @@ public partial class TransporterPlate {
 public class DissolvePlateBase : Invert.ECS.Unity.UnityComponent, IDissolvePlate {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private DissolvePlateAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -643,6 +659,7 @@ public partial class DissolvePlate {
 public class YingYangPlateBase : Invert.ECS.Unity.UnityComponent, IYingYangPlate {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private YingYangPlateAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -678,6 +695,7 @@ public partial class YingYangPlate {
 public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private LevelAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -685,6 +703,12 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel {
     
     [UnityEngine.SerializeField()]
     private Int32 _LevelNumber;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _MaxXP;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _MinimumMoves;
     
     public LevelAsset Asset {
         get {
@@ -710,10 +734,30 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel {
         }
     }
     
+    public virtual Int32 MaxXP {
+        get {
+            return _MaxXP;
+        }
+        set {
+            _MaxXP = value;
+        }
+    }
+    
+    public virtual Int32 MinimumMoves {
+        get {
+            return _MinimumMoves;
+        }
+        set {
+            _MinimumMoves = value;
+        }
+    }
+    
     public override void Awake() {
         if (_Asset != null) {
             SceneName = _Asset.SceneName;
             LevelNumber = _Asset.LevelNumber;
+            MaxXP = _Asset.MaxXP;
+            MinimumMoves = _Asset.MinimumMoves;
             EntityId = _Asset.EntityId;
         }
     }
@@ -723,9 +767,33 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel {
 public partial class Level {
 }
 
+public class LevelSpawnPointBase : Invert.ECS.Unity.UnityComponent, ILevelSpawnPoint {
+    
+    [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
+    private LevelSpawnPointAsset _Asset;
+    
+    public LevelSpawnPointAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            EntityId = _Asset.EntityId;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("BasicGameSystem/LevelSpawnPoint")]
+public partial class LevelSpawnPoint {
+}
+
 public class NotifyOnEnterBase : Invert.ECS.Unity.UnityComponent, INotifyOnEnter {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private NotifyOnEnterAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -761,6 +829,7 @@ public partial class NotifyOnEnter {
 public class BasicGameBase : Invert.ECS.Unity.UnityComponent, IBasicGame {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private BasicGameAsset _Asset;
     
     public BasicGameAsset Asset {
@@ -783,6 +852,7 @@ public partial class BasicGame {
 public class EnterLevelOnEnterBase : Invert.ECS.Unity.UnityComponent, IEnterLevelOnEnter {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private EnterLevelOnEnterAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -815,9 +885,33 @@ public class EnterLevelOnEnterBase : Invert.ECS.Unity.UnityComponent, IEnterLeve
 public partial class EnterLevelOnEnter {
 }
 
+public class CubeSpawnPointBase : Invert.ECS.Unity.UnityComponent, ICubeSpawnPoint {
+    
+    [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
+    private CubeSpawnPointAsset _Asset;
+    
+    public CubeSpawnPointAsset Asset {
+        get {
+            return _Asset;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            EntityId = _Asset.EntityId;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("BasicGameSystem/CubeSpawnPoint")]
+public partial class CubeSpawnPoint {
+}
+
 public class TweenPlateColorsBase : Invert.ECS.Unity.UnityComponent, ITweenPlateColors {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private TweenPlateColorsAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -892,6 +986,7 @@ public partial class TweenPlateColors {
 public class WindowBase : Invert.ECS.Unity.UnityComponent, IWindow {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private WindowAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -927,6 +1022,7 @@ public partial class Window {
 public class CloseWindowOnClickBase : Invert.ECS.Unity.UnityComponent, ICloseWindowOnClick {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private CloseWindowOnClickAsset _Asset;
     
     public CloseWindowOnClickAsset Asset {
@@ -949,6 +1045,7 @@ public partial class CloseWindowOnClick {
 public class ZonesWindowBase : Invert.ECS.Unity.UnityComponent, IZonesWindow {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private ZonesWindowAsset _Asset;
     
     public ZonesWindowAsset Asset {
@@ -970,6 +1067,7 @@ public partial class ZonesWindow {
 public class FriendsWindowBase : Invert.ECS.Unity.UnityComponent, IFriendsWindow {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private FriendsWindowAsset _Asset;
     
     public FriendsWindowAsset Asset {
@@ -991,6 +1089,7 @@ public partial class FriendsWindow {
 public class PlayerBase : Invert.ECS.Unity.UnityComponent, IPlayer {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private PlayerAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -1052,6 +1151,7 @@ public partial class Player {
 public class ScoringBase : Invert.ECS.Unity.UnityComponent, IScoring {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private ScoringAsset _Asset;
     
     [UnityEngine.SerializeField()]
@@ -1087,6 +1187,7 @@ public partial class Scoring {
 public class ZoneBase : Invert.ECS.Unity.UnityComponent, IZone {
     
     [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
     private ZoneAsset _Asset;
     
     [UnityEngine.SerializeField()]

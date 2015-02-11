@@ -13,6 +13,7 @@ public class BasicGameSystem : BasicGameSystemBase
     public ZoneAsset StartingZone;
 
 
+    
     protected override void ComponentCreated(IEvent e)
     {
         base.ComponentCreated(e);
@@ -20,6 +21,18 @@ public class BasicGameSystem : BasicGameSystemBase
         if (game != null)
         {
             CurrentGame = game;
+        }
+        var level = e.Data as Level;
+        if (level != null)
+        {
+            var spawnPoint = LevelSpawnPointManager.Components.FirstOrDefault(p => p._Level.EntityId == level.EntityId);
+            if (spawnPoint != null)
+            {
+                level.transform.parent = spawnPoint.transform;
+                level.transform.localPosition = new Vector3(0f, 0f, 0f);
+                Debug.Log("Moved to spawn point");
+            }
+ 
         }
     }
 
@@ -31,6 +44,11 @@ public class BasicGameSystem : BasicGameSystemBase
           CubeInputSystem.SignalSelected(Game, new EntityEventData()
           {
               EntityId = 1
+          });
+          CubeSystem.SignalMoveTo(Game, new MoveCubeData()
+          {
+              CubeId = 1,
+              Position = LastSpawnPosition
           });
           //LevelSystem.SignalLevelRestart(Game, new LevelEventData()); 
       });
@@ -54,6 +72,7 @@ public class BasicGameSystem : BasicGameSystemBase
     protected override void OnEnteredLevel(LevelEventData data, Level level)
     {
         base.OnEnteredLevel(data, level);
+        LastSpawnPosition = level.SpawnPoint == null ? level.transform.GetChild(0).transform.position : level.SpawnPoint.position;
         // Every time we enter a level, reset the game
         FlipCubeSystem.SignalResetGame(Game, new EntityEventData());
         // For now, lets select the cube upon start, the main cube should
@@ -62,9 +81,15 @@ public class BasicGameSystem : BasicGameSystemBase
         {
             EntityId = 1
         });
-
+        CubeSystem.SignalMoveTo(Game, new MoveCubeData()
+        {
+            CubeId = 1,
+            Position = LastSpawnPosition
+        });
         //FlipCubeSystem.SignalResetGame(Game, new EntityEventData());
     }
+
+    public Vector3 LastSpawnPosition { get; set; }
 
 
     protected override void EnteredZone(IEvent e)
@@ -74,11 +99,13 @@ public class BasicGameSystem : BasicGameSystemBase
         FlipCubeSystem.SignalResetGame(Game, new EntityEventData());
         // For now, lets select the cube upon start, the main cube should
         // always have an id of 1
+       // SignalMoveTo(new MoveCubeData() { CubeId = 1, Position = Vector3.zero });
+
         CubeInputSystem.SignalSelected(Game, new EntityEventData()
         {
             EntityId = 1
         });
-
+        CubeSystem.SignalMoveTo(Game,new MoveCubeData() { CubeId = 1, Position = Vector3.zero });
     }
 
     protected override void GameReady(IEvent e)

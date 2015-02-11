@@ -65,11 +65,13 @@ namespace Invert.ECS.Unity
 
         public IEnumerator LoadSystems()
         {
-            
+            var loadedScenes = new List<string>() { Application.loadedLevelName };
             this.SignalProgress("Loading Scenes", 0.1f);
             for (int index = 0; index < _SystemScenes.Length; index++)
             {
+                
                 var systemScene = _SystemScenes[index];
+                if (loadedScenes.Contains(systemScene)) continue;
                 this.SignalProgress("Loading " + systemScene, 0.2f * index);
                 AsyncOperation operation = Application.LoadLevelAdditiveAsync(systemScene);
                 while (!operation.isDone)
@@ -79,6 +81,7 @@ namespace Invert.ECS.Unity
 #endif
                     yield return new WaitForEndOfFrame();
                 }
+                loadedScenes.Add(systemScene);
             }
             
             var asyncSystems = FindObjectsOfType<UnitySystem>();
@@ -88,6 +91,7 @@ namespace Invert.ECS.Unity
             for (int index = 0; index < asyncSystems.Length; index++)
             {
                 var s = asyncSystems[index];
+            
                // if (_UnitySystems.Contains(s)) continue;
                 //Debug.Log(string.Format("Loaded {0} system", s.name));
                 s.Initialize(this);
@@ -99,6 +103,7 @@ namespace Invert.ECS.Unity
             for (int index = 0; index < _BackgroundScenes.Length; index++)
             {
                 var backgroundScene = _BackgroundScenes[index];
+                if (loadedScenes.Contains(backgroundScene)) continue;
                 AsyncOperation operation = Application.LoadLevelAdditiveAsync(backgroundScene);
                 while (!operation.isDone)
                 {
@@ -109,6 +114,8 @@ namespace Invert.ECS.Unity
                     yield return new WaitForEndOfFrame();
                 }
                 total += factor;
+
+                loadedScenes.Add(backgroundScene);
             }
   
 

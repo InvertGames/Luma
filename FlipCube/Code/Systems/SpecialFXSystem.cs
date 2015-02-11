@@ -30,7 +30,7 @@ public class SpecialFXSystem : SpecialFXSystemBase
         {
             if (SpawnEffect != null)
             {
-                Instantiate(SpawnEffect, cube.transform.position, Quaternion.identity);
+                Instantiate(SpawnEffect, cube.transform.position + (Vector3.down), Quaternion.identity);
             }
         });
        

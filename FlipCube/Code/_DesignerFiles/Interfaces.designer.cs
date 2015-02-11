@@ -203,6 +203,8 @@ public interface ILevel {
     
     
     
+    
+    
     String SceneName {
         get;
         set;
@@ -212,6 +214,19 @@ public interface ILevel {
         get;
         set;
     }
+    
+    Int32 MaxXP {
+        get;
+        set;
+    }
+    
+    Int32 MinimumMoves {
+        get;
+        set;
+    }
+}
+
+public interface ILevelSpawnPoint {
 }
 
 public interface INotifyOnEnter {
@@ -233,6 +248,9 @@ public interface IEnterLevelOnEnter {
         get;
         set;
     }
+}
+
+public interface ICubeSpawnPoint {
 }
 
 public interface ITweenPlateColors {

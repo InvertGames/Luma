@@ -159,6 +159,14 @@ public class LevelMenuItems : object {
     }
 }
 
+public class LevelSpawnPointMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/Create/Levels/LevelSpawnPoint", false)]
+    public static void CreateLevelSpawnPoint() {
+        uFrameMenu.CreateAsset<LevelSpawnPointAsset>();
+    }
+}
+
 public class NotifyOnEnterMenuItems : object {
     
     [UnityEditor.MenuItem("Assets/Create/FlipCubeGameSystems/NotifyOnEnter", false)]
@@ -180,6 +188,14 @@ public class EnterLevelOnEnterMenuItems : object {
     [UnityEditor.MenuItem("Assets/Create/FlipCubeGameSystems/EnterLevelOnEnter", false)]
     public static void CreateEnterLevelOnEnter() {
         uFrameMenu.CreateAsset<EnterLevelOnEnterAsset>();
+    }
+}
+
+public class CubeSpawnPointMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/Create/FlipCubeGameSystems/CubeSpawnPoint", false)]
+    public static void CreateCubeSpawnPoint() {
+        uFrameMenu.CreateAsset<CubeSpawnPointAsset>();
     }
 }
 
