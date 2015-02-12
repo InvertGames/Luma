@@ -786,6 +786,10 @@ public class SwitchPlateSystemBase : UnitySystem {
     
     private ComponentManager<SwitchPlateTarget> _SwitchPlateTargetManager;
     
+    private ComponentManager<SwitchOnWithXp> _SwitchOnWithXpManager;
+    
+    private ComponentManager<Player> _PlayerManager;
+    
     public ComponentManager<SwitchPlateTrigger> SwitchPlateTriggerManager {
         get {
             return _SwitchPlateTriggerManager;
@@ -804,12 +808,34 @@ public class SwitchPlateSystemBase : UnitySystem {
         }
     }
     
+    public ComponentManager<SwitchOnWithXp> SwitchOnWithXpManager {
+        get {
+            return _SwitchOnWithXpManager;
+        }
+        set {
+            _SwitchOnWithXpManager = value;
+        }
+    }
+    
+    public ComponentManager<Player> PlayerManager {
+        get {
+            return _PlayerManager;
+        }
+        set {
+            _PlayerManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
         SwitchPlateTriggerManager = game.ComponentSystem.RegisterComponent<SwitchPlateTrigger>();
         SwitchPlateTargetManager = game.ComponentSystem.RegisterComponent<SwitchPlateTarget>();
+        SwitchOnWithXpManager = game.ComponentSystem.RegisterComponent<SwitchOnWithXp>();
+        PlayerManager = game.ComponentSystem.RegisterComponent<Player>();
         game.EventManager.ListenFor( CubeGravitySystemEvents.RollCompletedStandingUp, RollCompletedStandingUp );
         game.EventManager.ListenFor( FlipCubeSystemEvents.ResetGame, ResetGame );
+        game.EventManager.ListenFor( PlayerSystemEvents.PlayerXpChanged, PlayerXpChanged );
+        game.EventManager.ListenFor( PlayerSystemEvents.PlayerLoaded, PlayerLoaded );
     }
     
     protected virtual void RollCompletedStandingUp(Invert.ECS.IEvent e) {
@@ -818,6 +844,12 @@ public class SwitchPlateSystemBase : UnitySystem {
     
     protected virtual void ResetGame(Invert.ECS.IEvent e) {
         OnReset(e);
+    }
+    
+    protected virtual void PlayerXpChanged(Invert.ECS.IEvent e) {
+    }
+    
+    protected virtual void PlayerLoaded(Invert.ECS.IEvent e) {
     }
     
     protected virtual void ActivateSwitchPlate(Invert.ECS.IEvent e) {
@@ -1208,9 +1240,6 @@ public class FlipCubeGameSystemBase : UnitySystem {
         OnEnteredZone(e);
     }
     
-    protected virtual void Missing(Invert.ECS.IEvent e) {
-    }
-    
     protected virtual void LevelComplete(Invert.ECS.IEvent e) {
     }
     
@@ -1519,6 +1548,8 @@ public class BasicGameSystemBase : UnitySystem {
     
     private ComponentManager<CubeSpawnPoint> _CubeSpawnPointManager;
     
+    private ComponentManager<Player> _PlayerManager;
+    
     private ComponentManager<Zone> _ZoneManager;
     
     public ComponentManager<Cube> CubeManager {
@@ -1566,6 +1597,15 @@ public class BasicGameSystemBase : UnitySystem {
         }
     }
     
+    public ComponentManager<Player> PlayerManager {
+        get {
+            return _PlayerManager;
+        }
+        set {
+            _PlayerManager = value;
+        }
+    }
+    
     public ComponentManager<Zone> ZoneManager {
         get {
             return _ZoneManager;
@@ -1582,6 +1622,7 @@ public class BasicGameSystemBase : UnitySystem {
         LevelSpawnPointManager = game.ComponentSystem.RegisterComponent<LevelSpawnPoint>();
         BasicGameManager = game.ComponentSystem.RegisterComponent<BasicGame>();
         CubeSpawnPointManager = game.ComponentSystem.RegisterComponent<CubeSpawnPoint>();
+        PlayerManager = game.ComponentSystem.RegisterComponent<Player>();
         ZoneManager = game.ComponentSystem.RegisterComponent<Zone>();
         game.EventManager.ListenFor( CubeGravitySystemEvents.OnFall, OnFall );
         game.EventManager.ListenFor( PlateSystemEvents.GoalPlateHit, GoalPlateHit );
@@ -1590,6 +1631,9 @@ public class BasicGameSystemBase : UnitySystem {
         game.EventManager.ListenFor( ZoneSystemEvents.EnteredZone, EnteredZone );
         game.EventManager.ListenFor( LevelSystemEvents.EnteredLevel, EnteredLevel );
         game.EventManager.ListenFor( PlateSystemEvents.CubeEnteredStandingUp, CubeEnteredStandingUp );
+        game.EventManager.ListenFor( LevelSystemEvents.LevelComplete, LevelComplete );
+        game.EventManager.ListenFor( FlipCubeSystemEvents.ResetGame, ResetGame );
+        game.EventManager.ListenFor( CubeSystemEvents.RollBegin, RollBegin );
     }
     
     protected virtual void OnFall(Invert.ECS.IEvent e) {
@@ -1614,6 +1658,18 @@ public class BasicGameSystemBase : UnitySystem {
     protected virtual void CubeEnteredStandingUp(Invert.ECS.IEvent e) {
     }
     
+    protected virtual void LevelComplete(Invert.ECS.IEvent e) {
+        OnLevelComplete(e);
+    }
+    
+    protected virtual void ResetGame(Invert.ECS.IEvent e) {
+        OnReset(e);
+    }
+    
+    protected virtual void RollBegin(Invert.ECS.IEvent e) {
+        OnRoll(e);
+    }
+    
     protected virtual void OnEnteredLevel(Invert.ECS.IEvent e) {
         var eventData = (LevelEventData)e.Data;
         Level level;
@@ -1624,6 +1680,34 @@ public class BasicGameSystemBase : UnitySystem {
     }
     
     protected virtual void OnEnteredLevel(LevelEventData data, Level level) {
+    }
+    
+    protected virtual void OnLevelComplete(Invert.ECS.IEvent e) {
+        var eventData = (LevelEventData)e.Data;
+        Level level;
+        if (!Game.ComponentSystem.TryGetComponent<Level>(eventData.LevelId, out level)) {
+            return;
+        }
+        this.OnLevelComplete(eventData, level);
+    }
+    
+    protected virtual void OnLevelComplete(LevelEventData data, Level level) {
+    }
+    
+    protected virtual void OnReset(Invert.ECS.IEvent e) {
+        var eventData = (EntityEventData)e.Data;
+        this.OnReset(eventData);
+    }
+    
+    protected virtual void OnReset(EntityEventData data) {
+    }
+    
+    protected virtual void OnRoll(Invert.ECS.IEvent e) {
+        var eventData = (RollEventData)e.Data;
+        this.OnRoll(eventData);
+    }
+    
+    protected virtual void OnRoll(RollEventData data) {
     }
 }
 
@@ -2047,13 +2131,26 @@ public class NotificationSystemBase : UnitySystem {
 
 public class FlipCubeUISystemBase : UnitySystem {
     
+    private ComponentManager<Player> _PlayerManager;
+    
+    public ComponentManager<Player> PlayerManager {
+        get {
+            return _PlayerManager;
+        }
+        set {
+            _PlayerManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
+        PlayerManager = game.ComponentSystem.RegisterComponent<Player>();
         game.EventManager.ListenFor( NotificationSystemEvents.Display, Display );
         game.EventManager.ListenFor( FrameworkEvents.LoadingProgress, LoadingProgress );
         game.EventManager.ListenFor( LevelSystemEvents.EnteredLevel, EnteredLevel );
         game.EventManager.ListenFor( ZoneSystemEvents.EnteredZone, EnteredZone );
         game.EventManager.ListenFor( FlipCubeSystemEvents.GameReady, GameReady );
+        game.EventManager.ListenFor( PlayerSystemEvents.PlayerXpChanged, PlayerXpChanged );
     }
     
     protected virtual void Display(Invert.ECS.IEvent e) {
@@ -2074,6 +2171,10 @@ public class FlipCubeUISystemBase : UnitySystem {
     
     protected virtual void GameReady(Invert.ECS.IEvent e) {
         OnGameReady(e);
+    }
+    
+    protected virtual void PlayerXpChanged(Invert.ECS.IEvent e) {
+        OnXpChanged(e);
     }
     
     protected virtual void ShowNotification(Invert.ECS.IEvent e) {
@@ -2114,6 +2215,18 @@ public class FlipCubeUISystemBase : UnitySystem {
     }
     
     protected virtual void OnGameReady(EntityEventData data) {
+    }
+    
+    protected virtual void OnXpChanged(Invert.ECS.IEvent e) {
+        var eventData = (PlayerExperienceData)e.Data;
+        Player player;
+        if (!Game.ComponentSystem.TryGetComponent<Player>(eventData.PlayerId, out player)) {
+            return;
+        }
+        this.OnXpChanged(eventData, player);
+    }
+    
+    protected virtual void OnXpChanged(PlayerExperienceData data, Player player) {
     }
 }
 
@@ -2267,6 +2380,8 @@ public class PlayerSystemBase : UnitySystem {
     
     private ComponentManager<Player> _PlayerManager;
     
+    private ComponentManager<ActiveWithXp> _ActiveWithXpManager;
+    
     public ComponentManager<Player> PlayerManager {
         get {
             return _PlayerManager;
@@ -2276,21 +2391,81 @@ public class PlayerSystemBase : UnitySystem {
         }
     }
     
+    public ComponentManager<ActiveWithXp> ActiveWithXpManager {
+        get {
+            return _ActiveWithXpManager;
+        }
+        set {
+            _ActiveWithXpManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
         PlayerManager = game.ComponentSystem.RegisterComponent<Player>();
+        ActiveWithXpManager = game.ComponentSystem.RegisterComponent<ActiveWithXp>();
         game.EventManager.ListenFor( FrameworkEvents.ComponentCreated, ComponentCreated );
+        game.EventManager.ListenFor( PlayerSystemEvents.AddXp, AddXp );
+        game.EventManager.ListenFor( PlayerSystemEvents.PlayerXpChanged, PlayerXpChanged );
+        game.EventManager.ListenFor( FlipCubeSystemEvents.ResetGame, ResetGame );
     }
     
     protected virtual void ComponentCreated(Invert.ECS.IEvent e) {
+    }
+    
+    protected virtual void AddXp(Invert.ECS.IEvent e) {
+        HandleAddXp(e);
+    }
+    
+    protected virtual void PlayerXpChanged(Invert.ECS.IEvent e) {
+    }
+    
+    protected virtual void ResetGame(Invert.ECS.IEvent e) {
+        OnReset(e);
+    }
+    
+    protected virtual void HandleAddXp(Invert.ECS.IEvent e) {
+        var eventData = (PlayerExperienceData)e.Data;
+        Player player;
+        if (!Game.ComponentSystem.TryGetComponent<Player>(eventData.PlayerId, out player)) {
+            return;
+        }
+        this.HandleAddXp(eventData, player);
+    }
+    
+    protected virtual void HandleAddXp(PlayerExperienceData data, Player player) {
+    }
+    
+    protected virtual void OnReset(Invert.ECS.IEvent e) {
+        var eventData = (EntityEventData)e.Data;
+        this.OnReset(eventData);
+    }
+    
+    protected virtual void OnReset(EntityEventData data) {
     }
     
     public virtual void SignalPlayerLoaded(PlayerEventData data) {
         Game.EventManager.SignalEvent(new EventData(PlayerSystemEvents.PlayerLoaded,data));
     }
     
+    public virtual void SignalAddXp(PlayerExperienceData data) {
+        Game.EventManager.SignalEvent(new EventData(PlayerSystemEvents.AddXp,data));
+    }
+    
+    public virtual void SignalPlayerXpChanged(PlayerExperienceData data) {
+        Game.EventManager.SignalEvent(new EventData(PlayerSystemEvents.PlayerXpChanged,data));
+    }
+    
     public static void SignalPlayerLoaded(IGame game, PlayerEventData data) {
         game.EventManager.SignalEvent(new EventData(PlayerSystemEvents.PlayerLoaded,data));
+    }
+    
+    public static void SignalAddXp(IGame game, PlayerExperienceData data) {
+        game.EventManager.SignalEvent(new EventData(PlayerSystemEvents.AddXp,data));
+    }
+    
+    public static void SignalPlayerXpChanged(IGame game, PlayerExperienceData data) {
+        game.EventManager.SignalEvent(new EventData(PlayerSystemEvents.PlayerXpChanged,data));
     }
 }
 

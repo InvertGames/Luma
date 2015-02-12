@@ -17,8 +17,26 @@ public class SwitchPlateSystem : SwitchPlateSystemBase {
     protected override void OnReset(EntityEventData data)
     {
         base.OnReset(data);
+
+        var localPlayer = PlayerManager.Components.FirstOrDefault(p => p.EntityId == 1);
+        if (localPlayer != null)
+        {
+            foreach (var item in SwitchOnWithXpManager.Components)
+            {
+                if (item.RequiredXp <= localPlayer.XP)
+                {
+                    item.GetComponent<SwitchPlateTarget>().StartOn = true;
+                }
+                else
+                {
+                    item.GetComponent<SwitchPlateTarget>().StartOn = false;
+                }
+            }
+        }
+
         foreach (var switchPlate in SwitchPlateTargetManager.Components)
         {
+
             if (switchPlate.On && !switchPlate.StartOn)
             {
                 switchPlate.StartCoroutine(RotateAround(switchPlate, 1f, -90));
@@ -26,11 +44,15 @@ public class SwitchPlateSystem : SwitchPlateSystemBase {
             }
             switchPlate.On = switchPlate.StartOn;
         }
+
+        
+
     }
 
     protected override void ActivateSwitchPlate(PlateCubeCollsion data, SwitchPlateTrigger switchplatetrigger)
     {
         base.ActivateSwitchPlate(data, switchplatetrigger);
+
         foreach (var target in SwitchPlateTargetManager.Components.Where(p => p.Register == switchplatetrigger.Register))
         {
             target.StartCoroutine(RotateAround(target, 0.2f, !target.On ? 90 : -90));

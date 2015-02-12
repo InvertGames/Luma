@@ -6,5 +6,14 @@ namespace Invert.ECS
     {
         public int _StartingId;
         public ToolboxAsset[] _Toolboxes;
+
+        public int GetUniqueId()
+        {
+            _StartingId++;
+#if UNITY_EDITOR
+            UnityEditor.EditorUtility.SetDirty(this);
+#endif
+            return _StartingId;
+        }
     }
 }

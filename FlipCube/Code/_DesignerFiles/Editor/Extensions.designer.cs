@@ -13,252 +13,269 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Invert.ECS;
+using Invert.ECS.Graphs;
 
 
 public class RollableMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/FlipCube/Rollable", false)]
+    [UnityEditor.MenuItem("Assets/FlipCube/Rollable", false, -1)]
     public static void CreateRollable() {
-        uFrameMenu.CreateAsset<RollableAsset>();
+        uFrameECS.CreateAsset<RollableAsset>();
     }
 }
 
 public class CubeMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/FlipCube/Cube", false)]
+    [UnityEditor.MenuItem("Assets/FlipCube/Cube", false, -1)]
     public static void CreateCube() {
-        uFrameMenu.CreateAsset<CubeAsset>();
+        uFrameECS.CreateAsset<CubeAsset>();
     }
 }
 
 public class MoveDirectionOnEnterMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/FlipCube/MoveDirectionOnEnter", false)]
+    [UnityEditor.MenuItem("Assets/FlipCube/MoveDirectionOnEnter", false, -1)]
     public static void CreateMoveDirectionOnEnter() {
-        uFrameMenu.CreateAsset<MoveDirectionOnEnterAsset>();
+        uFrameECS.CreateAsset<MoveDirectionOnEnterAsset>();
     }
 }
 
 public class FollowOnSelectionMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/RenameMe/FollowOnSelection", false)]
+    [UnityEditor.MenuItem("Assets/RenameMe/FollowOnSelection", false, -1)]
     public static void CreateFollowOnSelection() {
-        uFrameMenu.CreateAsset<FollowOnSelectionAsset>();
+        uFrameECS.CreateAsset<FollowOnSelectionAsset>();
     }
 }
 
 public class PlateMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/Plates/Plate", false)]
+    [UnityEditor.MenuItem("Assets/Plates/Plate", false, -1)]
     public static void CreatePlate() {
-        uFrameMenu.CreateAsset<PlateAsset>();
+        uFrameECS.CreateAsset<PlateAsset>();
     }
 }
 
 public class TeliporterMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/Plates/Teliporter", false)]
+    [UnityEditor.MenuItem("Assets/Plates/Teliporter", false, -1)]
     public static void CreateTeliporter() {
-        uFrameMenu.CreateAsset<TeliporterAsset>();
+        uFrameECS.CreateAsset<TeliporterAsset>();
     }
 }
 
 public class TeliportableMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/Plates/Teliportable", false)]
+    [UnityEditor.MenuItem("Assets/Plates/Teliportable", false, -1)]
     public static void CreateTeliportable() {
-        uFrameMenu.CreateAsset<TeliportableAsset>();
+        uFrameECS.CreateAsset<TeliportableAsset>();
     }
 }
 
 public class TeliporterTargetMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/Plates/TeliporterTarget", false)]
+    [UnityEditor.MenuItem("Assets/Plates/TeliporterTarget", false, -1)]
     public static void CreateTeliporterTarget() {
-        uFrameMenu.CreateAsset<TeliporterTargetAsset>();
+        uFrameECS.CreateAsset<TeliporterTargetAsset>();
     }
 }
 
 public class GoalPlateMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/Plates/GoalPlate", false)]
+    [UnityEditor.MenuItem("Assets/Plates/GoalPlate", false, -1)]
     public static void CreateGoalPlate() {
-        uFrameMenu.CreateAsset<GoalPlateAsset>();
+        uFrameECS.CreateAsset<GoalPlateAsset>();
     }
 }
 
 public class SwitchPlateTriggerMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/Plates/SwitchPlateTrigger", false)]
+    [UnityEditor.MenuItem("Assets/Plates/SwitchPlateTrigger", false, -1)]
     public static void CreateSwitchPlateTrigger() {
-        uFrameMenu.CreateAsset<SwitchPlateTriggerAsset>();
+        uFrameECS.CreateAsset<SwitchPlateTriggerAsset>();
     }
 }
 
 public class TurnGravityOnEnterMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/Plates/TurnGravityOnEnter", false)]
+    [UnityEditor.MenuItem("Assets/Plates/TurnGravityOnEnter", false, -1)]
     public static void CreateTurnGravityOnEnter() {
-        uFrameMenu.CreateAsset<TurnGravityOnEnterAsset>();
+        uFrameECS.CreateAsset<TurnGravityOnEnterAsset>();
     }
 }
 
 public class DisableColliderOnCollisionMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/Plates/DisableColliderOnCollision", false)]
+    [UnityEditor.MenuItem("Assets/Plates/DisableColliderOnCollision", false, -1)]
     public static void CreateDisableColliderOnCollision() {
-        uFrameMenu.CreateAsset<DisableColliderOnCollisionAsset>();
+        uFrameECS.CreateAsset<DisableColliderOnCollisionAsset>();
     }
 }
 
 public class SwitchPlateTargetMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/Plates/SwitchPlateTarget", false)]
+    [UnityEditor.MenuItem("Assets/Plates/SwitchPlateTarget", false, -1)]
     public static void CreateSwitchPlateTarget() {
-        uFrameMenu.CreateAsset<SwitchPlateTargetAsset>();
+        uFrameECS.CreateAsset<SwitchPlateTargetAsset>();
     }
 }
 
 public class MoveLeftOnLeaveMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/Plates/MoveLeftOnLeave", false)]
+    [UnityEditor.MenuItem("Assets/Plates/MoveLeftOnLeave", false, -1)]
     public static void CreateMoveLeftOnLeave() {
-        uFrameMenu.CreateAsset<MoveLeftOnLeaveAsset>();
+        uFrameECS.CreateAsset<MoveLeftOnLeaveAsset>();
     }
 }
 
 public class TransporterPlateMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/Plates/TransporterPlate", false)]
+    [UnityEditor.MenuItem("Assets/Plates/TransporterPlate", false, -1)]
     public static void CreateTransporterPlate() {
-        uFrameMenu.CreateAsset<TransporterPlateAsset>();
+        uFrameECS.CreateAsset<TransporterPlateAsset>();
     }
 }
 
 public class DissolvePlateMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/Plates/DissolvePlate", false)]
+    [UnityEditor.MenuItem("Assets/Plates/DissolvePlate", false, -1)]
     public static void CreateDissolvePlate() {
-        uFrameMenu.CreateAsset<DissolvePlateAsset>();
+        uFrameECS.CreateAsset<DissolvePlateAsset>();
     }
 }
 
 public class YingYangPlateMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/Plates/YingYangPlate", false)]
+    [UnityEditor.MenuItem("Assets/Plates/YingYangPlate", false, -1)]
     public static void CreateYingYangPlate() {
-        uFrameMenu.CreateAsset<YingYangPlateAsset>();
+        uFrameECS.CreateAsset<YingYangPlateAsset>();
     }
 }
 
 public class LevelMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/Levels/Level", false)]
+    [UnityEditor.MenuItem("Assets/Levels/Level", false, -1)]
     public static void CreateLevel() {
-        uFrameMenu.CreateAsset<LevelAsset>();
+        uFrameECS.CreateAsset<LevelAsset>();
     }
 }
 
 public class LevelSpawnPointMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/Levels/LevelSpawnPoint", false)]
+    [UnityEditor.MenuItem("Assets/Levels/LevelSpawnPoint", false, -1)]
     public static void CreateLevelSpawnPoint() {
-        uFrameMenu.CreateAsset<LevelSpawnPointAsset>();
+        uFrameECS.CreateAsset<LevelSpawnPointAsset>();
     }
 }
 
 public class NotifyOnEnterMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/FlipCubeGameSystems/NotifyOnEnter", false)]
+    [UnityEditor.MenuItem("Assets/FlipCube/NotifyOnEnter", false, -1)]
     public static void CreateNotifyOnEnter() {
-        uFrameMenu.CreateAsset<NotifyOnEnterAsset>();
+        uFrameECS.CreateAsset<NotifyOnEnterAsset>();
     }
 }
 
 public class BasicGameMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/FlipCubeGameSystems/BasicGame", false)]
+    [UnityEditor.MenuItem("Assets/FlipCube/BasicGame", false, -1)]
     public static void CreateBasicGame() {
-        uFrameMenu.CreateAsset<BasicGameAsset>();
+        uFrameECS.CreateAsset<BasicGameAsset>();
     }
 }
 
 public class EnterLevelOnEnterMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/FlipCubeGameSystems/EnterLevelOnEnter", false)]
+    [UnityEditor.MenuItem("Assets/FlipCube/EnterLevelOnEnter", false, -1)]
     public static void CreateEnterLevelOnEnter() {
-        uFrameMenu.CreateAsset<EnterLevelOnEnterAsset>();
+        uFrameECS.CreateAsset<EnterLevelOnEnterAsset>();
     }
 }
 
 public class CubeSpawnPointMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/FlipCubeGameSystems/CubeSpawnPoint", false)]
+    [UnityEditor.MenuItem("Assets/FlipCube/CubeSpawnPoint", false, -1)]
     public static void CreateCubeSpawnPoint() {
-        uFrameMenu.CreateAsset<CubeSpawnPointAsset>();
+        uFrameECS.CreateAsset<CubeSpawnPointAsset>();
+    }
+}
+
+public class SwitchOnWithXpMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/FlipCube/SwitchOnWithXp", false, -1)]
+    public static void CreateSwitchOnWithXp() {
+        uFrameECS.CreateAsset<SwitchOnWithXpAsset>();
     }
 }
 
 public class TweenPlateColorsMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/RenameMe/TweenPlateColors", false)]
+    [UnityEditor.MenuItem("Assets/SpecialFX/TweenPlateColors", false, -1)]
     public static void CreateTweenPlateColors() {
-        uFrameMenu.CreateAsset<TweenPlateColorsAsset>();
+        uFrameECS.CreateAsset<TweenPlateColorsAsset>();
     }
 }
 
 public class WindowMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/UI/Window", false)]
+    [UnityEditor.MenuItem("Assets/UI/Window", false, -1)]
     public static void CreateWindow() {
-        uFrameMenu.CreateAsset<WindowAsset>();
+        uFrameECS.CreateAsset<WindowAsset>();
     }
 }
 
 public class CloseWindowOnClickMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/UI/CloseWindowOnClick", false)]
+    [UnityEditor.MenuItem("Assets/UI/CloseWindowOnClick", false, -1)]
     public static void CreateCloseWindowOnClick() {
-        uFrameMenu.CreateAsset<CloseWindowOnClickAsset>();
+        uFrameECS.CreateAsset<CloseWindowOnClickAsset>();
     }
 }
 
 public class ZonesWindowMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/UI/ZonesWindow", false)]
+    [UnityEditor.MenuItem("Assets/UI/ZonesWindow", false, -1)]
     public static void CreateZonesWindow() {
-        uFrameMenu.CreateAsset<ZonesWindowAsset>();
+        uFrameECS.CreateAsset<ZonesWindowAsset>();
     }
 }
 
 public class FriendsWindowMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/UI/FriendsWindow", false)]
+    [UnityEditor.MenuItem("Assets/UI/FriendsWindow", false, -1)]
     public static void CreateFriendsWindow() {
-        uFrameMenu.CreateAsset<FriendsWindowAsset>();
+        uFrameECS.CreateAsset<FriendsWindowAsset>();
     }
 }
 
 public class PlayerMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/RenameMe/Player", false)]
+    [UnityEditor.MenuItem("Assets/Player/Player", false, -1)]
     public static void CreatePlayer() {
-        uFrameMenu.CreateAsset<PlayerAsset>();
+        uFrameECS.CreateAsset<PlayerAsset>();
+    }
+}
+
+public class ActiveWithXpMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/Player/ActiveWithXp", false, -1)]
+    public static void CreateActiveWithXp() {
+        uFrameECS.CreateAsset<ActiveWithXpAsset>();
     }
 }
 
 public class ScoringMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/RenameMe/Scoring", false)]
+    [UnityEditor.MenuItem("Assets/RenameMe/Scoring", false, -1)]
     public static void CreateScoring() {
-        uFrameMenu.CreateAsset<ScoringAsset>();
+        uFrameECS.CreateAsset<ScoringAsset>();
     }
 }
 
 public class ZoneMenuItems : object {
     
-    [UnityEditor.MenuItem("Assets/Create/RenameMe/Zone", false)]
+    [UnityEditor.MenuItem("Assets/Zones/Zone", false, -1)]
     public static void CreateZone() {
-        uFrameMenu.CreateAsset<ZoneAsset>();
+        uFrameECS.CreateAsset<ZoneAsset>();
     }
 }

@@ -246,6 +246,7 @@ namespace Invert.ECS
                 Ctx._("return _Asset");
                 return null;
             }
+            set { Ctx._("_Asset = value"); }
         }
         [TemplateMethod(MemberGeneratorLocation.DesignerFile)]
         public void Awake()
@@ -388,7 +389,7 @@ namespace Invert.ECS
                 {
                     if (item.SourceItem == null)
                     {
-                        InvertApplication.Log(item.Name + " is not available");
+                        InvertApplication.Log(string.Format("{0} on node {1} is not available", item.Name, item.Node.Name));
                         continue;
                     }
                     var relatedNode = item.SourceItem.Node;
@@ -687,6 +688,7 @@ namespace Invert.ECS
     {
         public void TemplateSetup()
         {
+            Ctx.TryAddNamespace("Invert.ECS.Graphs");
             //Ctx.CurrentDecleration.Name = "static " + 
             //Ctx.AddIterator("CreateComponent", _ => Ctx.Data.Graph.NodeItems.OfType<ComponentNode>());
         }
@@ -699,9 +701,12 @@ namespace Invert.ECS
             Ctx.CurrentMethod.Attributes |= MemberAttributes.Static;
             Ctx.CurrentMethod.CustomAttributes.Add(new CodeAttributeDeclaration(typeof(MenuItem).ToCodeReference(),
                 new CodeAttributeArgument(
-                    new CodePrimitiveExpression(string.Format("Assets/Create/{0}/{1}", Ctx.Data.Graph.Name,
-                        Ctx.Item.Name))), new CodeAttributeArgument(new CodePrimitiveExpression(false))));
-            Ctx._("uFrameMenu.CreateAsset<{0}Asset>()", Ctx.Item.Name);
+                    new CodePrimitiveExpression(string.Format("Assets/{0}/{1}", Ctx.Data.Graph.Name,
+                        Ctx.Item.Name))), 
+                        new CodeAttributeArgument(new CodePrimitiveExpression(false)),
+                        new CodeAttributeArgument(new CodePrimitiveExpression(-1))
+                        ));
+            Ctx._("uFrameECS.CreateAsset<{0}Asset>()", Ctx.Item.Name);
         }
     }
 

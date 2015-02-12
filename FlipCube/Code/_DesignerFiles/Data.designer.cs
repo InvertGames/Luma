@@ -352,9 +352,6 @@ public class YingYangPlateData : IYingYangPlate {
 public class LevelData : ILevel {
     
     [UnityEngine.SerializeField()]
-    private String _SceneName;
-    
-    [UnityEngine.SerializeField()]
     private Int32 _LevelNumber;
     
     [UnityEngine.SerializeField()]
@@ -363,14 +360,8 @@ public class LevelData : ILevel {
     [UnityEngine.SerializeField()]
     private Int32 _MinimumMoves;
     
-    public virtual String SceneName {
-        get {
-            return _SceneName;
-        }
-        set {
-            _SceneName = value;
-        }
-    }
+    [UnityEngine.SerializeField()]
+    private Int32 _MovesTaken;
     
     public virtual Int32 LevelNumber {
         get {
@@ -396,6 +387,15 @@ public class LevelData : ILevel {
         }
         set {
             _MinimumMoves = value;
+        }
+    }
+    
+    public virtual Int32 MovesTaken {
+        get {
+            return _MovesTaken;
+        }
+        set {
+            _MovesTaken = value;
         }
     }
 }
@@ -442,6 +442,22 @@ public class EnterLevelOnEnterData : IEnterLevelOnEnter {
 
 [System.SerializableAttribute()]
 public class CubeSpawnPointData : ICubeSpawnPoint {
+}
+
+[System.SerializableAttribute()]
+public class SwitchOnWithXpData : ISwitchOnWithXp {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _RequiredXp;
+    
+    public virtual Int32 RequiredXp {
+        get {
+            return _RequiredXp;
+        }
+        set {
+            _RequiredXp = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
@@ -536,6 +552,9 @@ public class PlayerData : IPlayer {
     [UnityEngine.SerializeField()]
     private Int32 _Rank;
     
+    [UnityEngine.SerializeField()]
+    private Int32 _TotalFlips;
+    
     public virtual String Name {
         get {
             return _Name;
@@ -562,6 +581,31 @@ public class PlayerData : IPlayer {
             _Rank = value;
         }
     }
+    
+    public virtual Int32 TotalFlips {
+        get {
+            return _TotalFlips;
+        }
+        set {
+            _TotalFlips = value;
+        }
+    }
+}
+
+[System.SerializableAttribute()]
+public class ActiveWithXpData : IActiveWithXp {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _RequiredXp;
+    
+    public virtual Int32 RequiredXp {
+        get {
+            return _RequiredXp;
+        }
+        set {
+            _RequiredXp = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
@@ -584,22 +628,10 @@ public class ScoringData : IScoring {
 public class ZoneData : IZone {
     
     [UnityEngine.SerializeField()]
-    private String _SceneName;
-    
-    [UnityEngine.SerializeField()]
     private String _ZoneName;
     
     [UnityEngine.SerializeField()]
     private Int32[] _Levels;
-    
-    public virtual String SceneName {
-        get {
-            return _SceneName;
-        }
-        set {
-            _SceneName = value;
-        }
-    }
     
     public virtual String ZoneName {
         get {

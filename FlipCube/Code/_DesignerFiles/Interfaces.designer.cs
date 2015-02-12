@@ -205,11 +205,6 @@ public interface ILevel {
     
     
     
-    String SceneName {
-        get;
-        set;
-    }
-    
     Int32 LevelNumber {
         get;
         set;
@@ -221,6 +216,11 @@ public interface ILevel {
     }
     
     Int32 MinimumMoves {
+        get;
+        set;
+    }
+    
+    Int32 MovesTaken {
         get;
         set;
     }
@@ -251,6 +251,15 @@ public interface IEnterLevelOnEnter {
 }
 
 public interface ICubeSpawnPoint {
+}
+
+public interface ISwitchOnWithXp {
+    
+    
+    Int32 RequiredXp {
+        get;
+        set;
+    }
 }
 
 public interface ITweenPlateColors {
@@ -303,6 +312,7 @@ public interface IPlayer {
     
     
     
+    
     String Name {
         get;
         set;
@@ -314,6 +324,20 @@ public interface IPlayer {
     }
     
     Int32 Rank {
+        get;
+        set;
+    }
+    
+    Int32 TotalFlips {
+        get;
+        set;
+    }
+}
+
+public interface IActiveWithXp {
+    
+    
+    Int32 RequiredXp {
         get;
         set;
     }
@@ -331,12 +355,6 @@ public interface IScoring {
 public interface IZone {
     
     
-    
-    
-    String SceneName {
-        get;
-        set;
-    }
     
     String ZoneName {
         get;

@@ -45,7 +45,13 @@ public class FlipCubeUISystem : FlipCubeUISystemBase
         //_LoadingPanel.SetActive(true);
         _ProgressImage.fillAmount = data.Progress;
         _PercentText.text = (Mathf.RoundToInt(data.Progress*100f)) + "%";
-        
+    }
+
+    protected override void OnXpChanged(PlayerExperienceData data, Player player)
+    {
+        base.OnXpChanged(data, player);
+        if (xpLabel != null)
+            xpLabel.text = player.XP.ToString();
     }
 
     protected override void OnGameReady(EntityEventData data)

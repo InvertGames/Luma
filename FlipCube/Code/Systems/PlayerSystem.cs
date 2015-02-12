@@ -17,6 +17,40 @@ public class PlayerSystem : PlayerSystemBase {
                 PlayerData = playerComponent,
                 PlayerId = playerComponent.EntityId
             });
+
+            
+            foreach (var player in this.PlayerManager.Components)
+            {
+                foreach (var item in ActiveWithXpManager.Components)
+                {
+                    item.gameObject.SetActive(item.RequiredXp <= player.XP);
+                }
+            }
+
         }
+    }
+
+    protected override void PlayerXpChanged(IEvent e)
+    {
+        base.PlayerXpChanged(e);
+        foreach (var player in this.PlayerManager.Components)
+        {
+            foreach (var item in ActiveWithXpManager.Components)
+            {
+                item.gameObject.SetActive(item.RequiredXp <= player.XP);
+            }
+        }
+
+    }
+
+    protected override void HandleAddXp(PlayerExperienceData data, Player player)
+    {
+        base.HandleAddXp(data, player);
+        player.XP += data.XP;
+        SignalPlayerXpChanged(new PlayerExperienceData()
+        {
+            PlayerId = player.EntityId,
+            XP = player.XP
+        });
     }
 }

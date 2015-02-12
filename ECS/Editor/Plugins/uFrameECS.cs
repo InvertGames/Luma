@@ -1,4 +1,6 @@
+using Invert.Core;
 using Invert.uFrame.Editor;
+using UnityEditor;
 
 namespace Invert.ECS.Graphs
 {
@@ -10,7 +12,13 @@ namespace Invert.ECS.Graphs
 
     public class uFrameECS : uFrameECSBase
     {
-        
+        private static ECSUserSettings _userSettings;
+        public static ECSUserSettings UserSettings
+        {
+            get { return _userSettings ?? (_userSettings = AssetDatabase.LoadAssetAtPath("Assets/UserSettings.asset", typeof(ECSUserSettings)) as ECSUserSettings); }
+            set { _userSettings = value; }
+        }
+
         public override Invert.Core.GraphDesigner.SelectItemTypeCommand GetComponentPropertySelectionCommand()
         {
             base.GetComponentPropertySelectionCommand();
@@ -30,6 +38,24 @@ namespace Invert.ECS.Graphs
             return command;
         }
 
+        public static TAsset CreateAsset<TAsset>() where TAsset : ComponentAsset
+        {
+            if (UserSettings == null)
+            {
+                EditorUtility.DisplayDialog("Issue", "You need to create a user settings file first.", "OK");
+                return null;
+            }
+            var asset = uFrameMenu.CreateAsset<TAsset>(null,typeof(TAsset).Name.Replace("Asset",""));
+            asset.name = asset.name.Replace(" ", "");
+            asset.EntityId = UserSettings.GetUniqueId();
+            foreach (var plugin in InvertApplication.Plugins.OfType<ICreateAssetListener>())
+            {
+                plugin.AssetCreated(typeof(TAsset), asset);
+            }
+            EditorUtility.SetDirty(asset);
+            AssetDatabase.SaveAssets();
+            return asset;
+        }
         public override void Initialize(Invert.Core.uFrameContainer container)
         {
             base.Initialize(container);
@@ -147,6 +173,10 @@ namespace Invert.ECS.Graphs
         }
     }
 
+    public interface ICreateAssetListener
+    {
+        void AssetCreated(Type assetType, object asset);
+    }
     public static class uFrameECSHelpers
     {
         

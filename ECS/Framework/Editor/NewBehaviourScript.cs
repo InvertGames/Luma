@@ -3,6 +3,7 @@ using System.Collections;
 using Invert.Common;
 using Invert.Common.UI;
 using Invert.ECS;
+using Invert.ECS.Graphs;
 using Invert.ECS.Unity;
 using UnityEditor;
 
@@ -12,8 +13,7 @@ public class EntityComponentEditor : Editor
     private static ECSUserSettings _userSettings;
     public static ECSUserSettings UserSettings
     {
-        get { return _userSettings ?? (_userSettings = AssetDatabase.LoadAssetAtPath("Assets/UserSettings.asset", typeof(ECSUserSettings)) as ECSUserSettings); }
-        set { _userSettings = value; }
+        get { return uFrameECS.UserSettings; }
     }
 
     public static bool ReplaceMode { get; set; }
@@ -112,8 +112,9 @@ public class EntityComponentEditor : Editor
 
                 foreach (var prefab in toolbox._ToolboxPrefabs)
                 {
-                    GUILayout.Label(prefab.name,ElementDesignerStyles.SubHeaderStyle);
+                
                     DoPrefabButton(prefab, width, 35);
+                    GUILayout.Label(prefab.name, ElementDesignerStyles.SubHeaderStyle);
                     if (LastSelectedPrefab == null)
                     {
                         LastSelectedPrefab = prefab;

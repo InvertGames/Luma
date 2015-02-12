@@ -234,6 +234,10 @@ public enum XPSystemEvents {
 public enum PlayerSystemEvents {
     
     PlayerLoaded,
+    
+    AddXp,
+    
+    PlayerXpChanged,
 }
 
 public enum ScoringSystemEvents {

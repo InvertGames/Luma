@@ -44,6 +44,9 @@ public class RollableBase : Invert.ECS.Unity.UnityComponent, IRollable {
         get {
             return _Asset;
         }
+        set {
+            _Asset = value;
+        }
     }
     
     public virtual Single RollSpeed {
@@ -130,6 +133,9 @@ public class CubeBase : Invert.ECS.Unity.UnityComponent, ICube {
         get {
             return _Asset;
         }
+        set {
+            _Asset = value;
+        }
     }
     
     public virtual Boolean IsSelected {
@@ -168,6 +174,9 @@ public class MoveDirectionOnEnterBase : Invert.ECS.Unity.UnityComponent, IMoveDi
     public MoveDirectionOnEnterAsset Asset {
         get {
             return _Asset;
+        }
+        set {
+            _Asset = value;
         }
     }
     
@@ -215,6 +224,9 @@ public class FollowOnSelectionBase : Invert.ECS.Unity.UnityComponent, IFollowOnS
         get {
             return _Asset;
         }
+        set {
+            _Asset = value;
+        }
     }
     
     public virtual Single Distance {
@@ -248,6 +260,9 @@ public class PlateBase : Invert.ECS.Unity.UnityComponent, IPlate {
         get {
             return _Asset;
         }
+        set {
+            _Asset = value;
+        }
     }
     
     public override void Awake() {
@@ -273,6 +288,9 @@ public class TeliporterBase : Invert.ECS.Unity.UnityComponent, ITeliporter {
     public TeliporterAsset Asset {
         get {
             return _Asset;
+        }
+        set {
+            _Asset = value;
         }
     }
     
@@ -307,6 +325,9 @@ public class TeliportableBase : Invert.ECS.Unity.UnityComponent, ITeliportable {
         get {
             return _Asset;
         }
+        set {
+            _Asset = value;
+        }
     }
     
     public override void Awake() {
@@ -332,6 +353,9 @@ public class TeliporterTargetBase : Invert.ECS.Unity.UnityComponent, ITeliporter
     public TeliporterTargetAsset Asset {
         get {
             return _Asset;
+        }
+        set {
+            _Asset = value;
         }
     }
     
@@ -366,6 +390,9 @@ public class GoalPlateBase : Invert.ECS.Unity.UnityComponent, IGoalPlate {
         get {
             return _Asset;
         }
+        set {
+            _Asset = value;
+        }
     }
     
     public override void Awake() {
@@ -391,6 +418,9 @@ public class SwitchPlateTriggerBase : Invert.ECS.Unity.UnityComponent, ISwitchPl
     public SwitchPlateTriggerAsset Asset {
         get {
             return _Asset;
+        }
+        set {
+            _Asset = value;
         }
     }
     
@@ -425,6 +455,9 @@ public class TurnGravityOnEnterBase : Invert.ECS.Unity.UnityComponent, ITurnGrav
         get {
             return _Asset;
         }
+        set {
+            _Asset = value;
+        }
     }
     
     public override void Awake() {
@@ -446,6 +479,9 @@ public class DisableColliderOnCollisionBase : Invert.ECS.Unity.UnityComponent, I
     public DisableColliderOnCollisionAsset Asset {
         get {
             return _Asset;
+        }
+        set {
+            _Asset = value;
         }
     }
     
@@ -481,6 +517,9 @@ public class SwitchPlateTargetBase : Invert.ECS.Unity.UnityComponent, ISwitchPla
     public SwitchPlateTargetAsset Asset {
         get {
             return _Asset;
+        }
+        set {
+            _Asset = value;
         }
     }
     
@@ -548,6 +587,9 @@ public class MoveLeftOnLeaveBase : Invert.ECS.Unity.UnityComponent, IMoveLeftOnL
         get {
             return _Asset;
         }
+        set {
+            _Asset = value;
+        }
     }
     
     public virtual Vector3 Offset {
@@ -586,6 +628,9 @@ public class TransporterPlateBase : Invert.ECS.Unity.UnityComponent, ITransporte
     public TransporterPlateAsset Asset {
         get {
             return _Asset;
+        }
+        set {
+            _Asset = value;
         }
     }
     
@@ -633,6 +678,9 @@ public class DissolvePlateBase : Invert.ECS.Unity.UnityComponent, IDissolvePlate
         get {
             return _Asset;
         }
+        set {
+            _Asset = value;
+        }
     }
     
     public virtual Boolean IsDissolved {
@@ -669,6 +717,9 @@ public class YingYangPlateBase : Invert.ECS.Unity.UnityComponent, IYingYangPlate
         get {
             return _Asset;
         }
+        set {
+            _Asset = value;
+        }
     }
     
     public virtual Int32[] TargetPlates {
@@ -699,9 +750,6 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel {
     private LevelAsset _Asset;
     
     [UnityEngine.SerializeField()]
-    private String _SceneName;
-    
-    [UnityEngine.SerializeField()]
     private Int32 _LevelNumber;
     
     [UnityEngine.SerializeField()]
@@ -710,18 +758,15 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel {
     [UnityEngine.SerializeField()]
     private Int32 _MinimumMoves;
     
+    [UnityEngine.SerializeField()]
+    private Int32 _MovesTaken;
+    
     public LevelAsset Asset {
         get {
             return _Asset;
         }
-    }
-    
-    public virtual String SceneName {
-        get {
-            return _SceneName;
-        }
         set {
-            _SceneName = value;
+            _Asset = value;
         }
     }
     
@@ -752,12 +797,21 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel {
         }
     }
     
+    public virtual Int32 MovesTaken {
+        get {
+            return _MovesTaken;
+        }
+        set {
+            _MovesTaken = value;
+        }
+    }
+    
     public override void Awake() {
         if (_Asset != null) {
-            SceneName = _Asset.SceneName;
             LevelNumber = _Asset.LevelNumber;
             MaxXP = _Asset.MaxXP;
             MinimumMoves = _Asset.MinimumMoves;
+            MovesTaken = _Asset.MovesTaken;
             EntityId = _Asset.EntityId;
         }
     }
@@ -776,6 +830,9 @@ public class LevelSpawnPointBase : Invert.ECS.Unity.UnityComponent, ILevelSpawnP
     public LevelSpawnPointAsset Asset {
         get {
             return _Asset;
+        }
+        set {
+            _Asset = value;
         }
     }
     
@@ -802,6 +859,9 @@ public class NotifyOnEnterBase : Invert.ECS.Unity.UnityComponent, INotifyOnEnter
     public NotifyOnEnterAsset Asset {
         get {
             return _Asset;
+        }
+        set {
+            _Asset = value;
         }
     }
     
@@ -836,6 +896,9 @@ public class BasicGameBase : Invert.ECS.Unity.UnityComponent, IBasicGame {
         get {
             return _Asset;
         }
+        set {
+            _Asset = value;
+        }
     }
     
     public override void Awake() {
@@ -861,6 +924,9 @@ public class EnterLevelOnEnterBase : Invert.ECS.Unity.UnityComponent, IEnterLeve
     public EnterLevelOnEnterAsset Asset {
         get {
             return _Asset;
+        }
+        set {
+            _Asset = value;
         }
     }
     
@@ -895,6 +961,9 @@ public class CubeSpawnPointBase : Invert.ECS.Unity.UnityComponent, ICubeSpawnPoi
         get {
             return _Asset;
         }
+        set {
+            _Asset = value;
+        }
     }
     
     public override void Awake() {
@@ -906,6 +975,45 @@ public class CubeSpawnPointBase : Invert.ECS.Unity.UnityComponent, ICubeSpawnPoi
 
 [UnityEngine.AddComponentMenu("BasicGameSystem/CubeSpawnPoint")]
 public partial class CubeSpawnPoint {
+}
+
+public class SwitchOnWithXpBase : Invert.ECS.Unity.UnityComponent, ISwitchOnWithXp {
+    
+    [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
+    private SwitchOnWithXpAsset _Asset;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _RequiredXp;
+    
+    public SwitchOnWithXpAsset Asset {
+        get {
+            return _Asset;
+        }
+        set {
+            _Asset = value;
+        }
+    }
+    
+    public virtual Int32 RequiredXp {
+        get {
+            return _RequiredXp;
+        }
+        set {
+            _RequiredXp = value;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            RequiredXp = _Asset.RequiredXp;
+            EntityId = _Asset.EntityId;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("SwitchPlateSystem/SwitchOnWithXp")]
+public partial class SwitchOnWithXp {
 }
 
 public class TweenPlateColorsBase : Invert.ECS.Unity.UnityComponent, ITweenPlateColors {
@@ -929,6 +1037,9 @@ public class TweenPlateColorsBase : Invert.ECS.Unity.UnityComponent, ITweenPlate
     public TweenPlateColorsAsset Asset {
         get {
             return _Asset;
+        }
+        set {
+            _Asset = value;
         }
     }
     
@@ -996,6 +1107,9 @@ public class WindowBase : Invert.ECS.Unity.UnityComponent, IWindow {
         get {
             return _Asset;
         }
+        set {
+            _Asset = value;
+        }
     }
     
     public virtual FlipCubeWindow WindowType {
@@ -1029,6 +1143,9 @@ public class CloseWindowOnClickBase : Invert.ECS.Unity.UnityComponent, ICloseWin
         get {
             return _Asset;
         }
+        set {
+            _Asset = value;
+        }
     }
     
     public override void Awake() {
@@ -1052,6 +1169,9 @@ public class ZonesWindowBase : Invert.ECS.Unity.UnityComponent, IZonesWindow {
         get {
             return _Asset;
         }
+        set {
+            _Asset = value;
+        }
     }
     
     public override void Awake() {
@@ -1073,6 +1193,9 @@ public class FriendsWindowBase : Invert.ECS.Unity.UnityComponent, IFriendsWindow
     public FriendsWindowAsset Asset {
         get {
             return _Asset;
+        }
+        set {
+            _Asset = value;
         }
     }
     
@@ -1101,9 +1224,15 @@ public class PlayerBase : Invert.ECS.Unity.UnityComponent, IPlayer {
     [UnityEngine.SerializeField()]
     private Int32 _Rank;
     
+    [UnityEngine.SerializeField()]
+    private Int32 _TotalFlips;
+    
     public PlayerAsset Asset {
         get {
             return _Asset;
+        }
+        set {
+            _Asset = value;
         }
     }
     
@@ -1134,18 +1263,67 @@ public class PlayerBase : Invert.ECS.Unity.UnityComponent, IPlayer {
         }
     }
     
+    public virtual Int32 TotalFlips {
+        get {
+            return _TotalFlips;
+        }
+        set {
+            _TotalFlips = value;
+        }
+    }
+    
     public override void Awake() {
         if (_Asset != null) {
             Name = _Asset.Name;
             XP = _Asset.XP;
             Rank = _Asset.Rank;
+            TotalFlips = _Asset.TotalFlips;
             EntityId = _Asset.EntityId;
         }
     }
 }
 
-[UnityEngine.AddComponentMenu("PlayerSystem/Player")]
+[UnityEngine.AddComponentMenu("SwitchPlateSystem/Player")]
 public partial class Player {
+}
+
+public class ActiveWithXpBase : Invert.ECS.Unity.UnityComponent, IActiveWithXp {
+    
+    [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
+    private ActiveWithXpAsset _Asset;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _RequiredXp;
+    
+    public ActiveWithXpAsset Asset {
+        get {
+            return _Asset;
+        }
+        set {
+            _Asset = value;
+        }
+    }
+    
+    public virtual Int32 RequiredXp {
+        get {
+            return _RequiredXp;
+        }
+        set {
+            _RequiredXp = value;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            RequiredXp = _Asset.RequiredXp;
+            EntityId = _Asset.EntityId;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("PlayerSystem/ActiveWithXp")]
+public partial class ActiveWithXp {
 }
 
 public class ScoringBase : Invert.ECS.Unity.UnityComponent, IScoring {
@@ -1160,6 +1338,9 @@ public class ScoringBase : Invert.ECS.Unity.UnityComponent, IScoring {
     public ScoringAsset Asset {
         get {
             return _Asset;
+        }
+        set {
+            _Asset = value;
         }
     }
     
@@ -1191,9 +1372,6 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent, IZone {
     private ZoneAsset _Asset;
     
     [UnityEngine.SerializeField()]
-    private String _SceneName;
-    
-    [UnityEngine.SerializeField()]
     private String _ZoneName;
     
     [UnityEngine.SerializeField()]
@@ -1203,14 +1381,8 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent, IZone {
         get {
             return _Asset;
         }
-    }
-    
-    public virtual String SceneName {
-        get {
-            return _SceneName;
-        }
         set {
-            _SceneName = value;
+            _Asset = value;
         }
     }
     
@@ -1234,7 +1406,6 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent, IZone {
     
     public override void Awake() {
         if (_Asset != null) {
-            SceneName = _Asset.SceneName;
             ZoneName = _Asset.ZoneName;
             EntityId = _Asset.EntityId;
             Levels = _Asset.Levels.Select(p=>p.EntityId).ToArray();

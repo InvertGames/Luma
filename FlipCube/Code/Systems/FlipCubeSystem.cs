@@ -29,6 +29,16 @@ public class FlipCubeSystem : FlipCubeSystemBase
     protected override void GoalPlateHit(IEvent e)
     {
         base.GoalPlateHit(e);
+        Delay(1f, () =>
+        {
+            LevelSystem.SignalLevelComplete(Game, new LevelEventData()
+            {
+                LevelId = CurrentLevel.EntityId,
+                LevelData = CurrentLevel
+            });
+
+           SignalBackToZone(Game, new EntityEventData());
+        });
         //LevelSystem.SignalLevelComplete(Game, new LevelEventData());
     }
 
@@ -65,6 +75,7 @@ public class FlipCubeSystem : FlipCubeSystemBase
     {
         base.OnEnteredZone(data);
         CurrentZone = data.Zone;
+
     }
 
     /// <summary>
@@ -101,7 +112,7 @@ public class FlipCubeSystem : FlipCubeSystemBase
             Destroy(item.gameObject);
         }
 
-        LoadLevelAsync(CurrentZone.SceneName, () =>
+        LoadLevelAsync(CurrentZone.name, () =>
         {
             ZoneSystem.SignalEnteredZone(Game, new ZoneEventData()
             {
@@ -144,7 +155,7 @@ public class FlipCubeSystem : FlipCubeSystemBase
         CurrentLevel = data.LevelData;
         //Application.LoadLevelAdditive(CurrentLevel.SceneName);
         
-        LoadLevelAsync(CurrentLevel.SceneName, () =>
+        LoadLevelAsync(CurrentLevel.name, () =>
         {
             LevelSystem.SignalEnteredLevel(Game, new LevelEventData()
             {

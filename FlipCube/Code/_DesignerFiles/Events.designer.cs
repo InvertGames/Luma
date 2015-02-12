@@ -313,6 +313,31 @@ public class PlayerEventDataBase : object {
     }
 }
 
+public class PlayerExperienceDataBase : object {
+    
+    private Int32 _PlayerId;
+    
+    private Int32 _XP;
+    
+    public Int32 PlayerId {
+        get {
+            return _PlayerId;
+        }
+        set {
+            _PlayerId = value;
+        }
+    }
+    
+    public Int32 XP {
+        get {
+            return _XP;
+        }
+        set {
+            _XP = value;
+        }
+    }
+}
+
 public class ZoneEventDataBase : object {
     
     private Int32 _ZoneId;

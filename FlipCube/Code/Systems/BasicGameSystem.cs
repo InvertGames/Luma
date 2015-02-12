@@ -54,24 +54,49 @@ public class BasicGameSystem : BasicGameSystemBase
       });
     }
 
-    protected override void GoalPlateHit(IEvent e)
+    protected override void OnReset(EntityEventData data)
     {
-        base.GoalPlateHit(e);
-
-        Delay(1f, () =>
+        base.OnReset(data);
+        // Reset the moves taken to 0
+        foreach (var level in LevelManager.Components)
         {
-            LevelSystem.SignalLevelComplete(Game, new LevelEventData()
-            {
-                //LevelId = CurrentLevel.EntityId,
-            });
+            level.MovesTaken = 0;
+        }
+    }
 
-            FlipCubeSystem.SignalBackToZone(Game, new EntityEventData());
-        });
+    protected override void OnRoll(RollEventData data)
+    {
+        base.OnRoll(data);
+        foreach (var level in LevelManager.Components)
+        {
+            level.MovesTaken++;
+        }
+    }
+
+    protected override void OnLevelComplete(LevelEventData data, Level level)
+    {
+        base.OnLevelComplete(data, level);
+        var max = data.LevelData.MaxXP;
+         
+        var minMoves = data.LevelData.MinimumMoves;
+        var badXpMoves = level.MovesTaken - minMoves;
+        var xpPerStep = max/minMoves;
+        var badXp = badXpMoves*xpPerStep;
+        var gainedXp = max - badXp;
+        foreach (var player in PlayerManager.Components)
+        {
+            PlayerSystem.SignalAddXp(Game,new PlayerExperienceData()
+            {
+                PlayerId = player.EntityId,
+                XP = gainedXp
+            });
+        }
     }
 
     protected override void OnEnteredLevel(LevelEventData data, Level level)
     {
         base.OnEnteredLevel(data, level);
+        
         LastSpawnPosition = level.SpawnPoint == null ? level.transform.GetChild(0).transform.position : level.SpawnPoint.position;
         // Every time we enter a level, reset the game
         FlipCubeSystem.SignalResetGame(Game, new EntityEventData());
