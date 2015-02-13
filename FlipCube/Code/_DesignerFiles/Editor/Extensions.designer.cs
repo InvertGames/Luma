@@ -279,3 +279,11 @@ public class ZoneMenuItems : object {
         uFrameECS.CreateAsset<ZoneAsset>();
     }
 }
+
+public class TutorialOnEnterMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/Tutorial/TutorialOnEnter", false, -1)]
+    public static void CreateTutorialOnEnter() {
+        uFrameECS.CreateAsset<TutorialOnEnterAsset>();
+    }
+}

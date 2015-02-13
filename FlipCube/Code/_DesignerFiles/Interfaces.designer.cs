@@ -24,6 +24,7 @@ public interface IRollable {
     
     
     
+    
     Single RollSpeed {
         get;
         set;
@@ -53,18 +54,30 @@ public interface IRollable {
         get;
         set;
     }
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface ICube {
+    
     
     
     Boolean IsSelected {
         get;
         set;
     }
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface IMoveDirectionOnEnter {
+    
     
     
     
@@ -77,60 +90,120 @@ public interface IMoveDirectionOnEnter {
         get;
         set;
     }
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface IFollowOnSelection {
+    
     
     
     Single Distance {
         get;
         set;
     }
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface IPlate {
+    
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface ITeliporter {
     
     
+    
     PlateRegister Register {
+        get;
+        set;
+    }
+    
+    bool IsDirty {
         get;
         set;
     }
 }
 
 public interface ITeliportable {
+    
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface ITeliporterTarget {
     
     
+    
     PlateRegister Register {
+        get;
+        set;
+    }
+    
+    bool IsDirty {
         get;
         set;
     }
 }
 
 public interface IGoalPlate {
+    
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface ISwitchPlateTrigger {
+    
     
     
     PlateRegister Register {
         get;
         set;
     }
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface ITurnGravityOnEnter {
+    
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface IDisableColliderOnCollision {
+    
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface ISwitchPlateTarget {
+    
     
     
     
@@ -155,18 +228,30 @@ public interface ISwitchPlateTarget {
         get;
         set;
     }
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface IMoveLeftOnLeave {
+    
     
     
     Vector3 Offset {
         get;
         set;
     }
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface ITransporterPlate {
+    
     
     
     
@@ -179,12 +264,23 @@ public interface ITransporterPlate {
         get;
         set;
     }
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface IDissolvePlate {
     
     
+    
     Boolean IsDissolved {
+        get;
+        set;
+    }
+    
+    bool IsDirty {
         get;
         set;
     }
@@ -193,6 +289,12 @@ public interface IDissolvePlate {
 public interface IYingYangPlate {
     
     
+    
+    bool IsDirty {
+        get;
+        set;
+    }
+    
     Int32[] TargetPlates {
         get;
         set;
@@ -200,6 +302,7 @@ public interface IYingYangPlate {
 }
 
 public interface ILevel {
+    
     
     
     
@@ -224,45 +327,87 @@ public interface ILevel {
         get;
         set;
     }
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface ILevelSpawnPoint {
+    
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface INotifyOnEnter {
+    
     
     
     String Message {
         get;
         set;
     }
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface IBasicGame {
+    
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface IEnterLevelOnEnter {
+    
     
     
     String SceneName {
         get;
         set;
     }
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface ICubeSpawnPoint {
+    
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface ISwitchOnWithXp {
+    
     
     
     Int32 RequiredXp {
         get;
         set;
     }
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface ITweenPlateColors {
+    
     
     
     
@@ -287,27 +432,57 @@ public interface ITweenPlateColors {
         get;
         set;
     }
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface IWindow {
+    
     
     
     FlipCubeWindow WindowType {
         get;
         set;
     }
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface ICloseWindowOnClick {
+    
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface IZonesWindow {
+    
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface IFriendsWindow {
+    
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface IPlayer {
+    
     
     
     
@@ -332,12 +507,23 @@ public interface IPlayer {
         get;
         set;
     }
+    
+    bool IsDirty {
+        get;
+        set;
+    }
 }
 
 public interface IActiveWithXp {
     
     
+    
     Int32 RequiredXp {
+        get;
+        set;
+    }
+    
+    bool IsDirty {
         get;
         set;
     }
@@ -346,7 +532,13 @@ public interface IActiveWithXp {
 public interface IScoring {
     
     
+    
     Int32 Score {
+        get;
+        set;
+    }
+    
+    bool IsDirty {
         get;
         set;
     }
@@ -356,12 +548,39 @@ public interface IZone {
     
     
     
+    
     String ZoneName {
         get;
         set;
     }
     
+    bool IsDirty {
+        get;
+        set;
+    }
+    
     Int32[] Levels {
+        get;
+        set;
+    }
+}
+
+public interface ITutorialOnEnter {
+    
+    
+    
+    
+    Int32 ArrowOver {
+        get;
+        set;
+    }
+    
+    String Message {
+        get;
+        set;
+    }
+    
+    bool IsDirty {
         get;
         set;
     }

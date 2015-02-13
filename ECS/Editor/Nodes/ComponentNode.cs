@@ -12,6 +12,12 @@ namespace Invert.ECS.Graphs {
         private ComponentPropertyChildItem _entityIdChildItem;
         private string _entityIdGuid;
 
+        public bool Saveable
+        {
+            get { return this["Saveable"]; }
+            set { this["Saveable"] = value; }
+        }
+
         public string ClassName
         {
             get { return Name; }

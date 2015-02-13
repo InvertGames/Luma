@@ -37,7 +37,7 @@ namespace Invert.ECS.Unity
                 return;
             }
             existing.UnRegisterComponent(instance);
-            //Game.EventManager.SignalEvent(new EventData(FrameworkEvents.ComponentDestroyed, instance));
+            Game.EventManager.SignalEvent(new EventData(FrameworkEvents.ComponentDestroyed, instance));
 
         }
         public ComponentManager<TComponent> RegisterComponent<TComponent>() where TComponent : IComponent

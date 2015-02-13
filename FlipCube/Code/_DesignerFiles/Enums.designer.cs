@@ -253,3 +253,17 @@ public enum ZoneSystemEvents {
     
     EnteredZone,
 }
+
+public enum PlayerDataSystemEvents {
+    
+    SaveGame,
+    
+    PlayerLoggedIn,
+    
+    PlayerLoggedOut,
+    
+    LoadData,
+}
+
+public enum TutorialSystemEvents {
+}

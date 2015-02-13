@@ -11,7 +11,7 @@ using UnityEngine;
 public class CubeSystem : CubeSystemBase
 {
 
-    public override void Initialize(Invert.ECS.IGame game)
+    public override void Initialize(IGame game)
     {
         base.Initialize(game);
         foreach (var item in game.ComponentSystem.GetAllComponents<Rollable>())

@@ -9,8 +9,8 @@ using UnityEngine;
 
 public class DestructionSystem : DestructionSystemBase {
     
-    public override void Initialize(Invert.ECS.IGame game) {
-        base.Initialize(game);
+    public override void Initialize(IGame game) {
+        base.Initialize(game); 
     }
 
     protected override void HandleCollider(CollisionEventData data, Damageable colliderid)

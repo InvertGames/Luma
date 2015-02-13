@@ -618,3 +618,30 @@ public partial class ZoneAsset : Invert.ECS.ComponentAsset {
         }
     }
 }
+
+public partial class TutorialOnEnterAsset : Invert.ECS.ComponentAsset {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _ArrowOver;
+    
+    [UnityEngine.SerializeField()]
+    private String _Message;
+    
+    public virtual Int32 ArrowOver {
+        get {
+            return _ArrowOver;
+        }
+        set {
+            _ArrowOver = value;
+        }
+    }
+    
+    public virtual String Message {
+        get {
+            return _Message;
+        }
+        set {
+            _Message = value;
+        }
+    }
+}

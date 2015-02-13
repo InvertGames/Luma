@@ -11,7 +11,7 @@ public class FlipCubeSoundSystem : FlipCubeSoundSystemBase
 {
     public PlaylistController _PlaylistController;
 
-    public override void Initialize(Invert.ECS.IGame game) {
+    public override void Initialize(IGame game) {
         base.Initialize(game);
         
     }

@@ -37,6 +37,8 @@ public class RollableData : IRollable {
     [UnityEngine.SerializeField()]
     private Boolean _IsSplit;
     
+    private bool _isDirty;
+    
     public virtual Single RollSpeed {
         get {
             return _RollSpeed;
@@ -90,6 +92,15 @@ public class RollableData : IRollable {
             _IsSplit = value;
         }
     }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
@@ -98,12 +109,23 @@ public class CubeData : ICube {
     [UnityEngine.SerializeField()]
     private Boolean _IsSelected;
     
+    private bool _isDirty;
+    
     public virtual Boolean IsSelected {
         get {
             return _IsSelected;
         }
         set {
             _IsSelected = value;
+        }
+    }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
         }
     }
 }
@@ -116,6 +138,8 @@ public class MoveDirectionOnEnterData : IMoveDirectionOnEnter {
     
     [UnityEngine.SerializeField()]
     private CubeMoveDirection _MoveDirection;
+    
+    private bool _isDirty;
     
     public virtual Int32 RollableId {
         get {
@@ -134,6 +158,15 @@ public class MoveDirectionOnEnterData : IMoveDirectionOnEnter {
             _MoveDirection = value;
         }
     }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
@@ -141,6 +174,8 @@ public class FollowOnSelectionData : IFollowOnSelection {
     
     [UnityEngine.SerializeField()]
     private Single _Distance;
+    
+    private bool _isDirty;
     
     public virtual Single Distance {
         get {
@@ -150,10 +185,30 @@ public class FollowOnSelectionData : IFollowOnSelection {
             _Distance = value;
         }
     }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
 public class PlateData : IPlate {
+    
+    private bool _isDirty;
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
@@ -162,6 +217,8 @@ public class TeliporterData : ITeliporter {
     [UnityEngine.SerializeField()]
     private PlateRegister _Register;
     
+    private bool _isDirty;
+    
     public virtual PlateRegister Register {
         get {
             return _Register;
@@ -170,10 +227,30 @@ public class TeliporterData : ITeliporter {
             _Register = value;
         }
     }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
 public class TeliportableData : ITeliportable {
+    
+    private bool _isDirty;
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
@@ -182,6 +259,8 @@ public class TeliporterTargetData : ITeliporterTarget {
     [UnityEngine.SerializeField()]
     private PlateRegister _Register;
     
+    private bool _isDirty;
+    
     public virtual PlateRegister Register {
         get {
             return _Register;
@@ -190,10 +269,30 @@ public class TeliporterTargetData : ITeliporterTarget {
             _Register = value;
         }
     }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
 public class GoalPlateData : IGoalPlate {
+    
+    private bool _isDirty;
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
@@ -202,6 +301,8 @@ public class SwitchPlateTriggerData : ISwitchPlateTrigger {
     [UnityEngine.SerializeField()]
     private PlateRegister _Register;
     
+    private bool _isDirty;
+    
     public virtual PlateRegister Register {
         get {
             return _Register;
@@ -210,14 +311,45 @@ public class SwitchPlateTriggerData : ISwitchPlateTrigger {
             _Register = value;
         }
     }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
 public class TurnGravityOnEnterData : ITurnGravityOnEnter {
+    
+    private bool _isDirty;
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
 public class DisableColliderOnCollisionData : IDisableColliderOnCollision {
+    
+    private bool _isDirty;
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
@@ -234,6 +366,8 @@ public class SwitchPlateTargetData : ISwitchPlateTarget {
     
     [UnityEngine.SerializeField()]
     private PlateRegister _Register;
+    
+    private bool _isDirty;
     
     public virtual SwitchPlatePivot PivotPoint {
         get {
@@ -270,6 +404,15 @@ public class SwitchPlateTargetData : ISwitchPlateTarget {
             _Register = value;
         }
     }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
@@ -278,12 +421,23 @@ public class MoveLeftOnLeaveData : IMoveLeftOnLeave {
     [UnityEngine.SerializeField()]
     private Vector3 _Offset;
     
+    private bool _isDirty;
+    
     public virtual Vector3 Offset {
         get {
             return _Offset;
         }
         set {
             _Offset = value;
+        }
+    }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
         }
     }
 }
@@ -296,6 +450,8 @@ public class TransporterPlateData : ITransporterPlate {
     
     [UnityEngine.SerializeField()]
     private Boolean _IsOn;
+    
+    private bool _isDirty;
     
     public virtual Vector3 MoveOffset {
         get {
@@ -314,6 +470,15 @@ public class TransporterPlateData : ITransporterPlate {
             _IsOn = value;
         }
     }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
@@ -321,6 +486,8 @@ public class DissolvePlateData : IDissolvePlate {
     
     [UnityEngine.SerializeField()]
     private Boolean _IsDissolved;
+    
+    private bool _isDirty;
     
     public virtual Boolean IsDissolved {
         get {
@@ -330,13 +497,33 @@ public class DissolvePlateData : IDissolvePlate {
             _IsDissolved = value;
         }
     }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
 public class YingYangPlateData : IYingYangPlate {
     
+    private bool _isDirty;
+    
     [UnityEngine.SerializeField()]
     private Int32[] _TargetPlates;
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
     
     public virtual Int32[] TargetPlates {
         get {
@@ -363,12 +550,15 @@ public class LevelData : ILevel {
     [UnityEngine.SerializeField()]
     private Int32 _MovesTaken;
     
+    private bool _isDirty;
+    
     public virtual Int32 LevelNumber {
         get {
             return _LevelNumber;
         }
         set {
             _LevelNumber = value;
+            IsDirty = true;
         }
     }
     
@@ -378,6 +568,7 @@ public class LevelData : ILevel {
         }
         set {
             _MaxXP = value;
+            IsDirty = true;
         }
     }
     
@@ -387,6 +578,7 @@ public class LevelData : ILevel {
         }
         set {
             _MinimumMoves = value;
+            IsDirty = true;
         }
     }
     
@@ -396,12 +588,33 @@ public class LevelData : ILevel {
         }
         set {
             _MovesTaken = value;
+            IsDirty = true;
+        }
+    }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
         }
     }
 }
 
 [System.SerializableAttribute()]
 public class LevelSpawnPointData : ILevelSpawnPoint {
+    
+    private bool _isDirty;
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
@@ -409,6 +622,8 @@ public class NotifyOnEnterData : INotifyOnEnter {
     
     [UnityEngine.SerializeField()]
     private String _Message;
+    
+    private bool _isDirty;
     
     public virtual String Message {
         get {
@@ -418,10 +633,30 @@ public class NotifyOnEnterData : INotifyOnEnter {
             _Message = value;
         }
     }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
 public class BasicGameData : IBasicGame {
+    
+    private bool _isDirty;
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
@@ -429,6 +664,8 @@ public class EnterLevelOnEnterData : IEnterLevelOnEnter {
     
     [UnityEngine.SerializeField()]
     private String _SceneName;
+    
+    private bool _isDirty;
     
     public virtual String SceneName {
         get {
@@ -438,10 +675,30 @@ public class EnterLevelOnEnterData : IEnterLevelOnEnter {
             _SceneName = value;
         }
     }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
 public class CubeSpawnPointData : ICubeSpawnPoint {
+    
+    private bool _isDirty;
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
@@ -450,12 +707,23 @@ public class SwitchOnWithXpData : ISwitchOnWithXp {
     [UnityEngine.SerializeField()]
     private Int32 _RequiredXp;
     
+    private bool _isDirty;
+    
     public virtual Int32 RequiredXp {
         get {
             return _RequiredXp;
         }
         set {
             _RequiredXp = value;
+        }
+    }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
         }
     }
 }
@@ -474,6 +742,8 @@ public class TweenPlateColorsData : ITweenPlateColors {
     
     [UnityEngine.SerializeField()]
     private Boolean _IsOn;
+    
+    private bool _isDirty;
     
     public virtual Color IdleColor {
         get {
@@ -510,6 +780,15 @@ public class TweenPlateColorsData : ITweenPlateColors {
             _IsOn = value;
         }
     }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
@@ -517,6 +796,8 @@ public class WindowData : IWindow {
     
     [UnityEngine.SerializeField()]
     private FlipCubeWindow _WindowType;
+    
+    private bool _isDirty;
     
     public virtual FlipCubeWindow WindowType {
         get {
@@ -526,18 +807,60 @@ public class WindowData : IWindow {
             _WindowType = value;
         }
     }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
 public class CloseWindowOnClickData : ICloseWindowOnClick {
+    
+    private bool _isDirty;
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
 public class ZonesWindowData : IZonesWindow {
+    
+    private bool _isDirty;
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
 public class FriendsWindowData : IFriendsWindow {
+    
+    private bool _isDirty;
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
 }
 
 [System.SerializableAttribute()]
@@ -555,12 +878,15 @@ public class PlayerData : IPlayer {
     [UnityEngine.SerializeField()]
     private Int32 _TotalFlips;
     
+    private bool _isDirty;
+    
     public virtual String Name {
         get {
             return _Name;
         }
         set {
             _Name = value;
+            IsDirty = true;
         }
     }
     
@@ -570,6 +896,7 @@ public class PlayerData : IPlayer {
         }
         set {
             _XP = value;
+            IsDirty = true;
         }
     }
     
@@ -579,6 +906,7 @@ public class PlayerData : IPlayer {
         }
         set {
             _Rank = value;
+            IsDirty = true;
         }
     }
     
@@ -588,6 +916,16 @@ public class PlayerData : IPlayer {
         }
         set {
             _TotalFlips = value;
+            IsDirty = true;
+        }
+    }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
         }
     }
 }
@@ -598,12 +936,23 @@ public class ActiveWithXpData : IActiveWithXp {
     [UnityEngine.SerializeField()]
     private Int32 _RequiredXp;
     
+    private bool _isDirty;
+    
     public virtual Int32 RequiredXp {
         get {
             return _RequiredXp;
         }
         set {
             _RequiredXp = value;
+        }
+    }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
         }
     }
 }
@@ -614,12 +963,23 @@ public class ScoringData : IScoring {
     [UnityEngine.SerializeField()]
     private Int32 _Score;
     
+    private bool _isDirty;
+    
     public virtual Int32 Score {
         get {
             return _Score;
         }
         set {
             _Score = value;
+        }
+    }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
         }
     }
 }
@@ -629,6 +989,8 @@ public class ZoneData : IZone {
     
     [UnityEngine.SerializeField()]
     private String _ZoneName;
+    
+    private bool _isDirty;
     
     [UnityEngine.SerializeField()]
     private Int32[] _Levels;
@@ -642,12 +1004,60 @@ public class ZoneData : IZone {
         }
     }
     
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
+    
     public virtual Int32[] Levels {
         get {
             return _Levels;
         }
         set {
             _Levels = value;
+        }
+    }
+}
+
+[System.SerializableAttribute()]
+public class TutorialOnEnterData : ITutorialOnEnter {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _ArrowOver;
+    
+    [UnityEngine.SerializeField()]
+    private String _Message;
+    
+    private bool _isDirty;
+    
+    public virtual Int32 ArrowOver {
+        get {
+            return _ArrowOver;
+        }
+        set {
+            _ArrowOver = value;
+        }
+    }
+    
+    public virtual String Message {
+        get {
+            return _Message;
+        }
+        set {
+            _Message = value;
+        }
+    }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
         }
     }
 }

@@ -9,7 +9,7 @@ using UnityEngine;
 // Base class initializes the event listeners.
 public class SwitchPlateSystem : SwitchPlateSystemBase {
     
-    public override void Initialize(Invert.ECS.IGame game) {
+    public override void Initialize(IGame game) {
         base.Initialize(game);
         
     }

@@ -6,6 +6,21 @@ using Invert.ECS;
 
 
 public class WindowSystem : WindowSystemBase {
+    public override void Initialize(IGame game)
+    {
+        base.Initialize(game);
+   
+    }
+
+    protected override void OnLoaded()
+    {
+        base.OnLoaded();
+        foreach (var item in WindowManager.Components)
+        {
+            item.gameObject.SetActive(false);
+        }
+    }
+
     protected override void HandleShowWindow(WindowEventData data)
     {
         base.HandleShowWindow(data);

@@ -2268,6 +2268,7 @@ public class WindowSystemBase : UnitySystem {
         game.EventManager.ListenFor( WindowSystemEvents.ShowWindow, ShowWindow );
         game.EventManager.ListenFor( WindowSystemEvents.CloseWindow, CloseWindow );
         game.EventManager.ListenFor( WindowSystemEvents.ToggleWindow, ToggleWindow );
+        game.EventManager.ListenFor( FrameworkEvents.Loaded, Loaded );
     }
     
     protected virtual void ShowWindow(Invert.ECS.IEvent e) {
@@ -2280,6 +2281,10 @@ public class WindowSystemBase : UnitySystem {
     
     protected virtual void ToggleWindow(Invert.ECS.IEvent e) {
         HandleToggleWindow(e);
+    }
+    
+    protected virtual void Loaded(Invert.ECS.IEvent e) {
+        OnLoaded(e);
     }
     
     protected virtual void HandleShowWindow(Invert.ECS.IEvent e) {
@@ -2304,6 +2309,12 @@ public class WindowSystemBase : UnitySystem {
     }
     
     protected virtual void HandleToggleWindow(WindowEventData data) {
+    }
+    
+    protected virtual void OnLoaded(Invert.ECS.IEvent e) {
+    }
+    
+    protected virtual void OnLoaded() {
     }
     
     public virtual void SignalShowWindow(WindowEventData data) {
@@ -2540,5 +2551,174 @@ public class ZoneSystemBase : UnitySystem {
     
     public static void SignalEnteredZone(IGame game, ZoneEventData data) {
         game.EventManager.SignalEvent(new EventData(ZoneSystemEvents.EnteredZone,data));
+    }
+}
+
+public class PlayerDataSystemBase : UnitySystem {
+    
+    public override void Initialize(Invert.ECS.IGame game) {
+        base.Initialize(game);
+        game.EventManager.ListenFor( FrameworkEvents.ComponentCreated, ComponentCreated );
+        game.EventManager.ListenFor( FrameworkEvents.ComponentDestroyed, ComponentDestroyed );
+        game.EventManager.ListenFor( PlayerDataSystemEvents.SaveGame, SaveGame );
+        game.EventManager.ListenFor( PlayerDataSystemEvents.PlayerLoggedIn, PlayerLoggedIn );
+        game.EventManager.ListenFor( PlayerDataSystemEvents.PlayerLoggedOut, PlayerLoggedOut );
+        game.EventManager.ListenFor( PlayerDataSystemEvents.LoadData, LoadData );
+    }
+    
+    protected virtual void ComponentCreated(Invert.ECS.IEvent e) {
+        OnComponentCreated(e);
+    }
+    
+    protected virtual void ComponentDestroyed(Invert.ECS.IEvent e) {
+        OnComponentDestroyed(e);
+    }
+    
+    protected virtual void SaveGame(Invert.ECS.IEvent e) {
+        OnSaveGame(e);
+    }
+    
+    protected virtual void PlayerLoggedIn(Invert.ECS.IEvent e) {
+        OnLoggedIn(e);
+    }
+    
+    protected virtual void PlayerLoggedOut(Invert.ECS.IEvent e) {
+        OnLoggedOut(e);
+    }
+    
+    protected virtual void LoadData(Invert.ECS.IEvent e) {
+        OnLoadData(e);
+    }
+    
+    protected virtual void OnComponentCreated(Invert.ECS.IEvent e) {
+        var eventData = (IComponent)e.Data;
+        this.OnComponentCreated(eventData);
+    }
+    
+    protected virtual void OnComponentCreated(IComponent data) {
+    }
+    
+    protected virtual void OnComponentDestroyed(Invert.ECS.IEvent e) {
+        var eventData = (IComponent)e.Data;
+        this.OnComponentDestroyed(eventData);
+    }
+    
+    protected virtual void OnComponentDestroyed(IComponent data) {
+    }
+    
+    protected virtual void OnSaveGame(Invert.ECS.IEvent e) {
+        var eventData = (EntityEventData)e.Data;
+        this.OnSaveGame(eventData);
+    }
+    
+    protected virtual void OnSaveGame(EntityEventData data) {
+    }
+    
+    protected virtual void OnLoggedIn(Invert.ECS.IEvent e) {
+        var eventData = (EntityEventData)e.Data;
+        this.OnLoggedIn(eventData);
+    }
+    
+    protected virtual void OnLoggedIn(EntityEventData data) {
+    }
+    
+    protected virtual void OnLoggedOut(Invert.ECS.IEvent e) {
+        var eventData = (EntityEventData)e.Data;
+        this.OnLoggedOut(eventData);
+    }
+    
+    protected virtual void OnLoggedOut(EntityEventData data) {
+    }
+    
+    protected virtual void OnLoadData(Invert.ECS.IEvent e) {
+        var eventData = (EntityEventData)e.Data;
+        this.OnLoadData(eventData);
+    }
+    
+    protected virtual void OnLoadData(EntityEventData data) {
+    }
+    
+    public virtual void SignalSaveGame(EntityEventData data) {
+        Game.EventManager.SignalEvent(new EventData(PlayerDataSystemEvents.SaveGame,data));
+    }
+    
+    public virtual void SignalPlayerLoggedIn(EntityEventData data) {
+        Game.EventManager.SignalEvent(new EventData(PlayerDataSystemEvents.PlayerLoggedIn,data));
+    }
+    
+    public virtual void SignalPlayerLoggedOut(EntityEventData data) {
+        Game.EventManager.SignalEvent(new EventData(PlayerDataSystemEvents.PlayerLoggedOut,data));
+    }
+    
+    public virtual void SignalLoadData(EntityEventData data) {
+        Game.EventManager.SignalEvent(new EventData(PlayerDataSystemEvents.LoadData,data));
+    }
+    
+    public static void SignalSaveGame(IGame game, EntityEventData data) {
+        game.EventManager.SignalEvent(new EventData(PlayerDataSystemEvents.SaveGame,data));
+    }
+    
+    public static void SignalPlayerLoggedIn(IGame game, EntityEventData data) {
+        game.EventManager.SignalEvent(new EventData(PlayerDataSystemEvents.PlayerLoggedIn,data));
+    }
+    
+    public static void SignalPlayerLoggedOut(IGame game, EntityEventData data) {
+        game.EventManager.SignalEvent(new EventData(PlayerDataSystemEvents.PlayerLoggedOut,data));
+    }
+    
+    public static void SignalLoadData(IGame game, EntityEventData data) {
+        game.EventManager.SignalEvent(new EventData(PlayerDataSystemEvents.LoadData,data));
+    }
+}
+
+public class TutorialSystemBase : UnitySystem {
+    
+    private ComponentManager<Plate> _PlateManager;
+    
+    private ComponentManager<TutorialOnEnter> _TutorialOnEnterManager;
+    
+    public ComponentManager<Plate> PlateManager {
+        get {
+            return _PlateManager;
+        }
+        set {
+            _PlateManager = value;
+        }
+    }
+    
+    public ComponentManager<TutorialOnEnter> TutorialOnEnterManager {
+        get {
+            return _TutorialOnEnterManager;
+        }
+        set {
+            _TutorialOnEnterManager = value;
+        }
+    }
+    
+    public override void Initialize(Invert.ECS.IGame game) {
+        base.Initialize(game);
+        PlateManager = game.ComponentSystem.RegisterComponent<Plate>();
+        TutorialOnEnterManager = game.ComponentSystem.RegisterComponent<TutorialOnEnter>();
+        game.EventManager.ListenFor( PlateSystemEvents.CubeEntered, CubeEntered );
+    }
+    
+    protected virtual void CubeEntered(Invert.ECS.IEvent e) {
+        TutorialOnEnter(e);
+    }
+    
+    protected virtual void TutorialOnEnter(Invert.ECS.IEvent e) {
+        var eventData = (PlateCubeCollsion)e.Data;
+        TutorialOnEnter tutorialonenter;
+        if (!Game.ComponentSystem.TryGetComponent<TutorialOnEnter>(eventData.PlateId, out tutorialonenter)) {
+            return;
+        }
+        Plate plate;
+        if (!Game.ComponentSystem.TryGetComponent<Plate>(tutorialonenter.ArrowOver, out plate)) {
+            return;
+        }
+        this.TutorialOnEnter(eventData, tutorialonenter, plate);
+    }
+    
+    protected virtual void TutorialOnEnter(PlateCubeCollsion data, TutorialOnEnter tutorialonenter, Plate plate) {
     }
 }

@@ -344,6 +344,7 @@ namespace Invert.ECS
         public virtual void Initialize(IGame game)
         {
             Game = game;
+        
         }
 
         public virtual void Destroy()
@@ -380,6 +381,11 @@ namespace Invert.ECS
             yield return new WaitForSeconds(seconds);
             action();
         }
+
+        public virtual IEnumerator Load()
+        {
+            return null;
+        }
     }
     public class CollisionEventData : object
     {
@@ -413,4 +419,8 @@ namespace Invert.ECS
         }
     }
 
+    public interface ISavableComponent : IComponent
+    {
+        bool IsDirty { get; set; }
+    }
 }

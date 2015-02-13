@@ -14,7 +14,7 @@ public class CameraSystem : CameraSystemBase
     private Transform _goal;
     private Vector3 _delta;
 
-    public override void Initialize(Invert.ECS.IGame game) {
+    public override void Initialize(IGame game) {
         base.Initialize(game);
         if (FollowCamera == null)
             FollowCamera = Camera.main.transform;

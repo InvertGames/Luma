@@ -12,6 +12,9 @@ namespace Invert.ECS.Graphs
 
     public class uFrameECS : uFrameECSBase
     {
+
+
+
         private static ECSUserSettings _userSettings;
         public static ECSUserSettings UserSettings
         {
@@ -62,7 +65,7 @@ namespace Invert.ECS.Graphs
             container.Connectable<EventHandlerEntityMappingReference, ComponentNode>();
             container.Connectable<EventHandlerNode, EventHandlerNode>();
             container.Connectable<ActionNode, ActionNode>();
-
+            Component.AddFlag("Saveable");
             var typeContainer = InvertGraphEditor.TypesContainer;
             typeContainer.RegisterInstance(new GraphTypeInfo() {  Group = "",Name="ENTITY", Label = "ENTITY", IsPrimitive = true }, "ENTITY");
             typeContainer.RegisterInstance(new GraphTypeInfo() { Type=typeof(UnityEngine.Color), Group = "",Name="Color", Label = "Color", IsPrimitive = true }, "Color");
@@ -70,7 +73,7 @@ namespace Invert.ECS.Graphs
             EventHandler.Name = "Event Handler";
             Systems.HasSubNode<EnumNode>();
             System.HasSubNode<EnumNode>();
-
+            
             var systemsGraph = CreatePrecompiledSystemsGraph("Framework");
             var unityGraph = CreatePrecompiledSystemsGraph("Unity");
             

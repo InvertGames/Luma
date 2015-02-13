@@ -25,7 +25,7 @@ public class FlipCubeUISystem : FlipCubeUISystemBase
 
     public GameObject _HudPanel;
     //public Text text;
-    public override void Initialize(Invert.ECS.IGame game) {
+    public override void Initialize(IGame game) {
         base.Initialize(game);
         panel.SetActive(false);
         _LoadingPanel.SetActive(true);
@@ -45,6 +45,21 @@ public class FlipCubeUISystem : FlipCubeUISystemBase
         //_LoadingPanel.SetActive(true);
         _ProgressImage.fillAmount = data.Progress;
         _PercentText.text = (Mathf.RoundToInt(data.Progress*100f)) + "%";
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        if (PlayerManager == null) return;
+
+        foreach (var player in PlayerManager.Components)
+        {
+            if (player.EntityId != 1) continue;
+
+            xpLabel.text = player.XP.ToString();
+
+            break;
+        }
     }
 
     protected override void OnXpChanged(PlayerExperienceData data, Player player)

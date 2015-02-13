@@ -59,7 +59,7 @@ namespace Invert.ECS
             }
             Ctx.AddIterator("ComponentProperty", _ => _.Properties.Where(p => !p.Precompiled));
             Ctx.AddIterator("ComponentCollection", _ => _.Collections.Where(p => !p.Precompiled));
-
+            Ctx.AddCondition("IsDirty",_=>_.Saveable);
 
 
         }
@@ -83,6 +83,25 @@ namespace Invert.ECS
             set
             {
                 Ctx._("_{0} = value", Ctx.Item.Name);
+                if (Ctx.Data.Saveable)
+                {
+                    Ctx._("IsDirty = true");
+                }
+            }
+        }
+
+        [TemplateProperty(MemberGeneratorLocation.DesignerFile, AutoFillType.None)]
+        public bool IsDirty
+        {
+            get
+            {
+                Ctx.CurrentDecleration._private_(typeof(bool), "_isDirty");
+                Ctx._("return _isDirty");
+                return false;
+            }
+            set
+            {
+                Ctx._("_isDirty = value");
             }
         }
 
@@ -235,7 +254,11 @@ namespace Invert.ECS
                 Ctx.CurrentDecleration.IsPartial = true;
       
             }
-            
+            if (Ctx.IsDesignerFile)
+                if (Ctx.Data.Saveable)
+                {
+                    Ctx.CurrentDecleration.BaseTypes.Add(typeof(ISavableComponent).ToCodeReference());
+                }
         }
         [TemplateProperty(MemberGeneratorLocation.DesignerFile)]
         public ComponentAsset Asset
@@ -282,6 +305,7 @@ namespace Invert.ECS
             }
             Ctx.PopStatements();
         }
+
 
     }
 
@@ -396,15 +420,13 @@ namespace Invert.ECS
                     var eventsName = relatedNode.Name + "Events";
                     Ctx._("game.EventManager.ListenFor( {0}.{1}, {2} )", eventsName, item.SourceItem.Name, item.Name);
                 }
-
             }
             else
             {
                 Ctx.CurrentDecleration.Comments.Add(
                     new CodeCommentStatement("Base class initializes the event listeners."));
             }
-        
-
+      
         }
         [TemplateProperty(MemberGeneratorLocation.DesignerFile,"{0}Manager",AutoFillType.NameOnlyWithBackingField)]
         public object ComponentManager

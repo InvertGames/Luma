@@ -18,9 +18,10 @@ using Invert.ECS.Unity;
 
 public class DestructionSystemBase : SystemBase {
     
-    public override void Initialize(Invert.ECS.IGame game) {
+    public override void Initialize(IGame game) {
         base.Initialize(game);
         game.EventManager.ListenFor( MyGameEvents.OnCollisionEnter, OnCollisionEnter );
+ 
     }
     
     protected virtual void OnCollisionEnter(Invert.ECS.IEvent e) {
@@ -55,9 +56,9 @@ public class DestructionSystemBase : SystemBase {
 
 public class TargetingSystemBase : SystemBase {
     
-    public override void Initialize(Invert.ECS.IGame game) {
+    public override void Initialize(IGame game) {
         base.Initialize(game);
-        game.EventManager.ListenFor( MyGameEvents.OnCollisionEnter, OnCollisionEnter );
+        game.EventManager.ListenFor(MyGameEvents.OnCollisionEnter, OnCollisionEnter); 
     }
     
     protected virtual void OnCollisionEnter(Invert.ECS.IEvent e) {
@@ -83,9 +84,9 @@ public class TargetingSystemBase : SystemBase {
 
 public class TargetingHUDSystemBase : UnitySystem {
     
-    public override void Initialize(Invert.ECS.IGame game) {
+    public override void Initialize(IGame game) {
         base.Initialize(game);
-        game.EventManager.ListenFor( TargetingEvents.TargetAcquired, TargetAcquired );
+        game.EventManager.ListenFor(TargetingEvents.TargetAcquired, TargetAcquired); 
     }
     
     protected virtual void TargetAcquired(Invert.ECS.IEvent e) {

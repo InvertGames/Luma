@@ -60,6 +60,10 @@ namespace Invert.ECS.Unity
         public virtual void Awake()
         {
             Instance = this;
+            foreach (var system in _UnitySystems)
+            {
+                system.Initialize(this);
+            }
             StartCoroutine(LoadSystems());
         }
 
@@ -91,15 +95,31 @@ namespace Invert.ECS.Unity
             for (int index = 0; index < asyncSystems.Length; index++)
             {
                 var s = asyncSystems[index];
-            
-               // if (_UnitySystems.Contains(s)) continue;
-                //Debug.Log(string.Format("Loaded {0} system", s.name));
+                if (_UnitySystems.Contains(s)) continue;
+
                 s.Initialize(this);
+              
                 this.SignalProgress("Initializing " + s.name, total);
                 yield return new WaitForEndOfFrame();
                 total += factor;
             }
-
+            foreach (var system in _UnitySystems)
+            {
+                var enumerator = system.Load();
+                if (enumerator != null)
+                {
+                    yield return StartCoroutine(enumerator);
+                }
+            }
+            foreach (var system in asyncSystems)
+            {
+                if (_UnitySystems.Contains(system)) continue;
+                var enumerator = system.Load();
+                if (enumerator != null)
+                {
+                    yield return StartCoroutine(enumerator);
+                }
+            }
             for (int index = 0; index < _BackgroundScenes.Length; index++)
             {
                 var backgroundScene = _BackgroundScenes[index];

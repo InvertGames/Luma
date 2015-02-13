@@ -5,15 +5,12 @@ using System.Linq;
 using Invert.ECS;
 using UnityEngine;
 
-
 public class BasicGameSystem : BasicGameSystemBase
 {
     public BasicGame CurrentGame;
 
     public ZoneAsset StartingZone;
 
-
-    
     protected override void ComponentCreated(IEvent e)
     {
         base.ComponentCreated(e);
@@ -91,6 +88,7 @@ public class BasicGameSystem : BasicGameSystemBase
                 XP = gainedXp
             });
         }
+        PlayerDataSystem.SignalSaveGame(Game, new EntityEventData());
     }
 
     protected override void OnEnteredLevel(LevelEventData data, Level level)
@@ -115,7 +113,6 @@ public class BasicGameSystem : BasicGameSystemBase
     }
 
     public Vector3 LastSpawnPosition { get; set; }
-
 
     protected override void EnteredZone(IEvent e)
     {
@@ -158,7 +155,7 @@ public class BasicGameSystem : BasicGameSystemBase
             });
             return;
         }
-
+        Debug.Log("Entered Zone");
         // We aren't in zone, so lets enter one.
         ZoneSystem.SignalEnterZone(Game, new ZoneEventData()
         {

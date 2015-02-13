@@ -78,6 +78,14 @@ namespace Invert.ECS.Graphs {
     }
     public class ComponentPropertyChildItem : ComponentPropertyChildItemBase,  IEntityEventHandlerMapping
     {
+        private bool _save = false;
+
+        [JsonProperty,InspectorProperty]
+        public bool Saveable
+        {
+            get { return _save; }
+            set { _save = value; }
+        }
 
         public override string DefaultTypeName
         {
