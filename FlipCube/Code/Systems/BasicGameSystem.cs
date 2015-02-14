@@ -163,7 +163,7 @@ public class BasicGameSystem : BasicGameSystemBase
         // We aren't in zone, so lets enter one.
         ZoneSystem.SignalEnterZone(Game, new ZoneEventData()
         {
-            Zone = ZoneManager.Components.FirstOrDefault()
+            Zone = ZoneManager.Components.FirstOrDefault(p=>p.SceneName == "ZoneA")
         });
 
     }

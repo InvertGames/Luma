@@ -27,6 +27,8 @@ public class ZonesWindowSystem : ZonesWindowSystemBase
         {
             var zoneEntry = Instantiate(_ZoneEntryPrefab) as GameObject;
             zoneEntry.transform.parent = _EntriesList.transform;
+            zoneEntry.GetComponent<RectTransform>().localScale = Vector3.one;
+            
             foreach (var text in zoneEntry.GetComponentsInChildren<Text>())
             {
                 if (text.name == "Title")
