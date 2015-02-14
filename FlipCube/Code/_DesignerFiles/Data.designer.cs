@@ -17,7 +17,10 @@ using UnityEngine;
 
 
 [System.SerializableAttribute()]
-public class RollableData : IRollable {
+public class RollableData : IRollable, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private Single _RollSpeed;
@@ -38,6 +41,17 @@ public class RollableData : IRollable {
     private Boolean _IsSplit;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual Single RollSpeed {
         get {
@@ -104,12 +118,26 @@ public class RollableData : IRollable {
 }
 
 [System.SerializableAttribute()]
-public class CubeData : ICube {
+public class CubeData : ICube, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private Boolean _IsSelected;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual Boolean IsSelected {
         get {
@@ -131,7 +159,10 @@ public class CubeData : ICube {
 }
 
 [System.SerializableAttribute()]
-public class MoveDirectionOnEnterData : IMoveDirectionOnEnter {
+public class MoveDirectionOnEnterData : IMoveDirectionOnEnter, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private Int32 _RollableId;
@@ -140,6 +171,17 @@ public class MoveDirectionOnEnterData : IMoveDirectionOnEnter {
     private CubeMoveDirection _MoveDirection;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual Int32 RollableId {
         get {
@@ -170,12 +212,26 @@ public class MoveDirectionOnEnterData : IMoveDirectionOnEnter {
 }
 
 [System.SerializableAttribute()]
-public class FollowOnSelectionData : IFollowOnSelection {
+public class FollowOnSelectionData : IFollowOnSelection, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private Single _Distance;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual Single Distance {
         get {
@@ -197,9 +253,23 @@ public class FollowOnSelectionData : IFollowOnSelection {
 }
 
 [System.SerializableAttribute()]
-public class PlateData : IPlate {
+public class PlateData : IPlate, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public bool IsDirty {
         get {
@@ -212,12 +282,26 @@ public class PlateData : IPlate {
 }
 
 [System.SerializableAttribute()]
-public class TeliporterData : ITeliporter {
+public class TeliporterData : ITeliporter, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private PlateRegister _Register;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual PlateRegister Register {
         get {
@@ -239,9 +323,23 @@ public class TeliporterData : ITeliporter {
 }
 
 [System.SerializableAttribute()]
-public class TeliportableData : ITeliportable {
+public class TeliportableData : ITeliportable, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public bool IsDirty {
         get {
@@ -254,12 +352,26 @@ public class TeliportableData : ITeliportable {
 }
 
 [System.SerializableAttribute()]
-public class TeliporterTargetData : ITeliporterTarget {
+public class TeliporterTargetData : ITeliporterTarget, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private PlateRegister _Register;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual PlateRegister Register {
         get {
@@ -281,9 +393,23 @@ public class TeliporterTargetData : ITeliporterTarget {
 }
 
 [System.SerializableAttribute()]
-public class GoalPlateData : IGoalPlate {
+public class GoalPlateData : IGoalPlate, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public bool IsDirty {
         get {
@@ -296,12 +422,26 @@ public class GoalPlateData : IGoalPlate {
 }
 
 [System.SerializableAttribute()]
-public class SwitchPlateTriggerData : ISwitchPlateTrigger {
+public class SwitchPlateTriggerData : ISwitchPlateTrigger, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private PlateRegister _Register;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual PlateRegister Register {
         get {
@@ -323,9 +463,23 @@ public class SwitchPlateTriggerData : ISwitchPlateTrigger {
 }
 
 [System.SerializableAttribute()]
-public class TurnGravityOnEnterData : ITurnGravityOnEnter {
+public class TurnGravityOnEnterData : ITurnGravityOnEnter, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public bool IsDirty {
         get {
@@ -338,9 +492,23 @@ public class TurnGravityOnEnterData : ITurnGravityOnEnter {
 }
 
 [System.SerializableAttribute()]
-public class DisableColliderOnCollisionData : IDisableColliderOnCollision {
+public class DisableColliderOnCollisionData : IDisableColliderOnCollision, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public bool IsDirty {
         get {
@@ -353,7 +521,10 @@ public class DisableColliderOnCollisionData : IDisableColliderOnCollision {
 }
 
 [System.SerializableAttribute()]
-public class SwitchPlateTargetData : ISwitchPlateTarget {
+public class SwitchPlateTargetData : ISwitchPlateTarget, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private SwitchPlatePivot _PivotPoint;
@@ -368,6 +539,17 @@ public class SwitchPlateTargetData : ISwitchPlateTarget {
     private PlateRegister _Register;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual SwitchPlatePivot PivotPoint {
         get {
@@ -416,12 +598,26 @@ public class SwitchPlateTargetData : ISwitchPlateTarget {
 }
 
 [System.SerializableAttribute()]
-public class MoveLeftOnLeaveData : IMoveLeftOnLeave {
+public class MoveLeftOnLeaveData : IMoveLeftOnLeave, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private Vector3 _Offset;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual Vector3 Offset {
         get {
@@ -443,7 +639,10 @@ public class MoveLeftOnLeaveData : IMoveLeftOnLeave {
 }
 
 [System.SerializableAttribute()]
-public class TransporterPlateData : ITransporterPlate {
+public class TransporterPlateData : ITransporterPlate, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private Vector3 _MoveOffset;
@@ -452,6 +651,17 @@ public class TransporterPlateData : ITransporterPlate {
     private Boolean _IsOn;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual Vector3 MoveOffset {
         get {
@@ -482,12 +692,26 @@ public class TransporterPlateData : ITransporterPlate {
 }
 
 [System.SerializableAttribute()]
-public class DissolvePlateData : IDissolvePlate {
+public class DissolvePlateData : IDissolvePlate, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private Boolean _IsDissolved;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual Boolean IsDissolved {
         get {
@@ -509,12 +733,26 @@ public class DissolvePlateData : IDissolvePlate {
 }
 
 [System.SerializableAttribute()]
-public class YingYangPlateData : IYingYangPlate {
+public class YingYangPlateData : IYingYangPlate, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     private bool _isDirty;
     
     [UnityEngine.SerializeField()]
     private Int32[] _TargetPlates;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public bool IsDirty {
         get {
@@ -536,7 +774,10 @@ public class YingYangPlateData : IYingYangPlate {
 }
 
 [System.SerializableAttribute()]
-public class LevelData : ILevel {
+public class LevelData : ILevel, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private Int32 _LevelNumber;
@@ -550,7 +791,27 @@ public class LevelData : ILevel {
     [UnityEngine.SerializeField()]
     private Int32 _MovesTaken;
     
+    [UnityEngine.SerializeField()]
+    private Int32 _TimesPlayed;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _BestScore;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _BestTime;
+    
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual Int32 LevelNumber {
         get {
@@ -558,7 +819,6 @@ public class LevelData : ILevel {
         }
         set {
             _LevelNumber = value;
-            IsDirty = true;
         }
     }
     
@@ -568,7 +828,6 @@ public class LevelData : ILevel {
         }
         set {
             _MaxXP = value;
-            IsDirty = true;
         }
     }
     
@@ -578,7 +837,6 @@ public class LevelData : ILevel {
         }
         set {
             _MinimumMoves = value;
-            IsDirty = true;
         }
     }
     
@@ -588,6 +846,38 @@ public class LevelData : ILevel {
         }
         set {
             _MovesTaken = value;
+        }
+    }
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 TimesPlayed {
+        get {
+            return _TimesPlayed;
+        }
+        set {
+            _TimesPlayed = value;
+            IsDirty = true;
+        }
+    }
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 BestScore {
+        get {
+            return _BestScore;
+        }
+        set {
+            _BestScore = value;
+            IsDirty = true;
+        }
+    }
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 BestTime {
+        get {
+            return _BestTime;
+        }
+        set {
+            _BestTime = value;
             IsDirty = true;
         }
     }
@@ -603,9 +893,23 @@ public class LevelData : ILevel {
 }
 
 [System.SerializableAttribute()]
-public class LevelSpawnPointData : ILevelSpawnPoint {
+public class LevelSpawnPointData : ILevelSpawnPoint, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public bool IsDirty {
         get {
@@ -618,12 +922,26 @@ public class LevelSpawnPointData : ILevelSpawnPoint {
 }
 
 [System.SerializableAttribute()]
-public class NotifyOnEnterData : INotifyOnEnter {
+public class NotifyOnEnterData : INotifyOnEnter, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private String _Message;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual String Message {
         get {
@@ -645,9 +963,23 @@ public class NotifyOnEnterData : INotifyOnEnter {
 }
 
 [System.SerializableAttribute()]
-public class BasicGameData : IBasicGame {
+public class BasicGameData : IBasicGame, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public bool IsDirty {
         get {
@@ -660,12 +992,26 @@ public class BasicGameData : IBasicGame {
 }
 
 [System.SerializableAttribute()]
-public class EnterLevelOnEnterData : IEnterLevelOnEnter {
+public class EnterLevelOnEnterData : IEnterLevelOnEnter, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private String _SceneName;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual String SceneName {
         get {
@@ -687,9 +1033,23 @@ public class EnterLevelOnEnterData : IEnterLevelOnEnter {
 }
 
 [System.SerializableAttribute()]
-public class CubeSpawnPointData : ICubeSpawnPoint {
+public class CubeSpawnPointData : ICubeSpawnPoint, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public bool IsDirty {
         get {
@@ -702,12 +1062,26 @@ public class CubeSpawnPointData : ICubeSpawnPoint {
 }
 
 [System.SerializableAttribute()]
-public class SwitchOnWithXpData : ISwitchOnWithXp {
+public class SwitchOnWithXpData : ISwitchOnWithXp, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private Int32 _RequiredXp;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual Int32 RequiredXp {
         get {
@@ -729,7 +1103,10 @@ public class SwitchOnWithXpData : ISwitchOnWithXp {
 }
 
 [System.SerializableAttribute()]
-public class TweenPlateColorsData : ITweenPlateColors {
+public class TweenPlateColorsData : ITweenPlateColors, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private Color _IdleColor;
@@ -744,6 +1121,17 @@ public class TweenPlateColorsData : ITweenPlateColors {
     private Boolean _IsOn;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual Color IdleColor {
         get {
@@ -792,12 +1180,26 @@ public class TweenPlateColorsData : ITweenPlateColors {
 }
 
 [System.SerializableAttribute()]
-public class WindowData : IWindow {
+public class WindowData : IWindow, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private FlipCubeWindow _WindowType;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual FlipCubeWindow WindowType {
         get {
@@ -819,9 +1221,23 @@ public class WindowData : IWindow {
 }
 
 [System.SerializableAttribute()]
-public class CloseWindowOnClickData : ICloseWindowOnClick {
+public class CloseWindowOnClickData : ICloseWindowOnClick, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public bool IsDirty {
         get {
@@ -834,9 +1250,23 @@ public class CloseWindowOnClickData : ICloseWindowOnClick {
 }
 
 [System.SerializableAttribute()]
-public class ZonesWindowData : IZonesWindow {
+public class ZonesWindowData : IZonesWindow, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public bool IsDirty {
         get {
@@ -849,9 +1279,23 @@ public class ZonesWindowData : IZonesWindow {
 }
 
 [System.SerializableAttribute()]
-public class FriendsWindowData : IFriendsWindow {
+public class FriendsWindowData : IFriendsWindow, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public bool IsDirty {
         get {
@@ -864,7 +1308,10 @@ public class FriendsWindowData : IFriendsWindow {
 }
 
 [System.SerializableAttribute()]
-public class PlayerData : IPlayer {
+public class PlayerData : IPlayer, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private String _Name;
@@ -880,6 +1327,18 @@ public class PlayerData : IPlayer {
     
     private bool _isDirty;
     
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
+    
+    [Invert.ECS.SaveableAttribute()]
     public virtual String Name {
         get {
             return _Name;
@@ -890,6 +1349,7 @@ public class PlayerData : IPlayer {
         }
     }
     
+    [Invert.ECS.SaveableAttribute()]
     public virtual Int32 XP {
         get {
             return _XP;
@@ -900,6 +1360,7 @@ public class PlayerData : IPlayer {
         }
     }
     
+    [Invert.ECS.SaveableAttribute()]
     public virtual Int32 Rank {
         get {
             return _Rank;
@@ -910,6 +1371,7 @@ public class PlayerData : IPlayer {
         }
     }
     
+    [Invert.ECS.SaveableAttribute()]
     public virtual Int32 TotalFlips {
         get {
             return _TotalFlips;
@@ -931,12 +1393,26 @@ public class PlayerData : IPlayer {
 }
 
 [System.SerializableAttribute()]
-public class ActiveWithXpData : IActiveWithXp {
+public class ActiveWithXpData : IActiveWithXp, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private Int32 _RequiredXp;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual Int32 RequiredXp {
         get {
@@ -958,12 +1434,26 @@ public class ActiveWithXpData : IActiveWithXp {
 }
 
 [System.SerializableAttribute()]
-public class ScoringData : IScoring {
+public class ScoringData : IScoring, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private Int32 _Score;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual Int32 Score {
         get {
@@ -985,7 +1475,10 @@ public class ScoringData : IScoring {
 }
 
 [System.SerializableAttribute()]
-public class ZoneData : IZone {
+public class ZoneData : IZone, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private String _ZoneName;
@@ -993,7 +1486,18 @@ public class ZoneData : IZone {
     private bool _isDirty;
     
     [UnityEngine.SerializeField()]
-    private Int32[] _Levels;
+    private int[] _Levels;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual String ZoneName {
         get {
@@ -1013,7 +1517,7 @@ public class ZoneData : IZone {
         }
     }
     
-    public virtual Int32[] Levels {
+    public virtual int[] Levels {
         get {
             return _Levels;
         }
@@ -1024,7 +1528,10 @@ public class ZoneData : IZone {
 }
 
 [System.SerializableAttribute()]
-public class TutorialOnEnterData : ITutorialOnEnter {
+public class TutorialOnEnterData : ITutorialOnEnter, Invert.ECS.IComponent {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _EntityId;
     
     [UnityEngine.SerializeField()]
     private Int32 _ArrowOver;
@@ -1033,6 +1540,17 @@ public class TutorialOnEnterData : ITutorialOnEnter {
     private String _Message;
     
     private bool _isDirty;
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+            IsDirty = true;
+        }
+    }
     
     public virtual Int32 ArrowOver {
         get {

@@ -9,10 +9,10 @@ using UnityEngine;
 public class FlipCubeSystem : FlipCubeSystemBase
 {
 
-    public ZoneAsset[] _Zones;
+    //public ZoneAsset[] _Zones;
 
-    private ZoneAsset CurrentZone;
-    private LevelAsset CurrentLevel;
+    private Zone CurrentZone;
+    private Level CurrentLevel;
 
     protected override void Loaded(IEvent e)
     {
@@ -21,7 +21,7 @@ public class FlipCubeSystem : FlipCubeSystemBase
         // delayed in the future in order to load data from a user profile.
         SignalGameDataReady(new GameReadyData()
         {
-            Zones = _Zones
+            //Zones = _Zones
         });
         SignalGameReady(new EntityEventData()); 
     }
@@ -75,7 +75,6 @@ public class FlipCubeSystem : FlipCubeSystemBase
     {
         base.OnEnteredZone(data);
         CurrentZone = data.Zone;
-
     }
 
     /// <summary>
@@ -91,7 +90,13 @@ public class FlipCubeSystem : FlipCubeSystemBase
         CurrentLevel = data.LevelData;
         // Only happens when we start directly in a level
         if (CurrentZone == null)
-        CurrentZone = _Zones.FirstOrDefault(p => p.Levels.Contains(data.LevelData));
+        {
+            Zone zone;
+            if (Game.ComponentSystem.TryGetComponent(data.LevelData.EntityId, out zone))
+            {
+                CurrentZone = zone;
+            }
+        }
     }
     /// <summary>
     /// Actually handles moving to a zone.
@@ -103,16 +108,16 @@ public class FlipCubeSystem : FlipCubeSystemBase
         
         CurrentZone = data.Zone;
 
-        foreach (var item in ZoneManager.Components.ToArray())
+        foreach (var item in ZoneSceneManager.Components.ToArray())
         {
             Destroy(item.gameObject);
         }
-        foreach (var item in LevelManager.Components.ToArray())
+        foreach (var item in LevelSceneManager.Components.ToArray())
         {
             Destroy(item.gameObject);
         }
 
-        LoadLevelAsync(CurrentZone.name, () =>
+        LoadLevelAsync(CurrentZone.SceneName, () =>
         {
             ZoneSystem.SignalEnteredZone(Game, new ZoneEventData()
             {
@@ -133,7 +138,8 @@ public class FlipCubeSystem : FlipCubeSystemBase
 
         LevelSystem.SignalEnterLevel(Game, new EnterLevelEventData()
         {
-            LevelData = CurrentZone.Levels[levelIndex]
+            LevelData = CurrentZone.Levels[levelIndex],
+            
         });
 
     }
@@ -144,18 +150,18 @@ public class FlipCubeSystem : FlipCubeSystemBase
     protected override void HandleEnterLevel(EnterLevelEventData data)
     {
         base.HandleEnterLevel(data);
-        foreach (var item in ZoneManager.Components.ToArray())
+        foreach (var item in ZoneSceneManager.Components.ToArray())
         {
             Destroy(item.gameObject);
         }
-        foreach (var item in LevelManager.Components.ToArray())
+        foreach (var item in LevelSceneManager.Components.ToArray())
         {
             Destroy(item.gameObject);
         }
         CurrentLevel = data.LevelData;
         //Application.LoadLevelAdditive(CurrentLevel.SceneName);
         
-        LoadLevelAsync(CurrentLevel.name, () =>
+        LoadLevelAsync(CurrentLevel.SceneName, () =>
         {
             LevelSystem.SignalEnteredLevel(Game, new LevelEventData()
             {
@@ -178,18 +184,12 @@ public class FlipCubeSystem : FlipCubeSystemBase
         });
     }
 
-    /// <summary>
-    /// Handles when a "EnterLevelOnEnter" component has been entered "StandingUp"
-    /// </summary>
-    /// <param name="data"></param>
-    /// <param name="enterlevelonenter"></param>
-    protected override void HandleEnterLevelOnEnter(PlateCubeCollsion data, EnterLevelOnEnter enterlevelonenter)
+    protected override void HandleEnterLevelOnEnter(PlateCubeCollsion data, EnterLevelOnEnter enterlevelonenter, Level level)
     {
-        base.HandleEnterLevelOnEnter(data, enterlevelonenter);
+        base.HandleEnterLevelOnEnter(data, enterlevelonenter, level);
         LevelSystem.SignalEnterLevel(Game, new EnterLevelEventData()
         {
-            LevelData = enterlevelonenter.Level
+            LevelData = level
         });
-  
     }
 }

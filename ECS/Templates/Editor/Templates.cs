@@ -22,8 +22,8 @@ namespace Invert.ECS
             ECSPlugin = container.Resolve<uFrameECS>();
 
             ECSPlugin.Component.AddCodeTemplate<UnityComponentTemplate>();
-            ECSPlugin.Component.AddCodeTemplate<VanillaComponentTemplate>();
-            ECSPlugin.Component.AddCodeTemplate<ComponentInterfaceTemplate>();
+            //ECSPlugin.Component.AddCodeTemplate<VanillaComponentTemplate>();
+            //ECSPlugin.Component.AddCodeTemplate<ComponentInterfaceTemplate>();
             ECSPlugin.Component.AddCodeTemplate<UnityComponentTemplatePartial>();
             ECSPlugin.Component.AddCodeTemplate<ComponentAssetTemplate>();
             //ECSPlugin.Entity.AddCodeTemplate<EntityAssetTemplate>();
@@ -57,11 +57,21 @@ namespace Invert.ECS
                 if (type == null) continue;
                 Ctx.TryAddNamespace(type.Namespace);
             }
-            Ctx.AddIterator("ComponentProperty", _ => _.Properties.Where(p => !p.Precompiled));
-            Ctx.AddIterator("ComponentCollection", _ => _.Collections.Where(p => !p.Precompiled));
+            Ctx.AddIterator("ComponentProperty", FilterProperties);
+            Ctx.AddIterator("ComponentCollection", FilterCollections);
             Ctx.AddCondition("IsDirty",_=>_.Saveable);
 
 
+        }
+
+        protected virtual IEnumerable FilterCollections(ComponentNode _)
+        {
+            return _.Collections.Where(p => !p.Precompiled);
+        }
+
+        protected virtual IEnumerable FilterProperties(ComponentNode _)
+        {
+            return _.Properties.Where(p => !p.Precompiled);
         }
 
         public TemplateContext<ComponentNode> Ctx { get; set; }
@@ -71,10 +81,12 @@ namespace Invert.ECS
         {
             get
             {
-
+            
                 Ctx.SetType(Ctx.TypedItem.RelatedTypeName );
                 var field = Ctx.CurrentDecleration._private_(Ctx.TypedItem.RelatedTypeName, "_{0}", Ctx.Item.Name);
                 
+              
+
                 field.CustomAttributes.Add(
                     new CodeAttributeDeclaration(typeof(SerializeField).ToCodeReference()));
                 Ctx._("return {0}", field.Name);
@@ -83,8 +95,11 @@ namespace Invert.ECS
             set
             {
                 Ctx._("_{0} = value", Ctx.Item.Name);
-                if (Ctx.Data.Saveable)
+                if (Ctx.ItemAs<ComponentPropertyChildItem>().Saveable)
                 {
+                    Ctx.CurrentProperty.CustomAttributes.Add(
+                        new CodeAttributeDeclaration(typeof (SaveableAttribute).ToCodeReference()));
+
                     Ctx._("IsDirty = true");
                 }
             }
@@ -110,13 +125,18 @@ namespace Invert.ECS
         {
             get
             {
-
                 var typeName = Ctx.TypedItem.RelatedTypeName + "[]";
+                 var output = Ctx.Item.OutputTo<ComponentNode>();
+                if (output != null )
+                {
+                    typeName = output.ClassName + "[]";
+                }
+             
                 Ctx.SetType(typeName);
                 var field = Ctx.CurrentDecleration._private_(typeName, "_{0}", Ctx.Item.Name);
                 field.CustomAttributes.Add(
                    new CodeAttributeDeclaration(typeof(SerializeField).ToCodeReference()));
-              
+               
                 Ctx._("return {0}", field.Name);
                 return 0;
             }
@@ -142,12 +162,25 @@ namespace Invert.ECS
     [TemplateClass("Data", MemberGeneratorLocation.DesignerFile, ClassNameFormat = "{0}Data")]
     public class VanillaComponentTemplate : ComponentTemplate
     {
+
+        protected override IEnumerable FilterCollections(ComponentNode _)
+        {
+            return _.Collections;
+        }
+
+        protected override IEnumerable FilterProperties(ComponentNode _)
+        {
+            return _.Properties;
+        }
+
         public override void TemplateSetup()
         {
             base.TemplateSetup();
             
             Ctx.CurrentDecleration.BaseTypes.Clear();
             Ctx.CurrentDecleration.BaseTypes.Add(string.Format("I{0}", Ctx.Data.Name).ToCodeReference());
+            Ctx.CurrentDecleration.BaseTypes.Add(typeof(IComponent).ToCodeReference());
+
             Ctx.CurrentDecleration.CustomAttributes.Add(
                 new CodeAttributeDeclaration(typeof(SerializableAttribute).ToCodeReference()));
 
@@ -174,15 +207,14 @@ namespace Invert.ECS
                 if (type == null) continue;
                 Ctx.TryAddNamespace(type.Namespace);
             }
-            foreach (var property in Ctx.Data.Collections)
+            foreach (var property in Ctx.Data.Collections.Where(p=>p.OutputTo<ComponentNode>() == null))
             {
                 var type = InvertApplication.FindTypeByName(property.RelatedTypeName);
                 if (type == null) continue;
                 Ctx.TryAddNamespace(type.Namespace);
             }
-            Ctx.AddIterator("ComponentProperty", _ => _.Properties.Where(p => !p.Precompiled));
+            Ctx.AddIterator("ComponentProperty", _ => _.Properties.Where(p => !p.Precompiled && !p.Saveable));
             Ctx.AddIterator("ComponentCollection", _ => _.Collections.Where(p => !p.Precompiled));
-
             
         }
         [TemplateProperty(MemberGeneratorLocation.DesignerFile, "{0}", AutoFillType.NameOnly)]
@@ -242,7 +274,7 @@ namespace Invert.ECS
             if (Ctx.IsDesignerFile)
             {
                 Ctx.SetBaseType(typeof (UnityComponent));
-                Ctx.CurrentDecleration.BaseTypes.Add(string.Format("I{0}", Ctx.Data.Name).ToCodeReference());
+              //  Ctx.CurrentDecleration.BaseTypes.Add(string.Format("I{0}", Ctx.Data.Name).ToCodeReference());
 
                 var field = Ctx.CurrentDecleration._private_(string.Format("{0}Asset", Ctx.Data.Name), "_Asset");
                 field.CustomAttributes.Add(new CodeAttributeDeclaration(typeof (SerializeField).ToCodeReference()));
@@ -276,8 +308,9 @@ namespace Invert.ECS
         {
             Ctx.PushStatements(Ctx._if("_Asset != null").TrueStatements);
 
-            Ctx.CurrentMethod.Attributes = MemberAttributes.Override | MemberAttributes.Public; 
-            foreach (var item in Ctx.Data.Properties)
+            Ctx.CurrentMethod.Attributes = MemberAttributes.Override | MemberAttributes.Public;
+            Ctx._("EntityId = _Asset.EntityId");
+            foreach (var item in Ctx.Data.Properties.Where(p=>!p.Saveable))
             {
                 var componentNode = item.OutputTo<ComponentNode>();
                 if (componentNode != null)
@@ -295,7 +328,7 @@ namespace Invert.ECS
                 var componentNode = item.OutputTo<ComponentNode>();
                 if (componentNode != null)
                 {
-                    Ctx._("{0} = _Asset.{0}.Select(p=>p.EntityId).ToArray()", item.Name);
+                   // Ctx._("{0} = _Asset.{0}.Select(p=>p.EntityId).ToArray()", item.Name);
                 }
                 else
                 {
@@ -305,7 +338,6 @@ namespace Invert.ECS
             }
             Ctx.PopStatements();
         }
-
 
     }
 

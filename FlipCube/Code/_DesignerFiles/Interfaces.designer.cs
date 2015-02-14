@@ -308,6 +308,9 @@ public interface ILevel {
     
     
     
+    
+    
+    
     Int32 LevelNumber {
         get;
         set;
@@ -324,6 +327,24 @@ public interface ILevel {
     }
     
     Int32 MovesTaken {
+        get;
+        set;
+    }
+    
+    [Invert.ECS.SaveableAttribute()]
+    Int32 TimesPlayed {
+        get;
+        set;
+    }
+    
+    [Invert.ECS.SaveableAttribute()]
+    Int32 BestScore {
+        get;
+        set;
+    }
+    
+    [Invert.ECS.SaveableAttribute()]
+    Int32 BestTime {
         get;
         set;
     }
@@ -488,21 +509,25 @@ public interface IPlayer {
     
     
     
+    [Invert.ECS.SaveableAttribute()]
     String Name {
         get;
         set;
     }
     
+    [Invert.ECS.SaveableAttribute()]
     Int32 XP {
         get;
         set;
     }
     
+    [Invert.ECS.SaveableAttribute()]
     Int32 Rank {
         get;
         set;
     }
     
+    [Invert.ECS.SaveableAttribute()]
     Int32 TotalFlips {
         get;
         set;
@@ -559,7 +584,7 @@ public interface IZone {
         set;
     }
     
-    Int32[] Levels {
+    int[] Levels {
         get;
         set;
     }

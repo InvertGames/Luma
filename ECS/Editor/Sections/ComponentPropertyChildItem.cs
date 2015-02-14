@@ -141,6 +141,16 @@ namespace Invert.ECS.Graphs {
         {
         }
 
+        public ComponentPropertyChildItem PropertyData
+        {
+            get { return (ComponentPropertyChildItem) DataObject; }
+        }
+
+        public bool IsSaveable
+        {
+            get { return PropertyData.Saveable; }
+        }
+
         public override string RelatedType
         {
             get
@@ -158,6 +168,30 @@ namespace Invert.ECS.Graphs {
         public ComponentPropertyDrawer(ComponentPropertyChildViewModel viewModel)
             : base(viewModel)
         {
+        }
+
+        public ComponentPropertyChildViewModel PropertyViewModel
+        {
+            get { return ViewModelObject as ComponentPropertyChildViewModel; }
+
+        }
+        public override void DrawBackground(IPlatformDrawer platform, float scale)
+        {
+            if (ViewModelObject.IsSelected)
+            {
+                base.DrawBackground(platform, scale);
+            }
+            else if (PropertyViewModel.IsSaveable)
+            {
+                platform.DrawStretchBox(Bounds.Scale(scale), CachedStyles.Item2, 0f);
+            }
+            
+
+        }
+
+        public override void Draw(IPlatformDrawer platform, float scale)
+        {
+            base.Draw(platform, scale);
         }
     }
 }

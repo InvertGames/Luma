@@ -1129,6 +1129,8 @@ public class LevelSystemBase : UnitySystem {
     
     private ComponentManager<Level> _LevelManager;
     
+    private ComponentManager<LevelScene> _LevelSceneManager;
+    
     public ComponentManager<Level> LevelManager {
         get {
             return _LevelManager;
@@ -1138,9 +1140,19 @@ public class LevelSystemBase : UnitySystem {
         }
     }
     
+    public ComponentManager<LevelScene> LevelSceneManager {
+        get {
+            return _LevelSceneManager;
+        }
+        set {
+            _LevelSceneManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
         LevelManager = game.ComponentSystem.RegisterComponent<Level>();
+        LevelSceneManager = game.ComponentSystem.RegisterComponent<LevelScene>();
         game.EventManager.ListenFor( FrameworkEvents.ComponentCreated, ComponentCreated );
     }
     
@@ -1341,9 +1353,13 @@ public class FlipCubeSystemBase : UnitySystem {
     
     private ComponentManager<Level> _LevelManager;
     
+    private ComponentManager<LevelScene> _LevelSceneManager;
+    
     private ComponentManager<EnterLevelOnEnter> _EnterLevelOnEnterManager;
     
     private ComponentManager<Zone> _ZoneManager;
+    
+    private ComponentManager<ZoneScene> _ZoneSceneManager;
     
     public ComponentManager<Cube> CubeManager {
         get {
@@ -1360,6 +1376,15 @@ public class FlipCubeSystemBase : UnitySystem {
         }
         set {
             _LevelManager = value;
+        }
+    }
+    
+    public ComponentManager<LevelScene> LevelSceneManager {
+        get {
+            return _LevelSceneManager;
+        }
+        set {
+            _LevelSceneManager = value;
         }
     }
     
@@ -1381,12 +1406,23 @@ public class FlipCubeSystemBase : UnitySystem {
         }
     }
     
+    public ComponentManager<ZoneScene> ZoneSceneManager {
+        get {
+            return _ZoneSceneManager;
+        }
+        set {
+            _ZoneSceneManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
         CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
         LevelManager = game.ComponentSystem.RegisterComponent<Level>();
+        LevelSceneManager = game.ComponentSystem.RegisterComponent<LevelScene>();
         EnterLevelOnEnterManager = game.ComponentSystem.RegisterComponent<EnterLevelOnEnter>();
         ZoneManager = game.ComponentSystem.RegisterComponent<Zone>();
+        ZoneSceneManager = game.ComponentSystem.RegisterComponent<ZoneScene>();
         game.EventManager.ListenFor( ZoneSystemEvents.EnterZone, EnterZone );
         game.EventManager.ListenFor( LevelSystemEvents.EnterLevel, EnterLevel );
         game.EventManager.ListenFor( FrameworkEvents.Loaded, Loaded );
@@ -1465,10 +1501,14 @@ public class FlipCubeSystemBase : UnitySystem {
         if (!Game.ComponentSystem.TryGetComponent<EnterLevelOnEnter>(eventData.PlateId, out enterlevelonenter)) {
             return;
         }
-        this.HandleEnterLevelOnEnter(eventData, enterlevelonenter);
+        Level level;
+        if (!Game.ComponentSystem.TryGetComponent<Level>(enterlevelonenter.LevelId, out level)) {
+            return;
+        }
+        this.HandleEnterLevelOnEnter(eventData, enterlevelonenter, level);
     }
     
-    protected virtual void HandleEnterLevelOnEnter(PlateCubeCollsion data, EnterLevelOnEnter enterlevelonenter) {
+    protected virtual void HandleEnterLevelOnEnter(PlateCubeCollsion data, EnterLevelOnEnter enterlevelonenter, Level level) {
     }
     
     protected virtual void HandleNextLevel(Invert.ECS.IEvent e) {
@@ -2344,13 +2384,29 @@ public class WindowSystemBase : UnitySystem {
 
 public class ZonesWindowSystemBase : UnitySystem {
     
+    private ComponentManager<Zone> _ZoneManager;
+    
+    public ComponentManager<Zone> ZoneManager {
+        get {
+            return _ZoneManager;
+        }
+        set {
+            _ZoneManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
+        ZoneManager = game.ComponentSystem.RegisterComponent<Zone>();
         game.EventManager.ListenFor( FlipCubeSystemEvents.GameDataReady, GameDataReady );
+        game.EventManager.ListenFor( FrameworkEvents.Loaded, Loaded );
     }
     
     protected virtual void GameDataReady(Invert.ECS.IEvent e) {
         OnLoadData(e);
+    }
+    
+    protected virtual void Loaded(Invert.ECS.IEvent e) {
     }
     
     protected virtual void OnLoadData(Invert.ECS.IEvent e) {
@@ -2519,6 +2575,8 @@ public class ZoneSystemBase : UnitySystem {
     
     private ComponentManager<Zone> _ZoneManager;
     
+    private ComponentManager<ZoneScene> _ZoneSceneManager;
+    
     public ComponentManager<Zone> ZoneManager {
         get {
             return _ZoneManager;
@@ -2528,9 +2586,19 @@ public class ZoneSystemBase : UnitySystem {
         }
     }
     
+    public ComponentManager<ZoneScene> ZoneSceneManager {
+        get {
+            return _ZoneSceneManager;
+        }
+        set {
+            _ZoneSceneManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
         ZoneManager = game.ComponentSystem.RegisterComponent<Zone>();
+        ZoneSceneManager = game.ComponentSystem.RegisterComponent<ZoneScene>();
         game.EventManager.ListenFor( FrameworkEvents.ComponentCreated, ComponentCreated );
     }
     
@@ -2561,9 +2629,7 @@ public class PlayerDataSystemBase : UnitySystem {
         game.EventManager.ListenFor( FrameworkEvents.ComponentCreated, ComponentCreated );
         game.EventManager.ListenFor( FrameworkEvents.ComponentDestroyed, ComponentDestroyed );
         game.EventManager.ListenFor( PlayerDataSystemEvents.SaveGame, SaveGame );
-        game.EventManager.ListenFor( PlayerDataSystemEvents.PlayerLoggedIn, PlayerLoggedIn );
-        game.EventManager.ListenFor( PlayerDataSystemEvents.PlayerLoggedOut, PlayerLoggedOut );
-        game.EventManager.ListenFor( PlayerDataSystemEvents.LoadData, LoadData );
+      
     }
     
     protected virtual void ComponentCreated(Invert.ECS.IEvent e) {

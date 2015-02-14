@@ -19,18 +19,6 @@ public class PlayerDataSystem : PlayerDataSystemBase
         set { _saveableManager = value; }
     }
 
-    public override void Initialize(IGame game)
-    {
-        base.Initialize(game);
-
-    }
-
-    protected override void OnLoggedIn(EntityEventData data)
-    {
-        base.OnLoggedIn(data);
-        Debug.Log("LOGGED IN!!!");
-    }
-
     protected override void ComponentCreated(IEvent e)
     {
         base.ComponentCreated(e);
@@ -97,8 +85,11 @@ public class PlayerDataSystem : PlayerDataSystemBase
         var node = new JSONClass();
         foreach (var property in component.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
         {
+         
             if (property.CanRead && property.CanWrite)
             {
+                if (!property.IsDefined(typeof(SaveableAttribute), true)) continue;
+
                 if (property.PropertyType == typeof(int))
                 {
                     node.Add(property.Name, new JSONData((int)property.GetValue(component, null)));
@@ -140,6 +131,8 @@ public class PlayerDataSystem : PlayerDataSystemBase
         {
             if (property.CanRead && property.CanWrite)
             {
+                if (!property.IsDefined(typeof(SaveableAttribute), true)) continue;
+
                 var propertyData = node[property.Name];
                 if (propertyData == null) continue;
 

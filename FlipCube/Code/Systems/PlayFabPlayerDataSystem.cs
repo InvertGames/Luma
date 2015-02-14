@@ -8,6 +8,11 @@ using UnityEngine;
 
 public class PlayFabPlayerDataSystem : PlayerDataSystem
 {
+    public string _Username="mosborne2";
+    public string _Password = "micah123";
+    public string _TitleId = "F3F5";
+
+
     public override void Initialize(IGame game)
     {
         base.Initialize(game);
@@ -31,9 +36,9 @@ public class PlayFabPlayerDataSystem : PlayerDataSystem
     {
         PlayFabClientAPI.LoginWithPlayFab(new LoginWithPlayFabRequest
         {
-            Username = "mosborne2",
-            Password = "micah123",
-            TitleId = "F3F5"
+            Username = _Username,
+            Password = _Password,
+            TitleId = _TitleId
         }, r =>
         {
             GetUserDataRequest request = new GetUserDataRequest()
@@ -81,7 +86,21 @@ public class PlayFabPlayerDataSystem : PlayerDataSystem
         request.Data = new Dictionary<string, string>();
         foreach (var component in SaveableManager.Components.Where(p => p.IsDirty))
         {
-            request.Data.Add(component.EntityId + "_" + component.GetType().Name, SerializeComponent(component).ToString());
+            var json = SerializeComponent(component).ToString();
+            var key = component.EntityId + "_" + component.GetType().Name;
+            request.Data.Add(key, json);
+            if (Data != null)
+            {
+                if (Data.ContainsKey(key))
+                {
+                    Data.Remove(key);
+                }
+
+                Data.Add(key,new UserDataRecord()
+                {
+                    Value = json
+                });
+            }
             component.IsDirty = false;
         }
         PlayFabClientAPI.UpdateUserData(request, (r) =>
@@ -92,11 +111,6 @@ public class PlayFabPlayerDataSystem : PlayerDataSystem
 
     public Dictionary<string, UserDataRecord> Data { get; set; }
 
-    protected override void OnLoggedIn(EntityEventData data)
-    {
-        base.OnLoggedIn(data);
-
-    }
 
 
 }

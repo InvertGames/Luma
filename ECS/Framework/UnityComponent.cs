@@ -21,6 +21,7 @@ namespace Invert.ECS.Unity
         [SerializeField]
         private int _entityId;
         
+        [Saveable]
         public int EntityId
         {
             get { return _entityId; }

@@ -16,7 +16,7 @@ using Invert.ECS;
 using UnityEngine;
 
 
-public class RollableBase : Invert.ECS.Unity.UnityComponent, IRollable {
+public class RollableBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -116,13 +116,13 @@ public class RollableBase : Invert.ECS.Unity.UnityComponent, IRollable {
     
     public override void Awake() {
         if (_Asset != null) {
+            EntityId = _Asset.EntityId;
             RollSpeed = _Asset.RollSpeed;
             RestState = _Asset.RestState;
             IsRolling = _Asset.IsRolling;
             Length = _Asset.Length;
             StartingPosition = _Asset.StartingPosition;
             IsSplit = _Asset.IsSplit;
-            EntityId = _Asset.EntityId;
         }
     }
 }
@@ -131,7 +131,7 @@ public class RollableBase : Invert.ECS.Unity.UnityComponent, IRollable {
 public partial class Rollable {
 }
 
-public class CubeBase : Invert.ECS.Unity.UnityComponent, ICube {
+public class CubeBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -171,8 +171,8 @@ public class CubeBase : Invert.ECS.Unity.UnityComponent, ICube {
     
     public override void Awake() {
         if (_Asset != null) {
-            IsSelected = _Asset.IsSelected;
             EntityId = _Asset.EntityId;
+            IsSelected = _Asset.IsSelected;
         }
     }
 }
@@ -181,7 +181,7 @@ public class CubeBase : Invert.ECS.Unity.UnityComponent, ICube {
 public partial class Cube {
 }
 
-public class MoveDirectionOnEnterBase : Invert.ECS.Unity.UnityComponent, IMoveDirectionOnEnter {
+public class MoveDirectionOnEnterBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -233,9 +233,9 @@ public class MoveDirectionOnEnterBase : Invert.ECS.Unity.UnityComponent, IMoveDi
     
     public override void Awake() {
         if (_Asset != null) {
+            EntityId = _Asset.EntityId;
             RollableId = _Asset.RollableId;
             MoveDirection = _Asset.MoveDirection;
-            EntityId = _Asset.EntityId;
         }
     }
 }
@@ -244,7 +244,7 @@ public class MoveDirectionOnEnterBase : Invert.ECS.Unity.UnityComponent, IMoveDi
 public partial class MoveDirectionOnEnter {
 }
 
-public class FollowOnSelectionBase : Invert.ECS.Unity.UnityComponent, IFollowOnSelection {
+public class FollowOnSelectionBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -284,8 +284,8 @@ public class FollowOnSelectionBase : Invert.ECS.Unity.UnityComponent, IFollowOnS
     
     public override void Awake() {
         if (_Asset != null) {
-            Distance = _Asset.Distance;
             EntityId = _Asset.EntityId;
+            Distance = _Asset.Distance;
         }
     }
 }
@@ -294,7 +294,7 @@ public class FollowOnSelectionBase : Invert.ECS.Unity.UnityComponent, IFollowOnS
 public partial class FollowOnSelection {
 }
 
-public class PlateBase : Invert.ECS.Unity.UnityComponent, IPlate {
+public class PlateBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -331,7 +331,7 @@ public class PlateBase : Invert.ECS.Unity.UnityComponent, IPlate {
 public partial class Plate {
 }
 
-public class TeliporterBase : Invert.ECS.Unity.UnityComponent, ITeliporter {
+public class TeliporterBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -371,8 +371,8 @@ public class TeliporterBase : Invert.ECS.Unity.UnityComponent, ITeliporter {
     
     public override void Awake() {
         if (_Asset != null) {
-            Register = _Asset.Register;
             EntityId = _Asset.EntityId;
+            Register = _Asset.Register;
         }
     }
 }
@@ -381,7 +381,7 @@ public class TeliporterBase : Invert.ECS.Unity.UnityComponent, ITeliporter {
 public partial class Teliporter {
 }
 
-public class TeliportableBase : Invert.ECS.Unity.UnityComponent, ITeliportable {
+public class TeliportableBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -418,7 +418,7 @@ public class TeliportableBase : Invert.ECS.Unity.UnityComponent, ITeliportable {
 public partial class Teliportable {
 }
 
-public class TeliporterTargetBase : Invert.ECS.Unity.UnityComponent, ITeliporterTarget {
+public class TeliporterTargetBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -458,8 +458,8 @@ public class TeliporterTargetBase : Invert.ECS.Unity.UnityComponent, ITeliporter
     
     public override void Awake() {
         if (_Asset != null) {
-            Register = _Asset.Register;
             EntityId = _Asset.EntityId;
+            Register = _Asset.Register;
         }
     }
 }
@@ -468,7 +468,7 @@ public class TeliporterTargetBase : Invert.ECS.Unity.UnityComponent, ITeliporter
 public partial class TeliporterTarget {
 }
 
-public class GoalPlateBase : Invert.ECS.Unity.UnityComponent, IGoalPlate {
+public class GoalPlateBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -505,7 +505,7 @@ public class GoalPlateBase : Invert.ECS.Unity.UnityComponent, IGoalPlate {
 public partial class GoalPlate {
 }
 
-public class SwitchPlateTriggerBase : Invert.ECS.Unity.UnityComponent, ISwitchPlateTrigger {
+public class SwitchPlateTriggerBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -545,8 +545,8 @@ public class SwitchPlateTriggerBase : Invert.ECS.Unity.UnityComponent, ISwitchPl
     
     public override void Awake() {
         if (_Asset != null) {
-            Register = _Asset.Register;
             EntityId = _Asset.EntityId;
+            Register = _Asset.Register;
         }
     }
 }
@@ -555,7 +555,7 @@ public class SwitchPlateTriggerBase : Invert.ECS.Unity.UnityComponent, ISwitchPl
 public partial class SwitchPlateTrigger {
 }
 
-public class TurnGravityOnEnterBase : Invert.ECS.Unity.UnityComponent, ITurnGravityOnEnter {
+public class TurnGravityOnEnterBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -591,7 +591,7 @@ public class TurnGravityOnEnterBase : Invert.ECS.Unity.UnityComponent, ITurnGrav
 public partial class TurnGravityOnEnter {
 }
 
-public class DisableColliderOnCollisionBase : Invert.ECS.Unity.UnityComponent, IDisableColliderOnCollision {
+public class DisableColliderOnCollisionBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -628,7 +628,7 @@ public class DisableColliderOnCollisionBase : Invert.ECS.Unity.UnityComponent, I
 public partial class DisableColliderOnCollision {
 }
 
-public class SwitchPlateTargetBase : Invert.ECS.Unity.UnityComponent, ISwitchPlateTarget {
+public class SwitchPlateTargetBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -704,11 +704,11 @@ public class SwitchPlateTargetBase : Invert.ECS.Unity.UnityComponent, ISwitchPla
     
     public override void Awake() {
         if (_Asset != null) {
+            EntityId = _Asset.EntityId;
             PivotPoint = _Asset.PivotPoint;
             On = _Asset.On;
             StartOn = _Asset.StartOn;
             Register = _Asset.Register;
-            EntityId = _Asset.EntityId;
         }
     }
 }
@@ -717,7 +717,7 @@ public class SwitchPlateTargetBase : Invert.ECS.Unity.UnityComponent, ISwitchPla
 public partial class SwitchPlateTarget {
 }
 
-public class MoveLeftOnLeaveBase : Invert.ECS.Unity.UnityComponent, IMoveLeftOnLeave {
+public class MoveLeftOnLeaveBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -757,8 +757,8 @@ public class MoveLeftOnLeaveBase : Invert.ECS.Unity.UnityComponent, IMoveLeftOnL
     
     public override void Awake() {
         if (_Asset != null) {
-            Offset = _Asset.Offset;
             EntityId = _Asset.EntityId;
+            Offset = _Asset.Offset;
         }
     }
 }
@@ -767,7 +767,7 @@ public class MoveLeftOnLeaveBase : Invert.ECS.Unity.UnityComponent, IMoveLeftOnL
 public partial class MoveLeftOnLeave {
 }
 
-public class TransporterPlateBase : Invert.ECS.Unity.UnityComponent, ITransporterPlate {
+public class TransporterPlateBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -819,9 +819,9 @@ public class TransporterPlateBase : Invert.ECS.Unity.UnityComponent, ITransporte
     
     public override void Awake() {
         if (_Asset != null) {
+            EntityId = _Asset.EntityId;
             MoveOffset = _Asset.MoveOffset;
             IsOn = _Asset.IsOn;
-            EntityId = _Asset.EntityId;
         }
     }
 }
@@ -830,7 +830,7 @@ public class TransporterPlateBase : Invert.ECS.Unity.UnityComponent, ITransporte
 public partial class TransporterPlate {
 }
 
-public class DissolvePlateBase : Invert.ECS.Unity.UnityComponent, IDissolvePlate {
+public class DissolvePlateBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -870,8 +870,8 @@ public class DissolvePlateBase : Invert.ECS.Unity.UnityComponent, IDissolvePlate
     
     public override void Awake() {
         if (_Asset != null) {
-            IsDissolved = _Asset.IsDissolved;
             EntityId = _Asset.EntityId;
+            IsDissolved = _Asset.IsDissolved;
         }
     }
 }
@@ -880,7 +880,7 @@ public class DissolvePlateBase : Invert.ECS.Unity.UnityComponent, IDissolvePlate
 public partial class DissolvePlate {
 }
 
-public class YingYangPlateBase : Invert.ECS.Unity.UnityComponent, IYingYangPlate {
+public class YingYangPlateBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -930,7 +930,7 @@ public class YingYangPlateBase : Invert.ECS.Unity.UnityComponent, IYingYangPlate
 public partial class YingYangPlate {
 }
 
-public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel, Invert.ECS.ISavableComponent {
+public class LevelBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -947,6 +947,18 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel, Invert.ECS.ISa
     
     [UnityEngine.SerializeField()]
     private Int32 _MovesTaken;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _TimesPlayed;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _BestScore;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _BestTime;
+    
+    [UnityEngine.SerializeField()]
+    private String _SceneName;
     
     private bool _isDirty;
     
@@ -965,7 +977,6 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel, Invert.ECS.ISa
         }
         set {
             _LevelNumber = value;
-            IsDirty = true;
         }
     }
     
@@ -975,7 +986,6 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel, Invert.ECS.ISa
         }
         set {
             _MaxXP = value;
-            IsDirty = true;
         }
     }
     
@@ -985,7 +995,6 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel, Invert.ECS.ISa
         }
         set {
             _MinimumMoves = value;
-            IsDirty = true;
         }
     }
     
@@ -995,7 +1004,48 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel, Invert.ECS.ISa
         }
         set {
             _MovesTaken = value;
+        }
+    }
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 TimesPlayed {
+        get {
+            return _TimesPlayed;
+        }
+        set {
+            _TimesPlayed = value;
             IsDirty = true;
+        }
+    }
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 BestScore {
+        get {
+            return _BestScore;
+        }
+        set {
+            _BestScore = value;
+            IsDirty = true;
+        }
+    }
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 BestTime {
+        get {
+            return _BestTime;
+        }
+        set {
+            _BestTime = value;
+            IsDirty = true;
+        }
+    }
+    
+    public virtual String SceneName {
+        get {
+            return _SceneName;
+        }
+        set {
+            _SceneName = value;
         }
     }
     
@@ -1010,11 +1060,12 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel, Invert.ECS.ISa
     
     public override void Awake() {
         if (_Asset != null) {
+            EntityId = _Asset.EntityId;
             LevelNumber = _Asset.LevelNumber;
             MaxXP = _Asset.MaxXP;
             MinimumMoves = _Asset.MinimumMoves;
             MovesTaken = _Asset.MovesTaken;
-            EntityId = _Asset.EntityId;
+            SceneName = _Asset.SceneName;
         }
     }
 }
@@ -1023,7 +1074,7 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, ILevel, Invert.ECS.ISa
 public partial class Level {
 }
 
-public class LevelSpawnPointBase : Invert.ECS.Unity.UnityComponent, ILevelSpawnPoint {
+public class LevelSpawnPointBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -1060,7 +1111,44 @@ public class LevelSpawnPointBase : Invert.ECS.Unity.UnityComponent, ILevelSpawnP
 public partial class LevelSpawnPoint {
 }
 
-public class NotifyOnEnterBase : Invert.ECS.Unity.UnityComponent, INotifyOnEnter {
+public class LevelSceneBase : Invert.ECS.Unity.UnityComponent {
+    
+    [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
+    private LevelSceneAsset _Asset;
+    
+    private bool _isDirty;
+    
+    public LevelSceneAsset Asset {
+        get {
+            return _Asset;
+        }
+        set {
+            _Asset = value;
+        }
+    }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            EntityId = _Asset.EntityId;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("LevelSystem/LevelScene")]
+public partial class LevelScene {
+}
+
+public class NotifyOnEnterBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -1100,8 +1188,8 @@ public class NotifyOnEnterBase : Invert.ECS.Unity.UnityComponent, INotifyOnEnter
     
     public override void Awake() {
         if (_Asset != null) {
-            Message = _Asset.Message;
             EntityId = _Asset.EntityId;
+            Message = _Asset.Message;
         }
     }
 }
@@ -1110,7 +1198,7 @@ public class NotifyOnEnterBase : Invert.ECS.Unity.UnityComponent, INotifyOnEnter
 public partial class NotifyOnEnter {
 }
 
-public class BasicGameBase : Invert.ECS.Unity.UnityComponent, IBasicGame {
+public class BasicGameBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -1147,14 +1235,14 @@ public class BasicGameBase : Invert.ECS.Unity.UnityComponent, IBasicGame {
 public partial class BasicGame {
 }
 
-public class EnterLevelOnEnterBase : Invert.ECS.Unity.UnityComponent, IEnterLevelOnEnter {
+public class EnterLevelOnEnterBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
     private EnterLevelOnEnterAsset _Asset;
     
     [UnityEngine.SerializeField()]
-    private String _SceneName;
+    private Int32 _LevelId;
     
     private bool _isDirty;
     
@@ -1167,12 +1255,12 @@ public class EnterLevelOnEnterBase : Invert.ECS.Unity.UnityComponent, IEnterLeve
         }
     }
     
-    public virtual String SceneName {
+    public virtual Int32 LevelId {
         get {
-            return _SceneName;
+            return _LevelId;
         }
         set {
-            _SceneName = value;
+            _LevelId = value;
         }
     }
     
@@ -1187,8 +1275,8 @@ public class EnterLevelOnEnterBase : Invert.ECS.Unity.UnityComponent, IEnterLeve
     
     public override void Awake() {
         if (_Asset != null) {
-            SceneName = _Asset.SceneName;
             EntityId = _Asset.EntityId;
+            LevelId = _Asset.LevelId;
         }
     }
 }
@@ -1197,7 +1285,7 @@ public class EnterLevelOnEnterBase : Invert.ECS.Unity.UnityComponent, IEnterLeve
 public partial class EnterLevelOnEnter {
 }
 
-public class CubeSpawnPointBase : Invert.ECS.Unity.UnityComponent, ICubeSpawnPoint {
+public class CubeSpawnPointBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -1234,7 +1322,7 @@ public class CubeSpawnPointBase : Invert.ECS.Unity.UnityComponent, ICubeSpawnPoi
 public partial class CubeSpawnPoint {
 }
 
-public class SwitchOnWithXpBase : Invert.ECS.Unity.UnityComponent, ISwitchOnWithXp {
+public class SwitchOnWithXpBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -1274,8 +1362,8 @@ public class SwitchOnWithXpBase : Invert.ECS.Unity.UnityComponent, ISwitchOnWith
     
     public override void Awake() {
         if (_Asset != null) {
-            RequiredXp = _Asset.RequiredXp;
             EntityId = _Asset.EntityId;
+            RequiredXp = _Asset.RequiredXp;
         }
     }
 }
@@ -1284,7 +1372,7 @@ public class SwitchOnWithXpBase : Invert.ECS.Unity.UnityComponent, ISwitchOnWith
 public partial class SwitchOnWithXp {
 }
 
-public class TweenPlateColorsBase : Invert.ECS.Unity.UnityComponent, ITweenPlateColors {
+public class TweenPlateColorsBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -1360,11 +1448,11 @@ public class TweenPlateColorsBase : Invert.ECS.Unity.UnityComponent, ITweenPlate
     
     public override void Awake() {
         if (_Asset != null) {
+            EntityId = _Asset.EntityId;
             IdleColor = _Asset.IdleColor;
             OnEnterColor = _Asset.OnEnterColor;
             IsToggle = _Asset.IsToggle;
             IsOn = _Asset.IsOn;
-            EntityId = _Asset.EntityId;
         }
     }
 }
@@ -1373,7 +1461,7 @@ public class TweenPlateColorsBase : Invert.ECS.Unity.UnityComponent, ITweenPlate
 public partial class TweenPlateColors {
 }
 
-public class WindowBase : Invert.ECS.Unity.UnityComponent, IWindow {
+public class WindowBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -1413,8 +1501,8 @@ public class WindowBase : Invert.ECS.Unity.UnityComponent, IWindow {
     
     public override void Awake() {
         if (_Asset != null) {
-            WindowType = _Asset.WindowType;
             EntityId = _Asset.EntityId;
+            WindowType = _Asset.WindowType;
         }
     }
 }
@@ -1423,7 +1511,7 @@ public class WindowBase : Invert.ECS.Unity.UnityComponent, IWindow {
 public partial class Window {
 }
 
-public class CloseWindowOnClickBase : Invert.ECS.Unity.UnityComponent, ICloseWindowOnClick {
+public class CloseWindowOnClickBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -1460,7 +1548,7 @@ public class CloseWindowOnClickBase : Invert.ECS.Unity.UnityComponent, ICloseWin
 public partial class CloseWindowOnClick {
 }
 
-public class ZonesWindowBase : Invert.ECS.Unity.UnityComponent, IZonesWindow {
+public class ZonesWindowBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -1496,7 +1584,7 @@ public class ZonesWindowBase : Invert.ECS.Unity.UnityComponent, IZonesWindow {
 public partial class ZonesWindow {
 }
 
-public class FriendsWindowBase : Invert.ECS.Unity.UnityComponent, IFriendsWindow {
+public class FriendsWindowBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -1532,7 +1620,7 @@ public class FriendsWindowBase : Invert.ECS.Unity.UnityComponent, IFriendsWindow
 public partial class FriendsWindow {
 }
 
-public class PlayerBase : Invert.ECS.Unity.UnityComponent, IPlayer, Invert.ECS.ISavableComponent {
+public class PlayerBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -1561,6 +1649,7 @@ public class PlayerBase : Invert.ECS.Unity.UnityComponent, IPlayer, Invert.ECS.I
         }
     }
     
+    [Invert.ECS.SaveableAttribute()]
     public virtual String Name {
         get {
             return _Name;
@@ -1571,6 +1660,7 @@ public class PlayerBase : Invert.ECS.Unity.UnityComponent, IPlayer, Invert.ECS.I
         }
     }
     
+    [Invert.ECS.SaveableAttribute()]
     public virtual Int32 XP {
         get {
             return _XP;
@@ -1581,6 +1671,7 @@ public class PlayerBase : Invert.ECS.Unity.UnityComponent, IPlayer, Invert.ECS.I
         }
     }
     
+    [Invert.ECS.SaveableAttribute()]
     public virtual Int32 Rank {
         get {
             return _Rank;
@@ -1591,6 +1682,7 @@ public class PlayerBase : Invert.ECS.Unity.UnityComponent, IPlayer, Invert.ECS.I
         }
     }
     
+    [Invert.ECS.SaveableAttribute()]
     public virtual Int32 TotalFlips {
         get {
             return _TotalFlips;
@@ -1612,10 +1704,6 @@ public class PlayerBase : Invert.ECS.Unity.UnityComponent, IPlayer, Invert.ECS.I
     
     public override void Awake() {
         if (_Asset != null) {
-            Name = _Asset.Name;
-            XP = _Asset.XP;
-            Rank = _Asset.Rank;
-            TotalFlips = _Asset.TotalFlips;
             EntityId = _Asset.EntityId;
         }
     }
@@ -1625,7 +1713,7 @@ public class PlayerBase : Invert.ECS.Unity.UnityComponent, IPlayer, Invert.ECS.I
 public partial class Player {
 }
 
-public class ActiveWithXpBase : Invert.ECS.Unity.UnityComponent, IActiveWithXp {
+public class ActiveWithXpBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -1665,8 +1753,8 @@ public class ActiveWithXpBase : Invert.ECS.Unity.UnityComponent, IActiveWithXp {
     
     public override void Awake() {
         if (_Asset != null) {
-            RequiredXp = _Asset.RequiredXp;
             EntityId = _Asset.EntityId;
+            RequiredXp = _Asset.RequiredXp;
         }
     }
 }
@@ -1675,7 +1763,7 @@ public class ActiveWithXpBase : Invert.ECS.Unity.UnityComponent, IActiveWithXp {
 public partial class ActiveWithXp {
 }
 
-public class ScoringBase : Invert.ECS.Unity.UnityComponent, IScoring {
+public class ScoringBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -1715,8 +1803,8 @@ public class ScoringBase : Invert.ECS.Unity.UnityComponent, IScoring {
     
     public override void Awake() {
         if (_Asset != null) {
-            Score = _Asset.Score;
             EntityId = _Asset.EntityId;
+            Score = _Asset.Score;
         }
     }
 }
@@ -1725,7 +1813,7 @@ public class ScoringBase : Invert.ECS.Unity.UnityComponent, IScoring {
 public partial class Scoring {
 }
 
-public class ZoneBase : Invert.ECS.Unity.UnityComponent, IZone {
+public class ZoneBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -1734,10 +1822,13 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent, IZone {
     [UnityEngine.SerializeField()]
     private String _ZoneName;
     
+    [UnityEngine.SerializeField()]
+    private String _SceneName;
+    
     private bool _isDirty;
     
     [UnityEngine.SerializeField()]
-    private Int32[] _Levels;
+    private Level[] _Levels;
     
     public ZoneAsset Asset {
         get {
@@ -1757,6 +1848,15 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent, IZone {
         }
     }
     
+    public virtual String SceneName {
+        get {
+            return _SceneName;
+        }
+        set {
+            _SceneName = value;
+        }
+    }
+    
     public bool IsDirty {
         get {
             return _isDirty;
@@ -1766,7 +1866,7 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent, IZone {
         }
     }
     
-    public virtual Int32[] Levels {
+    public virtual Level[] Levels {
         get {
             return _Levels;
         }
@@ -1777,9 +1877,9 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent, IZone {
     
     public override void Awake() {
         if (_Asset != null) {
-            ZoneName = _Asset.ZoneName;
             EntityId = _Asset.EntityId;
-            Levels = _Asset.Levels.Select(p=>p.EntityId).ToArray();
+            ZoneName = _Asset.ZoneName;
+            SceneName = _Asset.SceneName;
         }
     }
 }
@@ -1788,7 +1888,44 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent, IZone {
 public partial class Zone {
 }
 
-public class TutorialOnEnterBase : Invert.ECS.Unity.UnityComponent, ITutorialOnEnter {
+public class ZoneSceneBase : Invert.ECS.Unity.UnityComponent {
+    
+    [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
+    private ZoneSceneAsset _Asset;
+    
+    private bool _isDirty;
+    
+    public ZoneSceneAsset Asset {
+        get {
+            return _Asset;
+        }
+        set {
+            _Asset = value;
+        }
+    }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            EntityId = _Asset.EntityId;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("FlipCubeSystem/ZoneScene")]
+public partial class ZoneScene {
+}
+
+public class TutorialOnEnterBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -1840,9 +1977,9 @@ public class TutorialOnEnterBase : Invert.ECS.Unity.UnityComponent, ITutorialOnE
     
     public override void Awake() {
         if (_Asset != null) {
+            EntityId = _Asset.EntityId;
             ArrowOver = _Asset.ArrowOver;
             Message = _Asset.Message;
-            EntityId = _Asset.EntityId;
         }
     }
 }

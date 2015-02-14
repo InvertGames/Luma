@@ -8,9 +8,9 @@ using UnityEngine;
 
 public class ZoneEventData : ZoneEventDataBase {
     [SerializeField]
-    private ZoneAsset _zone;
+    private Zone _zone;
 
-    public ZoneAsset Zone
+    public Zone Zone
     {
         get { return _zone; }
         set { _zone = value; }

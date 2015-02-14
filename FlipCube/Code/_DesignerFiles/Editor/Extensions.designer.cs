@@ -168,6 +168,14 @@ public class LevelSpawnPointMenuItems : object {
     }
 }
 
+public class LevelSceneMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/Levels/LevelScene", false, -1)]
+    public static void CreateLevelScene() {
+        uFrameECS.CreateAsset<LevelSceneAsset>();
+    }
+}
+
 public class NotifyOnEnterMenuItems : object {
     
     [UnityEditor.MenuItem("Assets/FlipCube/NotifyOnEnter", false, -1)]
@@ -277,6 +285,14 @@ public class ZoneMenuItems : object {
     [UnityEditor.MenuItem("Assets/Zones/Zone", false, -1)]
     public static void CreateZone() {
         uFrameECS.CreateAsset<ZoneAsset>();
+    }
+}
+
+public class ZoneSceneMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/Zones/ZoneScene", false, -1)]
+    public static void CreateZoneScene() {
+        uFrameECS.CreateAsset<ZoneSceneAsset>();
     }
 }
 

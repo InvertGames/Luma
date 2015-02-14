@@ -14,19 +14,18 @@ public class ZonesWindowSystem : ZonesWindowSystemBase
     public GameObject _ZoneEntryPrefab;
 
 
-
-
-    protected override void OnLoadData(GameReadyData data)
+    protected override void Loaded(IEvent e)
     {
-        base.OnLoadData(data);
+        base.Loaded(e);
+
         for (var i = 0; i < _EntriesList.transform.childCount; i++)
         {
             var item = _EntriesList.transform.GetChild(i).gameObject;
             DestroyImmediate(item);
         }
-        foreach (var item in data.Zones)
+        foreach (var item in ZoneManager.Components)
         {
-            var zoneEntry = Instantiate(_ZoneEntryPrefab)  as GameObject;
+            var zoneEntry = Instantiate(_ZoneEntryPrefab) as GameObject;
             zoneEntry.transform.parent = _EntriesList.transform;
             foreach (var text in zoneEntry.GetComponentsInChildren<Text>())
             {
@@ -47,6 +46,16 @@ public class ZonesWindowSystem : ZonesWindowSystemBase
                     });
                 });
             }
+        }
+    }
+
+    protected override void OnLoadData(GameReadyData data)
+    {
+        base.OnLoadData(data);
+        for (var i = 0; i < _EntriesList.transform.childCount; i++)
+        {
+            var item = _EntriesList.transform.GetChild(i).gameObject;
+            DestroyImmediate(item);
         }
     }
 }

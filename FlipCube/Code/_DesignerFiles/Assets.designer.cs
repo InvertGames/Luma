@@ -345,6 +345,9 @@ public partial class LevelAsset : Invert.ECS.ComponentAsset {
     [UnityEngine.SerializeField()]
     private Int32 _MovesTaken;
     
+    [UnityEngine.SerializeField()]
+    private String _SceneName;
+    
     public virtual Int32 LevelNumber {
         get {
             return _LevelNumber;
@@ -380,9 +383,21 @@ public partial class LevelAsset : Invert.ECS.ComponentAsset {
             _MovesTaken = value;
         }
     }
+    
+    public virtual String SceneName {
+        get {
+            return _SceneName;
+        }
+        set {
+            _SceneName = value;
+        }
+    }
 }
 
 public partial class LevelSpawnPointAsset : Invert.ECS.ComponentAsset {
+}
+
+public partial class LevelSceneAsset : Invert.ECS.ComponentAsset {
 }
 
 public partial class NotifyOnEnterAsset : Invert.ECS.ComponentAsset {
@@ -406,14 +421,14 @@ public partial class BasicGameAsset : Invert.ECS.ComponentAsset {
 public partial class EnterLevelOnEnterAsset : Invert.ECS.ComponentAsset {
     
     [UnityEngine.SerializeField()]
-    private String _SceneName;
+    private Int32 _LevelId;
     
-    public virtual String SceneName {
+    public virtual Int32 LevelId {
         get {
-            return _SceneName;
+            return _LevelId;
         }
         set {
-            _SceneName = value;
+            _LevelId = value;
         }
     }
 }
@@ -512,54 +527,6 @@ public partial class FriendsWindowAsset : Invert.ECS.ComponentAsset {
 }
 
 public partial class PlayerAsset : Invert.ECS.ComponentAsset {
-    
-    [UnityEngine.SerializeField()]
-    private String _Name;
-    
-    [UnityEngine.SerializeField()]
-    private Int32 _XP;
-    
-    [UnityEngine.SerializeField()]
-    private Int32 _Rank;
-    
-    [UnityEngine.SerializeField()]
-    private Int32 _TotalFlips;
-    
-    public virtual String Name {
-        get {
-            return _Name;
-        }
-        set {
-            _Name = value;
-        }
-    }
-    
-    public virtual Int32 XP {
-        get {
-            return _XP;
-        }
-        set {
-            _XP = value;
-        }
-    }
-    
-    public virtual Int32 Rank {
-        get {
-            return _Rank;
-        }
-        set {
-            _Rank = value;
-        }
-    }
-    
-    public virtual Int32 TotalFlips {
-        get {
-            return _TotalFlips;
-        }
-        set {
-            _TotalFlips = value;
-        }
-    }
 }
 
 public partial class ActiveWithXpAsset : Invert.ECS.ComponentAsset {
@@ -598,6 +565,9 @@ public partial class ZoneAsset : Invert.ECS.ComponentAsset {
     private String _ZoneName;
     
     [UnityEngine.SerializeField()]
+    private String _SceneName;
+    
+    [UnityEngine.SerializeField()]
     private LevelAsset[] _Levels;
     
     public virtual String ZoneName {
@@ -609,6 +579,15 @@ public partial class ZoneAsset : Invert.ECS.ComponentAsset {
         }
     }
     
+    public virtual String SceneName {
+        get {
+            return _SceneName;
+        }
+        set {
+            _SceneName = value;
+        }
+    }
+    
     public virtual LevelAsset[] Levels {
         get {
             return _Levels;
@@ -617,6 +596,9 @@ public partial class ZoneAsset : Invert.ECS.ComponentAsset {
             _Levels = value;
         }
     }
+}
+
+public partial class ZoneSceneAsset : Invert.ECS.ComponentAsset {
 }
 
 public partial class TutorialOnEnterAsset : Invert.ECS.ComponentAsset {

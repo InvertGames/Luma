@@ -14,8 +14,7 @@ namespace Invert.ECS.Graphs {
 
         public bool Saveable
         {
-            get { return this["Saveable"]; }
-            set { this["Saveable"] = value; }
+            get { return Properties.Count(p=>p.Saveable) > 1; }
         }
 
         public string ClassName
@@ -37,6 +36,7 @@ namespace Invert.ECS.Graphs {
                 Node = this,
                 Name = "EntityId",
                 RelatedType = "ENTITY",
+                Saveable = true,
                 Precompiled = true,
             }); }
             set { _entityIdChildItem = value; }
@@ -44,7 +44,7 @@ namespace Invert.ECS.Graphs {
 
         public override IEnumerable<IDiagramNodeItem> PersistedItems
         {
-            get { return base.PersistedItems.Concat(new[] { EntityIdChildItem }); }
+            get { return new[] { EntityIdChildItem }.Concat(base.PersistedItems); }
             set
             {
                 base.PersistedItems = value;
@@ -69,9 +69,9 @@ namespace Invert.ECS.Graphs {
             cls.Add("EntityIdGuid", new JSONData(EntityIdGuid));
         }
          
-        public override void Deserialize(JSONClass cls, INodeRepository repository)
+        public override void Deserialize(JSONClass cls)
         {
-            base.Deserialize(cls, repository);
+            base.Deserialize(cls);
             if (cls["EntityIdGuid"] != null)
             {
                 EntityIdGuid = cls["EntityIdGuid"].Value;

@@ -6,5 +6,5 @@ using Invert.ECS;
 
 
 public class LevelEventData : LevelEventDataBase {
-    public LevelAsset LevelData { get; set; }
+    public Level LevelData { get; set; }
 }

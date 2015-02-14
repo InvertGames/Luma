@@ -9,8 +9,6 @@ public class BasicGameSystem : BasicGameSystemBase
 {
     public BasicGame CurrentGame;
 
-    public ZoneAsset StartingZone;
-
     protected override void ComponentCreated(IEvent e)
     {
         base.ComponentCreated(e);
@@ -29,7 +27,7 @@ public class BasicGameSystem : BasicGameSystemBase
                 level.transform.localPosition = new Vector3(0f, 0f, 0f);
                 Debug.Log("Moved to spawn point");
             }
- 
+
         }
     }
 
@@ -74,15 +72,16 @@ public class BasicGameSystem : BasicGameSystemBase
     {
         base.OnLevelComplete(data, level);
         var max = data.LevelData.MaxXP;
-         
+
         var minMoves = data.LevelData.MinimumMoves;
         var badXpMoves = level.MovesTaken - minMoves;
-        var xpPerStep = max/minMoves;
-        var badXp = badXpMoves*xpPerStep;
+        var xpPerStep = max / minMoves;
+        var badXp = badXpMoves * xpPerStep;
         var gainedXp = max - badXp;
+        level.TimesPlayed++;
         foreach (var player in PlayerManager.Components)
         {
-            PlayerSystem.SignalAddXp(Game,new PlayerExperienceData()
+            PlayerSystem.SignalAddXp(Game, new PlayerExperienceData()
             {
                 PlayerId = player.EntityId,
                 XP = gainedXp
@@ -94,8 +93,8 @@ public class BasicGameSystem : BasicGameSystemBase
     protected override void OnEnteredLevel(LevelEventData data, Level level)
     {
         base.OnEnteredLevel(data, level);
-        
-        LastSpawnPosition = level.SpawnPoint == null ? level.transform.GetChild(0).transform.position : level.SpawnPoint.position;
+
+//        LastSpawnPosition = level.SpawnPoint == null ? level.transform.GetChild(0).transform.position : level.SpawnPoint.position;
         // Every time we enter a level, reset the game
         FlipCubeSystem.SignalResetGame(Game, new EntityEventData());
         // For now, lets select the cube upon start, the main cube should
@@ -121,45 +120,50 @@ public class BasicGameSystem : BasicGameSystemBase
         FlipCubeSystem.SignalResetGame(Game, new EntityEventData());
         // For now, lets select the cube upon start, the main cube should
         // always have an id of 1
-       // SignalMoveTo(new MoveCubeData() { CubeId = 1, Position = Vector3.zero });
+        // SignalMoveTo(new MoveCubeData() { CubeId = 1, Position = Vector3.zero });
 
         CubeInputSystem.SignalSelected(Game, new EntityEventData()
         {
             EntityId = 1
         });
-        CubeSystem.SignalMoveTo(Game,new MoveCubeData() { CubeId = 1, Position = Vector3.zero });
+        CubeSystem.SignalMoveTo(Game, new MoveCubeData() { CubeId = 1, Position = Vector3.zero });
     }
 
     protected override void GameReady(IEvent e)
     {
         base.GameReady(e);
-        if (ZoneManager.Components.Count > 0)
+
+        //Zone zone;
+        var zone = ZoneManager.Components.FirstOrDefault(p => p.SceneName == Application.loadedLevelName);
+
+        if (zone != null)
         {
             // We started the zone directly from it's scene for editing purposes
             // make sure that we call zone entered
             ZoneSystem.SignalEnteredZone(Game, new ZoneEventData()
             {
-                Zone = ZoneManager.Components[0].Asset,
-                ZoneId = ZoneManager.Components[0].EntityId
+                Zone = zone
             });
             return;
         }
-        if (LevelManager.Components.Count > 0)
+
+        var level = LevelManager.Components.FirstOrDefault(p => p.SceneName == Application.loadedLevelName);
+        if (level != null)
         {
             // We started the level directly from it's scene for editing purposes
             // make sure that we call level entered
             LevelSystem.SignalEnteredLevel(Game, new LevelEventData()
             {
-                LevelData = LevelManager.Components[0].Asset,
-                LevelId = LevelManager.Components[0].EntityId
+                LevelData = level,
+                LevelId = level.EntityId
             });
             return;
         }
-        Debug.Log("Entered Zone");
+
         // We aren't in zone, so lets enter one.
         ZoneSystem.SignalEnterZone(Game, new ZoneEventData()
         {
-            Zone = StartingZone
+            Zone = ZoneManager.Components.FirstOrDefault()
         });
 
     }

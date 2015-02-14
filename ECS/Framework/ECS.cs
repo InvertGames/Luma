@@ -293,6 +293,12 @@ namespace Invert.ECS
 
         }
     }
+
+    public class SaveableAttribute : Attribute
+    {
+        
+    }
+
 }
 
 // Unity Stuff

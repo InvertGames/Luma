@@ -65,7 +65,7 @@ namespace Invert.ECS.Graphs
             container.Connectable<EventHandlerEntityMappingReference, ComponentNode>();
             container.Connectable<EventHandlerNode, EventHandlerNode>();
             container.Connectable<ActionNode, ActionNode>();
-            Component.AddFlag("Saveable");
+           
             var typeContainer = InvertGraphEditor.TypesContainer;
             typeContainer.RegisterInstance(new GraphTypeInfo() {  Group = "",Name="ENTITY", Label = "ENTITY", IsPrimitive = true }, "ENTITY");
             typeContainer.RegisterInstance(new GraphTypeInfo() { Type=typeof(UnityEngine.Color), Group = "",Name="Color", Label = "Color", IsPrimitive = true }, "Color");
