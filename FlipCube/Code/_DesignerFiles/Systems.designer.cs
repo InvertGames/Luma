@@ -1753,22 +1753,22 @@ public class BasicGameSystemBase : UnitySystem {
 
 public class SpecialFXSystemBase : UnitySystem {
     
-    private ComponentManager<Cube> _CubeManager;
+    private ComponentManager<TweenPlateColors> _TweenPlateColorsManager;
     
     private ComponentManager<Plate> _PlateManager;
     
-    private ComponentManager<Teliporter> _TeliporterManager;
+    private ComponentManager<Cube> _CubeManager;
     
     private ComponentManager<GoalPlate> _GoalPlateManager;
     
-    private ComponentManager<TweenPlateColors> _TweenPlateColorsManager;
+    private ComponentManager<Teliporter> _TeliporterManager;
     
-    public ComponentManager<Cube> CubeManager {
+    public ComponentManager<TweenPlateColors> TweenPlateColorsManager {
         get {
-            return _CubeManager;
+            return _TweenPlateColorsManager;
         }
         set {
-            _CubeManager = value;
+            _TweenPlateColorsManager = value;
         }
     }
     
@@ -1781,12 +1781,12 @@ public class SpecialFXSystemBase : UnitySystem {
         }
     }
     
-    public ComponentManager<Teliporter> TeliporterManager {
+    public ComponentManager<Cube> CubeManager {
         get {
-            return _TeliporterManager;
+            return _CubeManager;
         }
         set {
-            _TeliporterManager = value;
+            _CubeManager = value;
         }
     }
     
@@ -1799,22 +1799,22 @@ public class SpecialFXSystemBase : UnitySystem {
         }
     }
     
-    public ComponentManager<TweenPlateColors> TweenPlateColorsManager {
+    public ComponentManager<Teliporter> TeliporterManager {
         get {
-            return _TweenPlateColorsManager;
+            return _TeliporterManager;
         }
         set {
-            _TweenPlateColorsManager = value;
+            _TeliporterManager = value;
         }
     }
     
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
-        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
-        PlateManager = game.ComponentSystem.RegisterComponent<Plate>();
-        TeliporterManager = game.ComponentSystem.RegisterComponent<Teliporter>();
-        GoalPlateManager = game.ComponentSystem.RegisterComponent<GoalPlate>();
         TweenPlateColorsManager = game.ComponentSystem.RegisterComponent<TweenPlateColors>();
+        PlateManager = game.ComponentSystem.RegisterComponent<Plate>();
+        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
+        GoalPlateManager = game.ComponentSystem.RegisterComponent<GoalPlate>();
+        TeliporterManager = game.ComponentSystem.RegisterComponent<Teliporter>();
         game.EventManager.ListenFor( PlateSystemEvents.CubeEntered, CubeEntered );
         game.EventManager.ListenFor( PlateSystemEvents.CubeLeft, CubeLeft );
         game.EventManager.ListenFor( FrameworkEvents.Loaded, Loaded );
@@ -1952,20 +1952,11 @@ public class SpecialFXSystemBase : UnitySystem {
 
 public class FlipCubeSoundSystemBase : UnitySystem {
     
-    private ComponentManager<Cube> _CubeManager;
-    
     private ComponentManager<Plate> _PlateManager;
     
-    private ComponentManager<GoalPlate> _GoalPlateManager;
+    private ComponentManager<Cube> _CubeManager;
     
-    public ComponentManager<Cube> CubeManager {
-        get {
-            return _CubeManager;
-        }
-        set {
-            _CubeManager = value;
-        }
-    }
+    private ComponentManager<GoalPlate> _GoalPlateManager;
     
     public ComponentManager<Plate> PlateManager {
         get {
@@ -1973,6 +1964,15 @@ public class FlipCubeSoundSystemBase : UnitySystem {
         }
         set {
             _PlateManager = value;
+        }
+    }
+    
+    public ComponentManager<Cube> CubeManager {
+        get {
+            return _CubeManager;
+        }
+        set {
+            _CubeManager = value;
         }
     }
     
@@ -1987,8 +1987,8 @@ public class FlipCubeSoundSystemBase : UnitySystem {
     
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
-        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
         PlateManager = game.ComponentSystem.RegisterComponent<Plate>();
+        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
         GoalPlateManager = game.ComponentSystem.RegisterComponent<GoalPlate>();
         game.EventManager.ListenFor( PlateSystemEvents.CubeEntered, CubeEntered );
         game.EventManager.ListenFor( PlateSystemEvents.CubeLeft, CubeLeft );

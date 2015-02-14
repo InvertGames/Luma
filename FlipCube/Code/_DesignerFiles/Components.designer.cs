@@ -1373,6 +1373,43 @@ public class SwitchOnWithXpBase : Invert.ECS.Unity.UnityComponent {
 public partial class SwitchOnWithXp {
 }
 
+public class BackgroundSceneBase : Invert.ECS.Unity.UnityComponent {
+    
+    [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
+    private BackgroundSceneAsset _Asset;
+    
+    private bool _isDirty;
+    
+    public BackgroundSceneAsset Asset {
+        get {
+            return _Asset;
+        }
+        set {
+            _Asset = value;
+        }
+    }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            EntityId = _Asset.EntityId;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("FlipCube/BackgroundScene")]
+public partial class BackgroundScene {
+}
+
 public class TweenPlateColorsBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]

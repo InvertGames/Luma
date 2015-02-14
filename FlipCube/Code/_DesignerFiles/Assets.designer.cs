@@ -451,6 +451,9 @@ public partial class SwitchOnWithXpAsset : Invert.ECS.ComponentAsset {
     }
 }
 
+public partial class BackgroundSceneAsset : Invert.ECS.ComponentAsset {
+}
+
 public partial class TweenPlateColorsAsset : Invert.ECS.ComponentAsset {
     
     [UnityEngine.SerializeField()]

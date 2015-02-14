@@ -216,6 +216,14 @@ public class SwitchOnWithXpMenuItems : object {
     }
 }
 
+public class BackgroundSceneMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/FlipCube/BackgroundScene", false, -1)]
+    public static void CreateBackgroundScene() {
+        uFrameECS.CreateAsset<BackgroundSceneAsset>();
+    }
+}
+
 public class TweenPlateColorsMenuItems : object {
     
     [UnityEditor.MenuItem("Assets/SpecialFX/TweenPlateColors", false, -1)]
