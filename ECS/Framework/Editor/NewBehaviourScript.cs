@@ -35,8 +35,7 @@ public class EntityComponentEditor : Editor
             if (GUILayout.Button("Assign New Id"))
             {
                 var t = target as EntityComponent;
-                UserSettings._StartingId++;
-                t.SetEntityId(UserSettings._StartingId);
+                t.SetEntityId(UserSettings.GetUniqueId());
             }
             //if (GUILayout.Button("Assign To All"))
             //{
@@ -54,8 +53,7 @@ public class EntityComponentEditor : Editor
                 {
                     var child = t.transform.GetChild(i);
                     var entityComponent = child.GetComponent<EntityComponent>();
-                    UserSettings._StartingId++;
-                    entityComponent.SetEntityId(UserSettings._StartingId);
+                    entityComponent.SetEntityId(UserSettings.GetUniqueId());
                 }
             }
         }

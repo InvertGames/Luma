@@ -250,7 +250,7 @@ namespace Invert.ECS.Graphs {
             Entity.Color(NodeColor.Black);
             Component = container.AddNode<ComponentNode,ComponentNodeViewModel,ComponentNodeDrawer>("Component");
             Component.Color(NodeColor.DarkGray);
-            System = container.AddNode<SystemNode,SystemNodeViewModel,SystemNodeDrawer>("System");
+            System = container.AddGraph<SystemGraph, SystemNode>("SystemGraph");
             System.Color(NodeColor.Black);
             System.HasSubNode<EventHandlerNode>();
             System.HasSubNode<ComponentNode>();

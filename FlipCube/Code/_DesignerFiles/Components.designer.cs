@@ -1655,7 +1655,7 @@ public class ScoringBase : Invert.ECS.Unity.UnityComponent {
 public partial class Scoring {
 }
 
-public class ZoneBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableComponent {
+public class ZoneBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -1666,12 +1666,6 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableComp
     
     [UnityEngine.SerializeField()]
     private String _SceneName;
-    
-    [UnityEngine.SerializeField()]
-    private Vector3 _LastPosition;
-    
-    [UnityEngine.SerializeField()]
-    private Vector3 _LastRotation;
     
     private bool _isDirty;
     
@@ -1702,28 +1696,6 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableComp
         }
         set {
             _SceneName = value;
-        }
-    }
-    
-    [Invert.ECS.SaveableAttribute()]
-    public virtual Vector3 LastPosition {
-        get {
-            return _LastPosition;
-        }
-        set {
-            _LastPosition = value;
-            IsDirty = true;
-        }
-    }
-    
-    [Invert.ECS.SaveableAttribute()]
-    public virtual Vector3 LastRotation {
-        get {
-            return _LastRotation;
-        }
-        set {
-            _LastRotation = value;
-            IsDirty = true;
         }
     }
     
