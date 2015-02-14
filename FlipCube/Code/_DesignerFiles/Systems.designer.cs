@@ -2532,6 +2532,12 @@ public class FlipCubeUISystemBase : UnitySystem {
     
     private ComponentManager<Player> _PlayerManager;
     
+    private ComponentManager<Level> _LevelManager;
+    
+    private ComponentManager<LevelScene> _LevelSceneManager;
+    
+    private ComponentManager<Zone> _ZoneManager;
+    
     public ComponentManager<Player> PlayerManager {
         get {
             return _PlayerManager;
@@ -2541,9 +2547,39 @@ public class FlipCubeUISystemBase : UnitySystem {
         }
     }
     
+    public ComponentManager<Level> LevelManager {
+        get {
+            return _LevelManager;
+        }
+        set {
+            _LevelManager = value;
+        }
+    }
+    
+    public ComponentManager<LevelScene> LevelSceneManager {
+        get {
+            return _LevelSceneManager;
+        }
+        set {
+            _LevelSceneManager = value;
+        }
+    }
+    
+    public ComponentManager<Zone> ZoneManager {
+        get {
+            return _ZoneManager;
+        }
+        set {
+            _ZoneManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
         PlayerManager = game.ComponentSystem.RegisterComponent<Player>();
+        LevelManager = game.ComponentSystem.RegisterComponent<Level>();
+        LevelSceneManager = game.ComponentSystem.RegisterComponent<LevelScene>();
+        ZoneManager = game.ComponentSystem.RegisterComponent<Zone>();
         game.EventManager.ListenFor( NotificationSystemEvents.Display, Display );
         game.EventManager.ListenFor( FrameworkEvents.LoadingProgress, LoadingProgress );
         game.EventManager.ListenFor( LevelSystemEvents.EnteredLevel, EnteredLevel );

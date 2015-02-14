@@ -1704,6 +1704,12 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.SerializeField()]
     private String _SceneName;
     
+    [UnityEngine.SerializeField()]
+    private Int32 _RequiredXp;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _Index;
+    
     private bool _isDirty;
     
     [UnityEngine.SerializeField()]
@@ -1736,6 +1742,24 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent {
         }
     }
     
+    public virtual Int32 RequiredXp {
+        get {
+            return _RequiredXp;
+        }
+        set {
+            _RequiredXp = value;
+        }
+    }
+    
+    public virtual Int32 Index {
+        get {
+            return _Index;
+        }
+        set {
+            _Index = value;
+        }
+    }
+    
     public bool IsDirty {
         get {
             return _isDirty;
@@ -1759,6 +1783,8 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent {
             EntityId = _Asset.EntityId;
             ZoneName = _Asset.ZoneName;
             SceneName = _Asset.SceneName;
+            RequiredXp = _Asset.RequiredXp;
+            Index = _Asset.Index;
         }
     }
 }

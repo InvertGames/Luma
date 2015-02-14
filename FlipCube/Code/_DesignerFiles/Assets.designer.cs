@@ -547,6 +547,12 @@ public partial class ZoneAsset : Invert.ECS.ComponentAsset {
     private String _SceneName;
     
     [UnityEngine.SerializeField()]
+    private Int32 _RequiredXp;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _Index;
+    
+    [UnityEngine.SerializeField()]
     private LevelAsset[] _Levels;
     
     public virtual String ZoneName {
@@ -564,6 +570,24 @@ public partial class ZoneAsset : Invert.ECS.ComponentAsset {
         }
         set {
             _SceneName = value;
+        }
+    }
+    
+    public virtual Int32 RequiredXp {
+        get {
+            return _RequiredXp;
+        }
+        set {
+            _RequiredXp = value;
+        }
+    }
+    
+    public virtual Int32 Index {
+        get {
+            return _Index;
+        }
+        set {
+            _Index = value;
         }
     }
     

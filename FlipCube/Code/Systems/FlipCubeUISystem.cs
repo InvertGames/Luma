@@ -20,7 +20,15 @@ public class FlipCubeUISystem : FlipCubeUISystemBase
     public Text zoneLabel;
     public Text levelLabel;
     public Text xpLabel;
-    public Text scoreLabel;
+    public Slider xpSlider;
+    public Text rankLabel;
+    public Text usernameLabel;
+    public Text levelProgressLabel;
+    public Slider levelProgressSlider;
+    public Text levelTimeLabel;
+
+
+    public Text movesLabel;
     public Button zonesButton;
 
     public GameObject _HudPanel;
@@ -55,11 +63,19 @@ public class FlipCubeUISystem : FlipCubeUISystemBase
         foreach (var player in PlayerManager.Components)
         {
             if (player.EntityId != 1) continue;
-
+            usernameLabel.text = player.Name ?? "Unknown User";
             xpLabel.text = player.XP.ToString();
-
+            xpSlider.value = player.XP;
+            rankLabel.text = player.Rank.ToString();
             break;
         }
+
+        if (CurrentLevel != null)
+        {
+            movesLabel.text = CurrentLevel.MovesTaken.ToString();
+
+        }
+        
     }
 
     protected override void OnXpChanged(PlayerExperienceData data, Player player)
@@ -90,16 +106,30 @@ public class FlipCubeUISystem : FlipCubeUISystemBase
     protected override void OnLevelEntered(LevelEventData data)
     {
         base.OnLevelEntered(data);
+        CurrentLevel = data.LevelData;
         _HudPanel.SetActive(true);
         levelLabel.text = data.LevelData.LevelNumber.ToString();
     }
+
+    public Level CurrentLevel { get; set; }
 
     protected override void OnZoneEntered(ZoneEventData data)
     {
         base.OnZoneEntered(data);
         _HudPanel.SetActive(false);
         zoneLabel.text = data.Zone.ZoneName;
-   
+        
+
+        var nextZone = ZoneManager.Components.FirstOrDefault(p => p.Index == data.Zone.Index + 1);
+        if (nextZone != null)
+        {
+            xpSlider.maxValue = nextZone.RequiredXp;
+        }
+        else
+        {
+            //xpSlider.maxValue = 
+        }
+
     }
 
     protected override void ShowNotification(NotificationData data) {
