@@ -97,7 +97,7 @@ namespace Invert.ECS.Graphs
             {
                 foreach (var item in this.Outputs)
                 {
-                    var component = item.OutputTo<ComponentNode>();
+                    var component = item.Component;
                     if (component != null)
                     {
                         foreach (var c in component.Properties)
@@ -158,7 +158,7 @@ namespace Invert.ECS.Graphs
             {
                 var isArray = item.SourceVariable is ComponentCollectionChildItem;
                 var needsTryGet = item.Node == this;
-                var componentOutput = item.OutputTo<ComponentNode>();
+                var componentOutput = item.Component;
                 if (componentOutput != null)
                 {
                     //var variableStart = item.Name.Split('.').Last();

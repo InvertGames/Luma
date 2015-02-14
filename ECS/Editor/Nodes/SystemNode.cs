@@ -8,25 +8,29 @@ namespace Invert.ECS.Graphs {
     
     public class SystemNode : SystemNodeBase {
         private static List<ISystemEventHandler> _systemEvents;
-        [Invert.Core.GraphDesigner.ReferenceSection("Handlers", SectionVisibility.Always, false, false, typeof(ISystemEventHandler), false, OrderIndex = 0, HasPredefinedOptions = false)]
-        public virtual System.Collections.Generic.IEnumerable<SystemEventHandlerReference> Handlers
+        [Invert.Core.GraphDesigner.ReferenceSection("Handlers", SectionVisibility.WhenNodeIsFilter, false, false, typeof(ISystemEventHandler), false, OrderIndex = 0, HasPredefinedOptions = false)]
+        public override System.Collections.Generic.IEnumerable<SystemEventHandlerReference> Handlers
         {
             get
             {
                 return ChildItems.OfType<SystemEventHandlerReference>();
             }
         }
-        [ProxySection("Components",SectionVisibility.WhenNodeIsNotFilter)]
+
+
+        [ProxySection("Component Dependencies", SectionVisibility.WhenNodeIsNotFilter, OrderIndex = 5)]
         public IEnumerable<ComponentNode> SystemComponents
         {
             get { return this.GetContainingNodesInProject(Graph.Project).OfType<ComponentNode>(); }
         }
 
-        [InspectorProperty]
-        public bool UnitySystem
+        [Invert.Core.GraphDesigner.ReferenceSection("Components", SectionVisibility.Always, false, false, typeof(ISystemComponents), false, OrderIndex = 0, HasPredefinedOptions = false)]
+        public override System.Collections.Generic.IEnumerable<SystemComponentsReference> Components
         {
-            get { return this["Unity System"]; }
-            set { this["Unity System"] = value; }
+            get
+            {
+                return ChildItems.OfType<SystemComponentsReference>();
+            }
         }
 
         public override IEnumerable<ISystemEventHandler> PossibleHandlers

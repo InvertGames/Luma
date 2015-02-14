@@ -127,7 +127,7 @@ public class RollableBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("CubeSystem/Rollable")]
+[UnityEngine.AddComponentMenu("FlipCube/Rollable")]
 public partial class Rollable {
 }
 
@@ -177,7 +177,7 @@ public class CubeBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("CubeInputSystem/Cube")]
+[UnityEngine.AddComponentMenu("FlipCube/Cube")]
 public partial class Cube {
 }
 
@@ -240,7 +240,7 @@ public class MoveDirectionOnEnterBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("CubeInputSystem/MoveDirectionOnEnter")]
+[UnityEngine.AddComponentMenu("FlipCube/MoveDirectionOnEnter")]
 public partial class MoveDirectionOnEnter {
 }
 
@@ -290,7 +290,7 @@ public class FollowOnSelectionBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("CameraSystem/FollowOnSelection")]
+[UnityEngine.AddComponentMenu("RenameMe/FollowOnSelection")]
 public partial class FollowOnSelection {
 }
 
@@ -327,7 +327,7 @@ public class PlateBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("PlateSystem/Plate")]
+[UnityEngine.AddComponentMenu("Plates/Plate")]
 public partial class Plate {
 }
 
@@ -377,7 +377,7 @@ public class TeliporterBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("TeliporterSystem/Teliporter")]
+[UnityEngine.AddComponentMenu("Plates/Teliporter")]
 public partial class Teliporter {
 }
 
@@ -414,7 +414,7 @@ public class TeliportableBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("TeliporterSystem/Teliportable")]
+[UnityEngine.AddComponentMenu("Plates/Teliportable")]
 public partial class Teliportable {
 }
 
@@ -464,7 +464,7 @@ public class TeliporterTargetBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("TeliporterSystem/TeliporterTarget")]
+[UnityEngine.AddComponentMenu("Plates/TeliporterTarget")]
 public partial class TeliporterTarget {
 }
 
@@ -501,7 +501,7 @@ public class GoalPlateBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("GoalPlateSystem/GoalPlate")]
+[UnityEngine.AddComponentMenu("Plates/GoalPlate")]
 public partial class GoalPlate {
 }
 
@@ -551,7 +551,7 @@ public class SwitchPlateTriggerBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("SwitchPlateSystem/SwitchPlateTrigger")]
+[UnityEngine.AddComponentMenu("Plates/SwitchPlateTrigger")]
 public partial class SwitchPlateTrigger {
 }
 
@@ -588,6 +588,7 @@ public class TurnGravityOnEnterBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
+[UnityEngine.AddComponentMenu("Plates/TurnGravityOnEnter")]
 public partial class TurnGravityOnEnter {
 }
 
@@ -624,7 +625,7 @@ public class DisableColliderOnCollisionBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("PlateSystem/DisableColliderOnCollision")]
+[UnityEngine.AddComponentMenu("Plates/DisableColliderOnCollision")]
 public partial class DisableColliderOnCollision {
 }
 
@@ -713,7 +714,7 @@ public class SwitchPlateTargetBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("SwitchPlateSystem/SwitchPlateTarget")]
+[UnityEngine.AddComponentMenu("Plates/SwitchPlateTarget")]
 public partial class SwitchPlateTarget {
 }
 
@@ -763,7 +764,7 @@ public class MoveLeftOnLeaveBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("ShiftingPlate/MoveLeftOnLeave")]
+[UnityEngine.AddComponentMenu("Plates/MoveLeftOnLeave")]
 public partial class MoveLeftOnLeave {
 }
 
@@ -826,7 +827,7 @@ public class TransporterPlateBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("ShiftingPlate/TransporterPlate")]
+[UnityEngine.AddComponentMenu("Plates/TransporterPlate")]
 public partial class TransporterPlate {
 }
 
@@ -876,7 +877,7 @@ public class DissolvePlateBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("DissolvePlateSystem/DissolvePlate")]
+[UnityEngine.AddComponentMenu("Plates/DissolvePlate")]
 public partial class DissolvePlate {
 }
 
@@ -926,7 +927,7 @@ public class YingYangPlateBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("PlateSystem/YingYangPlate")]
+[UnityEngine.AddComponentMenu("Plates/YingYangPlate")]
 public partial class YingYangPlate {
 }
 
@@ -1070,7 +1071,7 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableCom
     }
 }
 
-[UnityEngine.AddComponentMenu("LevelSystem/Level")]
+[UnityEngine.AddComponentMenu("Levels/Level")]
 public partial class Level {
 }
 
@@ -1107,7 +1108,7 @@ public class LevelSpawnPointBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("BasicGameSystem/LevelSpawnPoint")]
+[UnityEngine.AddComponentMenu("Levels/LevelSpawnPoint")]
 public partial class LevelSpawnPoint {
 }
 
@@ -1144,7 +1145,7 @@ public class LevelSceneBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("LevelSystem/LevelScene")]
+[UnityEngine.AddComponentMenu("Levels/LevelScene")]
 public partial class LevelScene {
 }
 
@@ -1194,7 +1195,7 @@ public class NotifyOnEnterBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("FlipCubeNotifications/NotifyOnEnter")]
+[UnityEngine.AddComponentMenu("FlipCube/NotifyOnEnter")]
 public partial class NotifyOnEnter {
 }
 
@@ -1231,7 +1232,7 @@ public class BasicGameBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("BasicGameSystem/BasicGame")]
+[UnityEngine.AddComponentMenu("FlipCube/BasicGame")]
 public partial class BasicGame {
 }
 
@@ -1281,7 +1282,7 @@ public class EnterLevelOnEnterBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("FlipCubeSystem/EnterLevelOnEnter")]
+[UnityEngine.AddComponentMenu("FlipCube/EnterLevelOnEnter")]
 public partial class EnterLevelOnEnter {
 }
 
@@ -1318,7 +1319,7 @@ public class CubeSpawnPointBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("BasicGameSystem/CubeSpawnPoint")]
+[UnityEngine.AddComponentMenu("FlipCube/CubeSpawnPoint")]
 public partial class CubeSpawnPoint {
 }
 
@@ -1368,7 +1369,7 @@ public class SwitchOnWithXpBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("SwitchPlateSystem/SwitchOnWithXp")]
+[UnityEngine.AddComponentMenu("FlipCube/SwitchOnWithXp")]
 public partial class SwitchOnWithXp {
 }
 
@@ -1457,7 +1458,7 @@ public class TweenPlateColorsBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("SpecialFXSystem/TweenPlateColors")]
+[UnityEngine.AddComponentMenu("SpecialFX/TweenPlateColors")]
 public partial class TweenPlateColors {
 }
 
@@ -1550,7 +1551,7 @@ public class PlayerBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableCo
     }
 }
 
-[UnityEngine.AddComponentMenu("SwitchPlateSystem/Player")]
+[UnityEngine.AddComponentMenu("Player/Player")]
 public partial class Player {
 }
 
@@ -1600,7 +1601,7 @@ public class ActiveWithXpBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("PlayerSystem/ActiveWithXp")]
+[UnityEngine.AddComponentMenu("Player/ActiveWithXp")]
 public partial class ActiveWithXp {
 }
 
@@ -1650,11 +1651,11 @@ public class ScoringBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("ScoringSystem/Scoring")]
+[UnityEngine.AddComponentMenu("RenameMe/Scoring")]
 public partial class Scoring {
 }
 
-public class ZoneBase : Invert.ECS.Unity.UnityComponent {
+public class ZoneBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableComponent {
     
     [UnityEngine.SerializeField()]
     [UnityEngine.HideInInspector()]
@@ -1665,6 +1666,12 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     private String _SceneName;
+    
+    [UnityEngine.SerializeField()]
+    private Vector3 _LastPosition;
+    
+    [UnityEngine.SerializeField()]
+    private Vector3 _LastRotation;
     
     private bool _isDirty;
     
@@ -1698,6 +1705,28 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent {
         }
     }
     
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Vector3 LastPosition {
+        get {
+            return _LastPosition;
+        }
+        set {
+            _LastPosition = value;
+            IsDirty = true;
+        }
+    }
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Vector3 LastRotation {
+        get {
+            return _LastRotation;
+        }
+        set {
+            _LastRotation = value;
+            IsDirty = true;
+        }
+    }
+    
     public bool IsDirty {
         get {
             return _isDirty;
@@ -1725,7 +1754,7 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("FlipCubeGameSystem/Zone")]
+[UnityEngine.AddComponentMenu("Zones/Zone")]
 public partial class Zone {
 }
 
@@ -1762,7 +1791,7 @@ public class ZoneSceneBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("FlipCubeSystem/ZoneScene")]
+[UnityEngine.AddComponentMenu("Zones/ZoneScene")]
 public partial class ZoneScene {
 }
 
@@ -1825,7 +1854,7 @@ public class TutorialOnEnterBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("TutorialSystem/TutorialOnEnter")]
+[UnityEngine.AddComponentMenu("Tutorial/TutorialOnEnter")]
 public partial class TutorialOnEnter {
 }
 
@@ -1875,7 +1904,7 @@ public class WindowBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("WindowSystem/Window")]
+[UnityEngine.AddComponentMenu("UI/Window")]
 public partial class Window {
 }
 
@@ -1912,7 +1941,7 @@ public class CloseWindowOnClickBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
-[UnityEngine.AddComponentMenu("WindowSystem/CloseWindowOnClick")]
+[UnityEngine.AddComponentMenu("UI/CloseWindowOnClick")]
 public partial class CloseWindowOnClick {
 }
 
@@ -1949,6 +1978,7 @@ public class ZonesWindowBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
+[UnityEngine.AddComponentMenu("UI/ZonesWindow")]
 public partial class ZonesWindow {
 }
 
@@ -1985,5 +2015,6 @@ public class FriendsWindowBase : Invert.ECS.Unity.UnityComponent {
     }
 }
 
+[UnityEngine.AddComponentMenu("UI/FriendsWindow")]
 public partial class FriendsWindow {
 }

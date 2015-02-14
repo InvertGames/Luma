@@ -26,6 +26,20 @@ namespace Invert.ECS.Graphs {
             set {  }
         }
 
+        public ComponentNode Component
+        {
+            get
+            {
+                if (this.OutputTo<ComponentNode>() != null) 
+                    return this.OutputTo<ComponentNode>();
+                var inputReference = this.InputFrom<SystemComponentsReference>();
+                if (inputReference != null)
+                {
+                    return inputReference.SourceItem as ComponentNode;
+                }
+                return null;
+            }
+        }
         public string RelatedTypeName
         {
             get
@@ -33,7 +47,7 @@ namespace Invert.ECS.Graphs {
                 var relatedType = RelatedType;
                 if (RelatedType == null)
                 {
-                    var outputTo = this.OutputTo<ComponentNode>();
+                    var outputTo = this.Component;
                     if (outputTo == null)
                     {
                         return "int";

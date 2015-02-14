@@ -486,22 +486,22 @@ public class CameraSystemBase : UnitySystem {
 
 public class PlateSystemBase : UnitySystem {
     
-    private ComponentManager<Rollable> _RollableManager;
+    private ComponentManager<Plate> _PlateManager;
     
     private ComponentManager<Cube> _CubeManager;
     
-    private ComponentManager<Plate> _PlateManager;
-    
-    private ComponentManager<DisableColliderOnCollision> _DisableColliderOnCollisionManager;
+    private ComponentManager<Rollable> _RollableManager;
     
     private ComponentManager<YingYangPlate> _YingYangPlateManager;
     
-    public ComponentManager<Rollable> RollableManager {
+    private ComponentManager<DisableColliderOnCollision> _DisableColliderOnCollisionManager;
+    
+    public ComponentManager<Plate> PlateManager {
         get {
-            return _RollableManager;
+            return _PlateManager;
         }
         set {
-            _RollableManager = value;
+            _PlateManager = value;
         }
     }
     
@@ -514,21 +514,12 @@ public class PlateSystemBase : UnitySystem {
         }
     }
     
-    public ComponentManager<Plate> PlateManager {
+    public ComponentManager<Rollable> RollableManager {
         get {
-            return _PlateManager;
+            return _RollableManager;
         }
         set {
-            _PlateManager = value;
-        }
-    }
-    
-    public ComponentManager<DisableColliderOnCollision> DisableColliderOnCollisionManager {
-        get {
-            return _DisableColliderOnCollisionManager;
-        }
-        set {
-            _DisableColliderOnCollisionManager = value;
+            _RollableManager = value;
         }
     }
     
@@ -541,13 +532,22 @@ public class PlateSystemBase : UnitySystem {
         }
     }
     
+    public ComponentManager<DisableColliderOnCollision> DisableColliderOnCollisionManager {
+        get {
+            return _DisableColliderOnCollisionManager;
+        }
+        set {
+            _DisableColliderOnCollisionManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
-        RollableManager = game.ComponentSystem.RegisterComponent<Rollable>();
-        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
         PlateManager = game.ComponentSystem.RegisterComponent<Plate>();
-        DisableColliderOnCollisionManager = game.ComponentSystem.RegisterComponent<DisableColliderOnCollision>();
+        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
+        RollableManager = game.ComponentSystem.RegisterComponent<Rollable>();
         YingYangPlateManager = game.ComponentSystem.RegisterComponent<YingYangPlate>();
+        DisableColliderOnCollisionManager = game.ComponentSystem.RegisterComponent<DisableColliderOnCollision>();
         game.EventManager.ListenFor( CubeGravitySystemEvents.RollCompletedStandingUp, RollCompletedStandingUp );
         game.EventManager.ListenFor( UnityEvents.CollisionEnter, CollisionEnter );
         game.EventManager.ListenFor( UnityEvents.CollisionExit, CollisionExit );
@@ -786,9 +786,9 @@ public class SwitchPlateSystemBase : UnitySystem {
     
     private ComponentManager<SwitchPlateTarget> _SwitchPlateTargetManager;
     
-    private ComponentManager<SwitchOnWithXp> _SwitchOnWithXpManager;
-    
     private ComponentManager<Player> _PlayerManager;
+    
+    private ComponentManager<SwitchOnWithXp> _SwitchOnWithXpManager;
     
     public ComponentManager<SwitchPlateTrigger> SwitchPlateTriggerManager {
         get {
@@ -808,15 +808,6 @@ public class SwitchPlateSystemBase : UnitySystem {
         }
     }
     
-    public ComponentManager<SwitchOnWithXp> SwitchOnWithXpManager {
-        get {
-            return _SwitchOnWithXpManager;
-        }
-        set {
-            _SwitchOnWithXpManager = value;
-        }
-    }
-    
     public ComponentManager<Player> PlayerManager {
         get {
             return _PlayerManager;
@@ -826,12 +817,21 @@ public class SwitchPlateSystemBase : UnitySystem {
         }
     }
     
+    public ComponentManager<SwitchOnWithXp> SwitchOnWithXpManager {
+        get {
+            return _SwitchOnWithXpManager;
+        }
+        set {
+            _SwitchOnWithXpManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
         SwitchPlateTriggerManager = game.ComponentSystem.RegisterComponent<SwitchPlateTrigger>();
         SwitchPlateTargetManager = game.ComponentSystem.RegisterComponent<SwitchPlateTarget>();
-        SwitchOnWithXpManager = game.ComponentSystem.RegisterComponent<SwitchOnWithXp>();
         PlayerManager = game.ComponentSystem.RegisterComponent<Player>();
+        SwitchOnWithXpManager = game.ComponentSystem.RegisterComponent<SwitchOnWithXp>();
         game.EventManager.ListenFor( CubeGravitySystemEvents.RollCompletedStandingUp, RollCompletedStandingUp );
         game.EventManager.ListenFor( FlipCubeSystemEvents.ResetGame, ResetGame );
         game.EventManager.ListenFor( PlayerSystemEvents.PlayerXpChanged, PlayerXpChanged );
@@ -891,20 +891,11 @@ public class SwitchPlateSystemBase : UnitySystem {
 
 public class ShiftingPlateBase : UnitySystem {
     
-    private ComponentManager<Cube> _CubeManager;
-    
     private ComponentManager<MoveLeftOnLeave> _MoveLeftOnLeaveManager;
     
-    private ComponentManager<TransporterPlate> _TransporterPlateManager;
+    private ComponentManager<Cube> _CubeManager;
     
-    public ComponentManager<Cube> CubeManager {
-        get {
-            return _CubeManager;
-        }
-        set {
-            _CubeManager = value;
-        }
-    }
+    private ComponentManager<TransporterPlate> _TransporterPlateManager;
     
     public ComponentManager<MoveLeftOnLeave> MoveLeftOnLeaveManager {
         get {
@@ -912,6 +903,15 @@ public class ShiftingPlateBase : UnitySystem {
         }
         set {
             _MoveLeftOnLeaveManager = value;
+        }
+    }
+    
+    public ComponentManager<Cube> CubeManager {
+        get {
+            return _CubeManager;
+        }
+        set {
+            _CubeManager = value;
         }
     }
     
@@ -926,8 +926,8 @@ public class ShiftingPlateBase : UnitySystem {
     
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
-        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
         MoveLeftOnLeaveManager = game.ComponentSystem.RegisterComponent<MoveLeftOnLeave>();
+        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
         TransporterPlateManager = game.ComponentSystem.RegisterComponent<TransporterPlate>();
         game.EventManager.ListenFor( PlateSystemEvents.CubeLeft, CubeLeft );
         game.EventManager.ListenFor( CubeGravitySystemEvents.RollCompletedStandingUp, RollCompletedStandingUp );
@@ -1349,26 +1349,17 @@ public class FlipCubeNotificationsBase : UnitySystem {
 
 public class FlipCubeSystemBase : UnitySystem {
     
-    private ComponentManager<Cube> _CubeManager;
-    
     private ComponentManager<Level> _LevelManager;
-    
-    private ComponentManager<LevelScene> _LevelSceneManager;
-    
-    private ComponentManager<EnterLevelOnEnter> _EnterLevelOnEnterManager;
     
     private ComponentManager<Zone> _ZoneManager;
     
+    private ComponentManager<EnterLevelOnEnter> _EnterLevelOnEnterManager;
+    
+    private ComponentManager<LevelScene> _LevelSceneManager;
+    
     private ComponentManager<ZoneScene> _ZoneSceneManager;
     
-    public ComponentManager<Cube> CubeManager {
-        get {
-            return _CubeManager;
-        }
-        set {
-            _CubeManager = value;
-        }
-    }
+    private ComponentManager<Cube> _CubeManager;
     
     public ComponentManager<Level> LevelManager {
         get {
@@ -1376,24 +1367,6 @@ public class FlipCubeSystemBase : UnitySystem {
         }
         set {
             _LevelManager = value;
-        }
-    }
-    
-    public ComponentManager<LevelScene> LevelSceneManager {
-        get {
-            return _LevelSceneManager;
-        }
-        set {
-            _LevelSceneManager = value;
-        }
-    }
-    
-    public ComponentManager<EnterLevelOnEnter> EnterLevelOnEnterManager {
-        get {
-            return _EnterLevelOnEnterManager;
-        }
-        set {
-            _EnterLevelOnEnterManager = value;
         }
     }
     
@@ -1406,6 +1379,24 @@ public class FlipCubeSystemBase : UnitySystem {
         }
     }
     
+    public ComponentManager<EnterLevelOnEnter> EnterLevelOnEnterManager {
+        get {
+            return _EnterLevelOnEnterManager;
+        }
+        set {
+            _EnterLevelOnEnterManager = value;
+        }
+    }
+    
+    public ComponentManager<LevelScene> LevelSceneManager {
+        get {
+            return _LevelSceneManager;
+        }
+        set {
+            _LevelSceneManager = value;
+        }
+    }
+    
     public ComponentManager<ZoneScene> ZoneSceneManager {
         get {
             return _ZoneSceneManager;
@@ -1415,14 +1406,23 @@ public class FlipCubeSystemBase : UnitySystem {
         }
     }
     
+    public ComponentManager<Cube> CubeManager {
+        get {
+            return _CubeManager;
+        }
+        set {
+            _CubeManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
-        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
         LevelManager = game.ComponentSystem.RegisterComponent<Level>();
-        LevelSceneManager = game.ComponentSystem.RegisterComponent<LevelScene>();
-        EnterLevelOnEnterManager = game.ComponentSystem.RegisterComponent<EnterLevelOnEnter>();
         ZoneManager = game.ComponentSystem.RegisterComponent<Zone>();
+        EnterLevelOnEnterManager = game.ComponentSystem.RegisterComponent<EnterLevelOnEnter>();
+        LevelSceneManager = game.ComponentSystem.RegisterComponent<LevelScene>();
         ZoneSceneManager = game.ComponentSystem.RegisterComponent<ZoneScene>();
+        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
         game.EventManager.ListenFor( ZoneSystemEvents.EnterZone, EnterZone );
         game.EventManager.ListenFor( LevelSystemEvents.EnterLevel, EnterLevel );
         game.EventManager.ListenFor( FrameworkEvents.Loaded, Loaded );
@@ -1578,28 +1578,19 @@ public class FlipCubeSystemBase : UnitySystem {
 
 public class BasicGameSystemBase : UnitySystem {
     
-    private ComponentManager<Cube> _CubeManager;
-    
     private ComponentManager<Level> _LevelManager;
-    
-    private ComponentManager<LevelSpawnPoint> _LevelSpawnPointManager;
-    
-    private ComponentManager<BasicGame> _BasicGameManager;
-    
-    private ComponentManager<CubeSpawnPoint> _CubeSpawnPointManager;
     
     private ComponentManager<Player> _PlayerManager;
     
     private ComponentManager<Zone> _ZoneManager;
     
-    public ComponentManager<Cube> CubeManager {
-        get {
-            return _CubeManager;
-        }
-        set {
-            _CubeManager = value;
-        }
-    }
+    private ComponentManager<LevelSpawnPoint> _LevelSpawnPointManager;
+    
+    private ComponentManager<CubeSpawnPoint> _CubeSpawnPointManager;
+    
+    private ComponentManager<BasicGame> _BasicGameManager;
+    
+    private ComponentManager<Cube> _CubeManager;
     
     public ComponentManager<Level> LevelManager {
         get {
@@ -1607,33 +1598,6 @@ public class BasicGameSystemBase : UnitySystem {
         }
         set {
             _LevelManager = value;
-        }
-    }
-    
-    public ComponentManager<LevelSpawnPoint> LevelSpawnPointManager {
-        get {
-            return _LevelSpawnPointManager;
-        }
-        set {
-            _LevelSpawnPointManager = value;
-        }
-    }
-    
-    public ComponentManager<BasicGame> BasicGameManager {
-        get {
-            return _BasicGameManager;
-        }
-        set {
-            _BasicGameManager = value;
-        }
-    }
-    
-    public ComponentManager<CubeSpawnPoint> CubeSpawnPointManager {
-        get {
-            return _CubeSpawnPointManager;
-        }
-        set {
-            _CubeSpawnPointManager = value;
         }
     }
     
@@ -1655,15 +1619,51 @@ public class BasicGameSystemBase : UnitySystem {
         }
     }
     
+    public ComponentManager<LevelSpawnPoint> LevelSpawnPointManager {
+        get {
+            return _LevelSpawnPointManager;
+        }
+        set {
+            _LevelSpawnPointManager = value;
+        }
+    }
+    
+    public ComponentManager<CubeSpawnPoint> CubeSpawnPointManager {
+        get {
+            return _CubeSpawnPointManager;
+        }
+        set {
+            _CubeSpawnPointManager = value;
+        }
+    }
+    
+    public ComponentManager<BasicGame> BasicGameManager {
+        get {
+            return _BasicGameManager;
+        }
+        set {
+            _BasicGameManager = value;
+        }
+    }
+    
+    public ComponentManager<Cube> CubeManager {
+        get {
+            return _CubeManager;
+        }
+        set {
+            _CubeManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
-        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
         LevelManager = game.ComponentSystem.RegisterComponent<Level>();
-        LevelSpawnPointManager = game.ComponentSystem.RegisterComponent<LevelSpawnPoint>();
-        BasicGameManager = game.ComponentSystem.RegisterComponent<BasicGame>();
-        CubeSpawnPointManager = game.ComponentSystem.RegisterComponent<CubeSpawnPoint>();
         PlayerManager = game.ComponentSystem.RegisterComponent<Player>();
         ZoneManager = game.ComponentSystem.RegisterComponent<Zone>();
+        LevelSpawnPointManager = game.ComponentSystem.RegisterComponent<LevelSpawnPoint>();
+        CubeSpawnPointManager = game.ComponentSystem.RegisterComponent<CubeSpawnPoint>();
+        BasicGameManager = game.ComponentSystem.RegisterComponent<BasicGame>();
+        CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
         game.EventManager.ListenFor( CubeGravitySystemEvents.OnFall, OnFall );
         game.EventManager.ListenFor( PlateSystemEvents.GoalPlateHit, GoalPlateHit );
         game.EventManager.ListenFor( FrameworkEvents.ComponentCreated, ComponentCreated );
@@ -2785,6 +2785,13 @@ public class FriendsWindowSystemBase : UnitySystem {
 }
 
 public class ProfileWindowSystemBase : UnitySystem {
+    
+    public override void Initialize(Invert.ECS.IGame game) {
+        base.Initialize(game);
+    }
+}
+
+public class AccountWindowSystemBase : UnitySystem {
     
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);

@@ -349,15 +349,15 @@ namespace Invert.ECS
              Ctx.CurrentDecleration.BaseTypes.Clear();
              Ctx.CurrentDecleration.IsPartial = true;
              Ctx.CurrentDecleration.Name = Ctx.Data.Name;
-             var system =
-          Ctx.Data.Project.Graphs.SelectMany(p => p.NodeItems.OfType<SystemNode>())
-              .FirstOrDefault(p => p.SystemComponents.Contains(Ctx.Data));
+             var system = Ctx.Data.Graph.Name;
+          //Ctx.Data.Project.Graphs.SelectMany(p => p.NodeItems.OfType<SystemNode>())
+          //    .FirstOrDefault(p => p.SystemComponents.Contains(Ctx.Data));
              if (system != null)
              {
                  Ctx.CurrentDecleration.CustomAttributes.Add(new CodeAttributeDeclaration(
                      new CodeTypeReference(typeof(AddComponentMenu)),
                      new CodeAttributeArgument(
-                         new CodePrimitiveExpression(string.Format("{0}/{1}", system.Name, Ctx.Data.Name)))));
+                         new CodePrimitiveExpression(string.Format("{0}/{1}", system, Ctx.Data.Name)))));
              }
 
          }
@@ -441,6 +441,10 @@ namespace Invert.ECS
                 {
                     Ctx._("{0}Manager = game.ComponentSystem.RegisterComponent<{0}>()",sc.Name);
                 }
+                foreach (var sc in Ctx.Data.Components.Select(p=>p.SourceItem).Where(p=>p != null))
+                {
+                    Ctx._("{0}Manager = game.ComponentSystem.RegisterComponent<{0}>()", sc.Name);
+                }
                 foreach (var item in Ctx.Data.Handlers)
                 {
                     if (item.SourceItem == null)
@@ -460,12 +464,22 @@ namespace Invert.ECS
             }
       
         }
+
         [TemplateProperty(MemberGeneratorLocation.DesignerFile,"{0}Manager",AutoFillType.NameOnlyWithBackingField)]
         public object ComponentManager
         {
             get
             {
                 Ctx.SetType("ComponentManager<{0}>",Ctx.Item.Name);
+                return null;
+            }
+        }
+        [TemplateProperty(MemberGeneratorLocation.DesignerFile, "{0}Manager", AutoFillType.NameOnlyWithBackingField)]
+        public object ComponentManager2
+        {
+            get
+            {
+                Ctx.SetType("ComponentManager<{0}>", Ctx.Item.Name);
                 return null;
             }
         }
@@ -486,6 +500,7 @@ namespace Invert.ECS
 
             }
         }
+
         [TemplateMethod(MemberGeneratorLocation.Both, AutoFill = AutoFillType.NameOnly, CallBase = true)]
         protected virtual void EventHandler(IEvent e)
         {
@@ -505,96 +520,10 @@ namespace Invert.ECS
 
 
         }
+
         private void DoHandlerMethod(EventHandlerNode eventHandlerNode, SystemEventHandlerReference systemEventHandlerReference)
         {
             eventHandlerNode.WriteCode(Ctx);
-            //return;
-            //var eventType = systemEventHandlerReference.SourceItem as Invert.ECS.Graphs.EventTypeChildItem;
-
-            //if (eventType.RelatedType == "void")
-            //{
-
-            //    return;
-            //}
-
-            //var handlerMethod = Ctx.CurrentDecleration.protected_virtual_func(null, eventHandlerNode.Name,
-            //    eventType.RelatedTypeName, "data");
-            //var right = eventHandlerNode;
-            //var methodInvoke = new CodeMethodInvokeExpression(new CodeThisReferenceExpression(), handlerMethod.Name);
-            //if (Ctx.IsDesignerFile)
-            //{
-            //    Ctx._("var data = ({0})e.Data", eventType.RelatedTypeName);
-            //    methodInvoke.Parameters.Add(new CodeSnippetExpression("data"));
-            //}
-            //while (right != null)
-            //{
-            //    var previous = right.Left;
-            //    var previousOutputs = new List<ComponentNode>();
-            //    foreach (var item in right.Outputs)
-            //    {
-            //        var isArray = item.SourceItem is ComponentCollectionChildItem;
-
-            //        var dataVarName = "data";
-            //        if (previous != null)
-            //        {
-            //            var leftMapping =
-            //                previous.Outputs.FirstOrDefault(
-            //                    p => p.OutputTo<ComponentNode>() == item.SourceItem.Node);
-            //            if (leftMapping != null)
-            //            {
-            //                dataVarName = leftMapping.Name.ToLower();
-            //            }
-            //        }
-
-            //        var componentOutput = item.OutputTo<ComponentNode>();
-            //        if (componentOutput != null)
-            //        {
-            //            if (Ctx.IsDesignerFile)
-            //            {
-
-            //                if (isArray)
-            //                {
-            //                    Ctx._("{0}[] {1}", componentOutput.ClassName, item.Name.ToLower());
-            //                }
-            //                else
-            //                {
-            //                    Ctx._("{0} {1}", componentOutput.ClassName, item.Name.ToLower());
-            //                }
-                            
-            //                Ctx._if("!Game.ComponentSystem.TryGetComponent<{0}>({3}.{1}, out {2})", componentOutput.ClassName,
-            //                    item.SourceItem.Name, item.Name.ToLower(), dataVarName)
-            //                    .TrueStatements.Add(new CodeMethodReturnStatement());
-            //                methodInvoke.Parameters.Add(new CodeSnippetExpression(item.Name.ToLower()));
-            //            }
-
-            //            handlerMethod.Parameters.Add(
-            //                new CodeParameterDeclarationExpression(string.Format("{0}{1}", componentOutput.ClassName, (isArray ? "[]" : "")), item.Name.ToLower()));
-            //        }
-            //        else
-            //        {
-            //            var relatedTypeItem = (item.SourceItem as ITypedItem);
-            //            handlerMethod.Parameters.Add(
-            //                new CodeParameterDeclarationExpression(relatedTypeItem.RelatedTypeName, item.Name.ToLower()));
-            //            if (Ctx.IsDesignerFile)
-            //            {
-            //                methodInvoke.Parameters.Add(new CodeSnippetExpression(string.Format("{0}.{1}", dataVarName, item.SourceItem.Name)));
-            //            }
-            //        }
-            //        previousOutputs.Add(componentOutput);
-            //    }
-
-            //    right = right.Right;
-            //}
-            //if (!Ctx.IsDesignerFile)
-            //{
-            //    handlerMethod.invoke_base();
-            //    handlerMethod.Attributes |= MemberAttributes.Override;
-            //}
-            //else
-            //{
-            //    Ctx.CurrentMethod.Statements.Add(methodInvoke);
-            //}
-
         }
 
         public virtual void Destroy()
@@ -609,16 +538,10 @@ namespace Invert.ECS
             Ctx.AddIterator("EventSignaler", _ => _.Events);
             Ctx.AddIterator("EventSignalerStatic", _ => _.Events);
             Ctx.AddIterator("ComponentManager", _ => _.SystemComponents);
+            Ctx.AddIterator("ComponentManager2", _ => _.Components.Select(p=>p.SourceItem).Where(p=>p!=null));
             if (Ctx.IsDesignerFile)
             {
-                //if (Ctx.Data.UnitySystem)
-                //{
                 this.Ctx.SetBaseType("UnitySystem");
-                //}
-                //else
-                //{
-                //    this.Ctx.SetBaseType("SystemBase");
-                //}
             }
 
         }

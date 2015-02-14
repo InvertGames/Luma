@@ -265,6 +265,7 @@ namespace Invert.ECS.Graphs {
             Systems.Color(NodeColor.Orange);
             Systems.HasSubNode<EventNode>();
             Systems.HasSubNode<SystemNode>();
+            Systems.HasSubNode<ComponentNode>();
             Entities = container.AddGraph<EntitiesGraph, EntitiesNode>("EntitiesGraph");
             Entities.Color(NodeColor.YellowGreen);
             Entities.HasSubNode<EntityNode>();
@@ -293,6 +294,7 @@ namespace Invert.ECS.Graphs {
             Loop = container.AddNode<LoopNode,LoopNodeViewModel,LoopNodeDrawer>("Loop");
             container.Connectable<SystemNode,ActionNode>();
             container.Connectable<SystemEventHandlerReference,EventHandlerNode>();
+            container.Connectable<SystemComponentsReference,EventHandlerEntityMappingReference>();
             container.Connectable<EventHandlerNode,ActionNode>();
             container.Connectable<EventHandlerEntityMappingReference,CommandNode>();
             container.Connectable<VariableReference,ComponentNode>();

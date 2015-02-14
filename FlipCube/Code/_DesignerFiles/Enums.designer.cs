@@ -267,3 +267,6 @@ public enum FriendsWindowSystemEvents {
 
 public enum ProfileWindowSystemEvents {
 }
+
+public enum AccountWindowSystemEvents {
+}

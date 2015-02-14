@@ -93,6 +93,12 @@ namespace Invert.ECS.Graphs {
             }
         }
         
+        public virtual System.Collections.Generic.IEnumerable<ISystemComponents> PossibleComponents {
+            get {
+                return this.Project.AllGraphItems.OfType<ISystemComponents>();
+            }
+        }
+        
         [Invert.Core.GraphDesigner.Section("Events", SectionVisibility.Always, OrderIndex=0)]
         public virtual System.Collections.Generic.IEnumerable<EventTypeChildItem> Events {
             get {
@@ -104,6 +110,13 @@ namespace Invert.ECS.Graphs {
         public virtual System.Collections.Generic.IEnumerable<SystemEventHandlerReference> Handlers {
             get {
                 return ChildItems.OfType<SystemEventHandlerReference>();
+            }
+        }
+        
+        [Invert.Core.GraphDesigner.ReferenceSection("Components", SectionVisibility.Always, false, false, typeof(ISystemComponents), false, OrderIndex=0, HasPredefinedOptions=false)]
+        public virtual System.Collections.Generic.IEnumerable<SystemComponentsReference> Components {
+            get {
+                return ChildItems.OfType<SystemComponentsReference>();
             }
         }
     }
