@@ -14,4 +14,4 @@ public partial class LevelSpawnPoint : LevelSpawnPointBase
     //    get { return _Level.EntityId; }
     //    set { }
     //}
-}
+} 

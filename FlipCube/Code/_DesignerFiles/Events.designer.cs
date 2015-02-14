@@ -274,20 +274,6 @@ public class NotificationDataBase : object {
     }
 }
 
-public class WindowEventDataBase : object {
-    
-    private FlipCubeWindow _Window;
-    
-    public FlipCubeWindow Window {
-        get {
-            return _Window;
-        }
-        set {
-            _Window = value;
-        }
-    }
-}
-
 public class PlayerEventDataBase : object {
     
     private Player _PlayerData;
@@ -359,6 +345,20 @@ public class ZoneEventDataBase : object {
         }
         set {
             _SceneName = value;
+        }
+    }
+}
+
+public class WindowEventDataBase : object {
+    
+    private FlipCubeWindow _Window;
+    
+    public FlipCubeWindow Window {
+        get {
+            return _Window;
+        }
+        set {
+            _Window = value;
         }
     }
 }

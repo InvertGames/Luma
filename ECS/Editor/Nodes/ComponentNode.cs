@@ -20,8 +20,8 @@ namespace Invert.ECS.Graphs {
         public string ClassName
         {
             get { return Name; }
-        }
-      
+        } 
+        
         public string EntityIdGuid
         {
             get { return string.IsNullOrEmpty(_entityIdGuid) ? (_entityIdGuid = Guid.NewGuid().ToString()) : _entityIdGuid; }

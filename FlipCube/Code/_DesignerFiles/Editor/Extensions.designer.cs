@@ -224,38 +224,6 @@ public class TweenPlateColorsMenuItems : object {
     }
 }
 
-public class WindowMenuItems : object {
-    
-    [UnityEditor.MenuItem("Assets/UI/Window", false, -1)]
-    public static void CreateWindow() {
-        uFrameECS.CreateAsset<WindowAsset>();
-    }
-}
-
-public class CloseWindowOnClickMenuItems : object {
-    
-    [UnityEditor.MenuItem("Assets/UI/CloseWindowOnClick", false, -1)]
-    public static void CreateCloseWindowOnClick() {
-        uFrameECS.CreateAsset<CloseWindowOnClickAsset>();
-    }
-}
-
-public class ZonesWindowMenuItems : object {
-    
-    [UnityEditor.MenuItem("Assets/UI/ZonesWindow", false, -1)]
-    public static void CreateZonesWindow() {
-        uFrameECS.CreateAsset<ZonesWindowAsset>();
-    }
-}
-
-public class FriendsWindowMenuItems : object {
-    
-    [UnityEditor.MenuItem("Assets/UI/FriendsWindow", false, -1)]
-    public static void CreateFriendsWindow() {
-        uFrameECS.CreateAsset<FriendsWindowAsset>();
-    }
-}
-
 public class PlayerMenuItems : object {
     
     [UnityEditor.MenuItem("Assets/Player/Player", false, -1)]
@@ -301,5 +269,37 @@ public class TutorialOnEnterMenuItems : object {
     [UnityEditor.MenuItem("Assets/Tutorial/TutorialOnEnter", false, -1)]
     public static void CreateTutorialOnEnter() {
         uFrameECS.CreateAsset<TutorialOnEnterAsset>();
+    }
+}
+
+public class WindowMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/UI/Window", false, -1)]
+    public static void CreateWindow() {
+        uFrameECS.CreateAsset<WindowAsset>();
+    }
+}
+
+public class CloseWindowOnClickMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/UI/CloseWindowOnClick", false, -1)]
+    public static void CreateCloseWindowOnClick() {
+        uFrameECS.CreateAsset<CloseWindowOnClickAsset>();
+    }
+}
+
+public class ZonesWindowMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/UI/ZonesWindow", false, -1)]
+    public static void CreateZonesWindow() {
+        uFrameECS.CreateAsset<ZonesWindowAsset>();
+    }
+}
+
+public class FriendsWindowMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/UI/FriendsWindow", false, -1)]
+    public static void CreateFriendsWindow() {
+        uFrameECS.CreateAsset<FriendsWindowAsset>();
     }
 }

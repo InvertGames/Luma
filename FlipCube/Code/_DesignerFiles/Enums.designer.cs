@@ -204,30 +204,6 @@ public enum NotificationSystemEvents {
     Display,
 }
 
-public enum FlipCubeUISystemEvents {
-}
-
-public enum HUDSystemEvents {
-}
-
-public enum WindowSystemEvents {
-    
-    ShowWindow,
-    
-    CloseWindow,
-    
-    ToggleWindow,
-}
-
-public enum ZonesWindowSystemEvents {
-}
-
-public enum FriendsWindowSystemEvents {
-}
-
-public enum ProfileWindowSystemEvents {
-}
-
 public enum XPSystemEvents {
 }
 
@@ -266,4 +242,28 @@ public enum PlayerDataSystemEvents {
 }
 
 public enum TutorialSystemEvents {
+}
+
+public enum FlipCubeUISystemEvents {
+}
+
+public enum HUDSystemEvents {
+}
+
+public enum WindowSystemEvents {
+    
+    ShowWindow,
+    
+    CloseWindow,
+    
+    ToggleWindow,
+}
+
+public enum ZonesWindowSystemEvents {
+}
+
+public enum FriendsWindowSystemEvents {
+}
+
+public enum ProfileWindowSystemEvents {
 }

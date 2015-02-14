@@ -578,7 +578,7 @@ public interface IZone {
         get;
         set;
     }
-    
+     
     bool IsDirty {
         get;
         set;

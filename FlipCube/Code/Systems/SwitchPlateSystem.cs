@@ -44,9 +44,9 @@ public class SwitchPlateSystem : SwitchPlateSystemBase {
             }
             switchPlate.On = switchPlate.StartOn;
         }
-
+         
         
-
+         
     }
 
     protected override void ActivateSwitchPlate(PlateCubeCollsion data, SwitchPlateTrigger switchplatetrigger)

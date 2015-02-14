@@ -1461,165 +1461,6 @@ public class TweenPlateColorsBase : Invert.ECS.Unity.UnityComponent {
 public partial class TweenPlateColors {
 }
 
-public class WindowBase : Invert.ECS.Unity.UnityComponent {
-    
-    [UnityEngine.SerializeField()]
-    [UnityEngine.HideInInspector()]
-    private WindowAsset _Asset;
-    
-    [UnityEngine.SerializeField()]
-    private FlipCubeWindow _WindowType;
-    
-    private bool _isDirty;
-    
-    public WindowAsset Asset {
-        get {
-            return _Asset;
-        }
-        set {
-            _Asset = value;
-        }
-    }
-    
-    public virtual FlipCubeWindow WindowType {
-        get {
-            return _WindowType;
-        }
-        set {
-            _WindowType = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
-        }
-    }
-    
-    public override void Awake() {
-        if (_Asset != null) {
-            EntityId = _Asset.EntityId;
-            WindowType = _Asset.WindowType;
-        }
-    }
-}
-
-[UnityEngine.AddComponentMenu("WindowSystem/Window")]
-public partial class Window {
-}
-
-public class CloseWindowOnClickBase : Invert.ECS.Unity.UnityComponent {
-    
-    [UnityEngine.SerializeField()]
-    [UnityEngine.HideInInspector()]
-    private CloseWindowOnClickAsset _Asset;
-    
-    private bool _isDirty;
-    
-    public CloseWindowOnClickAsset Asset {
-        get {
-            return _Asset;
-        }
-        set {
-            _Asset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
-        }
-    }
-    
-    public override void Awake() {
-        if (_Asset != null) {
-            EntityId = _Asset.EntityId;
-        }
-    }
-}
-
-[UnityEngine.AddComponentMenu("WindowSystem/CloseWindowOnClick")]
-public partial class CloseWindowOnClick {
-}
-
-public class ZonesWindowBase : Invert.ECS.Unity.UnityComponent {
-    
-    [UnityEngine.SerializeField()]
-    [UnityEngine.HideInInspector()]
-    private ZonesWindowAsset _Asset;
-    
-    private bool _isDirty;
-    
-    public ZonesWindowAsset Asset {
-        get {
-            return _Asset;
-        }
-        set {
-            _Asset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
-        }
-    }
-    
-    public override void Awake() {
-        if (_Asset != null) {
-            EntityId = _Asset.EntityId;
-        }
-    }
-}
-
-public partial class ZonesWindow {
-}
-
-public class FriendsWindowBase : Invert.ECS.Unity.UnityComponent {
-    
-    [UnityEngine.SerializeField()]
-    [UnityEngine.HideInInspector()]
-    private FriendsWindowAsset _Asset;
-    
-    private bool _isDirty;
-    
-    public FriendsWindowAsset Asset {
-        get {
-            return _Asset;
-        }
-        set {
-            _Asset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
-        }
-    }
-    
-    public override void Awake() {
-        if (_Asset != null) {
-            EntityId = _Asset.EntityId;
-        }
-    }
-}
-
-public partial class FriendsWindow {
-}
-
 public class PlayerBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableComponent {
     
     [UnityEngine.SerializeField()]
@@ -1986,4 +1827,163 @@ public class TutorialOnEnterBase : Invert.ECS.Unity.UnityComponent {
 
 [UnityEngine.AddComponentMenu("TutorialSystem/TutorialOnEnter")]
 public partial class TutorialOnEnter {
+}
+
+public class WindowBase : Invert.ECS.Unity.UnityComponent {
+    
+    [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
+    private WindowAsset _Asset;
+    
+    [UnityEngine.SerializeField()]
+    private FlipCubeWindow _WindowType;
+    
+    private bool _isDirty;
+    
+    public WindowAsset Asset {
+        get {
+            return _Asset;
+        }
+        set {
+            _Asset = value;
+        }
+    }
+    
+    public virtual FlipCubeWindow WindowType {
+        get {
+            return _WindowType;
+        }
+        set {
+            _WindowType = value;
+        }
+    }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            EntityId = _Asset.EntityId;
+            WindowType = _Asset.WindowType;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("WindowSystem/Window")]
+public partial class Window {
+}
+
+public class CloseWindowOnClickBase : Invert.ECS.Unity.UnityComponent {
+    
+    [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
+    private CloseWindowOnClickAsset _Asset;
+    
+    private bool _isDirty;
+    
+    public CloseWindowOnClickAsset Asset {
+        get {
+            return _Asset;
+        }
+        set {
+            _Asset = value;
+        }
+    }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            EntityId = _Asset.EntityId;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("WindowSystem/CloseWindowOnClick")]
+public partial class CloseWindowOnClick {
+}
+
+public class ZonesWindowBase : Invert.ECS.Unity.UnityComponent {
+    
+    [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
+    private ZonesWindowAsset _Asset;
+    
+    private bool _isDirty;
+    
+    public ZonesWindowAsset Asset {
+        get {
+            return _Asset;
+        }
+        set {
+            _Asset = value;
+        }
+    }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            EntityId = _Asset.EntityId;
+        }
+    }
+}
+
+public partial class ZonesWindow {
+}
+
+public class FriendsWindowBase : Invert.ECS.Unity.UnityComponent {
+    
+    [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
+    private FriendsWindowAsset _Asset;
+    
+    private bool _isDirty;
+    
+    public FriendsWindowAsset Asset {
+        get {
+            return _Asset;
+        }
+        set {
+            _Asset = value;
+        }
+    }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            EntityId = _Asset.EntityId;
+        }
+    }
+}
+
+public partial class FriendsWindow {
 }

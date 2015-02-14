@@ -502,30 +502,6 @@ public partial class TweenPlateColorsAsset : Invert.ECS.ComponentAsset {
     }
 }
 
-public partial class WindowAsset : Invert.ECS.ComponentAsset {
-    
-    [UnityEngine.SerializeField()]
-    private FlipCubeWindow _WindowType;
-    
-    public virtual FlipCubeWindow WindowType {
-        get {
-            return _WindowType;
-        }
-        set {
-            _WindowType = value;
-        }
-    }
-}
-
-public partial class CloseWindowOnClickAsset : Invert.ECS.ComponentAsset {
-}
-
-public partial class ZonesWindowAsset : Invert.ECS.ComponentAsset {
-}
-
-public partial class FriendsWindowAsset : Invert.ECS.ComponentAsset {
-}
-
 public partial class PlayerAsset : Invert.ECS.ComponentAsset {
 }
 
@@ -626,4 +602,28 @@ public partial class TutorialOnEnterAsset : Invert.ECS.ComponentAsset {
             _Message = value;
         }
     }
+}
+
+public partial class WindowAsset : Invert.ECS.ComponentAsset {
+    
+    [UnityEngine.SerializeField()]
+    private FlipCubeWindow _WindowType;
+    
+    public virtual FlipCubeWindow WindowType {
+        get {
+            return _WindowType;
+        }
+        set {
+            _WindowType = value;
+        }
+    }
+}
+
+public partial class CloseWindowOnClickAsset : Invert.ECS.ComponentAsset {
+}
+
+public partial class ZonesWindowAsset : Invert.ECS.ComponentAsset {
+}
+
+public partial class FriendsWindowAsset : Invert.ECS.ComponentAsset {
 }
