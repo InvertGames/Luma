@@ -62,6 +62,7 @@ namespace Invert.ECS.Unity
             Instance = this;
             foreach (var system in _UnitySystems)
             {
+                if (!system.enabled) continue;
                 system.Initialize(this);
             }
             StartCoroutine(LoadSystems());
@@ -81,7 +82,7 @@ namespace Invert.ECS.Unity
                 while (!operation.isDone)
                 {
 #if UNITY_EDITOR
-                    yield return new WaitForSeconds(1f);
+                    //yield return new WaitForSeconds(1f);
 #endif
                     yield return new WaitForEndOfFrame();
                 }
@@ -96,7 +97,7 @@ namespace Invert.ECS.Unity
             {
                 var s = asyncSystems[index];
                 if (_UnitySystems.Contains(s)) continue;
-
+                if (!s.enabled) continue;
                 s.Initialize(this);
               
                 this.SignalProgress("Initializing " + s.name, total);
@@ -105,6 +106,7 @@ namespace Invert.ECS.Unity
             }
             foreach (var system in _UnitySystems)
             {
+                if (!system.enabled) continue;
                 var enumerator = system.Load();
                 if (enumerator != null)
                 {
@@ -113,6 +115,7 @@ namespace Invert.ECS.Unity
             }
             foreach (var system in asyncSystems)
             {
+                if (!system.enabled) continue;
                 if (_UnitySystems.Contains(system)) continue;
                 var enumerator = system.Load();
                 if (enumerator != null)
