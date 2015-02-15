@@ -69,6 +69,17 @@ public enum PlateRegister {
     J,
 }
 
+public enum LevelProgressStatus {
+    
+    Perfect,
+    
+    Good,
+    
+    Bad,
+    
+    Fair,
+}
+
 public enum FlipCubeWindow {
     
     Zones,

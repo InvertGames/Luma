@@ -961,6 +961,15 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableCom
     [UnityEngine.SerializeField()]
     private String _SceneName;
     
+    [UnityEngine.SerializeField()]
+    private DateTime _StartTime;
+    
+    [UnityEngine.SerializeField()]
+    private LevelProgressStatus _CurrentStatus;
+    
+    [UnityEngine.SerializeField()]
+    private LevelProgressStatus _BestStatus;
+    
     private bool _isDirty;
     
     public LevelAsset Asset {
@@ -1050,6 +1059,35 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableCom
         }
     }
     
+    public virtual DateTime StartTime {
+        get {
+            return _StartTime;
+        }
+        set {
+            _StartTime = value;
+        }
+    }
+    
+    public virtual LevelProgressStatus CurrentStatus {
+        get {
+            return _CurrentStatus;
+        }
+        set {
+            _CurrentStatus = value;
+        }
+    }
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual LevelProgressStatus BestStatus {
+        get {
+            return _BestStatus;
+        }
+        set {
+            _BestStatus = value;
+            IsDirty = true;
+        }
+    }
+    
     public bool IsDirty {
         get {
             return _isDirty;
@@ -1067,6 +1105,8 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableCom
             MinimumMoves = _Asset.MinimumMoves;
             MovesTaken = _Asset.MovesTaken;
             SceneName = _Asset.SceneName;
+            StartTime = _Asset.StartTime;
+            CurrentStatus = _Asset.CurrentStatus;
         }
     }
 }
@@ -1517,6 +1557,12 @@ public class PlayerBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableCo
     [UnityEngine.SerializeField()]
     private Int32 _TotalFlips;
     
+    [UnityEngine.SerializeField()]
+    private Int32 _CurrentLevelId;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _CurrentZoneId;
+    
     private bool _isDirty;
     
     public PlayerAsset Asset {
@@ -1572,6 +1618,26 @@ public class PlayerBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableCo
         }
     }
     
+    public virtual Int32 CurrentLevelId {
+        get {
+            return _CurrentLevelId;
+        }
+        set {
+            _CurrentLevelId = value;
+        }
+    }
+    
+    [Invert.ECS.SaveableAttribute()]
+    public virtual Int32 CurrentZoneId {
+        get {
+            return _CurrentZoneId;
+        }
+        set {
+            _CurrentZoneId = value;
+            IsDirty = true;
+        }
+    }
+    
     public bool IsDirty {
         get {
             return _isDirty;
@@ -1584,6 +1650,7 @@ public class PlayerBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableCo
     public override void Awake() {
         if (_Asset != null) {
             EntityId = _Asset.EntityId;
+            CurrentLevelId = _Asset.CurrentLevelId;
         }
     }
 }
@@ -1710,6 +1777,9 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.SerializeField()]
     private Int32 _Index;
     
+    [UnityEngine.SerializeField()]
+    private Boolean _IsCurrent;
+    
     private bool _isDirty;
     
     [UnityEngine.SerializeField()]
@@ -1760,6 +1830,15 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent {
         }
     }
     
+    public virtual Boolean IsCurrent {
+        get {
+            return _IsCurrent;
+        }
+        set {
+            _IsCurrent = value;
+        }
+    }
+    
     public bool IsDirty {
         get {
             return _isDirty;
@@ -1785,6 +1864,7 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent {
             SceneName = _Asset.SceneName;
             RequiredXp = _Asset.RequiredXp;
             Index = _Asset.Index;
+            IsCurrent = _Asset.IsCurrent;
         }
     }
 }

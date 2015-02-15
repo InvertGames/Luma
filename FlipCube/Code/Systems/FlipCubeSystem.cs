@@ -21,9 +21,11 @@ public class FlipCubeSystem : FlipCubeSystemBase
         // delayed in the future in order to load data from a user profile.
         SignalGameDataReady(new GameReadyData()
         {
-            //Zones = _Zones
+            LocalPlayer = PlayerManager.Components.FirstOrDefault(p=>p.EntityId == 1)
         });
+
         SignalGameReady(new EntityEventData()); 
+
     }
 
     protected override void GoalPlateHit(IEvent e)
@@ -75,6 +77,7 @@ public class FlipCubeSystem : FlipCubeSystemBase
     {
         base.OnEnteredZone(data);
         CurrentZone = data.Zone;
+   
     }
 
     /// <summary>
@@ -88,6 +91,7 @@ public class FlipCubeSystem : FlipCubeSystemBase
         base.OnEnteredLevel(data);
         // Double ensure the current level is set
         CurrentLevel = data.LevelData;
+   
         // Only happens when we start directly in a level
         if (CurrentZone == null)
         {
@@ -108,6 +112,7 @@ public class FlipCubeSystem : FlipCubeSystemBase
         
         CurrentZone = data.Zone;
 
+        CurrentZone.IsCurrent = true;
         foreach (var item in ZoneSceneManager.Components.ToArray())
         {
             Destroy(item.gameObject);
@@ -115,6 +120,11 @@ public class FlipCubeSystem : FlipCubeSystemBase
         foreach (var item in LevelSceneManager.Components.ToArray())
         {
             Destroy(item.gameObject);
+        }
+
+        foreach (var player in PlayerManager.Components)
+        {
+            player.CurrentZoneId = data.Zone.EntityId;
         }
 
         LoadLevelAsync(CurrentZone.SceneName, () =>
@@ -152,15 +162,19 @@ public class FlipCubeSystem : FlipCubeSystemBase
         base.HandleEnterLevel(data);
         foreach (var item in ZoneSceneManager.Components.ToArray())
         {
-            Destroy(item.gameObject);
+             Destroy(item.gameObject);
         }
         foreach (var item in LevelSceneManager.Components.ToArray())
         {
             Destroy(item.gameObject);
         }
         CurrentLevel = data.LevelData;
-        //Application.LoadLevelAdditive(CurrentLevel.SceneName);
-        
+        // Move each player into it
+        foreach (var player in PlayerManager.Components)
+        {
+            player.CurrentLevelId = CurrentLevel.EntityId;
+        }
+
         LoadLevelAsync(CurrentLevel.SceneName, () =>
         {
             LevelSystem.SignalEnteredLevel(Game, new LevelEventData()
@@ -171,6 +185,7 @@ public class FlipCubeSystem : FlipCubeSystemBase
         });
 
     }
+
     /// <summary>
     /// Navigate back to the current zone.  Usually when you are in a level already
     /// </summary>
@@ -183,6 +198,7 @@ public class FlipCubeSystem : FlipCubeSystemBase
             Zone = CurrentZone
         });
     }
+
 
     protected override void HandleEnterLevelOnEnter(PlateCubeCollsion data, EnterLevelOnEnter enterlevelonenter, Level level)
     {

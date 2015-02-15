@@ -1361,6 +1361,8 @@ public class FlipCubeSystemBase : UnitySystem {
     
     private ComponentManager<Cube> _CubeManager;
     
+    private ComponentManager<Player> _PlayerManager;
+    
     public ComponentManager<Level> LevelManager {
         get {
             return _LevelManager;
@@ -1415,6 +1417,15 @@ public class FlipCubeSystemBase : UnitySystem {
         }
     }
     
+    public ComponentManager<Player> PlayerManager {
+        get {
+            return _PlayerManager;
+        }
+        set {
+            _PlayerManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
         LevelManager = game.ComponentSystem.RegisterComponent<Level>();
@@ -1423,6 +1434,7 @@ public class FlipCubeSystemBase : UnitySystem {
         LevelSceneManager = game.ComponentSystem.RegisterComponent<LevelScene>();
         ZoneSceneManager = game.ComponentSystem.RegisterComponent<ZoneScene>();
         CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
+        PlayerManager = game.ComponentSystem.RegisterComponent<Player>();
         game.EventManager.ListenFor( ZoneSystemEvents.EnterZone, EnterZone );
         game.EventManager.ListenFor( LevelSystemEvents.EnterLevel, EnterLevel );
         game.EventManager.ListenFor( FrameworkEvents.Loaded, Loaded );
@@ -1744,10 +1756,14 @@ public class BasicGameSystemBase : UnitySystem {
     
     protected virtual void OnRoll(Invert.ECS.IEvent e) {
         var eventData = (RollEventData)e.Data;
-        this.OnRoll(eventData);
+        Player player;
+        if (!Game.ComponentSystem.TryGetComponent<Player>(eventData.EntityId, out player)) {
+            return;
+        }
+        this.OnRoll(eventData, player);
     }
     
-    protected virtual void OnRoll(RollEventData data) {
+    protected virtual void OnRoll(RollEventData data, Player player) {
     }
 }
 

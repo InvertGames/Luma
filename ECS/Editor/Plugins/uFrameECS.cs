@@ -73,7 +73,8 @@ namespace Invert.ECS.Graphs
             EventHandler.Name = "Event Handler";
             Systems.HasSubNode<EnumNode>();
             System.HasSubNode<EnumNode>();
-            
+            System.HasSubNode<TypeReferenceNode>();
+            Systems.HasSubNode<TypeReferenceNode>();
             var systemsGraph = CreatePrecompiledSystemsGraph("Framework");
             var unityGraph = CreatePrecompiledSystemsGraph("Unity");
             

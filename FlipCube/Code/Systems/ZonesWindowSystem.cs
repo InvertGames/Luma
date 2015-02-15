@@ -23,7 +23,7 @@ public class ZonesWindowSystem : ZonesWindowSystemBase
             var item = _EntriesList.transform.GetChild(i).gameObject;
             DestroyImmediate(item);
         }
-        foreach (var item in ZoneManager.Components)
+        foreach (var item in ZoneManager.Components.OrderBy(p=>p.Index))
         {
             var zoneEntry = Instantiate(_ZoneEntryPrefab) as GameObject;
             zoneEntry.transform.parent = _EntriesList.transform;

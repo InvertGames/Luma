@@ -258,6 +258,17 @@ public class EnterLevelEventDataBase : object {
 }
 
 public class GameReadyDataBase : object {
+    
+    private Player _LocalPlayer;
+    
+    public Player LocalPlayer {
+        get {
+            return _LocalPlayer;
+        }
+        set {
+            _LocalPlayer = value;
+        }
+    }
 }
 
 public class NotificationDataBase : object {

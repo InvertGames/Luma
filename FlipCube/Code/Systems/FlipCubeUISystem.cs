@@ -67,6 +67,30 @@ public class FlipCubeUISystem : FlipCubeUISystemBase
             xpLabel.text = player.XP.ToString();
             xpSlider.value = player.XP;
             rankLabel.text = player.Rank.ToString();
+
+            foreach (var zone in ZoneManager.Components)
+            {
+                if (zone.EntityId == player.CurrentZoneId)
+                {
+                    zoneLabel.text = zone.ZoneName;
+                    
+                    break;
+                }
+            }
+            foreach (var level in LevelManager.Components)
+            {
+                if (level.EntityId == player.CurrentLevelId)
+                {
+                    levelLabel.text = level.LevelNumber.ToString();
+                    levelProgressSlider.maxValue = level.MinimumMoves * 4;
+                    levelProgressSlider.value = Math.Max(0f, levelProgressSlider.maxValue - (level.MovesTaken));
+                    levelProgressLabel.text = level.CurrentStatus.ToString();
+                    var time = level.CurrentTime;
+                    levelTimeLabel.text = string.Format("{0}:{1}:{2}", time.Minutes, time.Seconds, time.Milliseconds);
+                    break;
+                }
+            }
+
             break;
         }
 

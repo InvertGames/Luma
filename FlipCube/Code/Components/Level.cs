@@ -8,5 +8,8 @@ using UnityEngine;
 
 public partial class Level : LevelBase
 {
-    public Transform SpawnPoint;
+    public TimeSpan CurrentTime
+    {
+        get { return (DateTime.Now.Subtract(StartTime)); }
+    }
 }

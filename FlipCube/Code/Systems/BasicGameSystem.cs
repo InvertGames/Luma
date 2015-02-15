@@ -59,13 +59,39 @@ public class BasicGameSystem : BasicGameSystemBase
         }
     }
 
-    protected override void OnRoll(RollEventData data)
+    public override void Update()
     {
-        base.OnRoll(data);
-        foreach (var level in LevelManager.Components)
+        base.Update();
+        
+    }
+
+    protected override void OnRoll(RollEventData data, Player player)
+    {
+        base.OnRoll(data, player);
+        var level = LevelManager.Components.FirstOrDefault(p => p.EntityId == player.CurrentLevelId);
+        if (level != null)
         {
             level.MovesTaken++;
+            var max = level.MinimumMoves*4f;
+            var v = max - level.MovesTaken;
+            if (v >= (level.MinimumMoves * 3))
+            {
+                level.CurrentStatus = LevelProgressStatus.Perfect;
+            }
+            else if (v >= (level.MinimumMoves * 2))
+            {
+                level.CurrentStatus = LevelProgressStatus.Good;
+            }
+            else if (v >= (level.MinimumMoves * 1))
+            {
+                level.CurrentStatus = LevelProgressStatus.Bad;
+            }
+            else 
+            {
+                level.CurrentStatus = LevelProgressStatus.Fair;
+            }
         }
+
     }
 
     protected override void OnLevelComplete(LevelEventData data, Level level)
@@ -93,7 +119,7 @@ public class BasicGameSystem : BasicGameSystemBase
     protected override void OnEnteredLevel(LevelEventData data, Level level)
     {
         base.OnEnteredLevel(data, level);
-
+        level.StartTime = DateTime.Now;
 //        LastSpawnPosition = level.SpawnPoint == null ? level.transform.GetChild(0).transform.position : level.SpawnPoint.position;
         // Every time we enter a level, reset the game
         FlipCubeSystem.SignalResetGame(Game, new EntityEventData());

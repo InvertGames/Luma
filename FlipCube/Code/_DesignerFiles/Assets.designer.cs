@@ -348,6 +348,12 @@ public partial class LevelAsset : Invert.ECS.ComponentAsset {
     [UnityEngine.SerializeField()]
     private String _SceneName;
     
+    [UnityEngine.SerializeField()]
+    private DateTime _StartTime;
+    
+    [UnityEngine.SerializeField()]
+    private LevelProgressStatus _CurrentStatus;
+    
     public virtual Int32 LevelNumber {
         get {
             return _LevelNumber;
@@ -390,6 +396,24 @@ public partial class LevelAsset : Invert.ECS.ComponentAsset {
         }
         set {
             _SceneName = value;
+        }
+    }
+    
+    public virtual DateTime StartTime {
+        get {
+            return _StartTime;
+        }
+        set {
+            _StartTime = value;
+        }
+    }
+    
+    public virtual LevelProgressStatus CurrentStatus {
+        get {
+            return _CurrentStatus;
+        }
+        set {
+            _CurrentStatus = value;
         }
     }
 }
@@ -506,6 +530,18 @@ public partial class TweenPlateColorsAsset : Invert.ECS.ComponentAsset {
 }
 
 public partial class PlayerAsset : Invert.ECS.ComponentAsset {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _CurrentLevelId;
+    
+    public virtual Int32 CurrentLevelId {
+        get {
+            return _CurrentLevelId;
+        }
+        set {
+            _CurrentLevelId = value;
+        }
+    }
 }
 
 public partial class ActiveWithXpAsset : Invert.ECS.ComponentAsset {
@@ -553,6 +589,9 @@ public partial class ZoneAsset : Invert.ECS.ComponentAsset {
     private Int32 _Index;
     
     [UnityEngine.SerializeField()]
+    private Boolean _IsCurrent;
+    
+    [UnityEngine.SerializeField()]
     private LevelAsset[] _Levels;
     
     public virtual String ZoneName {
@@ -588,6 +627,15 @@ public partial class ZoneAsset : Invert.ECS.ComponentAsset {
         }
         set {
             _Index = value;
+        }
+    }
+    
+    public virtual Boolean IsCurrent {
+        get {
+            return _IsCurrent;
+        }
+        set {
+            _IsCurrent = value;
         }
     }
     
