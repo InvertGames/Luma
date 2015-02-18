@@ -12,6 +12,17 @@ public class WindowSystem : WindowSystemBase {
    
     }
 
+    protected override void OnComponentCreated(IComponent data)
+    {
+        base.OnComponentCreated(data);
+        var window = data as Window;
+        if (window != null)
+        {
+            window.gameObject.SetActive(false);
+        }
+
+    }
+
     protected override void OnLoaded()
     {
         base.OnLoaded();

@@ -354,6 +354,9 @@ public partial class LevelAsset : Invert.ECS.ComponentAsset {
     [UnityEngine.SerializeField()]
     private LevelProgressStatus _CurrentStatus;
     
+    [UnityEngine.SerializeField()]
+    private LevelProgressStatus _BestStatus;
+    
     public virtual Int32 LevelNumber {
         get {
             return _LevelNumber;
@@ -414,6 +417,15 @@ public partial class LevelAsset : Invert.ECS.ComponentAsset {
         }
         set {
             _CurrentStatus = value;
+        }
+    }
+    
+    public virtual LevelProgressStatus BestStatus {
+        get {
+            return _BestStatus;
+        }
+        set {
+            _BestStatus = value;
         }
     }
 }

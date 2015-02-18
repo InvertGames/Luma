@@ -15,6 +15,7 @@ namespace Invert.ECS
 {
     using Invert.ECS.Graphs;
     using Invert.ECS.Unity;
+
     public class ECSTemplates : DiagramPlugin
     {
         public override void Initialize(uFrameContainer container)

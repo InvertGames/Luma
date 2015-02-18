@@ -91,6 +91,8 @@ public enum FlipCubeWindow {
     Messages,
     
     LeaderBoard,
+    
+    LevelComplete,
 }
 
 public enum CubeSystemEvents {

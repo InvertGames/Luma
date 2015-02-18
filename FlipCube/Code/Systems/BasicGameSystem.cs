@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Invert.ECS;
+using UnityEditor;
 using UnityEngine;
 
 public class BasicGameSystem : BasicGameSystemBase
@@ -27,13 +28,13 @@ public class BasicGameSystem : BasicGameSystemBase
                 level.transform.localPosition = new Vector3(0f, 0f, 0f);
                 Debug.Log("Moved to spawn point");
             }
-
         }
     }
 
     protected override void OnFall(IEvent e)
     {
-        base.OnFall(e); Delay(2f, () =>
+      base.OnFall(e);
+      Delay(2f, () =>
       {
           FlipCubeSystem.SignalResetGame(Game, new EntityEventData());
           CubeInputSystem.SignalSelected(Game, new EntityEventData()
@@ -45,7 +46,6 @@ public class BasicGameSystem : BasicGameSystemBase
               CubeId = 1,
               Position = LastSpawnPosition
           });
-          //LevelSystem.SignalLevelRestart(Game, new LevelEventData()); 
       });
     }
 
@@ -100,13 +100,25 @@ public class BasicGameSystem : BasicGameSystemBase
     {
         base.OnLevelComplete(data, level);
         var max = data.LevelData.MaxXP;
-
         var minMoves = data.LevelData.MinimumMoves;
         var badXpMoves = level.MovesTaken - minMoves;
         var xpPerStep = max / minMoves;
         var badXp = badXpMoves * xpPerStep;
-        var gainedXp = max - badXp;
+        var gainedXp = (max - badXp) / (level.TimesPlayed + 1);
+
+        if (level.CurrentStatus < level.BestStatus || level.TimesPlayed == 0)
+        {
+            level.BestStatus = level.CurrentStatus;
+        }
+        var time = Convert.ToInt32(level.CurrentTime.TotalSeconds);
+        if (time < level.BestTime || level.BestTime == 0)
+        {
+            gainedXp += Mathf.RoundToInt(gainedXp*0.2f);
+            level.BestTime = time;
+        }
         level.TimesPlayed++;
+
+
         foreach (var player in PlayerManager.Components)
         {
             PlayerSystem.SignalAddXp(Game, new PlayerExperienceData()

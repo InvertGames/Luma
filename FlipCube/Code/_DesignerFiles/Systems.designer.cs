@@ -2735,6 +2735,7 @@ public class FlipCubeUISystemBase : UnitySystem {
         game.EventManager.ListenFor( ZoneSystemEvents.EnteredZone, EnteredZone );
         game.EventManager.ListenFor( FlipCubeSystemEvents.GameReady, GameReady );
         game.EventManager.ListenFor( PlayerSystemEvents.PlayerXpChanged, PlayerXpChanged );
+        game.EventManager.ListenFor( FrameworkEvents.ComponentCreated, ComponentCreated );
     }
     
     protected virtual void Display(Invert.ECS.IEvent e) {
@@ -2759,6 +2760,9 @@ public class FlipCubeUISystemBase : UnitySystem {
     
     protected virtual void PlayerXpChanged(Invert.ECS.IEvent e) {
         OnXpChanged(e);
+    }
+    
+    protected virtual void ComponentCreated(Invert.ECS.IEvent e) {
     }
     
     protected virtual void ShowNotification(Invert.ECS.IEvent e) {
@@ -2853,6 +2857,7 @@ public class WindowSystemBase : UnitySystem {
         game.EventManager.ListenFor( WindowSystemEvents.CloseWindow, CloseWindow );
         game.EventManager.ListenFor( WindowSystemEvents.ToggleWindow, ToggleWindow );
         game.EventManager.ListenFor( FrameworkEvents.Loaded, Loaded );
+        game.EventManager.ListenFor( FrameworkEvents.ComponentCreated, ComponentCreated );
     }
     
     protected virtual void ShowWindow(Invert.ECS.IEvent e) {
@@ -2869,6 +2874,10 @@ public class WindowSystemBase : UnitySystem {
     
     protected virtual void Loaded(Invert.ECS.IEvent e) {
         OnLoaded(e);
+    }
+    
+    protected virtual void ComponentCreated(Invert.ECS.IEvent e) {
+        OnComponentCreated(e);
     }
     
     protected virtual void HandleShowWindow(Invert.ECS.IEvent e) {
@@ -2899,6 +2908,14 @@ public class WindowSystemBase : UnitySystem {
     }
     
     protected virtual void OnLoaded() {
+    }
+    
+    protected virtual void OnComponentCreated(Invert.ECS.IEvent e) {
+        var eventData = (IComponent)e.Data;
+        this.OnComponentCreated(eventData);
+    }
+    
+    protected virtual void OnComponentCreated(IComponent data) {
     }
     
     public virtual void SignalShowWindow(WindowEventData data) {

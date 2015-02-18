@@ -1077,14 +1077,12 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableCom
         }
     }
     
-    [Invert.ECS.SaveableAttribute()]
     public virtual LevelProgressStatus BestStatus {
         get {
             return _BestStatus;
         }
         set {
             _BestStatus = value;
-            IsDirty = true;
         }
     }
     
@@ -1107,6 +1105,7 @@ public class LevelBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableCom
             SceneName = _Asset.SceneName;
             StartTime = _Asset.StartTime;
             CurrentStatus = _Asset.CurrentStatus;
+            BestStatus = _Asset.BestStatus;
         }
     }
 }
