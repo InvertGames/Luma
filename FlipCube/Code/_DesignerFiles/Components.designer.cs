@@ -1586,6 +1586,7 @@ public class PlayerBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableCo
     }
     
     [Invert.ECS.SaveableAttribute()]
+    [Invert.ECS.PlayerStatAttribute()]
     public virtual Int32 XP {
         get {
             return _XP;
@@ -1597,6 +1598,7 @@ public class PlayerBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableCo
     }
     
     [Invert.ECS.SaveableAttribute()]
+    [Invert.ECS.PlayerStatAttribute()]
     public virtual Int32 Rank {
         get {
             return _Rank;
@@ -1608,6 +1610,7 @@ public class PlayerBase : Invert.ECS.Unity.UnityComponent, Invert.ECS.ISavableCo
     }
     
     [Invert.ECS.SaveableAttribute()]
+    [Invert.ECS.PlayerStatAttribute()]
     public virtual Int32 TotalFlips {
         get {
             return _TotalFlips;
@@ -1908,6 +1911,69 @@ public class ZoneSceneBase : Invert.ECS.Unity.UnityComponent {
 
 [UnityEngine.AddComponentMenu("Zones/ZoneScene")]
 public partial class ZoneScene {
+}
+
+public class PlayerStatBase : Invert.ECS.Unity.UnityComponent {
+    
+    [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
+    private PlayerStatAsset _Asset;
+    
+    [UnityEngine.SerializeField()]
+    private String _Key;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _Value;
+    
+    private bool _isDirty;
+    
+    public PlayerStatAsset Asset {
+        get {
+            return _Asset;
+        }
+        set {
+            _Asset = value;
+        }
+    }
+    
+    public virtual String Key {
+        get {
+            return _Key;
+        }
+        set {
+            _Key = value;
+        }
+    }
+    
+    public virtual Int32 Value {
+        get {
+            return _Value;
+        }
+        set {
+            _Value = value;
+        }
+    }
+    
+    public bool IsDirty {
+        get {
+            return _isDirty;
+        }
+        set {
+            _isDirty = value;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            EntityId = _Asset.EntityId;
+            Key = _Asset.Key;
+            Value = _Asset.Value;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("PlayerData/PlayerStat")]
+public partial class PlayerStat {
 }
 
 public class TutorialOnEnterBase : Invert.ECS.Unity.UnityComponent {

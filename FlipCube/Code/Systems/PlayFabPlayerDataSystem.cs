@@ -8,10 +8,14 @@ using UnityEngine;
 
 public class PlayFabPlayerDataSystem : PlayerDataSystem
 {
-    public string _Username="mosborne2";
+    public string _Username = "mosborne2";
     public string _Password = "micah123";
     public string _TitleId = "F3F5";
 
+    public Dictionary<string, int> Stats { get; set; }
+    public Dictionary<string, UserDataRecord> Data { get; set; }
+    public bool IsLoggedIn { get; set; }
+    public bool IsError { get; set; }
 
     public override void Initialize(IGame game)
     {
@@ -28,10 +32,6 @@ public class PlayFabPlayerDataSystem : PlayerDataSystem
         };
     }
 
-
-    public bool IsLoggedIn { get; set; }
-    public bool IsError { get; set; }
-
     public override IEnumerator Load()
     {
         PlayFabClientAPI.LoginWithPlayFab(new LoginWithPlayFabRequest
@@ -45,20 +45,37 @@ public class PlayFabPlayerDataSystem : PlayerDataSystem
             {
                 //Keys = SaveableManager.Components.Select(p => p.EntityId.ToString()).ToList()
             };
+            PlayFabClientAPI.GetUserData(request, result =>
+            {
+                Data = result.Data;
 
-          
-                PlayFabClientAPI.GetUserData(request, result =>
+                PlayFabClientAPI.GetUserStatistics(new GetUserStatisticsRequest()
                 {
-                    Data = result.Data;
+                   
+                }, _ =>
+                {
+
+                    Stats = _.UserStatistics;
                     LoadAllComponents();
+                    foreach (var item in Stats)
+                    {
+                        Debug.Log(string.Format("{0} state was loaded: {1}", item.Key, item.Value));
+                    }
                     IsLoggedIn = true;
                     Debug.Log("Data Loaded");
-                    //SignalLoadData(Game, new EntityEventData());
-                }, e =>
+                }, _ =>
                 {
                     IsError = true;
-                    Debug.Log(e.ErrorMessage);
+                    Debug.Log(_.ErrorMessage);
                 });
+
+            
+                //SignalLoadData(Game, new EntityEventData());
+            }, e =>
+            {
+                IsError = true;
+                Debug.Log(e.ErrorMessage);
+            });
         }, null);
 
         // Wait for login or error
@@ -68,6 +85,7 @@ public class PlayFabPlayerDataSystem : PlayerDataSystem
         }
     }
 
+   
     public override string GetDataByEntity(string entityId)
     {
         if (Data == null) return null;
@@ -80,7 +98,7 @@ public class PlayFabPlayerDataSystem : PlayerDataSystem
         return null;
     }
 
-    protected override void OnSaveGame(EntityEventData data)
+    protected override void OnSaveGame(SaveGameEventData saveGameEventData)
     {
         UpdateUserDataRequest request = new UpdateUserDataRequest();
         request.Data = new Dictionary<string, string>();
@@ -96,7 +114,7 @@ public class PlayFabPlayerDataSystem : PlayerDataSystem
                     Data.Remove(key);
                 }
 
-                Data.Add(key,new UserDataRecord()
+                Data.Add(key, new UserDataRecord()
                 {
                     Value = json
                 });
@@ -107,10 +125,32 @@ public class PlayFabPlayerDataSystem : PlayerDataSystem
         {
             Debug.Log(string.Format("Saved data"));
         }, null);
+        UpdateUserStatisticsRequest statsRequest = new UpdateUserStatisticsRequest {UserStatistics = Stats};
+        PlayFabClientAPI.UpdateUserStatistics(statsRequest, _=>{},null);
     }
 
-    public Dictionary<string, UserDataRecord> Data { get; set; }
+    protected override int GetPlayerStat(IComponent component, string key)
+    {
+        int value;
+        if (Stats.TryGetValue(key, out value))
+        {
+            return value;
+        }
+        return 0;
+    }
 
+    protected override void SavePlayerStat(IComponent component, string key, int value)
+    {
+        base.SavePlayerStat(component, key, value);
+        if (Stats.ContainsKey(key))
+        {
+            Stats[key] = value;
+        }
+        else
+        {
+            Stats.Add(key,value);
+        }
+    }
 
 
 }

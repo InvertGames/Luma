@@ -652,6 +652,33 @@ public partial class ZoneAsset : Invert.ECS.ComponentAsset {
 public partial class ZoneSceneAsset : Invert.ECS.ComponentAsset {
 }
 
+public partial class PlayerStatAsset : Invert.ECS.ComponentAsset {
+    
+    [UnityEngine.SerializeField()]
+    private String _Key;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _Value;
+    
+    public virtual String Key {
+        get {
+            return _Key;
+        }
+        set {
+            _Key = value;
+        }
+    }
+    
+    public virtual Int32 Value {
+        get {
+            return _Value;
+        }
+        set {
+            _Value = value;
+        }
+    }
+}
+
 public partial class TutorialOnEnterAsset : Invert.ECS.ComponentAsset {
     
     [UnityEngine.SerializeField()]

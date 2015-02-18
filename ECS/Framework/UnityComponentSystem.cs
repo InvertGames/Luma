@@ -88,6 +88,7 @@ namespace Invert.ECS.Unity
                 yield break;
             }
         }
+
         public bool TryGetComponent<TComponent>(int entityId, out TComponent component) where TComponent : class, IComponent
         {
             ComponentManager existing;

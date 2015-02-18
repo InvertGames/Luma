@@ -55,6 +55,10 @@ namespace Invert.ECS.Graphs {
         
         private Invert.Core.GraphDesigner.NodeConfig<LoopNode> _Loop;
         
+        private Invert.Core.GraphDesigner.NodeConfig<StateMachineNode> _StateMachine;
+        
+        private Invert.Core.GraphDesigner.NodeConfig<StateNode> _State;
+        
         public Invert.Core.GraphDesigner.NodeConfig<EntityNode> Entity {
             get {
                 return _Entity;
@@ -217,6 +221,24 @@ namespace Invert.ECS.Graphs {
             }
         }
         
+        public Invert.Core.GraphDesigner.NodeConfig<StateMachineNode> StateMachine {
+            get {
+                return _StateMachine;
+            }
+            set {
+                _StateMachine = value;
+            }
+        }
+        
+        public Invert.Core.GraphDesigner.NodeConfig<StateNode> State {
+            get {
+                return _State;
+            }
+            set {
+                _State = value;
+            }
+        }
+        
         public virtual Invert.Core.GraphDesigner.SelectItemTypeCommand GetComponentPropertySelectionCommand() {
             return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = false };
         }
@@ -266,6 +288,7 @@ namespace Invert.ECS.Graphs {
             Systems.HasSubNode<EventNode>();
             Systems.HasSubNode<SystemNode>();
             Systems.HasSubNode<ComponentNode>();
+            Systems.HasSubNode<StateMachineNode>();
             Entities = container.AddGraph<EntitiesGraph, EntitiesNode>("EntitiesGraph");
             Entities.Color(NodeColor.YellowGreen);
             Entities.HasSubNode<EntityNode>();
@@ -292,6 +315,11 @@ namespace Invert.ECS.Graphs {
             IsTrue = container.AddNode<IsTrueNode,IsTrueNodeViewModel,IsTrueNodeDrawer>("IsTrue");
             IsFalse = container.AddNode<IsFalseNode,IsFalseNodeViewModel,IsFalseNodeDrawer>("IsFalse");
             Loop = container.AddNode<LoopNode,LoopNodeViewModel,LoopNodeDrawer>("Loop");
+            StateMachine = container.AddNode<StateMachineNode,StateMachineNodeViewModel,StateMachineNodeDrawer>("StateMachine");
+            StateMachine.Color(NodeColor.Purple);
+            StateMachine.HasSubNode<StateNode>();
+            State = container.AddNode<StateNode,StateNodeViewModel,StateNodeDrawer>("State");
+            State.Color(NodeColor.Green);
             container.Connectable<SystemNode,ActionNode>();
             container.Connectable<SystemEventHandlerReference,EventHandlerNode>();
             container.Connectable<SystemComponentsReference,EventHandlerEntityMappingReference>();

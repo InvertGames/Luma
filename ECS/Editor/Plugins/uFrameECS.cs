@@ -13,8 +13,6 @@ namespace Invert.ECS.Graphs
     public class uFrameECS : uFrameECSBase
     {
 
-
-
         private static ECSUserSettings _userSettings;
         public static ECSUserSettings UserSettings
         {

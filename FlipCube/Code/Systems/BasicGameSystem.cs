@@ -68,6 +68,8 @@ public class BasicGameSystem : BasicGameSystemBase
     protected override void OnRoll(RollEventData data, Player player)
     {
         base.OnRoll(data, player);
+        player.TotalFlips++;
+        
         var level = LevelManager.Components.FirstOrDefault(p => p.EntityId == player.CurrentLevelId);
         if (level != null)
         {
@@ -113,7 +115,7 @@ public class BasicGameSystem : BasicGameSystemBase
                 XP = gainedXp
             });
         }
-        PlayerDataSystem.SignalSaveGame(Game, new EntityEventData());
+        PlayerDataSystem.SignalSaveGame(Game, new SaveGameEventData());
     }
 
     protected override void OnEnteredLevel(LevelEventData data, Level level)

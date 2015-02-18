@@ -249,7 +249,21 @@ public enum PlayerDataSystemEvents {
     
     PlayerLoggedOut,
     
-    LoadData,
+    LoadGame,
+    
+    LoginPlayer,
+    
+    SetPlayerStat,
+    
+    IncrementPlayerStat,
+    
+    DecrementPlayerStat,
+    
+    LogoutPlayer,
+    
+    StatChanged,
+    
+    OnSaveComponent,
 }
 
 public enum TutorialSystemEvents {

@@ -87,6 +87,21 @@ namespace Invert.ECS.Graphs {
             set { _save = value; }
         }
 
+        private bool _playerStat;
+
+        [JsonProperty, InspectorProperty]
+        public bool PlayerStat
+        {
+            get { return _playerStat; }
+            set
+            {
+                _playerStat = value;
+                if (value == true)
+                {
+                    Saveable = true;
+                }
+            }
+        }
         public override string DefaultTypeName
         {
             get { return typeof (int).Name; }
@@ -161,6 +176,11 @@ namespace Invert.ECS.Graphs {
             }
             set { base.RelatedType = value; }
         }
+
+        public bool IsStat
+        {
+            get { return PropertyData.PlayerStat; }
+        }
     }
 
     public class ComponentPropertyDrawer : TypedItemDrawer
@@ -180,6 +200,10 @@ namespace Invert.ECS.Graphs {
             if (ViewModelObject.IsSelected)
             {
                 base.DrawBackground(platform, scale);
+            }
+            else if (PropertyViewModel.IsStat)
+            {
+                platform.DrawStretchBox(Bounds.Scale(scale), CachedStyles.Item1, 0f);
             }
             else if (PropertyViewModel.IsSaveable)
             {

@@ -141,4 +141,18 @@ namespace Invert.ECS.Graphs {
                 base(viewModel) {
         }
     }
+    
+    public class StateMachineNodeDrawerBase : GenericNodeDrawer<StateMachineNode,StateMachineNodeViewModel> {
+        
+        public StateMachineNodeDrawerBase(StateMachineNodeViewModel viewModel) : 
+                base(viewModel) {
+        }
+    }
+    
+    public class StateNodeDrawerBase : GenericNodeDrawer<StateNode,StateNodeViewModel> {
+        
+        public StateNodeDrawerBase(StateNodeViewModel viewModel) : 
+                base(viewModel) {
+        }
+    }
 }

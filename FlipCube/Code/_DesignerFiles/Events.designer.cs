@@ -360,6 +360,96 @@ public class ZoneEventDataBase : object {
     }
 }
 
+public class LoginPlayerDataBase : object {
+    
+    private String _Username;
+    
+    private String _Password;
+    
+    public String Username {
+        get {
+            return _Username;
+        }
+        set {
+            _Username = value;
+        }
+    }
+    
+    public String Password {
+        get {
+            return _Password;
+        }
+        set {
+            _Password = value;
+        }
+    }
+}
+
+public class SaveGameEventDataBase : object {
+}
+
+public class LoadGameEventDataBase : object {
+}
+
+public class LoginDataBase : object {
+}
+
+public class LogoutDataBase : object {
+}
+
+public class SetPlayerStatDataBase : object {
+    
+    private Int32 _EntityId;
+    
+    private String _Key;
+    
+    private Int32 _Value;
+    
+    public Int32 EntityId {
+        get {
+            return _EntityId;
+        }
+        set {
+            _EntityId = value;
+        }
+    }
+    
+    public String Key {
+        get {
+            return _Key;
+        }
+        set {
+            _Key = value;
+        }
+    }
+    
+    public Int32 Value {
+        get {
+            return _Value;
+        }
+        set {
+            _Value = value;
+        }
+    }
+}
+
+public class StatChangedDataBase : object {
+    
+    private PlayerStat _PlayerStat;
+    
+    public PlayerStat PlayerStat {
+        get {
+            return _PlayerStat;
+        }
+        set {
+            _PlayerStat = value;
+        }
+    }
+}
+
+public class SaveComponentDataBase : object {
+}
+
 public class WindowEventDataBase : object {
     
     private FlipCubeWindow _Window;

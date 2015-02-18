@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using Invert.ECS;
@@ -45,6 +46,7 @@ public class PlayerDataSystem : PlayerDataSystemBase
     {
         foreach (var item in SaveableManager.Components)
         {
+
             LoadComponent(item);
         }
     }
@@ -68,13 +70,17 @@ public class PlayerDataSystem : PlayerDataSystemBase
         }
     }
 
-    protected override void OnSaveGame(EntityEventData data)
+    protected override void OnSaveGame(SaveGameEventData data)
     {
         base.OnSaveGame(data);
         foreach (var component in SaveableManager.Components.Where(p => p.IsDirty))
         {
             var json = SerializeComponent(component).ToString();
             SetDataByEntity(component.EntityId + "_" + component.GetType().Name, json);
+            SignalOnSaveComponent(Game,new SaveComponentData()
+            {
+                Component = component
+            });
             Debug.Log(string.Format("Saved {0} - {1}", component.EntityId, json));
             component.IsDirty = false;
         }
@@ -92,6 +98,11 @@ public class PlayerDataSystem : PlayerDataSystemBase
 
                 if (property.PropertyType == typeof(int))
                 {
+                    if (property.IsDefined(typeof (PlayerStatAttribute), true))
+                    {
+                        SavePlayerStat(component, property.Name, (int) property.GetValue(component, null));
+                        continue;
+                    }
                     node.Add(property.Name, new JSONData((int)property.GetValue(component, null)));
                     continue;
                 }
@@ -134,13 +145,20 @@ public class PlayerDataSystem : PlayerDataSystemBase
                 if (!property.IsDefined(typeof(SaveableAttribute), true)) continue;
 
                 var propertyData = node[property.Name];
-                if (propertyData == null) continue;
+             
 
                 if (property.PropertyType == typeof(int))
                 {
+                    if (property.IsDefined(typeof(PlayerStatAttribute), true))
+                    {
+                        property.SetValue(component, GetPlayerStat(component, property.Name), null);
+                        continue;
+                    }
+                    if (propertyData == null) continue;
                     property.SetValue(component, propertyData.AsInt, null);
                     continue;
                 }
+                if (propertyData == null) continue;
                 if (property.PropertyType == typeof(bool))
                 {
                     property.SetValue(component, propertyData.AsBool, null);
@@ -170,4 +188,14 @@ public class PlayerDataSystem : PlayerDataSystemBase
         }
 
     }
+
+    protected virtual int GetPlayerStat(IComponent component, string key)
+    {
+        return PlayerPrefs.GetInt(key,0);
+    }
+    protected virtual void SavePlayerStat(IComponent component, string key, int value)
+    {
+        PlayerPrefs.SetInt(key, value);
+    }
+
 }

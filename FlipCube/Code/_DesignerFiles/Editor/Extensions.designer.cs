@@ -272,6 +272,14 @@ public class ZoneSceneMenuItems : object {
     }
 }
 
+public class PlayerStatMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/PlayerData/PlayerStat", false, -1)]
+    public static void CreatePlayerStat() {
+        uFrameECS.CreateAsset<PlayerStatAsset>();
+    }
+}
+
 public class TutorialOnEnterMenuItems : object {
     
     [UnityEditor.MenuItem("Assets/Tutorial/TutorialOnEnter", false, -1)]

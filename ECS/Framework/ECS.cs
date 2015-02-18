@@ -112,6 +112,14 @@ namespace Invert.ECS
             set { _items = value; }
         }
 
+        public IEnumerable<TComponentType> ForEntity(int entityId)
+        {
+            foreach (var item in Components)
+            {
+                if (item.EntityId == entityId)
+                    yield return item;
+            }
+        }
         protected override void AddItem(IComponent component)
         {
             Components.Add((TComponentType)component);
@@ -298,7 +306,10 @@ namespace Invert.ECS
     {
         
     }
+    public class PlayerStatAttribute : Attribute
+    {
 
+    }
 }
 
 // Unity Stuff

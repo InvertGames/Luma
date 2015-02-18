@@ -140,4 +140,18 @@ namespace Invert.ECS.Graphs {
                 base(graphItemObject, diagramViewModel) {
         }
     }
+    
+    public class StateMachineNodeViewModelBase : ComponentNodeViewModel {
+        
+        public StateMachineNodeViewModelBase(StateMachineNode graphItemObject, Invert.Core.GraphDesigner.DiagramViewModel diagramViewModel) : 
+                base(graphItemObject, diagramViewModel) {
+        }
+    }
+    
+    public class StateNodeViewModelBase : Invert.Core.GraphDesigner.GenericNodeViewModel<StateNode> {
+        
+        public StateNodeViewModelBase(StateNode graphItemObject, Invert.Core.GraphDesigner.DiagramViewModel diagramViewModel) : 
+                base(graphItemObject, diagramViewModel) {
+        }
+    }
 }

@@ -95,11 +95,16 @@ namespace Invert.ECS
             set
             {
                 Ctx._("_{0} = value", Ctx.Item.Name);
-                if (Ctx.ItemAs<ComponentPropertyChildItem>().Saveable)
+                var componentProperty = Ctx.ItemAs<ComponentPropertyChildItem>();
+                if (componentProperty.Saveable || componentProperty.PlayerStat)
                 {
                     Ctx.CurrentProperty.CustomAttributes.Add(
                         new CodeAttributeDeclaration(typeof (SaveableAttribute).ToCodeReference()));
-
+                    if (componentProperty.PlayerStat)
+                    {
+                        Ctx.CurrentProperty.CustomAttributes.Add(
+                           new CodeAttributeDeclaration(typeof(PlayerStatAttribute).ToCodeReference()));
+                    }
                     Ctx._("IsDirty = true");
                 }
             }
