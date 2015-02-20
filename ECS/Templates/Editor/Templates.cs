@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using Invert.Core;
 using Invert.Core.GraphDesigner;
@@ -100,7 +101,7 @@ namespace Invert.ECS
                 if (componentProperty.Saveable || componentProperty.PlayerStat)
                 {
                     Ctx.CurrentProperty.CustomAttributes.Add(
-                        new CodeAttributeDeclaration(typeof (SaveableAttribute).ToCodeReference()));
+                        new CodeAttributeDeclaration(typeof(SaveableAttribute).ToCodeReference()));
                     if (componentProperty.PlayerStat)
                     {
                         Ctx.CurrentProperty.CustomAttributes.Add(
@@ -480,6 +481,7 @@ namespace Invert.ECS
                 return null;
             }
         }
+        
         [TemplateProperty(MemberGeneratorLocation.DesignerFile, "{0}Manager", AutoFillType.NameOnlyWithBackingField)]
         public object ComponentManager2
         {
@@ -693,6 +695,31 @@ namespace Invert.ECS
         }
     }
 
+    [TemplateClass("SimpleClass",MemberGeneratorLocation.Both, ClassNameFormat = "{0}EpicClass")]
+    public class SimpleClassNode : IClassTemplate<ComponentNode>
+    {
+        #region Template Setup
+        public void TemplateSetup()
+        {
+            Ctx.AddIterator("PropertyTemplate",nodeData=>nodeData.Properties);
+            
+        }
 
+        public TemplateContext<ComponentNode> Ctx { get; set; }
+        #endregion
 
+        [TemplateProperty(MemberGeneratorLocation.DesignerFile)]
+        public object PropertyTemplate
+        {
+            get
+            {
+                Ctx._("return _{0}", Ctx.Item.Name);
+                return null;
+            }
+            set
+            {
+                Ctx._("_{0} = value",Ctx.Item.Name);
+            }
+        }
+    }
 }
