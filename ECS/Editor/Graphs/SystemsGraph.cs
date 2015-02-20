@@ -46,6 +46,10 @@ namespace Invert.ECS.Graphs {
             {
                 return NewType("PropertyMapsReference");
             }
+            if (IsType(t, "EntityComponentsReference"))
+            {
+                return NewType("ComponentsReference");
+            }
             return null;
         }
     }
