@@ -38,15 +38,15 @@ namespace Invert.ECS.Graphs {
                     EventTypeId = value.Identifier;
             }
         }
-        [Invert.Core.GraphDesigner.ReferenceSection("Parameters", SectionVisibility.Always, false, false, typeof(IPropertyMappings), false, OrderIndex = 0, HasPredefinedOptions = false)]
-        public override System.Collections.Generic.IEnumerable<PropertyMapsReference> PropertyMappings
+        [Invert.Core.GraphDesigner.ReferenceSection("Parameters", SectionVisibility.Always, false, false, typeof(IPropertyMapsConnectable), false, OrderIndex = 0, HasPredefinedOptions = false)]
+        public override System.Collections.Generic.IEnumerable<PropertyMapsReference> PropertyMaps
         {
             get
             {
                 return ChildItems.OfType<PropertyMapsReference>();
             }
         }
-        public override IEnumerable<IPropertyMappings> PossiblePropertyMappings
+        public override IEnumerable<IPropertyMapsConnectable> PossiblePropertyMaps
         {
             get
             {
@@ -68,7 +68,7 @@ namespace Invert.ECS.Graphs {
             variable.InitExpression = new CodeSnippetExpression(string.Format("new {0}()", Event.RelatedTypeName));
             ctx.CurrentStatements.Add(variable);
 
-            foreach (var mapping in PropertyMappings)
+            foreach (var mapping in PropertyMaps)
             {
 
                 var inputFrom = mapping;

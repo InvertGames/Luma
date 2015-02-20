@@ -716,42 +716,42 @@ namespace Invert.ECS
         public TemplateContext<SystemNode> Ctx { get; set; }
     }
 
-    [TemplateClass( MemberGeneratorLocation.DesignerFile, AutoInherit = false)]
-    public class EntityAssetTemplate : IClassTemplate<EntityNode>
-    {
-        public void TemplateSetup()
-        {
-            Ctx.CurrentDecleration.BaseTypes.Clear();
-            Ctx.CurrentDecleration.BaseTypes.Add(typeof(ScriptableObject));
-            Ctx.AddIterator("ComponentData", _ => _.Components);
-        }
+    //[TemplateClass( MemberGeneratorLocation.DesignerFile, AutoInherit = false)]
+    //public class EntityAssetTemplate : IClassTemplate<EntityNode>
+    //{
+    //    public void TemplateSetup()
+    //    {
+    //        Ctx.CurrentDecleration.BaseTypes.Clear();
+    //        Ctx.CurrentDecleration.BaseTypes.Add(typeof(ScriptableObject));
+    //        Ctx.AddIterator("ComponentData", _ => _.Components);
+    //    }
 
-        public string OutputPath
-        {
-            get { return Path2.Combine("Editor", "Assets"); }
-        }
+    //    public string OutputPath
+    //    {
+    //        get { return Path2.Combine("Editor", "Assets"); }
+    //    }
 
-        public bool CanGenerate
-        {
-            get { return true; }
-        }
+    //    public bool CanGenerate
+    //    {
+    //        get { return true; }
+    //    }
 
-        public TemplateContext<EntityNode> Ctx { get; set; }
+    //    public TemplateContext<EntityNode> Ctx { get; set; }
 
-        [TemplateProperty(MemberGeneratorLocation.DesignerFile, AutoFillType.NameOnly)]
-        public object ComponentData
-        {
-            get
-            {
-                var type = Ctx.ItemAs<EntityComponentsReference>().SourceItem.Name + "Data";
-                Ctx.SetType(type);
-                var field = Ctx.CurrentDecleration._private_(type, "_" + Ctx.Item.Name);
-                field.CustomAttributes.Add(new CodeAttributeDeclaration(typeof(SerializeField).ToCodeReference()));
-                Ctx._("return {0}", "_" + Ctx.Item.Name);
-                return null;
-            }
-        }
-    }
+    //    [TemplateProperty(MemberGeneratorLocation.DesignerFile, AutoFillType.NameOnly)]
+    //    public object ComponentData
+    //    {
+    //        get
+    //        {
+    //            var type = Ctx.ItemAs<EntityComponentsReference>().SourceItem.Name + "Data";
+    //            Ctx.SetType(type);
+    //            var field = Ctx.CurrentDecleration._private_(type, "_" + Ctx.Item.Name);
+    //            field.CustomAttributes.Add(new CodeAttributeDeclaration(typeof(SerializeField).ToCodeReference()));
+    //            Ctx._("return {0}", "_" + Ctx.Item.Name);
+    //            return null;
+    //        }
+    //    }
+    //}
 
     [TemplateClass( MemberGeneratorLocation.DesignerFile, "{0}MenuItems", AutoInherit = false)]
     public class EntityEditorExtensionsTemplate : IClassTemplate<ComponentNode>

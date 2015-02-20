@@ -16,16 +16,9 @@ namespace Invert.ECS.Graphs {
     using Invert.Core.GraphDesigner;
     
     
-    public class EntityNodeDrawerBase : GenericNodeDrawer<EntityNode,EntityNodeViewModel> {
+    public class SystemsNodeDrawerBase : GenericNodeDrawer<SystemsNode,SystemsNodeViewModel> {
         
-        public EntityNodeDrawerBase(EntityNodeViewModel viewModel) : 
-                base(viewModel) {
-        }
-    }
-    
-    public class ComponentNodeDrawerBase : GenericNodeDrawer<ComponentNode,ComponentNodeViewModel> {
-        
-        public ComponentNodeDrawerBase(ComponentNodeViewModel viewModel) : 
+        public SystemsNodeDrawerBase(SystemsNodeViewModel viewModel) : 
                 base(viewModel) {
         }
     }
@@ -37,30 +30,9 @@ namespace Invert.ECS.Graphs {
         }
     }
     
-    public class ServerSystemNodeDrawerBase : GenericNodeDrawer<ServerSystemNode,ServerSystemNodeViewModel> {
+    public class ComponentNodeDrawerBase : GenericNodeDrawer<ComponentNode,ComponentNodeViewModel> {
         
-        public ServerSystemNodeDrawerBase(ServerSystemNodeViewModel viewModel) : 
-                base(viewModel) {
-        }
-    }
-    
-    public class UnitySystemNodeDrawerBase : GenericNodeDrawer<UnitySystemNode,UnitySystemNodeViewModel> {
-        
-        public UnitySystemNodeDrawerBase(UnitySystemNodeViewModel viewModel) : 
-                base(viewModel) {
-        }
-    }
-    
-    public class SystemsNodeDrawerBase : GenericNodeDrawer<SystemsNode,SystemsNodeViewModel> {
-        
-        public SystemsNodeDrawerBase(SystemsNodeViewModel viewModel) : 
-                base(viewModel) {
-        }
-    }
-    
-    public class EntitiesNodeDrawerBase : GenericNodeDrawer<EntitiesNode,EntitiesNodeViewModel> {
-        
-        public EntitiesNodeDrawerBase(EntitiesNodeViewModel viewModel) : 
+        public ComponentNodeDrawerBase(ComponentNodeViewModel viewModel) : 
                 base(viewModel) {
         }
     }
@@ -72,23 +44,9 @@ namespace Invert.ECS.Graphs {
         }
     }
     
-    public class CommandNodeDrawerBase : GenericNodeDrawer<CommandNode,CommandNodeViewModel> {
-        
-        public CommandNodeDrawerBase(CommandNodeViewModel viewModel) : 
-                base(viewModel) {
-        }
-    }
-    
     public class EventHandlerNodeDrawerBase : GenericNodeDrawer<EventHandlerNode,EventHandlerNodeViewModel> {
         
         public EventHandlerNodeDrawerBase(EventHandlerNodeViewModel viewModel) : 
-                base(viewModel) {
-        }
-    }
-    
-    public class SendSignalNodeDrawerBase : GenericNodeDrawer<SendSignalNode,SendSignalNodeViewModel> {
-        
-        public SendSignalNodeDrawerBase(SendSignalNodeViewModel viewModel) : 
                 base(viewModel) {
         }
     }
@@ -100,16 +58,16 @@ namespace Invert.ECS.Graphs {
         }
     }
     
-    public class CustomActionNodeDrawerBase : GenericNodeDrawer<CustomActionNode,CustomActionNodeViewModel> {
+    public class SimpleClassNodeDrawerBase : GenericNodeDrawer<SimpleClassNode,SimpleClassNodeViewModel> {
         
-        public CustomActionNodeDrawerBase(CustomActionNodeViewModel viewModel) : 
+        public SimpleClassNodeDrawerBase(SimpleClassNodeViewModel viewModel) : 
                 base(viewModel) {
         }
     }
     
-    public class VariableNodeDrawerBase : GenericNodeDrawer<VariableNode,VariableNodeViewModel> {
+    public class SendSignalNodeDrawerBase : GenericNodeDrawer<SendSignalNode,SendSignalNodeViewModel> {
         
-        public VariableNodeDrawerBase(VariableNodeViewModel viewModel) : 
+        public SendSignalNodeDrawerBase(SendSignalNodeViewModel viewModel) : 
                 base(viewModel) {
         }
     }
@@ -117,41 +75,6 @@ namespace Invert.ECS.Graphs {
     public class ConditionNodeDrawerBase : GenericNodeDrawer<ConditionNode,ConditionNodeViewModel> {
         
         public ConditionNodeDrawerBase(ConditionNodeViewModel viewModel) : 
-                base(viewModel) {
-        }
-    }
-    
-    public class IsTrueNodeDrawerBase : GenericNodeDrawer<IsTrueNode,IsTrueNodeViewModel> {
-        
-        public IsTrueNodeDrawerBase(IsTrueNodeViewModel viewModel) : 
-                base(viewModel) {
-        }
-    }
-    
-    public class IsFalseNodeDrawerBase : GenericNodeDrawer<IsFalseNode,IsFalseNodeViewModel> {
-        
-        public IsFalseNodeDrawerBase(IsFalseNodeViewModel viewModel) : 
-                base(viewModel) {
-        }
-    }
-    
-    public class LoopNodeDrawerBase : GenericNodeDrawer<LoopNode,LoopNodeViewModel> {
-        
-        public LoopNodeDrawerBase(LoopNodeViewModel viewModel) : 
-                base(viewModel) {
-        }
-    }
-    
-    public class StateMachineNodeDrawerBase : GenericNodeDrawer<StateMachineNode,StateMachineNodeViewModel> {
-        
-        public StateMachineNodeDrawerBase(StateMachineNodeViewModel viewModel) : 
-                base(viewModel) {
-        }
-    }
-    
-    public class StateNodeDrawerBase : GenericNodeDrawer<StateNode,StateNodeViewModel> {
-        
-        public StateNodeDrawerBase(StateNodeViewModel viewModel) : 
                 base(viewModel) {
         }
     }

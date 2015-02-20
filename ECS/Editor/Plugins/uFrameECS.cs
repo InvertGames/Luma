@@ -20,21 +20,21 @@ namespace Invert.ECS.Graphs
             set { _userSettings = value; }
         }
 
-        public override Invert.Core.GraphDesigner.SelectItemTypeCommand GetComponentPropertySelectionCommand()
+        public override Invert.Core.GraphDesigner.SelectItemTypeCommand GetPropertiesSelectionCommand()
         {
-            base.GetComponentPropertySelectionCommand();
+            base.GetPropertiesSelectionCommand();
             return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = false };
         }
 
-        public override Invert.Core.GraphDesigner.SelectItemTypeCommand GetComponentCollectionSelectionCommand()
+        public override Invert.Core.GraphDesigner.SelectItemTypeCommand GetCollectionsSelectionCommand()
         {
-            base.GetComponentCollectionSelectionCommand();
+            base.GetCollectionsSelectionCommand();
             return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = false };
         }
 
-        public override SelectItemTypeCommand GetEventTypeSelectionCommand()
+        public override SelectItemTypeCommand GetEventsSelectionCommand()
         {
-            var command = base.GetEventTypeSelectionCommand();
+            var command = base.GetEventsSelectionCommand();
             command.AllowNone = true;
             return command;
         }
@@ -60,7 +60,7 @@ namespace Invert.ECS.Graphs
         public override void Initialize(Invert.Core.uFrameContainer container)
         {
             base.Initialize(container);
-            container.Connectable<RequiredComponentsChildItem, ComponentNode>();
+            container.Connectable<RequiredComponentsReference, ComponentNode>();
             container.Connectable<EventHandlerNode, EventHandlerNode>();
             container.Connectable<ActionNode, ActionNode>();
            

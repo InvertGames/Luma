@@ -33,7 +33,7 @@ namespace Invert.ECS.Graphs {
             }
         }
 
-        public override IEnumerable<ISystemEventHandler> PossibleHandlers
+        public override IEnumerable<IHandlersConnectable> PossibleHandlers
         {
             get { return base.PossibleHandlers; }
         }

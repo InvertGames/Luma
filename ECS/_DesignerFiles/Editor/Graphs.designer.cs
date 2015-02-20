@@ -18,10 +18,4 @@ namespace Invert.ECS.Graphs {
     
     public class SystemsGraphBase : GenericGraphData<SystemsNode> {
     }
-    
-    public class EntitiesGraphBase : GenericGraphData<EntitiesNode> {
-    }
-    
-    public class SystemGraphBase : GenericGraphData<SystemNode> {
-    }
 }

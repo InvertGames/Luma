@@ -17,14 +17,14 @@ namespace Invert.ECS.Graphs
         }
 
         [ReferenceSection("Required Components", SectionVisibility.WhenNodeIsNotFilter, 
-            true, false, typeof(IEventHandlerEntityMapping), true, 
+            true, false, typeof(IRequiredComponentsConnectable), true, 
             OrderIndex = 0, HasPredefinedOptions = false,
-            AddCommandType = typeof(VariableSelectionCommand<RequiredComponentsChildItem>))]
-        public override System.Collections.Generic.IEnumerable<RequiredComponentsChildItem> Outputs
+            AddCommandType = typeof(VariableSelectionCommand<RequiredComponentsReference>))]
+        public override System.Collections.Generic.IEnumerable<RequiredComponentsReference> RequiredComponents
         {
             get
             {
-                return ChildItems.OfType<RequiredComponentsChildItem>();
+                return ChildItems.OfType<RequiredComponentsReference>();
             }
         }
 
@@ -47,11 +47,11 @@ namespace Invert.ECS.Graphs
             }
         }
 
-        public override IEnumerable<IEventHandlerEntityMapping> PossibleOutputs
+        public override IEnumerable<IRequiredComponentsConnectable> PossibleRequiredComponents
         {
             get
             {
-                return AllContextVariables.OfType<IEntityEventHandlerMapping>().Where(p => p.IsEntity).Cast<IEventHandlerEntityMapping>();
+                return AllContextVariables.OfType<IRequiredComponentsConnectable>().Where(p => p.IsEntity).Cast<IRequiredComponentsConnectable>();
                
                 //if (EventTypeNode == null) yield break;
                 //foreach (var item in EventTypeNode.Properties.Where(p => p.IsEntity).Cast<IEventHandlerEntityMapping>())
@@ -80,7 +80,7 @@ namespace Invert.ECS.Graphs
             if (Outputs.Any())
             {
                 var contextVariables = AllContextVariables.ToArray();
-                foreach (var output in Outputs)
+                foreach (var output in RequiredComponents)
                 {
                     if (contextVariables.All(p => p.VariableName != output.Name))
                     {
@@ -95,7 +95,7 @@ namespace Invert.ECS.Graphs
         {
             get
             {
-                foreach (var item in this.Outputs)
+                foreach (var item in this.RequiredComponents)
                 {
                     var component = item.Component;
                     if (component != null)
@@ -154,7 +154,7 @@ namespace Invert.ECS.Graphs
                 
             }
 
-            foreach (var item in Outputs.Concat(LeftNodes.OfType<EventHandlerNode>().SelectMany(p=>p.Outputs)))
+            foreach (var item in RequiredComponents.Concat(LeftNodes.OfType<EventHandlerNode>().SelectMany(p=>p.RequiredComponents)))
             {
                 var isArray = item.SourceVariable is CollectionsChildItem;
                 var needsTryGet = item.Node == this;

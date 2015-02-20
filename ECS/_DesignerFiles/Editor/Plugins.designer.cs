@@ -19,61 +19,30 @@ namespace Invert.ECS.Graphs {
     
     public class uFrameECSBase : Invert.Core.GraphDesigner.DiagramPlugin {
         
-        private Invert.Core.GraphDesigner.NodeConfig<EntityNode> _Entity;
-        
-        private Invert.Core.GraphDesigner.NodeConfig<ComponentNode> _Component;
+        private Invert.Core.GraphDesigner.NodeConfig<SystemsNode> _Systems;
         
         private Invert.Core.GraphDesigner.NodeConfig<SystemNode> _System;
         
-        private Invert.Core.GraphDesigner.NodeConfig<ServerSystemNode> _ServerSystem;
-        
-        private Invert.Core.GraphDesigner.NodeConfig<UnitySystemNode> _UnitySystem;
-        
-        private Invert.Core.GraphDesigner.NodeConfig<SystemsNode> _Systems;
-        
-        private Invert.Core.GraphDesigner.NodeConfig<EntitiesNode> _Entities;
+        private Invert.Core.GraphDesigner.NodeConfig<ComponentNode> _Component;
         
         private Invert.Core.GraphDesigner.NodeConfig<EventNode> _Event;
         
-        private Invert.Core.GraphDesigner.NodeConfig<CommandNode> _Command;
-        
         private Invert.Core.GraphDesigner.NodeConfig<EventHandlerNode> _EventHandler;
-        
-        private Invert.Core.GraphDesigner.NodeConfig<SendSignalNode> _SendSignal;
         
         private Invert.Core.GraphDesigner.NodeConfig<ActionNode> _Action;
         
-        private Invert.Core.GraphDesigner.NodeConfig<CustomActionNode> _CustomAction;
+        private Invert.Core.GraphDesigner.NodeConfig<SimpleClassNode> _SimpleClass;
         
-        private Invert.Core.GraphDesigner.NodeConfig<VariableNode> _Variable;
+        private Invert.Core.GraphDesigner.NodeConfig<SendSignalNode> _SendSignal;
         
         private Invert.Core.GraphDesigner.NodeConfig<ConditionNode> _Condition;
         
-        private Invert.Core.GraphDesigner.NodeConfig<IsTrueNode> _IsTrue;
-        
-        private Invert.Core.GraphDesigner.NodeConfig<IsFalseNode> _IsFalse;
-        
-        private Invert.Core.GraphDesigner.NodeConfig<LoopNode> _Loop;
-        
-        private Invert.Core.GraphDesigner.NodeConfig<StateMachineNode> _StateMachine;
-        
-        private Invert.Core.GraphDesigner.NodeConfig<StateNode> _State;
-        
-        public Invert.Core.GraphDesigner.NodeConfig<EntityNode> Entity {
+        public Invert.Core.GraphDesigner.NodeConfig<SystemsNode> Systems {
             get {
-                return _Entity;
+                return _Systems;
             }
             set {
-                _Entity = value;
-            }
-        }
-        
-        public Invert.Core.GraphDesigner.NodeConfig<ComponentNode> Component {
-            get {
-                return _Component;
-            }
-            set {
-                _Component = value;
+                _Systems = value;
             }
         }
         
@@ -86,39 +55,12 @@ namespace Invert.ECS.Graphs {
             }
         }
         
-        public Invert.Core.GraphDesigner.NodeConfig<ServerSystemNode> ServerSystem {
+        public Invert.Core.GraphDesigner.NodeConfig<ComponentNode> Component {
             get {
-                return _ServerSystem;
+                return _Component;
             }
             set {
-                _ServerSystem = value;
-            }
-        }
-        
-        public Invert.Core.GraphDesigner.NodeConfig<UnitySystemNode> UnitySystem {
-            get {
-                return _UnitySystem;
-            }
-            set {
-                _UnitySystem = value;
-            }
-        }
-        
-        public Invert.Core.GraphDesigner.NodeConfig<SystemsNode> Systems {
-            get {
-                return _Systems;
-            }
-            set {
-                _Systems = value;
-            }
-        }
-        
-        public Invert.Core.GraphDesigner.NodeConfig<EntitiesNode> Entities {
-            get {
-                return _Entities;
-            }
-            set {
-                _Entities = value;
+                _Component = value;
             }
         }
         
@@ -131,30 +73,12 @@ namespace Invert.ECS.Graphs {
             }
         }
         
-        public Invert.Core.GraphDesigner.NodeConfig<CommandNode> Command {
-            get {
-                return _Command;
-            }
-            set {
-                _Command = value;
-            }
-        }
-        
         public Invert.Core.GraphDesigner.NodeConfig<EventHandlerNode> EventHandler {
             get {
                 return _EventHandler;
             }
             set {
                 _EventHandler = value;
-            }
-        }
-        
-        public Invert.Core.GraphDesigner.NodeConfig<SendSignalNode> SendSignal {
-            get {
-                return _SendSignal;
-            }
-            set {
-                _SendSignal = value;
             }
         }
         
@@ -167,21 +91,21 @@ namespace Invert.ECS.Graphs {
             }
         }
         
-        public Invert.Core.GraphDesigner.NodeConfig<CustomActionNode> CustomAction {
+        public Invert.Core.GraphDesigner.NodeConfig<SimpleClassNode> SimpleClass {
             get {
-                return _CustomAction;
+                return _SimpleClass;
             }
             set {
-                _CustomAction = value;
+                _SimpleClass = value;
             }
         }
         
-        public Invert.Core.GraphDesigner.NodeConfig<VariableNode> Variable {
+        public Invert.Core.GraphDesigner.NodeConfig<SendSignalNode> SendSignal {
             get {
-                return _Variable;
+                return _SendSignal;
             }
             set {
-                _Variable = value;
+                _SendSignal = value;
             }
         }
         
@@ -194,144 +118,57 @@ namespace Invert.ECS.Graphs {
             }
         }
         
-        public Invert.Core.GraphDesigner.NodeConfig<IsTrueNode> IsTrue {
-            get {
-                return _IsTrue;
-            }
-            set {
-                _IsTrue = value;
-            }
-        }
-        
-        public Invert.Core.GraphDesigner.NodeConfig<IsFalseNode> IsFalse {
-            get {
-                return _IsFalse;
-            }
-            set {
-                _IsFalse = value;
-            }
-        }
-        
-        public Invert.Core.GraphDesigner.NodeConfig<LoopNode> Loop {
-            get {
-                return _Loop;
-            }
-            set {
-                _Loop = value;
-            }
-        }
-        
-        public Invert.Core.GraphDesigner.NodeConfig<StateMachineNode> StateMachine {
-            get {
-                return _StateMachine;
-            }
-            set {
-                _StateMachine = value;
-            }
-        }
-        
-        public Invert.Core.GraphDesigner.NodeConfig<StateNode> State {
-            get {
-                return _State;
-            }
-            set {
-                _State = value;
-            }
-        }
-        
-        public virtual Invert.Core.GraphDesigner.SelectItemTypeCommand GetComponentPropertySelectionCommand() {
+        public virtual Invert.Core.GraphDesigner.SelectItemTypeCommand GetEventsSelectionCommand() {
             return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = false };
         }
         
-        public virtual Invert.Core.GraphDesigner.SelectItemTypeCommand GetComponentCollectionSelectionCommand() {
+        public virtual Invert.Core.GraphDesigner.SelectItemTypeCommand GetPropertiesSelectionCommand() {
             return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = false };
         }
         
-        public virtual Invert.Core.GraphDesigner.SelectItemTypeCommand GetEventTypeSelectionCommand() {
+        public virtual Invert.Core.GraphDesigner.SelectItemTypeCommand GetCollectionsSelectionCommand() {
             return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = false };
         }
         
         public override void Initialize(Invert.Core.uFrameContainer container) {
-            container.RegisterInstance<IEditorCommand>(GetComponentPropertySelectionCommand(), typeof(PropertiesChildItem).Name + "TypeSelection");;
-            container.RegisterInstance<IEditorCommand>(GetComponentCollectionSelectionCommand(), typeof(CollectionsChildItem).Name + "TypeSelection");;
-            container.RegisterInstance<IEditorCommand>(GetEventTypeSelectionCommand(), typeof(EventsChildItem).Name + "TypeSelection");;
-            container.AddItem<EntityComponentsReference>();
-            container.AddTypeItem<PropertiesChildItem>();
-            container.AddTypeItem<CollectionsChildItem>();
-            container.AddTypeItem<EventsChildItem>();
             container.AddItem<HandlersReference>();
             container.AddItem<ComponentsReference>();
-            container.AddItem<RequiredComponentsChildItem>();
+            container.RegisterInstance<IEditorCommand>(GetEventsSelectionCommand(), typeof(EventsChildItem).Name + "TypeSelection");;
+            container.AddTypeItem<EventsChildItem>();
+            container.AddItem<RequiredComponentsReference>();
+            container.RegisterInstance<IEditorCommand>(GetPropertiesSelectionCommand(), typeof(PropertiesChildItem).Name + "TypeSelection");;
+            container.AddTypeItem<PropertiesChildItem>();
+            container.RegisterInstance<IEditorCommand>(GetCollectionsSelectionCommand(), typeof(CollectionsChildItem).Name + "TypeSelection");;
+            container.AddTypeItem<CollectionsChildItem>();
             container.AddItem<PropertyMapsReference>();
-            container.AddItem<VariableReference>();
-            container.AddItem<SingleVariableInputSlot>();
-            container.AddItem<MultiVariableInputSlot>();
-            container.AddItem<SingleVariableOutputSlot>();
-            container.AddItem<MultiVariableOutputSlot>();
-            Entity = container.AddNode<EntityNode,EntityNodeViewModel,EntityNodeDrawer>("Entity");
-            Entity.Color(NodeColor.Black);
-            Component = container.AddNode<ComponentNode,ComponentNodeViewModel,ComponentNodeDrawer>("Component");
-            Component.Color(NodeColor.DarkGray);
-            System = container.AddGraph<SystemGraph, SystemNode>("SystemGraph");
-            System.Color(NodeColor.Black);
-            System.HasSubNode<EventHandlerNode>();
-            System.HasSubNode<ComponentNode>();
-            System.HasSubNode<SendSignalNode>();
-            System.HasSubNode<VariableNode>();
-            System.HasSubNode<ConditionNode>();
-            ServerSystem = container.AddNode<ServerSystemNode,ServerSystemNodeViewModel,ServerSystemNodeDrawer>("ServerSystem");
-            ServerSystem.Color(NodeColor.Purple);
-            UnitySystem = container.AddNode<UnitySystemNode,UnitySystemNodeViewModel,UnitySystemNodeDrawer>("UnitySystem");
-            UnitySystem.Color(NodeColor.Blue);
             Systems = container.AddGraph<SystemsGraph, SystemsNode>("SystemsGraph");
             Systems.Color(NodeColor.Orange);
-            Systems.HasSubNode<EventNode>();
             Systems.HasSubNode<SystemNode>();
             Systems.HasSubNode<ComponentNode>();
-            Systems.HasSubNode<StateMachineNode>();
-            Entities = container.AddGraph<EntitiesGraph, EntitiesNode>("EntitiesGraph");
-            Entities.Color(NodeColor.YellowGreen);
-            Entities.HasSubNode<EntityNode>();
-            Event = container.AddNode<EventNode,EventNodeViewModel,EventNodeDrawer>("Event");
+            Systems.HasSubNode<EventNode>();
+            System = container.AddNode<SystemNode,SystemNodeViewModel,SystemNodeDrawer>("SystemNode");
+            System.Color(NodeColor.Black);
+            System.HasSubNode<EventHandlerNode>();
+            System.HasSubNode<SendSignalNode>();
+            System.HasSubNode<ConditionNode>();
+            Component = container.AddNode<ComponentNode,ComponentNodeViewModel,ComponentNodeDrawer>("ComponentNode");
+            Component.Color(NodeColor.DarkGray);
+            Event = container.AddNode<EventNode,EventNodeViewModel,EventNodeDrawer>("EventNode");
             Event.Color(NodeColor.Red);
-            Command = container.AddNode<CommandNode,CommandNodeViewModel,CommandNodeDrawer>("Command");
-            Command.Color(NodeColor.DarkDarkGray);
-            EventHandler = container.AddNode<EventHandlerNode,EventHandlerNodeViewModel,EventHandlerNodeDrawer>("EventHandler");
+            EventHandler = container.AddNode<EventHandlerNode,EventHandlerNodeViewModel,EventHandlerNodeDrawer>("EventHandlerNode");
             EventHandler.Color(NodeColor.Blue);
-            EventHandler.HasSubNode<VariableNode>();
-            EventHandler.HasSubNode<ConditionNode>();
-            EventHandler.HasSubNode<IsFalseNode>();
-            EventHandler.HasSubNode<IsTrueNode>();
-            EventHandler.HasSubNode<LoopNode>();
-            EventHandler.HasSubNode<EventHandlerNode>();
-            SendSignal = container.AddNode<SendSignalNode,SendSignalNodeViewModel,SendSignalNodeDrawer>("SendSignal");
-            SendSignal.Color(NodeColor.Green);
-            Action = container.AddNode<ActionNode,ActionNodeViewModel,ActionNodeDrawer>("Action");
+            Action = container.AddNode<ActionNode,ActionNodeViewModel,ActionNodeDrawer>("ActionNode");
             Action.Color(NodeColor.Green);
-            CustomAction = container.AddNode<CustomActionNode,CustomActionNodeViewModel,CustomActionNodeDrawer>("CustomAction");
-            Variable = container.AddNode<VariableNode,VariableNodeViewModel,VariableNodeDrawer>("Variable");
-            Condition = container.AddNode<ConditionNode,ConditionNodeViewModel,ConditionNodeDrawer>("Condition");
+            SimpleClass = container.AddNode<SimpleClassNode,SimpleClassNodeViewModel,SimpleClassNodeDrawer>("SimpleClassNode");
+            SimpleClass.Color(NodeColor.Gray);
+            SendSignal = container.AddNode<SendSignalNode,SendSignalNodeViewModel,SendSignalNodeDrawer>("SendSignalNode");
+            SendSignal.Color(NodeColor.Green);
+            Condition = container.AddNode<ConditionNode,ConditionNodeViewModel,ConditionNodeDrawer>("ConditionNode");
             Condition.Color(NodeColor.Orange);
-            IsTrue = container.AddNode<IsTrueNode,IsTrueNodeViewModel,IsTrueNodeDrawer>("IsTrue");
-            IsFalse = container.AddNode<IsFalseNode,IsFalseNodeViewModel,IsFalseNodeDrawer>("IsFalse");
-            Loop = container.AddNode<LoopNode,LoopNodeViewModel,LoopNodeDrawer>("Loop");
-            StateMachine = container.AddNode<StateMachineNode,StateMachineNodeViewModel,StateMachineNodeDrawer>("StateMachine");
-            StateMachine.Color(NodeColor.Purple);
-            StateMachine.HasSubNode<StateNode>();
-            State = container.AddNode<StateNode,StateNodeViewModel,StateNodeDrawer>("State");
-            State.Color(NodeColor.Green);
-            container.Connectable<SystemNode,ActionNode>();
             container.Connectable<HandlersReference,EventHandlerNode>();
-            container.Connectable<ComponentsReference,RequiredComponentsChildItem>();
-            container.Connectable<EventHandlerNode,ActionNode>();
-            container.Connectable<RequiredComponentsChildItem,CommandNode>();
-            container.Connectable<VariableReference,ComponentNode>();
-            container.Connectable<IEntityComponents,EntityComponentsReference>();
-            container.Connectable<ISystemEventHandler,HandlersReference>();
-            container.Connectable<ISystemComponents,ComponentsReference>();
-            container.Connectable<IEventHandlerEntityMapping,RequiredComponentsChildItem>();
-            container.Connectable<IPropertyMappings,PropertyMapsReference>();
-            container.Connectable<IVariable,VariableReference>();
+            container.Connectable<EventsChildItem,HandlersReference>();
+            container.Connectable<ComponentNode,ComponentsReference>();
+            container.Connectable<ActionNode,ActionNode>();
         }
     }
 }

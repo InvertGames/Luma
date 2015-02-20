@@ -10,7 +10,7 @@ namespace Invert.ECS.Graphs
     using Invert.Core.GraphDesigner;
 
 
-    public class PropertyMapsReference : PropertyMappingsReferenceBase
+    public class PropertyMapsReference : PropertyMapsReferenceBase
     {
         [JsonProperty, NodeProperty]
         public string Expression { get; set; }
@@ -50,7 +50,7 @@ namespace Invert.ECS.Graphs
         //}
     }
 
-    public partial interface IPropertyMappings : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable
+    public partial interface IPropertyMapsConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable
     {
     }
 

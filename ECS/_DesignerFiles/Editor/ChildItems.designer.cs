@@ -16,7 +16,7 @@ namespace Invert.ECS.Graphs {
     using Invert.Core.GraphDesigner;
     
     
-    public class HandlersReferenceBase : Invert.Core.GraphDesigner.GenericReferenceItem<IHandlersConnectable>, IEventHandlerConnectable {
+    public class EventsChildItemBase : GenericTypedChildItem, IHandlersConnectable {
         
         public override bool AllowMultipleInputs {
             get {
@@ -31,10 +31,10 @@ namespace Invert.ECS.Graphs {
         }
     }
     
-    public partial interface IHandlersConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    public partial interface IEventsConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
     
-    public class ComponentsReferenceBase : Invert.Core.GraphDesigner.GenericReferenceItem<IComponentsConnectable> {
+    public class PropertiesChildItemBase : GenericTypedChildItem {
         
         public override bool AllowMultipleInputs {
             get {
@@ -49,10 +49,10 @@ namespace Invert.ECS.Graphs {
         }
     }
     
-    public partial interface IComponentsConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    public partial interface IPropertiesConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
     
-    public class RequiredComponentsReferenceBase : Invert.Core.GraphDesigner.GenericReferenceItem<IRequiredComponentsConnectable> {
+    public class CollectionsChildItemBase : GenericTypedChildItem {
         
         public override bool AllowMultipleInputs {
             get {
@@ -67,24 +67,6 @@ namespace Invert.ECS.Graphs {
         }
     }
     
-    public partial interface IRequiredComponentsConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
-    }
-    
-    public class PropertyMapsReferenceBase : Invert.Core.GraphDesigner.GenericReferenceItem<IPropertyMapsConnectable> {
-        
-        public override bool AllowMultipleInputs {
-            get {
-                return true;
-            }
-        }
-        
-        public override bool AllowMultipleOutputs {
-            get {
-                return true;
-            }
-        }
-    }
-    
-    public partial interface IPropertyMapsConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    public partial interface ICollectionsConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
 }

@@ -22,6 +22,14 @@ namespace Invert.ECS.Graphs {
             {
                 return NewType("PropertiesChildItem");
             }
+            if (IsType(t, "EntitiesNode"))
+            {
+                return NewType("ComponentNode");
+            }
+            if (IsType(t, "RequiredComponentsChildItem"))
+            {
+                return NewType("RequiredComponentsReference");
+            }
             if (IsType(t, "ComponentCollectionChildItem"))
             {
                 return NewType("CollectionsChildItem");
@@ -40,7 +48,7 @@ namespace Invert.ECS.Graphs {
             } 
             if (IsType(t, "EventHandlerEntityMappingReference"))
             {
-                return NewType("RequiredComponentsChildItem");
+                return NewType("RequiredComponentsReference");
             } 
             if (IsType(t, "PropertyMappingsReference"))
             {
