@@ -9,7 +9,7 @@ namespace Invert.ECS.Graphs
     using Invert.Core.GraphDesigner;
 
 
-    public class RequiredComponentsReference : RequiredComponentsReferenceBase, ITypedItem
+    public class RequiredComponentsReference : RequiredComponentsReferenceBase, ITypedItem, IRequiredComponent
     {
 
 
@@ -65,11 +65,19 @@ namespace Invert.ECS.Graphs
             get { return SourceItem as ITypedItem; }
         }
 
+        public bool IsEntity
+        {
+            get { return RelatedType == "ENTITY"; }
+        }
     }
 
     public partial interface IRequiredComponentsConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable
     {
-        bool IsEntity { get; }
+        //bool IsEntity { get; }
     }
 
+    public interface IRequiredComponent : IRequiredComponentsConnectable
+    {
+        bool IsEntity { get; }
+    }
 }

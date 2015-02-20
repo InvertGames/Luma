@@ -166,6 +166,7 @@ namespace Invert.ECS.Graphs {
             Condition = container.AddNode<ConditionNode,ConditionNodeViewModel,ConditionNodeDrawer>("ConditionNode");
             Condition.Color(NodeColor.Orange);
             container.Connectable<HandlersReference,EventHandlerNode>();
+            container.Connectable<ComponentsReference,RequiredComponentsReference>();
             container.Connectable<EventsChildItem,HandlersReference>();
             container.Connectable<ComponentNode,ComponentsReference>();
             container.Connectable<ActionNode,ActionNode>();

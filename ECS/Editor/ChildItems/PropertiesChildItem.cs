@@ -76,7 +76,7 @@ namespace Invert.ECS.Graphs {
 
         public ITypedItem SourceVariable { get; set; }
     }
-    public class PropertiesChildItem : PropertiesChildItemBase, IPropertyMapsConnectable
+    public class PropertiesChildItem : PropertiesChildItemBase, IPropertyMapsConnectable, IRequiredComponent
     {
         private bool _save = false;
 

@@ -51,7 +51,7 @@ namespace Invert.ECS.Graphs
         {
             get
             {
-                return AllContextVariables.OfType<IRequiredComponentsConnectable>().Where(p => p.IsEntity).Cast<IRequiredComponentsConnectable>();
+                return AllContextVariables.OfType<IRequiredComponent>().Where(p => p.IsEntity).Cast<IRequiredComponentsConnectable>();
                
                 //if (EventTypeNode == null) yield break;
                 //foreach (var item in EventTypeNode.Properties.Where(p => p.IsEntity).Cast<IEventHandlerEntityMapping>())

@@ -6,7 +6,7 @@ namespace Invert.ECS.Graphs {
     using Invert.Core.GraphDesigner;
 
 
-    public class CollectionsChildItem : CollectionsChildItemBase, IPropertyMapsConnectable
+    public class CollectionsChildItem : CollectionsChildItemBase, IPropertyMapsConnectable, IRequiredComponent
     {
         public override string DefaultTypeName
         {
