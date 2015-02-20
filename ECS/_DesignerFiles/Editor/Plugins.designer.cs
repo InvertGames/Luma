@@ -252,17 +252,17 @@ namespace Invert.ECS.Graphs {
         }
         
         public override void Initialize(Invert.Core.uFrameContainer container) {
-            container.RegisterInstance<IEditorCommand>(GetComponentPropertySelectionCommand(), typeof(ComponentPropertyChildItem).Name + "TypeSelection");;
-            container.RegisterInstance<IEditorCommand>(GetComponentCollectionSelectionCommand(), typeof(ComponentCollectionChildItem).Name + "TypeSelection");;
-            container.RegisterInstance<IEditorCommand>(GetEventTypeSelectionCommand(), typeof(EventTypeChildItem).Name + "TypeSelection");;
+            container.RegisterInstance<IEditorCommand>(GetComponentPropertySelectionCommand(), typeof(PropertiesChildItem).Name + "TypeSelection");;
+            container.RegisterInstance<IEditorCommand>(GetComponentCollectionSelectionCommand(), typeof(CollectionsChildItem).Name + "TypeSelection");;
+            container.RegisterInstance<IEditorCommand>(GetEventTypeSelectionCommand(), typeof(EventsChildItem).Name + "TypeSelection");;
             container.AddItem<EntityComponentsReference>();
-            container.AddTypeItem<ComponentPropertyChildItem>();
-            container.AddTypeItem<ComponentCollectionChildItem>();
-            container.AddTypeItem<EventTypeChildItem>();
-            container.AddItem<SystemEventHandlerReference>();
-            container.AddItem<SystemComponentsReference>();
-            container.AddItem<EventHandlerEntityMappingReference>();
-            container.AddItem<PropertyMappingsReference>();
+            container.AddTypeItem<PropertiesChildItem>();
+            container.AddTypeItem<CollectionsChildItem>();
+            container.AddTypeItem<EventsChildItem>();
+            container.AddItem<HandlersReference>();
+            container.AddItem<ComponentsReference>();
+            container.AddItem<RequiredComponentsChildItem>();
+            container.AddItem<PropertyMapsReference>();
             container.AddItem<VariableReference>();
             container.AddItem<SingleVariableInputSlot>();
             container.AddItem<MultiVariableInputSlot>();
@@ -321,16 +321,16 @@ namespace Invert.ECS.Graphs {
             State = container.AddNode<StateNode,StateNodeViewModel,StateNodeDrawer>("State");
             State.Color(NodeColor.Green);
             container.Connectable<SystemNode,ActionNode>();
-            container.Connectable<SystemEventHandlerReference,EventHandlerNode>();
-            container.Connectable<SystemComponentsReference,EventHandlerEntityMappingReference>();
+            container.Connectable<HandlersReference,EventHandlerNode>();
+            container.Connectable<ComponentsReference,RequiredComponentsChildItem>();
             container.Connectable<EventHandlerNode,ActionNode>();
-            container.Connectable<EventHandlerEntityMappingReference,CommandNode>();
+            container.Connectable<RequiredComponentsChildItem,CommandNode>();
             container.Connectable<VariableReference,ComponentNode>();
             container.Connectable<IEntityComponents,EntityComponentsReference>();
-            container.Connectable<ISystemEventHandler,SystemEventHandlerReference>();
-            container.Connectable<ISystemComponents,SystemComponentsReference>();
-            container.Connectable<IEventHandlerEntityMapping,EventHandlerEntityMappingReference>();
-            container.Connectable<IPropertyMappings,PropertyMappingsReference>();
+            container.Connectable<ISystemEventHandler,HandlersReference>();
+            container.Connectable<ISystemComponents,ComponentsReference>();
+            container.Connectable<IEventHandlerEntityMapping,RequiredComponentsChildItem>();
+            container.Connectable<IPropertyMappings,PropertyMapsReference>();
             container.Connectable<IVariable,VariableReference>();
         }
     }

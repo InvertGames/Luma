@@ -59,16 +59,16 @@ namespace Invert.ECS.Graphs {
         }
         
         [Invert.Core.GraphDesigner.Section("Properties", SectionVisibility.Always, OrderIndex=0)]
-        public virtual System.Collections.Generic.IEnumerable<ComponentPropertyChildItem> Properties {
+        public virtual System.Collections.Generic.IEnumerable<PropertiesChildItem> Properties {
             get {
-                return ChildItems.OfType<ComponentPropertyChildItem>();
+                return ChildItems.OfType<PropertiesChildItem>();
             }
         }
         
         [Invert.Core.GraphDesigner.Section("Collections", SectionVisibility.Always, OrderIndex=0)]
-        public virtual System.Collections.Generic.IEnumerable<ComponentCollectionChildItem> Collections {
+        public virtual System.Collections.Generic.IEnumerable<CollectionsChildItem> Collections {
             get {
-                return ChildItems.OfType<ComponentCollectionChildItem>();
+                return ChildItems.OfType<CollectionsChildItem>();
             }
         }
     }
@@ -100,23 +100,23 @@ namespace Invert.ECS.Graphs {
         }
         
         [Invert.Core.GraphDesigner.Section("Events", SectionVisibility.Always, OrderIndex=0)]
-        public virtual System.Collections.Generic.IEnumerable<EventTypeChildItem> Events {
+        public virtual System.Collections.Generic.IEnumerable<EventsChildItem> Events {
             get {
-                return ChildItems.OfType<EventTypeChildItem>();
+                return ChildItems.OfType<EventsChildItem>();
             }
         }
         
         [Invert.Core.GraphDesigner.ReferenceSection("Handlers", SectionVisibility.WhenNodeIsFilter, false, false, typeof(ISystemEventHandler), false, OrderIndex=0, HasPredefinedOptions=false)]
-        public virtual System.Collections.Generic.IEnumerable<SystemEventHandlerReference> Handlers {
+        public virtual System.Collections.Generic.IEnumerable<HandlersReference> Handlers {
             get {
-                return ChildItems.OfType<SystemEventHandlerReference>();
+                return ChildItems.OfType<HandlersReference>();
             }
         }
         
         [Invert.Core.GraphDesigner.ReferenceSection("Components", SectionVisibility.Always, false, false, typeof(ISystemComponents), false, OrderIndex=0, HasPredefinedOptions=false)]
-        public virtual System.Collections.Generic.IEnumerable<SystemComponentsReference> Components {
+        public virtual System.Collections.Generic.IEnumerable<ComponentsReference> Components {
             get {
-                return ChildItems.OfType<SystemComponentsReference>();
+                return ChildItems.OfType<ComponentsReference>();
             }
         }
     }
@@ -196,16 +196,16 @@ namespace Invert.ECS.Graphs {
         }
         
         [Invert.Core.GraphDesigner.Section("Properties", SectionVisibility.Always, OrderIndex=0)]
-        public virtual System.Collections.Generic.IEnumerable<ComponentPropertyChildItem> Properties {
+        public virtual System.Collections.Generic.IEnumerable<PropertiesChildItem> Properties {
             get {
-                return ChildItems.OfType<ComponentPropertyChildItem>();
+                return ChildItems.OfType<PropertiesChildItem>();
             }
         }
         
         [Invert.Core.GraphDesigner.Section("Collections", SectionVisibility.Always, OrderIndex=0)]
-        public virtual System.Collections.Generic.IEnumerable<ComponentCollectionChildItem> Collections {
+        public virtual System.Collections.Generic.IEnumerable<CollectionsChildItem> Collections {
             get {
-                return ChildItems.OfType<ComponentCollectionChildItem>();
+                return ChildItems.OfType<CollectionsChildItem>();
             }
         }
     }
@@ -225,16 +225,16 @@ namespace Invert.ECS.Graphs {
         }
         
         [Invert.Core.GraphDesigner.Section("Properties", SectionVisibility.Always, OrderIndex=0)]
-        public virtual System.Collections.Generic.IEnumerable<ComponentPropertyChildItem> Properties {
+        public virtual System.Collections.Generic.IEnumerable<PropertiesChildItem> Properties {
             get {
-                return ChildItems.OfType<ComponentPropertyChildItem>();
+                return ChildItems.OfType<PropertiesChildItem>();
             }
         }
         
         [Invert.Core.GraphDesigner.Section("Collections", SectionVisibility.Always, OrderIndex=0)]
-        public virtual System.Collections.Generic.IEnumerable<ComponentCollectionChildItem> Collections {
+        public virtual System.Collections.Generic.IEnumerable<CollectionsChildItem> Collections {
             get {
-                return ChildItems.OfType<ComponentCollectionChildItem>();
+                return ChildItems.OfType<CollectionsChildItem>();
             }
         }
     }
@@ -260,9 +260,9 @@ namespace Invert.ECS.Graphs {
         }
         
         [Invert.Core.GraphDesigner.ReferenceSection("Outputs", SectionVisibility.Always, true, false, typeof(IEventHandlerEntityMapping), true, OrderIndex=0, HasPredefinedOptions=false)]
-        public virtual System.Collections.Generic.IEnumerable<EventHandlerEntityMappingReference> Outputs {
+        public virtual System.Collections.Generic.IEnumerable<RequiredComponentsChildItem> Outputs {
             get {
-                return ChildItems.OfType<EventHandlerEntityMappingReference>();
+                return ChildItems.OfType<RequiredComponentsChildItem>();
             }
         }
     }
@@ -288,9 +288,9 @@ namespace Invert.ECS.Graphs {
         }
         
         [Invert.Core.GraphDesigner.ReferenceSection("PropertyMappings", SectionVisibility.Always, false, false, typeof(IPropertyMappings), false, OrderIndex=0, HasPredefinedOptions=false)]
-        public virtual System.Collections.Generic.IEnumerable<PropertyMappingsReference> PropertyMappings {
+        public virtual System.Collections.Generic.IEnumerable<PropertyMapsReference> PropertyMappings {
             get {
-                return ChildItems.OfType<PropertyMappingsReference>();
+                return ChildItems.OfType<PropertyMapsReference>();
             }
         }
     }

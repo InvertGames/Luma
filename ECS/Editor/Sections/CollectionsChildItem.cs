@@ -6,7 +6,7 @@ namespace Invert.ECS.Graphs {
     using Invert.Core.GraphDesigner;
 
 
-    public class ComponentCollectionChildItem : ComponentCollectionChildItemBase, IEntityEventHandlerMapping
+    public class CollectionsChildItem : ComponentCollectionChildItemBase, IEntityEventHandlerMapping
     {
         public override string DefaultTypeName
         {
@@ -29,7 +29,7 @@ namespace Invert.ECS.Graphs {
     }
     public class ComponentCollectionChildViewModel : TypedItemViewModel
     {
-        public ComponentCollectionChildViewModel(ComponentCollectionChildItem viewModelItem, DiagramNodeViewModel nodeViewModel)
+        public ComponentCollectionChildViewModel(CollectionsChildItem viewModelItem, DiagramNodeViewModel nodeViewModel)
             : base(viewModelItem, nodeViewModel)
         {
         }

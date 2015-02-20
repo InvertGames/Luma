@@ -9,7 +9,7 @@ namespace Invert.ECS.Graphs {
     
     
     public class ComponentNode : ComponentNodeBase, IClassTypeNode {
-        private ComponentPropertyChildItem _entityIdChildItem;
+        private PropertiesChildItem _entityIdChildItem;
         private string _entityIdGuid;
 
         public bool Saveable
@@ -28,9 +28,9 @@ namespace Invert.ECS.Graphs {
             set { _entityIdGuid = value; }
         }
 
-        public ComponentPropertyChildItem EntityIdChildItem
+        public PropertiesChildItem EntityIdChildItem
         {
-            get { return _entityIdChildItem ?? (_entityIdChildItem = new ComponentPropertyChildItem()
+            get { return _entityIdChildItem ?? (_entityIdChildItem = new PropertiesChildItem()
             {
                 Identifier = EntityIdGuid,
                 Node = this,
@@ -53,10 +53,10 @@ namespace Invert.ECS.Graphs {
         }
 
         [Invert.Core.GraphDesigner.Section("Properties", SectionVisibility.Always, OrderIndex=0)]
-        public override System.Collections.Generic.IEnumerable<ComponentPropertyChildItem> Properties {
+        public override System.Collections.Generic.IEnumerable<PropertiesChildItem> Properties {
             get
             {
-                foreach (var item in PersistedItems.OfType<ComponentPropertyChildItem>())
+                foreach (var item in PersistedItems.OfType<PropertiesChildItem>())
                 {
                     yield return item;
                 }

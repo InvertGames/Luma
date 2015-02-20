@@ -28,9 +28,9 @@ namespace Invert.ECS.Graphs {
         public string EventTypeId { get; set; }
 
         [ NodeProperty(InspectorType.GraphItems)]
-        public EventTypeChildItem Event
+        public EventsChildItem Event
         {
-            get { return Project.NodeItems.OfType<SystemNode>().SelectMany(p=>p.Events).FirstOrDefault(p => p.Identifier == EventTypeId) as EventTypeChildItem; }
+            get { return Project.NodeItems.OfType<SystemNode>().SelectMany(p=>p.Events).FirstOrDefault(p => p.Identifier == EventTypeId) as EventsChildItem; }
             set
             {
 
@@ -39,11 +39,11 @@ namespace Invert.ECS.Graphs {
             }
         }
         [Invert.Core.GraphDesigner.ReferenceSection("Parameters", SectionVisibility.Always, false, false, typeof(IPropertyMappings), false, OrderIndex = 0, HasPredefinedOptions = false)]
-        public override System.Collections.Generic.IEnumerable<PropertyMappingsReference> PropertyMappings
+        public override System.Collections.Generic.IEnumerable<PropertyMapsReference> PropertyMappings
         {
             get
             {
-                return ChildItems.OfType<PropertyMappingsReference>();
+                return ChildItems.OfType<PropertyMapsReference>();
             }
         }
         public override IEnumerable<IPropertyMappings> PossiblePropertyMappings

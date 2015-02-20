@@ -66,6 +66,16 @@ namespace Invert.ECS
 
         }
 
+        public virtual string OutputPath
+        {
+            get { return "Components"; }
+        }
+
+        public virtual bool CanGenerate
+        {
+            get { return true; }
+        }
+
         protected virtual IEnumerable FilterCollections(ComponentNode _)
         {
             return _.Collections.Where(p => !p.Precompiled);
@@ -97,7 +107,7 @@ namespace Invert.ECS
             set
             {
                 Ctx._("_{0} = value", Ctx.Item.Name);
-                var componentProperty = Ctx.ItemAs<ComponentPropertyChildItem>();
+                var componentProperty = Ctx.ItemAs<PropertiesChildItem>();
                 if (componentProperty.Saveable || componentProperty.PlayerStat)
                 {
                     Ctx.CurrentProperty.CustomAttributes.Add(
@@ -155,9 +165,14 @@ namespace Invert.ECS
 
     }
 
-    [TemplateClass("Interfaces", MemberGeneratorLocation.DesignerFile, ClassNameFormat = "I{0}")]
+    [TemplateClass(MemberGeneratorLocation.DesignerFile, ClassNameFormat = "I{0}")]
     public class ComponentInterfaceTemplate : ComponentTemplate
     {
+        public override string OutputPath
+        {
+            get { return "Interfaces"; }
+        }
+
         public override void TemplateSetup()
         {
             base.TemplateSetup();
@@ -166,9 +181,13 @@ namespace Invert.ECS
         }
     }
 
-    [TemplateClass("Data", MemberGeneratorLocation.DesignerFile, ClassNameFormat = "{0}Data")]
+    [TemplateClass(MemberGeneratorLocation.DesignerFile, ClassNameFormat = "{0}Data")]
     public class VanillaComponentTemplate : ComponentTemplate
     {
+        public override string OutputPath
+        {
+            get { return "Data"; }
+        }
 
         protected override IEnumerable FilterCollections(ComponentNode _)
         {
@@ -194,9 +213,19 @@ namespace Invert.ECS
         }
     }
 
-    [TemplateClass("Assets", MemberGeneratorLocation.Both, ClassNameFormat = "{0}Asset")]
+    [TemplateClass(MemberGeneratorLocation.Both, ClassNameFormat = "{0}Asset")]
     public class ComponentAssetTemplate : IClassTemplate<ComponentNode>
     {
+        public string OutputPath
+        {
+            get { return "Assets"; }
+        }
+
+        public bool CanGenerate
+        {
+            get { return true; }
+        }
+
         public void TemplateSetup()
         {
             Ctx.Namespace.Name = "";
@@ -272,9 +301,14 @@ namespace Invert.ECS
         public TemplateContext<ComponentNode> Ctx { get; set; }
     }
 
-    [TemplateClass("Components", MemberGeneratorLocation.Both, ClassNameFormat = "{0}")]
+    [TemplateClass(MemberGeneratorLocation.Both, ClassNameFormat = "{0}")]
     public class UnityComponentTemplate : ComponentTemplate
     {
+        public override string OutputPath
+        {
+            get { return "Components"; }
+        }
+
         public override void TemplateSetup()
         {
             base.TemplateSetup();
@@ -348,9 +382,19 @@ namespace Invert.ECS
 
     }
 
-     [TemplateClass("Components", MemberGeneratorLocation.DesignerFile, ClassNameFormat = "{0}")]
+     [TemplateClass( MemberGeneratorLocation.DesignerFile, ClassNameFormat = "{0}")]
     public class UnityComponentTemplatePartial : IClassTemplate<Invert.ECS.Graphs.ComponentNode>
     {
+        public string OutputPath
+        {
+            get { return "Components"; }
+        }
+
+         public bool CanGenerate
+         {
+             get { return true; }
+         }
+
          public void TemplateSetup()
          {
              Ctx.CurrentDecleration.BaseTypes.Clear();
@@ -372,9 +416,10 @@ namespace Invert.ECS
          public TemplateContext<ComponentNode> Ctx { get; set; }
     }
    
-    [TemplateClass("Events", MemberGeneratorLocation.Both, ClassNameFormat = "{0}")]
+    [TemplateClass(MemberGeneratorLocation.Both, ClassNameFormat = "{0}")]
     public class EventClassTemplate : IClassTemplate<Invert.ECS.Graphs.EventNode>
     {
+  
         public void TemplateSetup()
         {
             foreach (var property in Ctx.Data.Properties)
@@ -391,6 +436,16 @@ namespace Invert.ECS
             }
             Ctx.AddIterator("ComponentProperty", _ => _.Properties);
             Ctx.AddIterator("ComponentCollection", _ => _.Collections);
+        }
+
+        public string OutputPath
+        {
+            get { return "Events"; }
+        }
+
+        public bool CanGenerate
+        {
+            get { return true; }
         }
 
         public TemplateContext<EventNode> Ctx { get; set; }
@@ -433,7 +488,7 @@ namespace Invert.ECS
 
     }
 
-    [TemplateClass("Systems", MemberGeneratorLocation.Both, ClassNameFormat = "{0}")]
+    [TemplateClass(MemberGeneratorLocation.Both, ClassNameFormat = "{0}")]
     public class SystemTemplate : IClassTemplate<SystemNode>
     {
 
@@ -496,7 +551,7 @@ namespace Invert.ECS
         {
 
             if (!Ctx.IsDesignerFile) return;
-            var systemEventHandlerReference = Ctx.ItemAs<SystemEventHandlerReference>();
+            var systemEventHandlerReference = Ctx.ItemAs<HandlersReference>();
             if (systemEventHandlerReference != null)
             {
                 var eventHandlerNodes = systemEventHandlerReference.OutputsTo<EventHandlerNode>();
@@ -512,7 +567,7 @@ namespace Invert.ECS
         [TemplateMethod(MemberGeneratorLocation.Both, AutoFill = AutoFillType.NameOnly, CallBase = true)]
         protected virtual void EventHandler(IEvent e)
         {
-            var systemEventHandlerReference = Ctx.Item.InputFrom<SystemEventHandlerReference>();
+            var systemEventHandlerReference = Ctx.Item.InputFrom<HandlersReference>();
             var eventHandlerNode = Ctx.ItemAs<EventHandlerNode>();
             if (!Ctx.IsDesignerFile)
             {
@@ -529,7 +584,7 @@ namespace Invert.ECS
 
         }
 
-        private void DoHandlerMethod(EventHandlerNode eventHandlerNode, SystemEventHandlerReference systemEventHandlerReference)
+        private void DoHandlerMethod(EventHandlerNode eventHandlerNode, HandlersReference handlersReference)
         {
             eventHandlerNode.WriteCode(Ctx);
         }
@@ -554,12 +609,22 @@ namespace Invert.ECS
 
         }
 
+        public string OutputPath
+        {
+            get { return "Systems"; }
+        }
+
+        public bool CanGenerate
+        {
+            get { return true; }
+        }
+
         public TemplateContext<SystemNode> Ctx { get; set; }
 
         [TemplateMethod(MemberGeneratorLocation.DesignerFile, AutoFill = AutoFillType.NameOnly, NameFormat = "Signal{0}")]
         public void EventSignaler(object data)
         {
-            Ctx.CurrentMethod.Parameters[0].Type = Ctx.ItemAs<EventTypeChildItem>().RelatedTypeName.ToCodeReference();
+            Ctx.CurrentMethod.Parameters[0].Type = Ctx.ItemAs<EventsChildItem>().RelatedTypeName.ToCodeReference();
             Ctx._("Game.EventManager.SignalEvent(new EventData({0}Events.{1},data))", Ctx.Data.Name, Ctx.Item.Name);
         }
         [TemplateMethod(MemberGeneratorLocation.DesignerFile, AutoFill = AutoFillType.NameOnly, NameFormat = "Signal{0}")]
@@ -570,7 +635,7 @@ namespace Invert.ECS
             Ctx.CurrentMethod.Parameters.Add(new CodeParameterDeclarationExpression("IGame",
            "game"));
 
-            Ctx.CurrentMethod.Parameters.Add(new CodeParameterDeclarationExpression(Ctx.ItemAs<EventTypeChildItem>().RelatedTypeName.ToCodeReference(),
+            Ctx.CurrentMethod.Parameters.Add(new CodeParameterDeclarationExpression(Ctx.ItemAs<EventsChildItem>().RelatedTypeName.ToCodeReference(),
                 "data"));
 
             Ctx._("game.EventManager.SignalEvent(new EventData({0}Events.{1},data))", Ctx.Data.Name, Ctx.Item.Name);
@@ -625,7 +690,7 @@ namespace Invert.ECS
     //    public TemplateContext<SystemNode> Ctx { get; set; }
     //}
 
-    [TemplateClass("Enums", "{0}Events", MemberGeneratorLocation.DesignerFile, AutoInherit = false)]
+    [TemplateClass( MemberGeneratorLocation.DesignerFile, "{0}Events", AutoInherit = false)]
     public class SystemsEventEnum : IClassTemplate<SystemNode>
     {
         public void TemplateSetup()
@@ -638,10 +703,20 @@ namespace Invert.ECS
             }
         }
 
+        public string OutputPath
+        {
+            get { return "Enums"; }
+        }
+
+        public bool CanGenerate
+        {
+            get { return true; }
+        }
+
         public TemplateContext<SystemNode> Ctx { get; set; }
     }
 
-    [TemplateClass("Assets", "{0}Entity", MemberGeneratorLocation.DesignerFile, AutoInherit = false, IsEditorExtension = true)]
+    [TemplateClass( MemberGeneratorLocation.DesignerFile, AutoInherit = false)]
     public class EntityAssetTemplate : IClassTemplate<EntityNode>
     {
         public void TemplateSetup()
@@ -649,6 +724,16 @@ namespace Invert.ECS
             Ctx.CurrentDecleration.BaseTypes.Clear();
             Ctx.CurrentDecleration.BaseTypes.Add(typeof(ScriptableObject));
             Ctx.AddIterator("ComponentData", _ => _.Components);
+        }
+
+        public string OutputPath
+        {
+            get { return Path2.Combine("Editor", "Assets"); }
+        }
+
+        public bool CanGenerate
+        {
+            get { return true; }
         }
 
         public TemplateContext<EntityNode> Ctx { get; set; }
@@ -668,7 +753,7 @@ namespace Invert.ECS
         }
     }
 
-    [TemplateClass("Extensions", "{0}MenuItems", MemberGeneratorLocation.DesignerFile, AutoInherit = false, IsEditorExtension = true)]
+    [TemplateClass( MemberGeneratorLocation.DesignerFile, "{0}MenuItems", AutoInherit = false)]
     public class EntityEditorExtensionsTemplate : IClassTemplate<ComponentNode>
     {
         public void TemplateSetup()
@@ -677,7 +762,14 @@ namespace Invert.ECS
             //Ctx.CurrentDecleration.Name = "static " + 
             //Ctx.AddIterator("CreateComponent", _ => Ctx.Data.Graph.NodeItems.OfType<ComponentNode>());
         }
-
+        public string OutputPath
+        {
+            get { return Path2.Combine("Editor", "Extensions"); }
+        }
+        public bool CanGenerate
+        {
+            get { return true; }
+        }
         public TemplateContext<ComponentNode> Ctx { get; set; }
 
         [TemplateMethod("Create{0}", MemberGeneratorLocation.DesignerFile, false)]
@@ -695,31 +787,5 @@ namespace Invert.ECS
         }
     }
 
-    [TemplateClass("SimpleClass",MemberGeneratorLocation.Both, ClassNameFormat = "{0}EpicClass")]
-    public class SimpleClassNode : IClassTemplate<ComponentNode>
-    {
-        #region Template Setup
-        public void TemplateSetup()
-        {
-            Ctx.AddIterator("PropertyTemplate",nodeData=>nodeData.Properties);
-            
-        }
 
-        public TemplateContext<ComponentNode> Ctx { get; set; }
-        #endregion
-
-        [TemplateProperty(MemberGeneratorLocation.DesignerFile)]
-        public object PropertyTemplate
-        {
-            get
-            {
-                Ctx._("return _{0}", Ctx.Item.Name);
-                return null;
-            }
-            set
-            {
-                Ctx._("_{0} = value",Ctx.Item.Name);
-            }
-        }
-    }
 }

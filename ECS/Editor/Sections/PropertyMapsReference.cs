@@ -10,7 +10,7 @@ namespace Invert.ECS.Graphs
     using Invert.Core.GraphDesigner;
 
 
-    public class PropertyMappingsReference : PropertyMappingsReferenceBase
+    public class PropertyMapsReference : PropertyMappingsReferenceBase
     {
         [JsonProperty, NodeProperty]
         public string Expression { get; set; }
@@ -54,9 +54,9 @@ namespace Invert.ECS.Graphs
     {
     }
 
-    public class PropertyMappingsReferenceViewModel : ItemViewModel<PropertyMappingsReference>
+    public class PropertyMappingsReferenceViewModel : ItemViewModel<PropertyMapsReference>
     {
-        public PropertyMappingsReferenceViewModel(PropertyMappingsReference viewModelItem, DiagramNodeViewModel nodeViewModel)
+        public PropertyMappingsReferenceViewModel(PropertyMapsReference viewModelItem, DiagramNodeViewModel nodeViewModel)
             : base(viewModelItem, nodeViewModel)
         {
         }

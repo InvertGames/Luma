@@ -76,7 +76,7 @@ namespace Invert.ECS.Graphs {
 
         public ITypedItem SourceVariable { get; set; }
     }
-    public class ComponentPropertyChildItem : ComponentPropertyChildItemBase,  IEntityEventHandlerMapping
+    public class PropertiesChildItem : ComponentPropertyChildItemBase,  IEntityEventHandlerMapping
     {
         private bool _save = false;
 
@@ -126,8 +126,8 @@ namespace Invert.ECS.Graphs {
         {
             get
             {
-                var relatedTypeNode = RelatedTypeNode;
-                if (RelatedTypeNode != null)
+                var relatedTypeNode = RelatedTypeNode as IDiagramNode;
+                if (relatedTypeNode != null)
                 {
                     foreach (var item in relatedTypeNode.PersistedItems.OfType<IContextVariable>())
                     {
@@ -151,14 +151,14 @@ namespace Invert.ECS.Graphs {
 
     public class ComponentPropertyChildViewModel : TypedItemViewModel
     {
-        public ComponentPropertyChildViewModel(ComponentPropertyChildItem viewModelItem, DiagramNodeViewModel nodeViewModel)
+        public ComponentPropertyChildViewModel(PropertiesChildItem viewModelItem, DiagramNodeViewModel nodeViewModel)
             : base(viewModelItem, nodeViewModel)
         {
         }
 
-        public ComponentPropertyChildItem PropertyData
+        public PropertiesChildItem PropertyData
         {
-            get { return (ComponentPropertyChildItem) DataObject; }
+            get { return (PropertiesChildItem) DataObject; }
         }
 
         public bool IsSaveable

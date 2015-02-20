@@ -6,7 +6,7 @@ namespace Invert.ECS.Graphs {
     using Invert.Core.GraphDesigner;
     
     
-    public class SystemComponentsReference : SystemComponentsReferenceBase {
+    public class ComponentsReference : SystemComponentsReferenceBase {
     }
     
     public partial interface ISystemComponents : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {

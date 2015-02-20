@@ -11,29 +11,29 @@ namespace Invert.ECS.Graphs
    
     public class EventHandlerNode : EventHandlerNodeBase, ICodeOutput
     {
-        public SystemEventHandlerReference EventHandler
+        public HandlersReference EventHandler
         {
-            get { return this.InputFrom<SystemEventHandlerReference>(); }
+            get { return this.InputFrom<HandlersReference>(); }
         }
 
         [ReferenceSection("Required Components", SectionVisibility.WhenNodeIsNotFilter, 
             true, false, typeof(IEventHandlerEntityMapping), true, 
             OrderIndex = 0, HasPredefinedOptions = false,
-            AddCommandType = typeof(VariableSelectionCommand<EventHandlerEntityMappingReference>))]
-        public override System.Collections.Generic.IEnumerable<EventHandlerEntityMappingReference> Outputs
+            AddCommandType = typeof(VariableSelectionCommand<RequiredComponentsChildItem>))]
+        public override System.Collections.Generic.IEnumerable<RequiredComponentsChildItem> Outputs
         {
             get
             {
-                return ChildItems.OfType<EventHandlerEntityMappingReference>();
+                return ChildItems.OfType<RequiredComponentsChildItem>();
             }
         }
 
-        public EventTypeChildItem EventType
+        public EventsChildItem EventType
         {
             get
             {
                 if (EventHandler == null) return null;
-                return EventHandler.SourceItem as EventTypeChildItem;
+                return EventHandler.SourceItem as EventsChildItem;
             }
         }
 
@@ -141,7 +141,7 @@ namespace Invert.ECS.Graphs
             var methodInvoke = new CodeMethodInvokeExpression(new CodeThisReferenceExpression(), handlerMethod.Name);
             if (ctx.IsDesignerFile && EventHandler != null)
             {
-                var eventType = EventHandler.SourceItem as Invert.ECS.Graphs.EventTypeChildItem;
+                var eventType = EventHandler.SourceItem as Invert.ECS.Graphs.EventsChildItem;
 
                 if (eventType.RelatedType == "void")
                 {
@@ -156,7 +156,7 @@ namespace Invert.ECS.Graphs
 
             foreach (var item in Outputs.Concat(LeftNodes.OfType<EventHandlerNode>().SelectMany(p=>p.Outputs)))
             {
-                var isArray = item.SourceVariable is ComponentCollectionChildItem;
+                var isArray = item.SourceVariable is CollectionsChildItem;
                 var needsTryGet = item.Node == this;
                 var componentOutput = item.Component;
                 if (componentOutput != null)

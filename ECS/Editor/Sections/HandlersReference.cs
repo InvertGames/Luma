@@ -6,7 +6,7 @@ namespace Invert.ECS.Graphs {
     using Invert.Core.GraphDesigner;
     
     
-    public class SystemEventHandlerReference : SystemEventHandlerReferenceBase {
+    public class HandlersReference : SystemEventHandlerReferenceBase {
     }
     
     public partial interface ISystemEventHandler : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {

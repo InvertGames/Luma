@@ -9,11 +9,11 @@ namespace Invert.ECS.Graphs {
     public class SystemNode : SystemNodeBase {
         private static List<ISystemEventHandler> _systemEvents;
         [Invert.Core.GraphDesigner.ReferenceSection("Handlers", SectionVisibility.WhenNodeIsFilter, false, false, typeof(ISystemEventHandler), false, OrderIndex = 0, HasPredefinedOptions = false)]
-        public override System.Collections.Generic.IEnumerable<SystemEventHandlerReference> Handlers
+        public override System.Collections.Generic.IEnumerable<HandlersReference> Handlers
         {
             get
             {
-                return ChildItems.OfType<SystemEventHandlerReference>();
+                return ChildItems.OfType<HandlersReference>();
             }
         }
 
@@ -25,11 +25,11 @@ namespace Invert.ECS.Graphs {
         }
 
         [Invert.Core.GraphDesigner.ReferenceSection("Components", SectionVisibility.Always, false, false, typeof(ISystemComponents), false, OrderIndex = 0, HasPredefinedOptions = false)]
-        public override System.Collections.Generic.IEnumerable<SystemComponentsReference> Components
+        public override System.Collections.Generic.IEnumerable<ComponentsReference> Components
         {
             get
             {
-                return ChildItems.OfType<SystemComponentsReference>();
+                return ChildItems.OfType<ComponentsReference>();
             }
         }
 

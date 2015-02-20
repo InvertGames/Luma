@@ -60,7 +60,7 @@ namespace Invert.ECS.Graphs
         public override void Initialize(Invert.Core.uFrameContainer container)
         {
             base.Initialize(container);
-            container.Connectable<EventHandlerEntityMappingReference, ComponentNode>();
+            container.Connectable<RequiredComponentsChildItem, ComponentNode>();
             container.Connectable<EventHandlerNode, EventHandlerNode>();
             container.Connectable<ActionNode, ActionNode>();
            
@@ -81,49 +81,49 @@ namespace Invert.ECS.Graphs
             DefaultProjectRepository.AddPrecompiledGraph(systemsGraph);
             DefaultProjectRepository.AddPrecompiledGraph(unityGraph);
             EventHandler.HasSubNode<ActionNode>();
-            container.AddTypeItem<ComponentPropertyChildItem, ComponentPropertyChildViewModel, ComponentPropertyDrawer>();
-            container.AddTypeItem<ComponentCollectionChildItem, ComponentCollectionChildViewModel, ComponentCollectionDrawer>();
-            container.AddItem<PropertyMappingsReference, PropertyMappingsReferenceViewModel, PropertyMappingsReferenceDrawer>();
+            container.AddTypeItem<PropertiesChildItem, ComponentPropertyChildViewModel, ComponentPropertyDrawer>();
+            container.AddTypeItem<CollectionsChildItem, ComponentCollectionChildViewModel, ComponentCollectionDrawer>();
+            container.AddItem<PropertyMapsReference, PropertyMappingsReferenceViewModel, PropertyMappingsReferenceDrawer>();
             //container.AddItem<VariableTypeSlot, InputOutputViewModel, SlotDrawer>();
             container.RegisterDrawer<ItemSelectionPropertyViewModel, ItemSelectionPropertyDrawer>();
             systemsGraph.AddNode(
                 CreatePrecompiledNode<EventNode>("ComponentEventData",
-                    CreateTypedChild<ComponentPropertyChildItem>(typeof(IComponent).Name, "Component")
+                    CreateTypedChild<PropertiesChildItem>(typeof(IComponent).Name, "Component")
                 ));
             systemsGraph.AddNode(
                 CreatePrecompiledNode<EventNode>("EntityEventData",
-                    CreateTypedChild<ComponentPropertyChildItem>("ENTITY", "EntityId")
+                    CreateTypedChild<PropertiesChildItem>("ENTITY", "EntityId")
                 ));
             unityGraph.AddNode(
                 CreatePrecompiledNode<EventNode>("CollisionEventData",
-                    CreateTypedChild<ComponentPropertyChildItem>("ENTITY", "ColliderId"),
-                    CreateTypedChild<ComponentPropertyChildItem>("ENTITY", "CollideeId")
+                    CreateTypedChild<PropertiesChildItem>("ENTITY", "ColliderId"),
+                    CreateTypedChild<PropertiesChildItem>("ENTITY", "CollideeId")
                 ));
 
 
             unityGraph.AddNode(
                 CreatePrecompiledNode<EventNode>("MouseEventData",
-                    CreateTypedChild<ComponentPropertyChildItem>("ENTITY", "EntityId")
+                    CreateTypedChild<PropertiesChildItem>("ENTITY", "EntityId")
                 ));
 
             var node = CreatePrecompiledNode<SystemNode>("Framework",
-                CreateTypedChild<EventTypeChildItem>( "IComponent", "ComponentCreated"),
-                CreateTypedChild<EventTypeChildItem>( "IComponent", "ComponentDestroyed"),
-                CreateTypedChild<EventTypeChildItem>("LoadingProgressData", "LoadingProgress"),
-                CreateTypedChild<EventTypeChildItem>("ENTITY", "EntityDestroyed"),
-                CreateTypedChild<EventTypeChildItem>("void", "Loaded")
+                CreateTypedChild<EventsChildItem>( "IComponent", "ComponentCreated"),
+                CreateTypedChild<EventsChildItem>( "IComponent", "ComponentDestroyed"),
+                CreateTypedChild<EventsChildItem>("LoadingProgressData", "LoadingProgress"),
+                CreateTypedChild<EventsChildItem>("ENTITY", "EntityDestroyed"),
+                CreateTypedChild<EventsChildItem>("void", "Loaded")
                 );
             systemsGraph.AddNode(node);
 
             var unityGraphNode = CreatePrecompiledNode<SystemNode>("Unity",
-                CreateTypedChild<EventTypeChildItem>( "CollisionEventData", "CollisionEnter"),
-                CreateTypedChild<EventTypeChildItem>( "CollisionEventData", "CollisionStay"),
-                CreateTypedChild<EventTypeChildItem>( "CollisionEventData", "CollisionExit"),
-                CreateTypedChild<EventTypeChildItem>( "CollisionEventData", "TriggerEnter"),
-                CreateTypedChild<EventTypeChildItem>( "CollisionEventData", "TriggerStay"),
-                CreateTypedChild<EventTypeChildItem>( "CollisionEventData", "TriggerExit"),
-                CreateTypedChild<EventTypeChildItem>( "MouseEventData", "MouseDown"),
-                CreateTypedChild<EventTypeChildItem>( "MouseEventData", "MouseUp")
+                CreateTypedChild<EventsChildItem>( "CollisionEventData", "CollisionEnter"),
+                CreateTypedChild<EventsChildItem>( "CollisionEventData", "CollisionStay"),
+                CreateTypedChild<EventsChildItem>( "CollisionEventData", "CollisionExit"),
+                CreateTypedChild<EventsChildItem>( "CollisionEventData", "TriggerEnter"),
+                CreateTypedChild<EventsChildItem>( "CollisionEventData", "TriggerStay"),
+                CreateTypedChild<EventsChildItem>( "CollisionEventData", "TriggerExit"),
+                CreateTypedChild<EventsChildItem>( "MouseEventData", "MouseDown"),
+                CreateTypedChild<EventsChildItem>( "MouseEventData", "MouseUp")
                 );
             unityGraph.AddNode(unityGraphNode);
 

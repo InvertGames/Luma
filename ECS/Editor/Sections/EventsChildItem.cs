@@ -6,6 +6,6 @@ namespace Invert.ECS.Graphs {
     using Invert.Core.GraphDesigner;
     
     
-    public class EventTypeChildItem : EventTypeChildItemBase {
+    public class EventsChildItem : EventTypeChildItemBase {
     }
 }

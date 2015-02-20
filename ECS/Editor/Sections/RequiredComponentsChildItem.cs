@@ -8,7 +8,7 @@ namespace Invert.ECS.Graphs {
     using Invert.Core.GraphDesigner;
     
     
-    public class EventHandlerEntityMappingReference : EventHandlerEntityMappingReferenceBase, ITypedItem{
+    public class RequiredComponentsChildItem : EventHandlerEntityMappingReferenceBase, ITypedItem{
 
         
 
@@ -32,7 +32,7 @@ namespace Invert.ECS.Graphs {
             {
                 if (this.OutputTo<ComponentNode>() != null) 
                     return this.OutputTo<ComponentNode>();
-                var inputReference = this.InputFrom<SystemComponentsReference>();
+                var inputReference = this.InputFrom<ComponentsReference>();
                 if (inputReference != null)
                 {
                     return inputReference.SourceItem as ComponentNode;
