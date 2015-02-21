@@ -15,86 +15,6 @@ using System.Linq;
 using Invert.ECS;
 
 
-public enum RollerState {
-    
-    StandingUp,
-    
-    LayingAcross,
-    
-    LayingForward,
-}
-
-public enum CubeMoveDirection {
-    
-    Left,
-    
-    Right,
-    
-    Forward,
-    
-    Backwards,
-}
-
-public enum SwitchPlatePivot {
-    
-    Bottom,
-    
-    Top,
-    
-    Left,
-    
-    Right,
-}
-
-public enum PlateRegister {
-    
-    A,
-    
-    B,
-    
-    C,
-    
-    D,
-    
-    E,
-    
-    F,
-    
-    G,
-    
-    H,
-    
-    I,
-    
-    J,
-}
-
-public enum LevelProgressStatus {
-    
-    Perfect,
-    
-    Good,
-    
-    Bad,
-    
-    Fair,
-}
-
-public enum FlipCubeWindow {
-    
-    Zones,
-    
-    Friends,
-    
-    Profile,
-    
-    Messages,
-    
-    LeaderBoard,
-    
-    LevelComplete,
-}
-
 public enum CubeSystemEvents {
     
     RollBegin,
@@ -123,6 +43,15 @@ public enum CubeInputSystemEvents {
     B,
 }
 
+public enum RollerState {
+    
+    StandingUp,
+    
+    LayingAcross,
+    
+    LayingForward,
+}
+
 public enum CubeGravitySystemEvents {
     
     OnFall,
@@ -130,6 +59,17 @@ public enum CubeGravitySystemEvents {
     RollCompletedStandingUp,
     
     RolledNextToCube,
+}
+
+public enum CubeMoveDirection {
+    
+    Left,
+    
+    Right,
+    
+    Forward,
+    
+    Backwards,
 }
 
 public enum CameraSystemEvents {
@@ -160,6 +100,17 @@ public enum SwitchPlateSystemEvents {
     PlateActivatedOff,
 }
 
+public enum SwitchPlatePivot {
+    
+    Bottom,
+    
+    Top,
+    
+    Left,
+    
+    Right,
+}
+
 public enum ShiftingPlateEvents {
 }
 
@@ -167,6 +118,29 @@ public enum GoalPlateSystemEvents {
 }
 
 public enum DissolvePlateSystemEvents {
+}
+
+public enum PlateRegister {
+    
+    A,
+    
+    B,
+    
+    C,
+    
+    D,
+    
+    E,
+    
+    F,
+    
+    G,
+    
+    H,
+    
+    I,
+    
+    J,
 }
 
 public enum LevelSystemEvents {
@@ -204,6 +178,17 @@ public enum FlipCubeSystemEvents {
 }
 
 public enum BasicGameSystemEvents {
+}
+
+public enum LevelProgressStatus {
+    
+    Perfect,
+    
+    Good,
+    
+    Bad,
+    
+    Fair,
 }
 
 public enum SpecialFXSystemEvents {
@@ -284,6 +269,21 @@ public enum WindowSystemEvents {
     CloseWindow,
     
     ToggleWindow,
+}
+
+public enum FlipCubeWindow {
+    
+    Zones,
+    
+    Friends,
+    
+    Profile,
+    
+    Messages,
+    
+    LeaderBoard,
+    
+    LevelComplete,
 }
 
 public enum ZonesWindowSystemEvents {

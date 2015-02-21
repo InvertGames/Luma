@@ -40,8 +40,6 @@ public class RollableBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.SerializeField()]
     private Boolean _IsSplit;
     
-    private bool _isDirty;
-    
     public RollableAsset Asset {
         get {
             return _Asset;
@@ -105,15 +103,6 @@ public class RollableBase : Invert.ECS.Unity.UnityComponent {
         }
     }
     
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
-        }
-    }
-    
     public override void Awake() {
         if (_Asset != null) {
             EntityId = _Asset.EntityId;
@@ -140,8 +129,6 @@ public class CubeBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.SerializeField()]
     private Boolean _IsSelected;
     
-    private bool _isDirty;
-    
     public CubeAsset Asset {
         get {
             return _Asset;
@@ -157,15 +144,6 @@ public class CubeBase : Invert.ECS.Unity.UnityComponent {
         }
         set {
             _IsSelected = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -192,8 +170,6 @@ public class MoveDirectionOnEnterBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     private CubeMoveDirection _MoveDirection;
-    
-    private bool _isDirty;
     
     public MoveDirectionOnEnterAsset Asset {
         get {
@@ -222,15 +198,6 @@ public class MoveDirectionOnEnterBase : Invert.ECS.Unity.UnityComponent {
         }
     }
     
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
-        }
-    }
-    
     public override void Awake() {
         if (_Asset != null) {
             EntityId = _Asset.EntityId;
@@ -253,8 +220,6 @@ public class FollowOnSelectionBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.SerializeField()]
     private Single _Distance;
     
-    private bool _isDirty;
-    
     public FollowOnSelectionAsset Asset {
         get {
             return _Asset;
@@ -270,15 +235,6 @@ public class FollowOnSelectionBase : Invert.ECS.Unity.UnityComponent {
         }
         set {
             _Distance = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -300,23 +256,12 @@ public class PlateBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.HideInInspector()]
     private PlateAsset _Asset;
     
-    private bool _isDirty;
-    
     public PlateAsset Asset {
         get {
             return _Asset;
         }
         set {
             _Asset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -340,8 +285,6 @@ public class TeliporterBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.SerializeField()]
     private PlateRegister _Register;
     
-    private bool _isDirty;
-    
     public TeliporterAsset Asset {
         get {
             return _Asset;
@@ -357,15 +300,6 @@ public class TeliporterBase : Invert.ECS.Unity.UnityComponent {
         }
         set {
             _Register = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -387,23 +321,12 @@ public class TeliportableBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.HideInInspector()]
     private TeliportableAsset _Asset;
     
-    private bool _isDirty;
-    
     public TeliportableAsset Asset {
         get {
             return _Asset;
         }
         set {
             _Asset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -427,8 +350,6 @@ public class TeliporterTargetBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.SerializeField()]
     private PlateRegister _Register;
     
-    private bool _isDirty;
-    
     public TeliporterTargetAsset Asset {
         get {
             return _Asset;
@@ -444,15 +365,6 @@ public class TeliporterTargetBase : Invert.ECS.Unity.UnityComponent {
         }
         set {
             _Register = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -474,23 +386,12 @@ public class GoalPlateBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.HideInInspector()]
     private GoalPlateAsset _Asset;
     
-    private bool _isDirty;
-    
     public GoalPlateAsset Asset {
         get {
             return _Asset;
         }
         set {
             _Asset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -514,8 +415,6 @@ public class SwitchPlateTriggerBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.SerializeField()]
     private PlateRegister _Register;
     
-    private bool _isDirty;
-    
     public SwitchPlateTriggerAsset Asset {
         get {
             return _Asset;
@@ -531,15 +430,6 @@ public class SwitchPlateTriggerBase : Invert.ECS.Unity.UnityComponent {
         }
         set {
             _Register = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -561,23 +451,12 @@ public class TurnGravityOnEnterBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.HideInInspector()]
     private TurnGravityOnEnterAsset _Asset;
     
-    private bool _isDirty;
-    
     public TurnGravityOnEnterAsset Asset {
         get {
             return _Asset;
         }
         set {
             _Asset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -598,23 +477,12 @@ public class DisableColliderOnCollisionBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.HideInInspector()]
     private DisableColliderOnCollisionAsset _Asset;
     
-    private bool _isDirty;
-    
     public DisableColliderOnCollisionAsset Asset {
         get {
             return _Asset;
         }
         set {
             _Asset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -646,8 +514,6 @@ public class SwitchPlateTargetBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     private PlateRegister _Register;
-    
-    private bool _isDirty;
     
     public SwitchPlateTargetAsset Asset {
         get {
@@ -694,15 +560,6 @@ public class SwitchPlateTargetBase : Invert.ECS.Unity.UnityComponent {
         }
     }
     
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
-        }
-    }
-    
     public override void Awake() {
         if (_Asset != null) {
             EntityId = _Asset.EntityId;
@@ -727,8 +584,6 @@ public class MoveLeftOnLeaveBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.SerializeField()]
     private Vector3 _Offset;
     
-    private bool _isDirty;
-    
     public MoveLeftOnLeaveAsset Asset {
         get {
             return _Asset;
@@ -744,15 +599,6 @@ public class MoveLeftOnLeaveBase : Invert.ECS.Unity.UnityComponent {
         }
         set {
             _Offset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -779,8 +625,6 @@ public class TransporterPlateBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     private Boolean _IsOn;
-    
-    private bool _isDirty;
     
     public TransporterPlateAsset Asset {
         get {
@@ -809,15 +653,6 @@ public class TransporterPlateBase : Invert.ECS.Unity.UnityComponent {
         }
     }
     
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
-        }
-    }
-    
     public override void Awake() {
         if (_Asset != null) {
             EntityId = _Asset.EntityId;
@@ -840,8 +675,6 @@ public class DissolvePlateBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.SerializeField()]
     private Boolean _IsDissolved;
     
-    private bool _isDirty;
-    
     public DissolvePlateAsset Asset {
         get {
             return _Asset;
@@ -857,15 +690,6 @@ public class DissolvePlateBase : Invert.ECS.Unity.UnityComponent {
         }
         set {
             _IsDissolved = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -887,8 +711,6 @@ public class YingYangPlateBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.HideInInspector()]
     private YingYangPlateAsset _Asset;
     
-    private bool _isDirty;
-    
     [UnityEngine.SerializeField()]
     private Int32[] _TargetPlates;
     
@@ -898,15 +720,6 @@ public class YingYangPlateBase : Invert.ECS.Unity.UnityComponent {
         }
         set {
             _Asset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -1120,23 +933,12 @@ public class LevelSpawnPointBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.HideInInspector()]
     private LevelSpawnPointAsset _Asset;
     
-    private bool _isDirty;
-    
     public LevelSpawnPointAsset Asset {
         get {
             return _Asset;
         }
         set {
             _Asset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -1157,23 +959,12 @@ public class LevelSceneBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.HideInInspector()]
     private LevelSceneAsset _Asset;
     
-    private bool _isDirty;
-    
     public LevelSceneAsset Asset {
         get {
             return _Asset;
         }
         set {
             _Asset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -1197,8 +988,6 @@ public class NotifyOnEnterBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.SerializeField()]
     private String _Message;
     
-    private bool _isDirty;
-    
     public NotifyOnEnterAsset Asset {
         get {
             return _Asset;
@@ -1214,15 +1003,6 @@ public class NotifyOnEnterBase : Invert.ECS.Unity.UnityComponent {
         }
         set {
             _Message = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -1244,23 +1024,12 @@ public class BasicGameBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.HideInInspector()]
     private BasicGameAsset _Asset;
     
-    private bool _isDirty;
-    
     public BasicGameAsset Asset {
         get {
             return _Asset;
         }
         set {
             _Asset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -1284,8 +1053,6 @@ public class EnterLevelOnEnterBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.SerializeField()]
     private Int32 _LevelId;
     
-    private bool _isDirty;
-    
     public EnterLevelOnEnterAsset Asset {
         get {
             return _Asset;
@@ -1301,15 +1068,6 @@ public class EnterLevelOnEnterBase : Invert.ECS.Unity.UnityComponent {
         }
         set {
             _LevelId = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -1331,23 +1089,12 @@ public class CubeSpawnPointBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.HideInInspector()]
     private CubeSpawnPointAsset _Asset;
     
-    private bool _isDirty;
-    
     public CubeSpawnPointAsset Asset {
         get {
             return _Asset;
         }
         set {
             _Asset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -1371,8 +1118,6 @@ public class SwitchOnWithXpBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.SerializeField()]
     private Int32 _RequiredXp;
     
-    private bool _isDirty;
-    
     public SwitchOnWithXpAsset Asset {
         get {
             return _Asset;
@@ -1388,15 +1133,6 @@ public class SwitchOnWithXpBase : Invert.ECS.Unity.UnityComponent {
         }
         set {
             _RequiredXp = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -1418,23 +1154,12 @@ public class BackgroundSceneBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.HideInInspector()]
     private BackgroundSceneAsset _Asset;
     
-    private bool _isDirty;
-    
     public BackgroundSceneAsset Asset {
         get {
             return _Asset;
         }
         set {
             _Asset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -1466,8 +1191,6 @@ public class TweenPlateColorsBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     private Boolean _IsOn;
-    
-    private bool _isDirty;
     
     public TweenPlateColorsAsset Asset {
         get {
@@ -1511,15 +1234,6 @@ public class TweenPlateColorsBase : Invert.ECS.Unity.UnityComponent {
         }
         set {
             _IsOn = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -1670,8 +1384,6 @@ public class ActiveWithXpBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.SerializeField()]
     private Int32 _RequiredXp;
     
-    private bool _isDirty;
-    
     public ActiveWithXpAsset Asset {
         get {
             return _Asset;
@@ -1687,15 +1399,6 @@ public class ActiveWithXpBase : Invert.ECS.Unity.UnityComponent {
         }
         set {
             _RequiredXp = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -1720,8 +1423,6 @@ public class ScoringBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.SerializeField()]
     private Int32 _Score;
     
-    private bool _isDirty;
-    
     public ScoringAsset Asset {
         get {
             return _Asset;
@@ -1737,15 +1438,6 @@ public class ScoringBase : Invert.ECS.Unity.UnityComponent {
         }
         set {
             _Score = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -1781,8 +1473,6 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     private Boolean _IsCurrent;
-    
-    private bool _isDirty;
     
     [UnityEngine.SerializeField()]
     private Level[] _Levels;
@@ -1841,15 +1531,6 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent {
         }
     }
     
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
-        }
-    }
-    
     public virtual Level[] Levels {
         get {
             return _Levels;
@@ -1881,23 +1562,12 @@ public class ZoneSceneBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.HideInInspector()]
     private ZoneSceneAsset _Asset;
     
-    private bool _isDirty;
-    
     public ZoneSceneAsset Asset {
         get {
             return _Asset;
         }
         set {
             _Asset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -1923,8 +1593,6 @@ public class PlayerStatBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     private Int32 _Value;
-    
-    private bool _isDirty;
     
     public PlayerStatAsset Asset {
         get {
@@ -1953,15 +1621,6 @@ public class PlayerStatBase : Invert.ECS.Unity.UnityComponent {
         }
     }
     
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
-        }
-    }
-    
     public override void Awake() {
         if (_Asset != null) {
             EntityId = _Asset.EntityId;
@@ -1986,8 +1645,6 @@ public class TutorialOnEnterBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
     private String _Message;
-    
-    private bool _isDirty;
     
     public TutorialOnEnterAsset Asset {
         get {
@@ -2016,15 +1673,6 @@ public class TutorialOnEnterBase : Invert.ECS.Unity.UnityComponent {
         }
     }
     
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
-        }
-    }
-    
     public override void Awake() {
         if (_Asset != null) {
             EntityId = _Asset.EntityId;
@@ -2047,8 +1695,6 @@ public class WindowBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.SerializeField()]
     private FlipCubeWindow _WindowType;
     
-    private bool _isDirty;
-    
     public WindowAsset Asset {
         get {
             return _Asset;
@@ -2064,15 +1710,6 @@ public class WindowBase : Invert.ECS.Unity.UnityComponent {
         }
         set {
             _WindowType = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -2094,23 +1731,12 @@ public class CloseWindowOnClickBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.HideInInspector()]
     private CloseWindowOnClickAsset _Asset;
     
-    private bool _isDirty;
-    
     public CloseWindowOnClickAsset Asset {
         get {
             return _Asset;
         }
         set {
             _Asset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -2131,23 +1757,12 @@ public class ZonesWindowBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.HideInInspector()]
     private ZonesWindowAsset _Asset;
     
-    private bool _isDirty;
-    
     public ZonesWindowAsset Asset {
         get {
             return _Asset;
         }
         set {
             _Asset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
@@ -2168,23 +1783,12 @@ public class FriendsWindowBase : Invert.ECS.Unity.UnityComponent {
     [UnityEngine.HideInInspector()]
     private FriendsWindowAsset _Asset;
     
-    private bool _isDirty;
-    
     public FriendsWindowAsset Asset {
         get {
             return _Asset;
         }
         set {
             _Asset = value;
-        }
-    }
-    
-    public bool IsDirty {
-        get {
-            return _isDirty;
-        }
-        set {
-            _isDirty = value;
         }
     }
     
