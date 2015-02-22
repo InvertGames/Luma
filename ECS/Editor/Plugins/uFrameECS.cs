@@ -77,8 +77,9 @@ namespace Invert.ECS.Graphs
             var unityGraph = CreatePrecompiledSystemsGraph("Unity");
             
             //Action.LoadDerived<ActionNodeViewModel>();
+//            container.RegisterItemDrawer<ScaffoldNodeChildItem<RequiredComponentsReference>.ViewModel, SlotDrawer>();
 
-            DefaultProjectRepository.AddPrecompiledGraph(systemsGraph);
+            ProjectRepository.AddPrecompiledGraph(systemsGraph);
             DefaultProjectRepository.AddPrecompiledGraph(unityGraph);
             EventHandler.HasSubNode<ActionNode>();
             container.AddTypeItem<PropertiesChildItem, ComponentPropertyChildViewModel, ComponentPropertyDrawer>();

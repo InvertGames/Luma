@@ -16,7 +16,7 @@ namespace Invert.ECS.Graphs {
     using Invert.Core.GraphDesigner;
     
     
-    public class SingleVariableInputSlotBase : SingleInputSlot<ISingleVariableInputSlot> {
+    public class ABase : SingleInputSlot<IAConnectable> {
         
         public override bool AllowMultipleInputs {
             get {
@@ -31,10 +31,10 @@ namespace Invert.ECS.Graphs {
         }
     }
     
-    public partial interface ISingleVariableInputSlot : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    public partial interface IAConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
     
-    public class MultiVariableInputSlotBase : MultiInputSlot<IMultiVariableInputSlot> {
+    public class BBase : SingleInputSlot<IBConnectable> {
         
         public override bool AllowMultipleInputs {
             get {
@@ -49,10 +49,10 @@ namespace Invert.ECS.Graphs {
         }
     }
     
-    public partial interface IMultiVariableInputSlot : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    public partial interface IBConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
     
-    public class SingleVariableOutputSlotBase : SingleOutputSlot<ISingleVariableOutputSlot> {
+    public class TrueBase : SingleOutputSlot<ITrueConnectable>, IActionConnectable {
         
         public override bool AllowMultipleInputs {
             get {
@@ -67,10 +67,10 @@ namespace Invert.ECS.Graphs {
         }
     }
     
-    public partial interface ISingleVariableOutputSlot : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    public partial interface ITrueConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
     
-    public class MultiVariableOutputSlotBase : MultiOutputSlot<IMultiVariableOutputSlot> {
+    public class FalseBase : SingleOutputSlot<IFalseConnectable>, IActionConnectable {
         
         public override bool AllowMultipleInputs {
             get {
@@ -85,6 +85,60 @@ namespace Invert.ECS.Graphs {
         }
     }
     
-    public partial interface IMultiVariableOutputSlot : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    public partial interface IFalseConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    }
+    
+    public class ItemsBase : SingleInputSlot<IItemsConnectable> {
+        
+        public override bool AllowMultipleInputs {
+            get {
+                return true;
+            }
+        }
+        
+        public override bool AllowMultipleOutputs {
+            get {
+                return true;
+            }
+        }
+    }
+    
+    public partial interface IItemsConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    }
+    
+    public class EachBase : SingleOutputSlot<IEachConnectable>, IActionConnectable {
+        
+        public override bool AllowMultipleInputs {
+            get {
+                return true;
+            }
+        }
+        
+        public override bool AllowMultipleOutputs {
+            get {
+                return true;
+            }
+        }
+    }
+    
+    public partial interface IEachConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    }
+    
+    public class IndexBase : SingleOutputSlot<IIndexConnectable>, IVariableConnectable {
+        
+        public override bool AllowMultipleInputs {
+            get {
+                return true;
+            }
+        }
+        
+        public override bool AllowMultipleOutputs {
+            get {
+                return true;
+            }
+        }
+    }
+    
+    public partial interface IIndexConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
 }

@@ -66,21 +66,21 @@ namespace Invert.ECS.Graphs {
             }
         }
         
-        [Invert.Core.GraphDesigner.Section("Events", SectionVisibility.Always, OrderIndex=2)]
+        [Invert.Core.GraphDesigner.Section("Events", SectionVisibility.Always, OrderIndex=2, IsNewRow=false)]
         public virtual System.Collections.Generic.IEnumerable<EventsChildItem> Events {
             get {
                 return ChildItems.OfType<EventsChildItem>();
             }
         }
         
-        [Invert.Core.GraphDesigner.ReferenceSection("Handlers", SectionVisibility.Always, false, false, typeof(IHandlersConnectable), false, OrderIndex=0, HasPredefinedOptions=false)]
+        [Invert.Core.GraphDesigner.ReferenceSection("Handlers", SectionVisibility.Always, false, false, typeof(IHandlersConnectable), false, OrderIndex=0, HasPredefinedOptions=false, IsNewRow=false)]
         public virtual System.Collections.Generic.IEnumerable<HandlersReference> Handlers {
             get {
                 return ChildItems.OfType<HandlersReference>();
             }
         }
         
-        [Invert.Core.GraphDesigner.ReferenceSection("Components", SectionVisibility.Always, false, false, typeof(IComponentsConnectable), false, OrderIndex=1, HasPredefinedOptions=false)]
+        [Invert.Core.GraphDesigner.ReferenceSection("Components", SectionVisibility.Always, false, false, typeof(IComponentsConnectable), false, OrderIndex=1, HasPredefinedOptions=false, IsNewRow=false)]
         public virtual System.Collections.Generic.IEnumerable<ComponentsReference> Components {
             get {
                 return ChildItems.OfType<ComponentsReference>();
@@ -91,7 +91,7 @@ namespace Invert.ECS.Graphs {
     public partial interface ISystemConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
     
-    public class ComponentNodeBase : Invert.Core.GraphDesigner.GenericNode, Invert.Core.GraphDesigner.IClassTypeNode, IComponentsConnectable {
+    public class ComponentNodeBase : Invert.Core.GraphDesigner.GenericNode, Invert.Core.GraphDesigner.IClassTypeNode, IComponentsConnectable, IRequiredComponentsConnectable {
         
         public virtual string ClassName {
             get {
@@ -111,14 +111,14 @@ namespace Invert.ECS.Graphs {
             }
         }
         
-        [Invert.Core.GraphDesigner.Section("Properties", SectionVisibility.Always, OrderIndex=0)]
+        [Invert.Core.GraphDesigner.Section("Properties", SectionVisibility.Always, OrderIndex=0, IsNewRow=false)]
         public virtual System.Collections.Generic.IEnumerable<PropertiesChildItem> Properties {
             get {
                 return ChildItems.OfType<PropertiesChildItem>();
             }
         }
         
-        [Invert.Core.GraphDesigner.Section("Collections", SectionVisibility.Always, OrderIndex=0)]
+        [Invert.Core.GraphDesigner.Section("Collections", SectionVisibility.Always, OrderIndex=0, IsNewRow=false)]
         public virtual System.Collections.Generic.IEnumerable<CollectionsChildItem> Collections {
             get {
                 return ChildItems.OfType<CollectionsChildItem>();
@@ -149,14 +149,14 @@ namespace Invert.ECS.Graphs {
             }
         }
         
-        [Invert.Core.GraphDesigner.Section("Properties", SectionVisibility.Always, OrderIndex=0)]
+        [Invert.Core.GraphDesigner.Section("Properties", SectionVisibility.Always, OrderIndex=0, IsNewRow=false)]
         public virtual System.Collections.Generic.IEnumerable<PropertiesChildItem> Properties {
             get {
                 return ChildItems.OfType<PropertiesChildItem>();
             }
         }
         
-        [Invert.Core.GraphDesigner.Section("Collections", SectionVisibility.Always, OrderIndex=0)]
+        [Invert.Core.GraphDesigner.Section("Collections", SectionVisibility.Always, OrderIndex=0, IsNewRow=false)]
         public virtual System.Collections.Generic.IEnumerable<CollectionsChildItem> Collections {
             get {
                 return ChildItems.OfType<CollectionsChildItem>();
@@ -187,7 +187,7 @@ namespace Invert.ECS.Graphs {
             }
         }
         
-        [Invert.Core.GraphDesigner.ReferenceSection("Required Components", SectionVisibility.Always, false, false, typeof(IRequiredComponentsConnectable), false, OrderIndex=0, HasPredefinedOptions=false)]
+        [Invert.Core.GraphDesigner.ReferenceSection("Required Components", SectionVisibility.Always, false, false, typeof(IRequiredComponentsConnectable), false, OrderIndex=0, HasPredefinedOptions=false, IsNewRow=false)]
         public virtual System.Collections.Generic.IEnumerable<RequiredComponentsReference> RequiredComponents {
             get {
                 return ChildItems.OfType<RequiredComponentsReference>();
@@ -230,14 +230,14 @@ namespace Invert.ECS.Graphs {
             }
         }
         
-        [Invert.Core.GraphDesigner.Section("Properties", SectionVisibility.Always, OrderIndex=0)]
+        [Invert.Core.GraphDesigner.Section("Properties", SectionVisibility.Always, OrderIndex=0, IsNewRow=false)]
         public virtual System.Collections.Generic.IEnumerable<PropertiesChildItem> Properties {
             get {
                 return ChildItems.OfType<PropertiesChildItem>();
             }
         }
         
-        [Invert.Core.GraphDesigner.Section("Collections", SectionVisibility.Always, OrderIndex=0)]
+        [Invert.Core.GraphDesigner.Section("Collections", SectionVisibility.Always, OrderIndex=0, IsNewRow=false)]
         public virtual System.Collections.Generic.IEnumerable<CollectionsChildItem> Collections {
             get {
                 return ChildItems.OfType<CollectionsChildItem>();
@@ -268,7 +268,7 @@ namespace Invert.ECS.Graphs {
             }
         }
         
-        [Invert.Core.GraphDesigner.ReferenceSection("Property Maps", SectionVisibility.Always, false, false, typeof(IPropertyMapsConnectable), false, OrderIndex=0, HasPredefinedOptions=false)]
+        [Invert.Core.GraphDesigner.ReferenceSection("Property Maps", SectionVisibility.Always, false, false, typeof(IPropertyMapsConnectable), false, OrderIndex=0, HasPredefinedOptions=false, IsNewRow=false)]
         public virtual System.Collections.Generic.IEnumerable<PropertyMapsReference> PropertyMaps {
             get {
                 return ChildItems.OfType<PropertyMapsReference>();
@@ -280,6 +280,54 @@ namespace Invert.ECS.Graphs {
     }
     
     public class ConditionNodeBase : ActionNode {
+        
+        private A _A;
+        
+        private B _B;
+        
+        public override bool AllowMultipleInputs {
+            get {
+                return true;
+            }
+        }
+        
+        public override bool AllowMultipleOutputs {
+            get {
+                return true;
+            }
+        }
+        
+        [Invert.Core.GraphDesigner.InputSlot("A", false, SectionVisibility.Always, OrderIndex=1, IsNewRow=true)]
+        public virtual A AInputSlot {
+            get {
+                if (_A == null) {
+                    _A = new A() { Node = this };
+                }
+                return _A;
+            }
+            set {
+                _A = value;
+            }
+        }
+        
+        [Invert.Core.GraphDesigner.InputSlot("B", false, SectionVisibility.Always, OrderIndex=3, IsNewRow=true)]
+        public virtual B BInputSlot {
+            get {
+                if (_B == null) {
+                    _B = new B() { Node = this };
+                }
+                return _B;
+            }
+            set {
+                _B = value;
+            }
+        }
+    }
+    
+    public partial interface IConditionConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    }
+    
+    public class VariableNodeBase : Invert.Core.GraphDesigner.GenericNode, IAConnectable, IBConnectable, IItemsConnectable {
         
         public override bool AllowMultipleInputs {
             get {
@@ -294,6 +342,117 @@ namespace Invert.ECS.Graphs {
         }
     }
     
-    public partial interface IConditionConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    public partial interface IVariableConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    }
+    
+    public class EqualNodeBase : ConditionNode {
+        
+        private True _True;
+        
+        private False _False;
+        
+        public override bool AllowMultipleInputs {
+            get {
+                return true;
+            }
+        }
+        
+        public override bool AllowMultipleOutputs {
+            get {
+                return true;
+            }
+        }
+        
+        [Invert.Core.GraphDesigner.OutputSlot("True", false, SectionVisibility.Always, OrderIndex=2, IsNewRow=false)]
+        public virtual True TrueOutputSlot {
+            get {
+                if (_True == null) {
+                    _True = new True() { Node = this };
+                }
+                return _True;
+            }
+            set {
+                _True = value;
+            }
+        }
+        
+        [Invert.Core.GraphDesigner.OutputSlot("False", false, SectionVisibility.Always, OrderIndex=4, IsNewRow=false)]
+        public virtual False FalseOutputSlot {
+            get {
+                if (_False == null) {
+                    _False = new False() { Node = this };
+                }
+                return _False;
+            }
+            set {
+                _False = value;
+            }
+        }
+    }
+    
+    public partial interface IEqualConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    }
+    
+    public class LoopNodeBase : ActionNode {
+        
+        private Items _Items;
+        
+        private Each _Each;
+        
+        private Index _Index;
+        
+        public override bool AllowMultipleInputs {
+            get {
+                return true;
+            }
+        }
+        
+        public override bool AllowMultipleOutputs {
+            get {
+                return true;
+            }
+        }
+        
+        [Invert.Core.GraphDesigner.InputSlot("Items", false, SectionVisibility.Always, OrderIndex=0, IsNewRow=true)]
+        public virtual Items ItemsInputSlot {
+            get {
+                if (_Items == null) {
+                    _Items = new Items() { Node = this };
+                }
+                return _Items;
+            }
+            set {
+                _Items = value;
+            }
+        }
+        
+        [Invert.Core.GraphDesigner.OutputSlot("Each", false, SectionVisibility.Always, OrderIndex=0, IsNewRow=false)]
+        public virtual Each EachOutputSlot {
+            get {
+                if (_Each == null) {
+                    _Each = new Each() { Node = this };
+                }
+                return _Each;
+            }
+            set {
+                _Each = value;
+            }
+        }
+        
+        [Invert.Core.GraphDesigner.OutputSlot("Index", false, SectionVisibility.Always, OrderIndex=0, IsNewRow=true)]
+        public virtual Index IndexOutputSlot {
+            get {
+                if (_Index == null) {
+                    _Index = new Index() { Node = this };
+                }
+                return _Index;
+            }
+            set {
+                _Index = value;
+            }
+        }
+    }
+    
+    public partial interface ILoopConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
 }

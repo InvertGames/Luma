@@ -12,7 +12,7 @@ namespace Invert.ECS.Graphs
     public class RequiredComponentsReference : RequiredComponentsReferenceBase, ITypedItem, IRequiredComponent
     {
 
-
+        
 
         public string RelatedType
         {
@@ -32,8 +32,8 @@ namespace Invert.ECS.Graphs
         {
             get
             {
-                if (this.OutputTo<ComponentNode>() != null)
-                    return this.OutputTo<ComponentNode>();
+                if (this.InputFrom<ComponentNode>() != null)
+                    return this.InputFrom<ComponentNode>();
                 var inputReference = this.InputFrom<ComponentsReference>();
                 if (inputReference != null)
                 {

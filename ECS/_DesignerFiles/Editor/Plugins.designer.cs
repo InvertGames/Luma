@@ -37,6 +37,12 @@ namespace Invert.ECS.Graphs {
         
         private Invert.Core.GraphDesigner.NodeConfig<ConditionNode> _Condition;
         
+        private Invert.Core.GraphDesigner.NodeConfig<VariableNode> _Variable;
+        
+        private Invert.Core.GraphDesigner.NodeConfig<EqualNode> _Equal;
+        
+        private Invert.Core.GraphDesigner.NodeConfig<LoopNode> _Loop;
+        
         public Invert.Core.GraphDesigner.NodeConfig<SystemsNode> Systems {
             get {
                 return _Systems;
@@ -118,6 +124,33 @@ namespace Invert.ECS.Graphs {
             }
         }
         
+        public Invert.Core.GraphDesigner.NodeConfig<VariableNode> Variable {
+            get {
+                return _Variable;
+            }
+            set {
+                _Variable = value;
+            }
+        }
+        
+        public Invert.Core.GraphDesigner.NodeConfig<EqualNode> Equal {
+            get {
+                return _Equal;
+            }
+            set {
+                _Equal = value;
+            }
+        }
+        
+        public Invert.Core.GraphDesigner.NodeConfig<LoopNode> Loop {
+            get {
+                return _Loop;
+            }
+            set {
+                _Loop = value;
+            }
+        }
+        
         public virtual Invert.Core.GraphDesigner.SelectItemTypeCommand GetEventsSelectionCommand() {
             return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = false };
         }
@@ -146,30 +179,48 @@ namespace Invert.ECS.Graphs {
             Systems.HasSubNode<SystemNode>();
             Systems.HasSubNode<ComponentNode>();
             Systems.HasSubNode<EventNode>();
-            System = container.AddNode<SystemNode,SystemNodeViewModel,SystemNodeDrawer>("SystemNode");
+            System = container.AddNode<SystemNode,SystemNodeViewModel,SystemNodeDrawer>("System");
             System.Color(NodeColor.Black);
+            System.HasSubNode<ComponentNode>();
             System.HasSubNode<EventHandlerNode>();
             System.HasSubNode<SendSignalNode>();
             System.HasSubNode<ConditionNode>();
-            Component = container.AddNode<ComponentNode,ComponentNodeViewModel,ComponentNodeDrawer>("ComponentNode");
+            System.HasSubNode<VariableNode>();
+            System.HasSubNode<EqualNode>();
+            System.HasSubNode<LoopNode>();
+            Component = container.AddNode<ComponentNode,ComponentNodeViewModel,ComponentNodeDrawer>("Component");
             Component.Color(NodeColor.DarkGray);
-            Event = container.AddNode<EventNode,EventNodeViewModel,EventNodeDrawer>("EventNode");
+            Event = container.AddNode<EventNode,EventNodeViewModel,EventNodeDrawer>("Event");
             Event.Color(NodeColor.Red);
-            EventHandler = container.AddNode<EventHandlerNode,EventHandlerNodeViewModel,EventHandlerNodeDrawer>("EventHandlerNode");
+            EventHandler = container.AddNode<EventHandlerNode,EventHandlerNodeViewModel,EventHandlerNodeDrawer>("EventHandler");
             EventHandler.Color(NodeColor.Blue);
-            Action = container.AddNode<ActionNode,ActionNodeViewModel,ActionNodeDrawer>("ActionNode");
+            Action = container.AddNode<ActionNode,ActionNodeViewModel,ActionNodeDrawer>("Action");
             Action.Color(NodeColor.Green);
-            SimpleClass = container.AddNode<SimpleClassNode,SimpleClassNodeViewModel,SimpleClassNodeDrawer>("SimpleClassNode");
+            SimpleClass = container.AddNode<SimpleClassNode,SimpleClassNodeViewModel,SimpleClassNodeDrawer>("SimpleClass");
             SimpleClass.Color(NodeColor.Gray);
-            SendSignal = container.AddNode<SendSignalNode,SendSignalNodeViewModel,SendSignalNodeDrawer>("SendSignalNode");
+            SendSignal = container.AddNode<SendSignalNode,SendSignalNodeViewModel,SendSignalNodeDrawer>("SendSignal");
             SendSignal.Color(NodeColor.Green);
-            Condition = container.AddNode<ConditionNode,ConditionNodeViewModel,ConditionNodeDrawer>("ConditionNode");
+            Condition = container.AddNode<ConditionNode,ConditionNodeViewModel,ConditionNodeDrawer>("Condition");
             Condition.Color(NodeColor.Orange);
+            Variable = container.AddNode<VariableNode,VariableNodeViewModel,VariableNodeDrawer>("Variable");
+            Variable.Color(NodeColor.Gray);
+            Equal = container.AddNode<EqualNode,EqualNodeViewModel,EqualNodeDrawer>("Equal");
+            Equal.Color(NodeColor.Orange);
+            Loop = container.AddNode<LoopNode,LoopNodeViewModel,LoopNodeDrawer>("Loop");
+            Loop.Color(NodeColor.Purple);
             container.Connectable<HandlersReference,EventHandlerNode>();
             container.Connectable<ComponentsReference,RequiredComponentsReference>();
             container.Connectable<EventsChildItem,HandlersReference>();
             container.Connectable<ComponentNode,ComponentsReference>();
+            container.Connectable<ComponentNode,RequiredComponentsReference>();
             container.Connectable<ActionNode,ActionNode>();
+            container.Connectable<VariableNode,A>();
+            container.Connectable<VariableNode,B>();
+            container.Connectable<VariableNode,Items>();
+            container.Connectable<True,ActionNode>();
+            container.Connectable<False,ActionNode>();
+            container.Connectable<Each,ActionNode>();
+            container.Connectable<Index,VariableNode>();
         }
     }
 }

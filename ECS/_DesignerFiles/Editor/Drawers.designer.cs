@@ -78,4 +78,25 @@ namespace Invert.ECS.Graphs {
                 base(viewModel) {
         }
     }
+    
+    public class VariableNodeDrawerBase : GenericNodeDrawer<VariableNode,VariableNodeViewModel> {
+        
+        public VariableNodeDrawerBase(VariableNodeViewModel viewModel) : 
+                base(viewModel) {
+        }
+    }
+    
+    public class EqualNodeDrawerBase : GenericNodeDrawer<EqualNode,EqualNodeViewModel> {
+        
+        public EqualNodeDrawerBase(EqualNodeViewModel viewModel) : 
+                base(viewModel) {
+        }
+    }
+    
+    public class LoopNodeDrawerBase : GenericNodeDrawer<LoopNode,LoopNodeViewModel> {
+        
+        public LoopNodeDrawerBase(LoopNodeViewModel viewModel) : 
+                base(viewModel) {
+        }
+    }
 }

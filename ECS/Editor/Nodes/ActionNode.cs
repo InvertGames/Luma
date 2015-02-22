@@ -11,7 +11,17 @@ namespace Invert.ECS.Graphs {
     public class ActionNode : ActionNodeBase, ICodeOutput {
         public ActionNode Left
         {
-            get { return this.InputFrom<ActionNode>(); }
+            get
+            {
+                var r = this.InputFrom<ActionNode>();
+                if (r != null) return r;
+                var leftInput = this.InputFrom<IDiagramNodeItem>();
+                if (leftInput != null)
+                {
+                    return leftInput.Node as ActionNode;
+                }
+                return null;
+            }
         }
 
         public IEnumerable<ActionNode> LeftNodes

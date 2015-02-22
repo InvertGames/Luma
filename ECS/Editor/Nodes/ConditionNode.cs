@@ -11,46 +11,39 @@ namespace Invert.ECS.Graphs
 
     public class ConditionNode : ConditionNodeBase
     {
-        [VariableProperty]
-        public string A { get; set; }
+        //[VariableProperty]
+        //public string A { get; set; }
 
-        [NodeProperty]
-        public ComparisonType ComparisonType { get; set; }
+        //[NodeProperty]
+        //public ComparisonType ComparisonType { get; set; }
 
-        [JsonProperty, NodeProperty]
-        public string B { get; set; }
+        //[JsonProperty, NodeProperty]
+        //public string B { get; set; }
 
-        public string Sign
+        public VariableNode A
         {
-            get
-            {
-                switch (ComparisonType)
-                {
-                        case ComparisonType.NotEqual:
-                        return "!=";
-                    case ComparisonType.Equal:
-                        return "==";
-                        case ComparisonType.GreaterThan:
-                        return ">";
-                        case ComparisonType.GreaterThanOrEqualTo:
-                        return ">=";
-                        case ComparisonType.LessThan:
-                        return "<";
-                        default:
-                        return "<=";
-                        
-                }
-            }
+            get { return AInputSlot.InputFrom<VariableNode>(); }
         }
+        public VariableNode B
+        {
+            get { return BInputSlot.InputFrom<VariableNode>(); }
+        }
+
+        public virtual string Sign
+        {
+            get { return "=="; }
+        }
+
         public override string Name
         {
             get
             {
-                if (A == null || B == null)
-                {
-                    return "Condition";
-                }
-                return string.Format("{0} {1} {2}", A, Sign, B);
+                return this.GetType().Name.Replace("Node","");
+                //if (A == null || B == null)
+                //{
+                   
+                //}
+                //return string.Format("{0} {1} {2}", A.Name, Sign, B.Name);
             }
             set { base.Name = value; }
         }
@@ -58,11 +51,24 @@ namespace Invert.ECS.Graphs
 
         public override void WriteCode(TemplateContext ctx)
         {
-            
-            ctx.PushStatements(ctx._if(string.Format("{0} {1} {2}", A, Sign, B)).TrueStatements);
-            base.WriteCode(ctx);
+            var condition = ctx._if(string.Format("{0} {1} {2}", A, Sign, B));
+            ctx.PushStatements(condition.TrueStatements);
+            WriteTrueStatements(ctx);
             ctx.PopStatements();
+            ctx.PushStatements(condition.FalseStatements);
+            WriteFalseStatements(ctx);
+            ctx.PopStatements();
+            base.WriteCode(ctx);
+        }
 
+        protected virtual void WriteTrueStatements(TemplateContext ctx)
+        {
+            
+        }
+
+        protected virtual void WriteFalseStatements(TemplateContext ctx)
+        {
+            
         }
     }
 

@@ -77,4 +77,25 @@ namespace Invert.ECS.Graphs {
                 base(graphItemObject, diagramViewModel) {
         }
     }
+    
+    public class VariableNodeViewModelBase : Invert.Core.GraphDesigner.GenericNodeViewModel<VariableNode> {
+        
+        public VariableNodeViewModelBase(VariableNode graphItemObject, Invert.Core.GraphDesigner.DiagramViewModel diagramViewModel) : 
+                base(graphItemObject, diagramViewModel) {
+        }
+    }
+    
+    public class EqualNodeViewModelBase : ConditionNodeViewModel {
+        
+        public EqualNodeViewModelBase(EqualNode graphItemObject, Invert.Core.GraphDesigner.DiagramViewModel diagramViewModel) : 
+                base(graphItemObject, diagramViewModel) {
+        }
+    }
+    
+    public class LoopNodeViewModelBase : ActionNodeViewModel {
+        
+        public LoopNodeViewModelBase(LoopNode graphItemObject, Invert.Core.GraphDesigner.DiagramViewModel diagramViewModel) : 
+                base(graphItemObject, diagramViewModel) {
+        }
+    }
 }
