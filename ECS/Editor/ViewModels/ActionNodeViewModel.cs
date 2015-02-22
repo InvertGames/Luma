@@ -15,10 +15,10 @@ namespace Invert.ECS.Graphs {
         public ActionNodeViewModel(ActionNode graphItemObject, Invert.Core.GraphDesigner.DiagramViewModel diagramViewModel) : 
                 base(graphItemObject, diagramViewModel) {
         }
-        public override bool IsEditable
-        {
-            get { return false; }
-        }
+        //public override bool IsEditable
+        //{
+        //    get { return false; }
+        //}
         public override NodeConfigBase NodeConfig
         {
             get
