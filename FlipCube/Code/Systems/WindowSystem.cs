@@ -32,6 +32,26 @@ public class WindowSystem : WindowSystemBase {
         }
     }
 
+    protected override void HandleCloseWindow(WindowEventData data)
+    {
+        base.HandleCloseWindow(data);
+        var window = WindowManager.Components.FirstOrDefault(p => p.WindowType == data.Window);
+        if (window != null)
+        {
+            window.gameObject.SetActive(false);
+        }
+    }
+
+    protected override void HandleToggleWindow(WindowEventData data)
+    {
+        base.HandleToggleWindow(data);
+        var window = WindowManager.Components.FirstOrDefault(p => p.WindowType == data.Window);
+        if (window != null)
+        {
+            window.gameObject.SetActive(!window.gameObject.activeSelf);
+        }
+    }
+
     protected override void HandleShowWindow(WindowEventData data)
     {
         base.HandleShowWindow(data);

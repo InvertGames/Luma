@@ -712,6 +712,36 @@ public partial class ZonesWindowAsset : Invert.ECS.ComponentAsset {
 public partial class FriendsWindowAsset : Invert.ECS.ComponentAsset {
 }
 
+public partial class ToggleWindowOnClickAsset : Invert.ECS.ComponentAsset {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _WindowId;
+    
+    public virtual Int32 WindowId {
+        get {
+            return _WindowId;
+        }
+        set {
+            _WindowId = value;
+        }
+    }
+}
+
+public partial class CloseWindowOnClickAsset : Invert.ECS.ComponentAsset {
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _WindowId;
+    
+    public virtual Int32 WindowId {
+        get {
+            return _WindowId;
+        }
+        set {
+            _WindowId = value;
+        }
+    }
+}
+
 public partial class TutorialOnEnterAsset : Invert.ECS.ComponentAsset {
     
     [UnityEngine.SerializeField()]

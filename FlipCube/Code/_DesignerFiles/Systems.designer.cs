@@ -2789,6 +2789,10 @@ public class WindowSystemBase : UnitySystem {
     
     private ComponentManager<Window> _WindowManager;
     
+    private ComponentManager<ToggleWindowOnClick> _ToggleWindowOnClickManager;
+    
+    private ComponentManager<CloseWindowOnClick> _CloseWindowOnClickManager;
+    
     public ComponentManager<Window> WindowManager {
         get {
             return _WindowManager;
@@ -2798,9 +2802,29 @@ public class WindowSystemBase : UnitySystem {
         }
     }
     
+    public ComponentManager<ToggleWindowOnClick> ToggleWindowOnClickManager {
+        get {
+            return _ToggleWindowOnClickManager;
+        }
+        set {
+            _ToggleWindowOnClickManager = value;
+        }
+    }
+    
+    public ComponentManager<CloseWindowOnClick> CloseWindowOnClickManager {
+        get {
+            return _CloseWindowOnClickManager;
+        }
+        set {
+            _CloseWindowOnClickManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
         WindowManager = game.ComponentSystem.RegisterComponent<Window>();
+        ToggleWindowOnClickManager = game.ComponentSystem.RegisterComponent<ToggleWindowOnClick>();
+        CloseWindowOnClickManager = game.ComponentSystem.RegisterComponent<CloseWindowOnClick>();
         game.EventManager.ListenFor( WindowSystemEvents.ShowWindow, ShowWindow );
         game.EventManager.ListenFor( WindowSystemEvents.CloseWindow, CloseWindow );
         game.EventManager.ListenFor( WindowSystemEvents.ToggleWindow, ToggleWindow );
@@ -2831,6 +2855,8 @@ public class WindowSystemBase : UnitySystem {
     
     protected virtual void Click(Invert.ECS.IEvent e) {
         OnClick(e);
+        OnToggleWindowClick(e);
+        OnCloseWindowClick(e);
     }
     
     protected virtual void HandleShowWindow(Invert.ECS.IEvent e) {
@@ -2886,6 +2912,44 @@ public class WindowSystemBase : UnitySystem {
     }
     
     protected virtual void OnClick(UIEventData data, Window window) {
+    }
+    
+    protected virtual void OnToggleWindowClick(Invert.ECS.IEvent e) {
+        var eventData = (UIEventData)e.Data;
+        ToggleWindowOnClick togglewindowonclick;
+        if (!Game.ComponentSystem.TryGetComponent<ToggleWindowOnClick>(eventData.EntityId, out togglewindowonclick)) {
+            return;
+        }
+        Window window;
+        if (!Game.ComponentSystem.TryGetComponent<Window>(togglewindowonclick.WindowId, out window)) {
+            return;
+        }
+        this.OnToggleWindowClick(eventData, togglewindowonclick, window);
+        WindowEventData togglewindowData = new WindowEventData();
+        togglewindowData.Window = window.WindowType;
+        WindowSystem.SignalToggleWindow(this.Game, togglewindowData);
+    }
+    
+    protected virtual void OnToggleWindowClick(UIEventData data, ToggleWindowOnClick togglewindowonclick, Window window) {
+    }
+    
+    protected virtual void OnCloseWindowClick(Invert.ECS.IEvent e) {
+        var eventData = (UIEventData)e.Data;
+        CloseWindowOnClick closewindowonclick;
+        if (!Game.ComponentSystem.TryGetComponent<CloseWindowOnClick>(eventData.EntityId, out closewindowonclick)) {
+            return;
+        }
+        Window window;
+        if (!Game.ComponentSystem.TryGetComponent<Window>(closewindowonclick.WindowId, out window)) {
+            return;
+        }
+        this.OnCloseWindowClick(eventData, closewindowonclick, window);
+        WindowEventData closewindowData = new WindowEventData();
+        closewindowData.Window = window.WindowType;
+        WindowSystem.SignalCloseWindow(this.Game, closewindowData);
+    }
+    
+    protected virtual void OnCloseWindowClick(UIEventData data, CloseWindowOnClick closewindowonclick, Window window) {
     }
     
     public virtual void SignalShowWindow(WindowEventData data) {

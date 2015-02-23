@@ -6,7 +6,6 @@ using Invert.ECS;
 using Invert.ECS.Unity;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 
 public class CollisionEventDispatcher : MonoBehaviour
@@ -89,28 +88,4 @@ public class CollisionEventDispatcher : MonoBehaviour
         var entityId = this.GetComponent<EntityComponent>().EntityId;
         this.Game.EventManager.SignalEvent(new EventData(UnityEvents.MouseUp, new MouseEventData() { EntityId = entityId }));
     }
-}
-
-public class ButtonEventDispatcher : MonoBehaviour
-{
-    public Button _Button;
-
-    public void Awake()
-    {
-        _Button.onClick.AddListener(() =>
-        {
-            UnityGame.Instance.EventManager.SignalEvent(new EventData()
-            {
-                EventType = uGUIEvents.Click,
-                Data = new UIEventData()
-                {
-                    EntityId = GetComponent<EntityComponent>().EntityId,
-                    Component = _Button,
-                    Name = _Button.name
-                }
-            });
-        });
-    }
-    
-
 }

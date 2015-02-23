@@ -79,11 +79,14 @@ namespace Invert.ECS.Graphs {
 
         public virtual void WriteCode(TemplateContext ctx)
         {
-            var right = Right;
-            if (right != null)
+            foreach (var right in this.OutputsTo<ActionNode>())
             {
-                right.WriteCode(ctx);
+                if (right != null)
+                {
+                    right.WriteCode(ctx);
+                }
             }
+            
         }
     }
 

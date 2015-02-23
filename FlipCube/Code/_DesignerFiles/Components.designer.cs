@@ -1724,6 +1724,84 @@ public class FriendsWindowBase : Invert.ECS.Unity.UnityComponent {
 public partial class FriendsWindow {
 }
 
+public class ToggleWindowOnClickBase : Invert.ECS.Unity.UnityComponent {
+    
+    [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
+    private ToggleWindowOnClickAsset _Asset;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _WindowId;
+    
+    public ToggleWindowOnClickAsset Asset {
+        get {
+            return _Asset;
+        }
+        set {
+            _Asset = value;
+        }
+    }
+    
+    public virtual Int32 WindowId {
+        get {
+            return _WindowId;
+        }
+        set {
+            _WindowId = value;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            EntityId = _Asset.EntityId;
+            WindowId = _Asset.WindowId;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("UI/ToggleWindowOnClick")]
+public partial class ToggleWindowOnClick {
+}
+
+public class CloseWindowOnClickBase : Invert.ECS.Unity.UnityComponent {
+    
+    [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
+    private CloseWindowOnClickAsset _Asset;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _WindowId;
+    
+    public CloseWindowOnClickAsset Asset {
+        get {
+            return _Asset;
+        }
+        set {
+            _Asset = value;
+        }
+    }
+    
+    public virtual Int32 WindowId {
+        get {
+            return _WindowId;
+        }
+        set {
+            _WindowId = value;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            EntityId = _Asset.EntityId;
+            WindowId = _Asset.WindowId;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("UI/CloseWindowOnClick")]
+public partial class CloseWindowOnClick {
+}
+
 public class TutorialOnEnterBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]

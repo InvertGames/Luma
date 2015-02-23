@@ -304,6 +304,22 @@ public class FriendsWindowMenuItems : object {
     }
 }
 
+public class ToggleWindowOnClickMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/UI/ToggleWindowOnClick", false, -1)]
+    public static void CreateToggleWindowOnClick() {
+        uFrameECS.CreateAsset<ToggleWindowOnClickAsset>();
+    }
+}
+
+public class CloseWindowOnClickMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/UI/CloseWindowOnClick", false, -1)]
+    public static void CreateCloseWindowOnClick() {
+        uFrameECS.CreateAsset<CloseWindowOnClickAsset>();
+    }
+}
+
 public class TutorialOnEnterMenuItems : object {
     
     [UnityEditor.MenuItem("Assets/Tutorial/TutorialOnEnter", false, -1)]
