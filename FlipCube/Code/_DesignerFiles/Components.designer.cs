@@ -712,7 +712,7 @@ public class YingYangPlateBase : Invert.ECS.Unity.UnityComponent {
     private YingYangPlateAsset _Asset;
     
     [UnityEngine.SerializeField()]
-    private Int32[] _TargetPlates;
+    private List<Int32> _TargetPlates;
     
     public YingYangPlateAsset Asset {
         get {
@@ -723,7 +723,7 @@ public class YingYangPlateBase : Invert.ECS.Unity.UnityComponent {
         }
     }
     
-    public virtual Int32[] TargetPlates {
+    public virtual List<Int32> TargetPlates {
         get {
             return _TargetPlates;
         }
@@ -735,7 +735,6 @@ public class YingYangPlateBase : Invert.ECS.Unity.UnityComponent {
     public override void Awake() {
         if (_Asset != null) {
             EntityId = _Asset.EntityId;
-            TargetPlates = _Asset.TargetPlates;
         }
     }
 }
@@ -1475,7 +1474,7 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent {
     private Boolean _IsCurrent;
     
     [UnityEngine.SerializeField()]
-    private Level[] _Levels;
+    private List<Level> _Levels;
     
     public ZoneAsset Asset {
         get {
@@ -1531,7 +1530,7 @@ public class ZoneBase : Invert.ECS.Unity.UnityComponent {
         }
     }
     
-    public virtual Level[] Levels {
+    public virtual List<Level> Levels {
         get {
             return _Levels;
         }
@@ -1634,58 +1633,6 @@ public class PlayerStatBase : Invert.ECS.Unity.UnityComponent {
 public partial class PlayerStat {
 }
 
-public class TutorialOnEnterBase : Invert.ECS.Unity.UnityComponent {
-    
-    [UnityEngine.SerializeField()]
-    [UnityEngine.HideInInspector()]
-    private TutorialOnEnterAsset _Asset;
-    
-    [UnityEngine.SerializeField()]
-    private Int32 _ArrowOver;
-    
-    [UnityEngine.SerializeField()]
-    private String _Message;
-    
-    public TutorialOnEnterAsset Asset {
-        get {
-            return _Asset;
-        }
-        set {
-            _Asset = value;
-        }
-    }
-    
-    public virtual Int32 ArrowOver {
-        get {
-            return _ArrowOver;
-        }
-        set {
-            _ArrowOver = value;
-        }
-    }
-    
-    public virtual String Message {
-        get {
-            return _Message;
-        }
-        set {
-            _Message = value;
-        }
-    }
-    
-    public override void Awake() {
-        if (_Asset != null) {
-            EntityId = _Asset.EntityId;
-            ArrowOver = _Asset.ArrowOver;
-            Message = _Asset.Message;
-        }
-    }
-}
-
-[UnityEngine.AddComponentMenu("Tutorial/TutorialOnEnter")]
-public partial class TutorialOnEnter {
-}
-
 public class WindowBase : Invert.ECS.Unity.UnityComponent {
     
     [UnityEngine.SerializeField()]
@@ -1723,32 +1670,6 @@ public class WindowBase : Invert.ECS.Unity.UnityComponent {
 
 [UnityEngine.AddComponentMenu("UI/Window")]
 public partial class Window {
-}
-
-public class CloseWindowOnClickBase : Invert.ECS.Unity.UnityComponent {
-    
-    [UnityEngine.SerializeField()]
-    [UnityEngine.HideInInspector()]
-    private CloseWindowOnClickAsset _Asset;
-    
-    public CloseWindowOnClickAsset Asset {
-        get {
-            return _Asset;
-        }
-        set {
-            _Asset = value;
-        }
-    }
-    
-    public override void Awake() {
-        if (_Asset != null) {
-            EntityId = _Asset.EntityId;
-        }
-    }
-}
-
-[UnityEngine.AddComponentMenu("UI/CloseWindowOnClick")]
-public partial class CloseWindowOnClick {
 }
 
 public class ZonesWindowBase : Invert.ECS.Unity.UnityComponent {
@@ -1801,4 +1722,56 @@ public class FriendsWindowBase : Invert.ECS.Unity.UnityComponent {
 
 [UnityEngine.AddComponentMenu("UI/FriendsWindow")]
 public partial class FriendsWindow {
+}
+
+public class TutorialOnEnterBase : Invert.ECS.Unity.UnityComponent {
+    
+    [UnityEngine.SerializeField()]
+    [UnityEngine.HideInInspector()]
+    private TutorialOnEnterAsset _Asset;
+    
+    [UnityEngine.SerializeField()]
+    private Int32 _ArrowOver;
+    
+    [UnityEngine.SerializeField()]
+    private String _Message;
+    
+    public TutorialOnEnterAsset Asset {
+        get {
+            return _Asset;
+        }
+        set {
+            _Asset = value;
+        }
+    }
+    
+    public virtual Int32 ArrowOver {
+        get {
+            return _ArrowOver;
+        }
+        set {
+            _ArrowOver = value;
+        }
+    }
+    
+    public virtual String Message {
+        get {
+            return _Message;
+        }
+        set {
+            _Message = value;
+        }
+    }
+    
+    public override void Awake() {
+        if (_Asset != null) {
+            EntityId = _Asset.EntityId;
+            ArrowOver = _Asset.ArrowOver;
+            Message = _Asset.Message;
+        }
+    }
+}
+
+[UnityEngine.AddComponentMenu("Tutorial/TutorialOnEnter")]
+public partial class TutorialOnEnter {
 }

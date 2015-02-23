@@ -280,27 +280,11 @@ public class PlayerStatMenuItems : object {
     }
 }
 
-public class TutorialOnEnterMenuItems : object {
-    
-    [UnityEditor.MenuItem("Assets/Tutorial/TutorialOnEnter", false, -1)]
-    public static void CreateTutorialOnEnter() {
-        uFrameECS.CreateAsset<TutorialOnEnterAsset>();
-    }
-}
-
 public class WindowMenuItems : object {
     
     [UnityEditor.MenuItem("Assets/UI/Window", false, -1)]
     public static void CreateWindow() {
         uFrameECS.CreateAsset<WindowAsset>();
-    }
-}
-
-public class CloseWindowOnClickMenuItems : object {
-    
-    [UnityEditor.MenuItem("Assets/UI/CloseWindowOnClick", false, -1)]
-    public static void CreateCloseWindowOnClick() {
-        uFrameECS.CreateAsset<CloseWindowOnClickAsset>();
     }
 }
 
@@ -317,5 +301,13 @@ public class FriendsWindowMenuItems : object {
     [UnityEditor.MenuItem("Assets/UI/FriendsWindow", false, -1)]
     public static void CreateFriendsWindow() {
         uFrameECS.CreateAsset<FriendsWindowAsset>();
+    }
+}
+
+public class TutorialOnEnterMenuItems : object {
+    
+    [UnityEditor.MenuItem("Assets/Tutorial/TutorialOnEnter", false, -1)]
+    public static void CreateTutorialOnEnter() {
+        uFrameECS.CreateAsset<TutorialOnEnterAsset>();
     }
 }

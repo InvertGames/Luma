@@ -73,6 +73,23 @@ namespace Invert.ECS.Unity
             return true;
         }
 
+        public bool TryGetComponent<TComponent>(List<int> entityIds, out TComponent[] components) where TComponent : class, IComponent
+        {
+            var list = new List<TComponent>();
+            foreach (var entityid in entityIds)
+            {
+                TComponent component;
+                if (!TryGetComponent(entityid, out component))
+                {
+                    components = null;
+                    return false;
+                }
+                list.Add(component);
+            }
+            components = list.ToArray();
+            return true;
+        }
+
         public IEnumerable<T> GetAllComponents<T>() where T : IComponent
         {
             ComponentManager existing;

@@ -142,11 +142,11 @@ namespace Invert.ECS
         {
             get
             {
-                var typeName = Ctx.TypedItem.RelatedTypeName + "[]";
+                var typeName = string.Format("List<{0}>", Ctx.TypedItem.RelatedTypeName);
                  var output = Ctx.Item.OutputTo<ComponentNode>();
                 if (output != null )
                 {
-                    typeName = output.ClassName + "[]";
+                    typeName = string.Format("List<{0}>", output.ClassName);
                 }
              
                 Ctx.SetType(typeName);
@@ -373,7 +373,7 @@ namespace Invert.ECS
                 }
                 else
                 {
-                    Ctx._("{0} = _Asset.{0}", item.Name);
+                   // Ctx._("{0} = _Asset.{0}", item.Name);
                 }
               
             }

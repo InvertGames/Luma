@@ -98,4 +98,18 @@ namespace Invert.ECS.Graphs {
                 base(graphItemObject, diagramViewModel) {
         }
     }
+    
+    public class ExpressionNodeViewModelBase : VariableNodeViewModel {
+        
+        public ExpressionNodeViewModelBase(ExpressionNode graphItemObject, Invert.Core.GraphDesigner.DiagramViewModel diagramViewModel) : 
+                base(graphItemObject, diagramViewModel) {
+        }
+    }
+    
+    public class StringLiteralNodeViewModelBase : VariableNodeViewModel {
+        
+        public StringLiteralNodeViewModelBase(StringLiteralNode graphItemObject, Invert.Core.GraphDesigner.DiagramViewModel diagramViewModel) : 
+                base(graphItemObject, diagramViewModel) {
+        }
+    }
 }

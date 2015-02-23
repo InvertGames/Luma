@@ -7,6 +7,10 @@ namespace Invert.ECS.Graphs {
     
     
     public class VariableNode : VariableNodeBase, IAConnectable, IBConnectable {
+        public virtual string Literal
+        {
+            get { return Name; }
+        }
     }
     
     public partial interface IVariableConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {

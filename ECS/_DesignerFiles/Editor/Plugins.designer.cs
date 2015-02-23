@@ -43,6 +43,10 @@ namespace Invert.ECS.Graphs {
         
         private Invert.Core.GraphDesigner.NodeConfig<LoopNode> _Loop;
         
+        private Invert.Core.GraphDesigner.NodeConfig<ExpressionNode> _Expression;
+        
+        private Invert.Core.GraphDesigner.NodeConfig<StringLiteralNode> _StringLiteral;
+        
         public Invert.Core.GraphDesigner.NodeConfig<SystemsNode> Systems {
             get {
                 return _Systems;
@@ -151,6 +155,24 @@ namespace Invert.ECS.Graphs {
             }
         }
         
+        public Invert.Core.GraphDesigner.NodeConfig<ExpressionNode> Expression {
+            get {
+                return _Expression;
+            }
+            set {
+                _Expression = value;
+            }
+        }
+        
+        public Invert.Core.GraphDesigner.NodeConfig<StringLiteralNode> StringLiteral {
+            get {
+                return _StringLiteral;
+            }
+            set {
+                _StringLiteral = value;
+            }
+        }
+        
         public virtual Invert.Core.GraphDesigner.SelectItemTypeCommand GetEventsSelectionCommand() {
             return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = false };
         }
@@ -188,6 +210,8 @@ namespace Invert.ECS.Graphs {
             System.HasSubNode<VariableNode>();
             System.HasSubNode<EqualNode>();
             System.HasSubNode<LoopNode>();
+            System.HasSubNode<ExpressionNode>();
+            System.HasSubNode<StringLiteralNode>();
             Component = container.AddNode<ComponentNode,ComponentNodeViewModel,ComponentNodeDrawer>("Component");
             Component.Color(NodeColor.DarkGray);
             Event = container.AddNode<EventNode,EventNodeViewModel,EventNodeDrawer>("Event");
@@ -208,6 +232,10 @@ namespace Invert.ECS.Graphs {
             Equal.Color(NodeColor.Orange);
             Loop = container.AddNode<LoopNode,LoopNodeViewModel,LoopNodeDrawer>("Loop");
             Loop.Color(NodeColor.Purple);
+            Expression = container.AddNode<ExpressionNode,ExpressionNodeViewModel,ExpressionNodeDrawer>("Expression");
+            Expression.Color(NodeColor.Purple);
+            StringLiteral = container.AddNode<StringLiteralNode,StringLiteralNodeViewModel,StringLiteralNodeDrawer>("StringLiteral");
+            StringLiteral.Color(NodeColor.Purple);
             container.Connectable<HandlersReference,EventHandlerNode>();
             container.Connectable<ComponentsReference,RequiredComponentsReference>();
             container.Connectable<EventsChildItem,HandlersReference>();

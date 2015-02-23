@@ -51,7 +51,7 @@ namespace Invert.ECS.Graphs
 
         public override void WriteCode(TemplateContext ctx)
         {
-            var condition = ctx._if(string.Format("{0} {1} {2}", A, Sign, B));
+            var condition = ctx._if(string.Format("{0} {1} {2}", A.Literal, Sign, B.Literal));
             ctx.PushStatements(condition.TrueStatements);
             WriteTrueStatements(ctx);
             ctx.PopStatements();

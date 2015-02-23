@@ -144,7 +144,8 @@ public class FlipCubeSystem : FlipCubeSystemBase
     protected override void HandleNextLevel(EntityEventData data)
     {
         base.HandleNextLevel(data);
-        var levelIndex = Array.IndexOf(CurrentZone.Levels, CurrentLevel) + 1;
+
+        var levelIndex = CurrentZone.Levels.IndexOf(CurrentLevel) + 1;
 
         LevelSystem.SignalEnterLevel(Game, new EnterLevelEventData()
         {

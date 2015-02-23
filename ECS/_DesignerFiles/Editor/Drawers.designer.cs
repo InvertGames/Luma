@@ -99,4 +99,18 @@ namespace Invert.ECS.Graphs {
                 base(viewModel) {
         }
     }
+    
+    public class ExpressionNodeDrawerBase : GenericNodeDrawer<ExpressionNode,ExpressionNodeViewModel> {
+        
+        public ExpressionNodeDrawerBase(ExpressionNodeViewModel viewModel) : 
+                base(viewModel) {
+        }
+    }
+    
+    public class StringLiteralNodeDrawerBase : GenericNodeDrawer<StringLiteralNode,StringLiteralNodeViewModel> {
+        
+        public StringLiteralNodeDrawerBase(StringLiteralNodeViewModel viewModel) : 
+                base(viewModel) {
+        }
+    }
 }

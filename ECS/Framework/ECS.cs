@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Invert.ECS
 {
@@ -9,6 +10,8 @@ namespace Invert.ECS
     {
         public Int32 EntityId { get; set; }
     }
+
+  
     public class MouseEventData : object
     {
         public Int32 EntityId { get; set; }
@@ -165,6 +168,7 @@ namespace Invert.ECS
     {
         bool TryGetComponent<TComponent>(int entityId, out TComponent component) where TComponent : class, IComponent;
         bool TryGetComponent<TComponent>(int[] entityIds, out TComponent[] component) where TComponent : class, IComponent;
+        bool TryGetComponent<TComponent>(List<int> entityIds, out TComponent[] component) where TComponent : class, IComponent;
         IEnumerable<TComponent> GetAllComponents<TComponent>() where TComponent : IComponent;
         ComponentManager<TComponent> RegisterComponent<TComponent>() where TComponent : IComponent;
     }
@@ -318,6 +322,13 @@ namespace Invert.ECS
     using UnityEngine;
     using Invert.ECS;
 
+    public class ExportEventNode : ExportNode
+    {
+        public ExportEventNode()
+            : base("EventNode","PropertiesChildItem", "CollectionsChildItem")
+        {
+        }
+    }
     
     public class ToolbarArgs
     {
@@ -339,6 +350,18 @@ namespace Invert.ECS
         TriggerEnter,
         TriggerExit,
         TriggerStay
+    }
+
+    public enum uGUIEvents
+    {
+        Click,
+
+    }
+    public class UIEventData : object
+    {
+        public int EntityId { get; set; }
+        public UIBehaviour Component { get; set; }
+        public string Name { get; set; }
     }
     public class ComponentAsset : ScriptableObject, IComponent
     {
@@ -440,4 +463,19 @@ namespace Invert.ECS
     {
         bool IsDirty { get; set; }
     }
+
+    public class ExportNode : Attribute
+    {
+        public string NodeType { get; set; }
+        public string PropertiesType { get; set; }
+        public string CollectionsType { get; set; }
+        public ExportNode(string nodeType, string propertiesType, string collectionsType)
+        {
+            NodeType = nodeType;
+            PropertiesType = propertiesType;
+            CollectionsType = collectionsType;
+        }
+    }
+
+   
 }

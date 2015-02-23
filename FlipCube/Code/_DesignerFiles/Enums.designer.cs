@@ -253,9 +253,6 @@ public enum PlayerDataSystemEvents {
     OnSaveComponent,
 }
 
-public enum TutorialSystemEvents {
-}
-
 public enum FlipCubeUISystemEvents {
 }
 
@@ -296,4 +293,7 @@ public enum ProfileWindowSystemEvents {
 }
 
 public enum AccountWindowSystemEvents {
+}
+
+public enum TutorialSystemEvents {
 }

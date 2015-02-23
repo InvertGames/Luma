@@ -486,15 +486,24 @@ public class CameraSystemBase : UnitySystem {
 
 public class PlateSystemBase : UnitySystem {
     
+    private ComponentManager<Rollable> _RollableManager;
+    
     private ComponentManager<Plate> _PlateManager;
     
     private ComponentManager<Cube> _CubeManager;
     
-    private ComponentManager<Rollable> _RollableManager;
-    
     private ComponentManager<YingYangPlate> _YingYangPlateManager;
     
     private ComponentManager<DisableColliderOnCollision> _DisableColliderOnCollisionManager;
+    
+    public ComponentManager<Rollable> RollableManager {
+        get {
+            return _RollableManager;
+        }
+        set {
+            _RollableManager = value;
+        }
+    }
     
     public ComponentManager<Plate> PlateManager {
         get {
@@ -511,15 +520,6 @@ public class PlateSystemBase : UnitySystem {
         }
         set {
             _CubeManager = value;
-        }
-    }
-    
-    public ComponentManager<Rollable> RollableManager {
-        get {
-            return _RollableManager;
-        }
-        set {
-            _RollableManager = value;
         }
     }
     
@@ -543,9 +543,9 @@ public class PlateSystemBase : UnitySystem {
     
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
+        RollableManager = game.ComponentSystem.RegisterComponent<Rollable>();
         PlateManager = game.ComponentSystem.RegisterComponent<Plate>();
         CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
-        RollableManager = game.ComponentSystem.RegisterComponent<Rollable>();
         YingYangPlateManager = game.ComponentSystem.RegisterComponent<YingYangPlate>();
         DisableColliderOnCollisionManager = game.ComponentSystem.RegisterComponent<DisableColliderOnCollision>();
         game.EventManager.ListenFor( CubeGravitySystemEvents.RollCompletedStandingUp, RollCompletedStandingUp );
@@ -991,6 +991,8 @@ public class GoalPlateSystemBase : UnitySystem {
     
     private ComponentManager<GoalPlate> _GoalPlateManager;
     
+    private ComponentManager<TurnGravityOnEnter> _TurnGravityOnEnterManager;
+    
     public ComponentManager<Cube> CubeManager {
         get {
             return _CubeManager;
@@ -1018,11 +1020,21 @@ public class GoalPlateSystemBase : UnitySystem {
         }
     }
     
+    public ComponentManager<TurnGravityOnEnter> TurnGravityOnEnterManager {
+        get {
+            return _TurnGravityOnEnterManager;
+        }
+        set {
+            _TurnGravityOnEnterManager = value;
+        }
+    }
+    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
         CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
         PlateManager = game.ComponentSystem.RegisterComponent<Plate>();
         GoalPlateManager = game.ComponentSystem.RegisterComponent<GoalPlate>();
+        TurnGravityOnEnterManager = game.ComponentSystem.RegisterComponent<TurnGravityOnEnter>();
         game.EventManager.ListenFor( CubeGravitySystemEvents.RollCompletedStandingUp, RollCompletedStandingUp );
         game.EventManager.ListenFor( FlipCubeSystemEvents.ResetGame, ResetGame );
     }
@@ -1968,20 +1980,11 @@ public class SpecialFXSystemBase : UnitySystem {
 
 public class FlipCubeSoundSystemBase : UnitySystem {
     
-    private ComponentManager<Plate> _PlateManager;
-    
     private ComponentManager<Cube> _CubeManager;
     
-    private ComponentManager<GoalPlate> _GoalPlateManager;
+    private ComponentManager<Plate> _PlateManager;
     
-    public ComponentManager<Plate> PlateManager {
-        get {
-            return _PlateManager;
-        }
-        set {
-            _PlateManager = value;
-        }
-    }
+    private ComponentManager<GoalPlate> _GoalPlateManager;
     
     public ComponentManager<Cube> CubeManager {
         get {
@@ -1989,6 +1992,15 @@ public class FlipCubeSoundSystemBase : UnitySystem {
         }
         set {
             _CubeManager = value;
+        }
+    }
+    
+    public ComponentManager<Plate> PlateManager {
+        get {
+            return _PlateManager;
+        }
+        set {
+            _PlateManager = value;
         }
     }
     
@@ -2003,8 +2015,8 @@ public class FlipCubeSoundSystemBase : UnitySystem {
     
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
-        PlateManager = game.ComponentSystem.RegisterComponent<Plate>();
         CubeManager = game.ComponentSystem.RegisterComponent<Cube>();
+        PlateManager = game.ComponentSystem.RegisterComponent<Plate>();
         GoalPlateManager = game.ComponentSystem.RegisterComponent<GoalPlate>();
         game.EventManager.ListenFor( PlateSystemEvents.CubeEntered, CubeEntered );
         game.EventManager.ListenFor( PlateSystemEvents.CubeLeft, CubeLeft );
@@ -2625,58 +2637,6 @@ public class PlayerDataSystemBase : UnitySystem {
     }
 }
 
-public class TutorialSystemBase : UnitySystem {
-    
-    private ComponentManager<Plate> _PlateManager;
-    
-    private ComponentManager<TutorialOnEnter> _TutorialOnEnterManager;
-    
-    public ComponentManager<Plate> PlateManager {
-        get {
-            return _PlateManager;
-        }
-        set {
-            _PlateManager = value;
-        }
-    }
-    
-    public ComponentManager<TutorialOnEnter> TutorialOnEnterManager {
-        get {
-            return _TutorialOnEnterManager;
-        }
-        set {
-            _TutorialOnEnterManager = value;
-        }
-    }
-    
-    public override void Initialize(Invert.ECS.IGame game) {
-        base.Initialize(game);
-        PlateManager = game.ComponentSystem.RegisterComponent<Plate>();
-        TutorialOnEnterManager = game.ComponentSystem.RegisterComponent<TutorialOnEnter>();
-        game.EventManager.ListenFor( PlateSystemEvents.CubeEntered, CubeEntered );
-    }
-    
-    protected virtual void CubeEntered(Invert.ECS.IEvent e) {
-        TutorialOnEnter(e);
-    }
-    
-    protected virtual void TutorialOnEnter(Invert.ECS.IEvent e) {
-        var eventData = (PlateCubeCollsion)e.Data;
-        TutorialOnEnter tutorialonenter;
-        if (!Game.ComponentSystem.TryGetComponent<TutorialOnEnter>(eventData.PlateId, out tutorialonenter)) {
-            return;
-        }
-        Plate plate;
-        if (!Game.ComponentSystem.TryGetComponent<Plate>(tutorialonenter.ArrowOver, out plate)) {
-            return;
-        }
-        this.TutorialOnEnter(eventData, tutorialonenter, plate);
-    }
-    
-    protected virtual void TutorialOnEnter(PlateCubeCollsion data, TutorialOnEnter tutorialonenter, Plate plate) {
-    }
-}
-
 public class FlipCubeUISystemBase : UnitySystem {
     
     private ComponentManager<Player> _PlayerManager;
@@ -2829,8 +2789,6 @@ public class WindowSystemBase : UnitySystem {
     
     private ComponentManager<Window> _WindowManager;
     
-    private ComponentManager<CloseWindowOnClick> _CloseWindowOnClickManager;
-    
     public ComponentManager<Window> WindowManager {
         get {
             return _WindowManager;
@@ -2840,24 +2798,15 @@ public class WindowSystemBase : UnitySystem {
         }
     }
     
-    public ComponentManager<CloseWindowOnClick> CloseWindowOnClickManager {
-        get {
-            return _CloseWindowOnClickManager;
-        }
-        set {
-            _CloseWindowOnClickManager = value;
-        }
-    }
-    
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
         WindowManager = game.ComponentSystem.RegisterComponent<Window>();
-        CloseWindowOnClickManager = game.ComponentSystem.RegisterComponent<CloseWindowOnClick>();
         game.EventManager.ListenFor( WindowSystemEvents.ShowWindow, ShowWindow );
         game.EventManager.ListenFor( WindowSystemEvents.CloseWindow, CloseWindow );
         game.EventManager.ListenFor( WindowSystemEvents.ToggleWindow, ToggleWindow );
         game.EventManager.ListenFor( FrameworkEvents.Loaded, Loaded );
         game.EventManager.ListenFor( FrameworkEvents.ComponentCreated, ComponentCreated );
+        game.EventManager.ListenFor( uGUIEvents.Click, Click );
     }
     
     protected virtual void ShowWindow(Invert.ECS.IEvent e) {
@@ -2878,6 +2827,10 @@ public class WindowSystemBase : UnitySystem {
     
     protected virtual void ComponentCreated(Invert.ECS.IEvent e) {
         OnComponentCreated(e);
+    }
+    
+    protected virtual void Click(Invert.ECS.IEvent e) {
+        OnClick(e);
     }
     
     protected virtual void HandleShowWindow(Invert.ECS.IEvent e) {
@@ -2916,6 +2869,23 @@ public class WindowSystemBase : UnitySystem {
     }
     
     protected virtual void OnComponentCreated(IComponent data) {
+    }
+    
+    protected virtual void OnClick(Invert.ECS.IEvent e) {
+        var eventData = (UIEventData)e.Data;
+        Window window;
+        if (!Game.ComponentSystem.TryGetComponent<Window>(eventData.EntityId, out window)) {
+            return;
+        }
+        this.OnClick(eventData, window);
+        if (eventData.Name == "Close") {
+            WindowEventData closewindowData = new WindowEventData();
+            closewindowData.Window = window.WindowType;
+            WindowSystem.SignalCloseWindow(this.Game, closewindowData);
+        }
+    }
+    
+    protected virtual void OnClick(UIEventData data, Window window) {
     }
     
     public virtual void SignalShowWindow(WindowEventData data) {
@@ -2997,5 +2967,57 @@ public class AccountWindowSystemBase : UnitySystem {
     
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
+    }
+}
+
+public class TutorialSystemBase : UnitySystem {
+    
+    private ComponentManager<Plate> _PlateManager;
+    
+    private ComponentManager<TutorialOnEnter> _TutorialOnEnterManager;
+    
+    public ComponentManager<Plate> PlateManager {
+        get {
+            return _PlateManager;
+        }
+        set {
+            _PlateManager = value;
+        }
+    }
+    
+    public ComponentManager<TutorialOnEnter> TutorialOnEnterManager {
+        get {
+            return _TutorialOnEnterManager;
+        }
+        set {
+            _TutorialOnEnterManager = value;
+        }
+    }
+    
+    public override void Initialize(Invert.ECS.IGame game) {
+        base.Initialize(game);
+        PlateManager = game.ComponentSystem.RegisterComponent<Plate>();
+        TutorialOnEnterManager = game.ComponentSystem.RegisterComponent<TutorialOnEnter>();
+        game.EventManager.ListenFor( PlateSystemEvents.CubeEntered, CubeEntered );
+    }
+    
+    protected virtual void CubeEntered(Invert.ECS.IEvent e) {
+        TutorialOnEnter(e);
+    }
+    
+    protected virtual void TutorialOnEnter(Invert.ECS.IEvent e) {
+        var eventData = (PlateCubeCollsion)e.Data;
+        TutorialOnEnter tutorialonenter;
+        if (!Game.ComponentSystem.TryGetComponent<TutorialOnEnter>(eventData.PlateId, out tutorialonenter)) {
+            return;
+        }
+        Plate plate;
+        if (!Game.ComponentSystem.TryGetComponent<Plate>(tutorialonenter.ArrowOver, out plate)) {
+            return;
+        }
+        this.TutorialOnEnter(eventData, tutorialonenter, plate);
+    }
+    
+    protected virtual void TutorialOnEnter(PlateCubeCollsion data, TutorialOnEnter tutorialonenter, Plate plate) {
     }
 }

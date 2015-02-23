@@ -1,6 +1,8 @@
+using System.Reflection;
 using Invert.Core;
 using Invert.uFrame.Editor;
 using UnityEditor;
+using UnityEngine;
 
 namespace Invert.ECS.Graphs
 {
@@ -74,38 +76,33 @@ namespace Invert.ECS.Graphs
             System.HasSubNode<TypeReferenceNode>();
             Systems.HasSubNode<TypeReferenceNode>();
             var systemsGraph = CreatePrecompiledSystemsGraph("Framework");
+
             var unityGraph = CreatePrecompiledSystemsGraph("Unity");
             
             //Action.LoadDerived<ActionNodeViewModel>();
 //            container.RegisterItemDrawer<ScaffoldNodeChildItem<RequiredComponentsReference>.ViewModel, SlotDrawer>();
 
-            ProjectRepository.AddPrecompiledGraph(systemsGraph);
+            DefaultProjectRepository.AddPrecompiledGraph(systemsGraph);
             DefaultProjectRepository.AddPrecompiledGraph(unityGraph);
+
             EventHandler.HasSubNode<ActionNode>();
             container.AddTypeItem<PropertiesChildItem, ComponentPropertyChildViewModel, ComponentPropertyDrawer>();
             container.AddTypeItem<CollectionsChildItem, ComponentCollectionChildViewModel, ComponentCollectionDrawer>();
             container.AddItem<PropertyMapsReference, PropertyMappingsReferenceViewModel, PropertyMappingsReferenceDrawer>();
             //container.AddItem<VariableTypeSlot, InputOutputViewModel, SlotDrawer>();
             container.RegisterDrawer<ItemSelectionPropertyViewModel, ItemSelectionPropertyDrawer>();
+
+
             systemsGraph.AddNode(
                 CreatePrecompiledNode<EventNode>("ComponentEventData",
                     CreateTypedChild<PropertiesChildItem>(typeof(IComponent).Name, "Component")
                 ));
-            systemsGraph.AddNode(
-                CreatePrecompiledNode<EventNode>("EntityEventData",
-                    CreateTypedChild<PropertiesChildItem>("ENTITY", "EntityId")
-                ));
-            unityGraph.AddNode(
-                CreatePrecompiledNode<EventNode>("CollisionEventData",
-                    CreateTypedChild<PropertiesChildItem>("ENTITY", "ColliderId"),
-                    CreateTypedChild<PropertiesChildItem>("ENTITY", "CollideeId")
-                ));
 
-
-            unityGraph.AddNode(
-                CreatePrecompiledNode<EventNode>("MouseEventData",
-                    CreateTypedChild<PropertiesChildItem>("ENTITY", "EntityId")
-                ));
+            systemsGraph.AddNode(ImportEventClass<UIEventData>());
+            systemsGraph.AddNode(ImportEventClass<IComponent>());
+            systemsGraph.AddNode(ImportEventClass<MouseEventData>());
+            systemsGraph.AddNode(ImportEventClass<EntityEventData>());
+            systemsGraph.AddNode(ImportEventClass<CollisionEventData>());
 
             var node = CreatePrecompiledNode<SystemNode>("Framework",
                 CreateTypedChild<EventsChildItem>( "IComponent", "ComponentCreated"),
@@ -117,19 +114,55 @@ namespace Invert.ECS.Graphs
             systemsGraph.AddNode(node);
 
             var unityGraphNode = CreatePrecompiledNode<SystemNode>("Unity",
-                CreateTypedChild<EventsChildItem>( "CollisionEventData", "CollisionEnter"),
-                CreateTypedChild<EventsChildItem>( "CollisionEventData", "CollisionStay"),
-                CreateTypedChild<EventsChildItem>( "CollisionEventData", "CollisionExit"),
-                CreateTypedChild<EventsChildItem>( "CollisionEventData", "TriggerEnter"),
-                CreateTypedChild<EventsChildItem>( "CollisionEventData", "TriggerStay"),
-                CreateTypedChild<EventsChildItem>( "CollisionEventData", "TriggerExit"),
-                CreateTypedChild<EventsChildItem>( "MouseEventData", "MouseDown"),
-                CreateTypedChild<EventsChildItem>( "MouseEventData", "MouseUp")
-                );
-            unityGraph.AddNode(unityGraphNode);
+                CreateTypedChild<EventsChildItem>("CollisionEventData", "CollisionEnter"),
+                CreateTypedChild<EventsChildItem>("CollisionEventData", "CollisionStay"),
+                CreateTypedChild<EventsChildItem>("CollisionEventData", "CollisionExit"),
+                CreateTypedChild<EventsChildItem>("CollisionEventData", "TriggerEnter"),
+                CreateTypedChild<EventsChildItem>("CollisionEventData", "TriggerStay"),
+                CreateTypedChild<EventsChildItem>("CollisionEventData", "TriggerExit"),
+                CreateTypedChild<EventsChildItem>("MouseEventData", "MouseDown"),
+                CreateTypedChild<EventsChildItem>("MouseEventData", "MouseUp")
+            );
 
+            var graphNode = CreatePrecompiledNode<SystemNode>("uGUI",
+                CreateTypedChild<EventsChildItem>("UIEventData", "Click")
+                );
+            unityGraph.AddNode(graphNode);
+            unityGraph.AddNode(unityGraphNode);
         }
 
+        public EventNode ImportEventClass<TEventClass>()
+        {
+            var node =  ImportClass<EventNode, PropertiesChildItem, CollectionsChildItem>(typeof(TEventClass));
+            foreach (var item in node.ChildItems.OfType<ITypedItem>())
+            {
+                if (item.Name == "EntityId" || item.RelatedType == typeof(int).Name)
+                {
+                    item.RelatedType = "ENTITY";
+                }
+            }
+            return node;
+        }
+
+        public TNodeClass ImportClass<TNodeClass,TPropertiesType,TCollectionType>(Type classType) where TNodeClass : GenericNode, new() where TPropertiesType : GenericTypedChildItem, new() where TCollectionType : GenericTypedChildItem, new()
+        {
+            var properties = classType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var lst = new List<ITypedItem>();
+            
+            foreach (var property in properties)
+            {
+                if (property.PropertyType.IsArray || typeof (ICollection).IsAssignableFrom(property.PropertyType))
+                {
+                    lst.Add(CreateTypedChild<TCollectionType>(property.PropertyType.Name, property.Name));
+                }
+                else
+                {
+                    lst.Add(CreateTypedChild<TPropertiesType>(property.PropertyType.Name, property.Name));
+                }
+            }
+            return CreatePrecompiledNode<TNodeClass>(classType.Name, lst.Cast<ITypedItem>().ToArray());
+
+        }
         private static SystemsGraph CreatePrecompiledSystemsGraph(string name)
         {
             var systemsGraph = new SystemsGraph()
