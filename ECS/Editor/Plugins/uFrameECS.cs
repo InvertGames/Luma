@@ -74,7 +74,8 @@ namespace Invert.ECS.Graphs
             Systems.HasSubNode<EnumNode>();
             System.HasSubNode<EnumNode>();
             System.HasSubNode<TypeReferenceNode>();
-            Systems.HasSubNode<TypeReferenceNode>();
+            System.HasSubNode<ScreenshotNode>();
+            Systems.HasSubNode<TypeReferenceNode>().HasSubNode<ScreenshotNode>();
             var systemsGraph = CreatePrecompiledSystemsGraph("Framework");
 
             var unityGraph = CreatePrecompiledSystemsGraph("Unity");

@@ -17,6 +17,13 @@ namespace Invert.ECS.Graphs {
             get { return Properties.Count(p=>p.Saveable) > 1; }
         }
 
+        public override void Document(IDocumentationBuilder docs)
+        {
+            base.Document(docs);
+            docs.Paragraph("The component node is a data-only node. When the component is loaded it will register itself with the component manager of its type.");
+
+        }
+
         public string ClassName
         {
             get { return Name; }
