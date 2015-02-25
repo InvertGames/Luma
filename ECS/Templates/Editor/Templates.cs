@@ -68,7 +68,7 @@ namespace Invert.ECS
 
         public virtual string OutputPath
         {
-            get { return "Components"; }
+            get { return Path2.Combine(Ctx.Data.Graph.Name, "Components"); }
         }
 
         public virtual bool CanGenerate
@@ -223,7 +223,7 @@ namespace Invert.ECS
 
         public bool CanGenerate
         {
-            get { return true; }
+            get { return false; }
         }
 
         public void TemplateSetup()
@@ -306,9 +306,8 @@ namespace Invert.ECS
     {
         public override string OutputPath
         {
-            get { return "Components"; }
+            get { return Path2.Combine(Ctx.Data.Graph.Name, "Components"); }
         }
-
         public override void TemplateSetup()
         {
             base.TemplateSetup();
@@ -317,9 +316,9 @@ namespace Invert.ECS
                 Ctx.SetBaseType(typeof (UnityComponent));
               //  Ctx.CurrentDecleration.BaseTypes.Add(string.Format("I{0}", Ctx.Data.Name).ToCodeReference());
 
-                var field = Ctx.CurrentDecleration._private_(string.Format("{0}Asset", Ctx.Data.Name), "_Asset");
-                field.CustomAttributes.Add(new CodeAttributeDeclaration(typeof (SerializeField).ToCodeReference()));
-                field.CustomAttributes.Add(new CodeAttributeDeclaration(typeof (HideInInspector).ToCodeReference()));
+                //var field = Ctx.CurrentDecleration._private_(string.Format("{0}Asset", Ctx.Data.Name), "_Asset");
+                //field.CustomAttributes.Add(new CodeAttributeDeclaration(typeof (SerializeField).ToCodeReference()));
+                //field.CustomAttributes.Add(new CodeAttributeDeclaration(typeof (HideInInspector).ToCodeReference()));
 
             }
             else
@@ -333,7 +332,7 @@ namespace Invert.ECS
                     Ctx.CurrentDecleration.BaseTypes.Add(typeof(ISavableComponent).ToCodeReference());
                 }
         }
-        [TemplateProperty(MemberGeneratorLocation.DesignerFile)]
+       // [TemplateProperty(MemberGeneratorLocation.DesignerFile)]
         public ComponentAsset Asset
         {
             get
@@ -344,7 +343,7 @@ namespace Invert.ECS
             }
             set { Ctx._("_Asset = value"); }
         }
-        [TemplateMethod(MemberGeneratorLocation.DesignerFile)]
+       // [TemplateMethod(MemberGeneratorLocation.DesignerFile)]
         public void Awake()
         {
             Ctx.PushStatements(Ctx._if("_Asset != null").TrueStatements);
@@ -385,11 +384,10 @@ namespace Invert.ECS
      [TemplateClass( MemberGeneratorLocation.DesignerFile, ClassNameFormat = "{0}")]
     public class UnityComponentTemplatePartial : IClassTemplate<Invert.ECS.Graphs.ComponentNode>
     {
-        public string OutputPath
-        {
-            get { return "Components"; }
-        }
-
+         public string OutputPath
+         {
+             get { return Path2.Combine(Ctx.Data.Graph.Name, "Components"); }
+         }
          public bool CanGenerate
          {
              get { return true; }
@@ -404,7 +402,7 @@ namespace Invert.ECS
           //Ctx.Data.Project.Graphs.SelectMany(p => p.NodeItems.OfType<SystemNode>())
           //    .FirstOrDefault(p => p.SystemComponents.Contains(Ctx.Data));
              if (system != null)
-             {
+             {  
                  Ctx.CurrentDecleration.CustomAttributes.Add(new CodeAttributeDeclaration(
                      new CodeTypeReference(typeof(AddComponentMenu)),
                      new CodeAttributeArgument(
@@ -438,9 +436,9 @@ namespace Invert.ECS
             Ctx.AddIterator("ComponentCollection", _ => _.Collections);
         }
 
-        public string OutputPath
+        public virtual string OutputPath
         {
-            get { return "Events"; }
+            get { return Path2.Combine(Ctx.Data.Graph.Name, "Events"); }
         }
 
         public bool CanGenerate
@@ -608,11 +606,11 @@ namespace Invert.ECS
             }
 
         }
-
-        public string OutputPath
+        public virtual string OutputPath
         {
-            get { return "Systems"; }
+            get { return Path2.Combine(Ctx.Data.Graph.Name, "Systems"); }
         }
+
 
         public bool CanGenerate
         {
@@ -703,10 +701,11 @@ namespace Invert.ECS
             }
         }
 
-        public string OutputPath
+        public virtual string OutputPath
         {
-            get { return "Enums"; }
+            get { return Path2.Combine(Ctx.Data.Graph.Name, "Systems"); }
         }
+
 
         public bool CanGenerate
         {
@@ -768,7 +767,7 @@ namespace Invert.ECS
         }
         public bool CanGenerate
         {
-            get { return true; }
+            get { return false; }
         }
         public TemplateContext<ComponentNode> Ctx { get; set; }
 

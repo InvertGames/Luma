@@ -79,6 +79,11 @@ namespace Invert.ECS.Graphs {
     public class PropertiesChildItem : PropertiesChildItemBase, IPropertyMapsConnectable, IRequiredComponent
     {
         private bool _save = false;
+        public override void Document(IDocumentationBuilder docs)
+        {
+            base.Document(docs);
+            docs.Paragraph("The properties of the nodes class.");
+        }
 
         [JsonProperty,InspectorProperty]
         public bool Saveable

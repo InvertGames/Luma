@@ -279,20 +279,20 @@ public class PlateEditor : EntityComponentEditor
 }
 
 
-[CustomEditor(typeof(UnityComponent), true)]
-public class ComponentEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        var property = serializedObject.FindProperty("_Asset");
-        serializedObject.Update();
-        EditorGUILayout.PropertyField(property);
-        serializedObject.ApplyModifiedProperties(); base.OnInspectorGUI();
+//[CustomEditor(typeof(UnityComponent), true)]
+//public class ComponentEditor : Editor
+//{
+//    public override void OnInspectorGUI()
+//    {
+//        var property = serializedObject.FindProperty("_Asset");
+//        serializedObject.Update();
+//        EditorGUILayout.PropertyField(property);
+//        serializedObject.ApplyModifiedProperties(); base.OnInspectorGUI();
         
 
-    }
+//    }
 
-}
+//}
 
 public static class IdHelpers
 {

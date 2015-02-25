@@ -19,7 +19,7 @@ namespace Invert.ECS.Graphs {
 
         public override void Document(IDocumentationBuilder docs)
         {
-            base.Document(docs);
+            //base.Document(docs);
             docs.Paragraph("The component node is a data-only node. When the component is loaded it will register itself with the component manager of its type.");
 
         }

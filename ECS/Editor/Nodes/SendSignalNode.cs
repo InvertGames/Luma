@@ -30,7 +30,12 @@ namespace Invert.ECS.Graphs {
         [ NodeProperty(InspectorType.GraphItems)]
         public EventsChildItem Event
         {
-            get { return Project.NodeItems.OfType<SystemNode>().SelectMany(p=>p.Events).FirstOrDefault(p => p.Identifier == EventTypeId) as EventsChildItem; }
+            get
+            {
+                if (Graph == null) return null;
+                if (Project == null) return null;
+                return Project.NodeItems.OfType<SystemNode>().SelectMany(p=>p.Events).FirstOrDefault(p => p.Identifier == EventTypeId) as EventsChildItem;
+            }
             set
             {
 

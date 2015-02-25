@@ -13,7 +13,7 @@ namespace Invert.ECS.Unity
         public UnityComponentSystem ComponentSystem;
         private IEventManager _eventManager;
         private readonly LinkedList<ISystem> _systems = new LinkedList<ISystem>();
-        public UnitySystem[] _UnitySystems;
+        public List<UnitySystem> _UnitySystems;
         public string[] _SystemScenes;
         public string[] _BackgroundScenes;
         private IEntityManager _entityManager;
@@ -60,6 +60,8 @@ namespace Invert.ECS.Unity
         public virtual void Awake()
         {
             Instance = this;
+            _UnitySystems.AddRange(this.GetComponents<UnitySystem>());
+            
             foreach (var system in _UnitySystems)
             {
                 if (!system.enabled) continue;
