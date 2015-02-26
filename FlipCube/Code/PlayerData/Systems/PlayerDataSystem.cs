@@ -38,7 +38,6 @@ public class PlayerDataSystem : PlayerDataSystemBase
         if (str != null)
         {
             DeserializeComponent(JSON.Parse(str), saveable);
-            Debug.Log(string.Format("Loaded entity {0} : with {1}", saveable.EntityId, str));
         }
     }
 

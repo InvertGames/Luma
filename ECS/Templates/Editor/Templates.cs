@@ -22,7 +22,7 @@ namespace Invert.ECS
         public override void Initialize(uFrameContainer container)
         {
             ECSPlugin = container.Resolve<uFrameECS>();
-
+            
             ECSPlugin.Component.AddCodeTemplate<UnityComponentTemplate>();
             //ECSPlugin.Component.AddCodeTemplate<VanillaComponentTemplate>();
             //ECSPlugin.Component.AddCodeTemplate<ComponentInterfaceTemplate>();
@@ -42,6 +42,7 @@ namespace Invert.ECS
         public uFrameECS ECSPlugin { get; set; }
     }
 
+ 
     public class ComponentTemplate : IClassTemplate<Invert.ECS.Graphs.ComponentNode>
     {
 
@@ -395,6 +396,7 @@ namespace Invert.ECS
 
          public void TemplateSetup()
          {
+             
              Ctx.CurrentDecleration.BaseTypes.Clear();
              Ctx.CurrentDecleration.IsPartial = true;
              Ctx.CurrentDecleration.Name = Ctx.Data.Name;

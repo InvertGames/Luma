@@ -12,7 +12,7 @@ namespace Invert.ECS.Graphs
     using System.Linq;
     using Invert.Core.GraphDesigner;
 
-    public class uFrameECS : uFrameECSBase
+    public class uFrameECS : uFrameECSBase, IPrefabNodeProvider
     {
 
         private static ECSUserSettings _userSettings;
@@ -207,6 +207,40 @@ namespace Invert.ECS.Graphs
                 Precompiled = true,
                 Identifier = name
             };
+        }
+
+        public IEnumerable<QuickAddItem> PrefabNodes(INodeRepository nodeRepository)
+        {
+            var system = nodeRepository.CurrentFilter as SystemNode;
+            if (system != null)
+            {
+                var eventChildItems = system.PossibleHandlers.OfType<EventsChildItem>().ToArray();
+                foreach (var item in eventChildItems)
+                {
+                    var item1 = item;
+                    var quickAddAction = new QuickAddItem("Listen For", item1.Name, _ =>
+                    {
+                        
+                        var handlerReference = new HandlersReference()
+                        {
+                            Node = system,
+                            SourceIdentifier = _.Item.Identifier
+                        };
+                        nodeRepository.AddItem(handlerReference);
+                        var eventNode = new EventHandlerNode()
+                        {
+                            Name = _.Item.Name + "Handler",
+                        };
+                        _.Diagram.AddNode(eventNode, _.MousePosition);
+                        _.Diagram.DiagramData.AddConnection(handlerReference,eventNode);
+                    })
+                    {
+                        Item = item
+                    };
+                    yield return quickAddAction;
+                }
+                
+            }
         }
     }
 
