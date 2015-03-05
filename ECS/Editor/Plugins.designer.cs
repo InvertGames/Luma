@@ -47,6 +47,8 @@ namespace Invert.ECS.Graphs {
         
         private Invert.Core.GraphDesigner.NodeConfig<StringLiteralNode> _StringLiteral;
         
+        private Invert.Core.GraphDesigner.NodeConfig<EachComponentNode> _EachComponent;
+        
         public Invert.Core.GraphDesigner.NodeConfig<SystemsNode> Systems {
             get {
                 return _Systems;
@@ -173,6 +175,15 @@ namespace Invert.ECS.Graphs {
             }
         }
         
+        public Invert.Core.GraphDesigner.NodeConfig<EachComponentNode> EachComponent {
+            get {
+                return _EachComponent;
+            }
+            set {
+                _EachComponent = value;
+            }
+        }
+        
         public virtual Invert.Core.GraphDesigner.SelectItemTypeCommand GetEventsSelectionCommand() {
             return new SelectItemTypeCommand() { IncludePrimitives = true, AllowNone = false };
         }
@@ -212,6 +223,7 @@ namespace Invert.ECS.Graphs {
             System.HasSubNode<LoopNode>();
             System.HasSubNode<ExpressionNode>();
             System.HasSubNode<StringLiteralNode>();
+            System.HasSubNode<EachComponentNode>();
             Component = container.AddNode<ComponentNode,ComponentNodeViewModel,ComponentNodeDrawer>("Component");
             Component.Color(NodeColor.DarkGray);
             Event = container.AddNode<EventNode,EventNodeViewModel,EventNodeDrawer>("Event");
@@ -236,11 +248,14 @@ namespace Invert.ECS.Graphs {
             Expression.Color(NodeColor.Purple);
             StringLiteral = container.AddNode<StringLiteralNode,StringLiteralNodeViewModel,StringLiteralNodeDrawer>("StringLiteral");
             StringLiteral.Color(NodeColor.Purple);
+            EachComponent = container.AddNode<EachComponentNode,EachComponentNodeViewModel,EachComponentNodeDrawer>("EachComponent");
+            EachComponent.Color(NodeColor.Purple);
             container.Connectable<HandlersReference,EventHandlerNode>();
             container.Connectable<ComponentsReference,RequiredComponentsReference>();
             container.Connectable<EventsChildItem,HandlersReference>();
             container.Connectable<ComponentNode,ComponentsReference>();
             container.Connectable<ComponentNode,RequiredComponentsReference>();
+            container.Connectable<ComponentNode,Component>();
             container.Connectable<ActionNode,ActionNode>();
             container.Connectable<VariableNode,A>();
             container.Connectable<VariableNode,B>();

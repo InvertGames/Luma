@@ -24,8 +24,15 @@ namespace Invert.ECS
         bool EnsureUniqueEntityId(IEntityComponent component);
         void SpawnEntity();
     }
+
+    /// <summary>
+    /// The Entity Is never anything more than an Id
+    /// </summary>
     public interface IEntityComponent
     {
+        /// <summary>
+        /// The All Important Entity Id
+        /// </summary>
         int EntityId { get; set; }
     }
 
@@ -33,6 +40,8 @@ namespace Invert.ECS
     {
         
     }
+
+
     public enum FrameworkEvents
     {
         ComponentCreated,

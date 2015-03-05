@@ -129,3 +129,76 @@ public enum ScoringSystemEvents {
     
     RemoveFromScore,
 }
+
+public class DemoSystemBase : UnitySystem {
+    
+    private ComponentManager<BoxA> _BoxAManager;
+    
+    private ComponentManager<BoxB> _BoxBManager;
+    
+    public ComponentManager<BoxA> BoxAManager {
+        get {
+            return _BoxAManager;
+        }
+        set {
+            _BoxAManager = value;
+        }
+    }
+    
+    public ComponentManager<BoxB> BoxBManager {
+        get {
+            return _BoxBManager;
+        }
+        set {
+            _BoxBManager = value;
+        }
+    }
+    
+    public override void Initialize(Invert.ECS.IGame game) {
+        base.Initialize(game);
+        BoxAManager = game.ComponentSystem.RegisterComponent<BoxA>();
+        BoxBManager = game.ComponentSystem.RegisterComponent<BoxB>();
+        game.EventManager.ListenFor( UnityEvents.CollisionEnter, CollisionEnter );
+    }
+    
+    protected virtual void CollisionEnter(Invert.ECS.IEvent e) {
+        CollisionEnterHandler(e);
+    }
+    
+    protected virtual void CollisionEnterHandler(Invert.ECS.IEvent e) {
+        var eventData = (CollisionEventData)e.Data;
+        BoxA boxa;
+        if (!Game.ComponentSystem.TryGetComponent<BoxA>(eventData.CollideeId, out boxa)) {
+            return;
+        }
+        BoxB boxb;
+        if (!Game.ComponentSystem.TryGetComponent<BoxB>(eventData.ColliderId, out boxb)) {
+            return;
+        }
+        this.CollisionEnterHandler(eventData, boxa, boxb);
+        BoxABCollision boxabcollidedData = new BoxABCollision();
+        boxabcollidedData.BoxAID = eventData.CollideeId;
+        boxabcollidedData.BoxBID = eventData.ColliderId;
+        DemoSystem.SignalBoxABCollided(this.Game, boxabcollidedData);
+        this.RenameMe(boxa, boxb);
+    }
+    
+    protected virtual void CollisionEnterHandler(CollisionEventData data, BoxA boxa, BoxB boxb) {
+    }
+    
+    protected virtual void RenameMe(BoxA boxa, BoxB boxb) {
+    }
+    
+    public virtual void SignalBoxABCollided(BoxABCollision data) {
+        Game.EventManager.SignalEvent(new EventData(DemoSystemEvents.BoxABCollided,data));
+    }
+    
+    public static void SignalBoxABCollided(IGame game, BoxABCollision data) {
+        game.EventManager.SignalEvent(new EventData(DemoSystemEvents.BoxABCollided,data));
+    }
+}
+
+public enum DemoSystemEvents {
+    
+    BoxABCollided,
+}

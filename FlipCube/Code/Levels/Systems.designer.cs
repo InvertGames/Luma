@@ -18,6 +18,7 @@ using Invert.ECS;
 public class LevelSystemBase : UnitySystem {
     
     private ComponentManager<Level> _LevelManager;
+
     
     private ComponentManager<LevelScene> _LevelSceneManager;
     
@@ -29,7 +30,7 @@ public class LevelSystemBase : UnitySystem {
             _LevelManager = value;
         }
     }
-    
+
     public ComponentManager<LevelScene> LevelSceneManager {
         get {
             return _LevelSceneManager;
@@ -41,6 +42,7 @@ public class LevelSystemBase : UnitySystem {
     
     public override void Initialize(Invert.ECS.IGame game) {
         base.Initialize(game);
+        LevelManager = game.ComponentSystem.RegisterComponent<Level>();
         LevelManager = game.ComponentSystem.RegisterComponent<Level>();
         LevelSceneManager = game.ComponentSystem.RegisterComponent<LevelScene>();
         game.EventManager.ListenFor( FrameworkEvents.ComponentCreated, ComponentCreated );

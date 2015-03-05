@@ -91,7 +91,7 @@ namespace Invert.ECS.Graphs {
     public partial interface ISystemConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
     
-    public class ComponentNodeBase : Invert.Core.GraphDesigner.GenericNode, Invert.Core.GraphDesigner.IClassTypeNode, IComponentsConnectable, IRequiredComponentsConnectable {
+    public class ComponentNodeBase : Invert.Core.GraphDesigner.GenericNode, Invert.Core.GraphDesigner.IClassTypeNode, IComponentsConnectable, IRequiredComponentsConnectable, IComponentConnectable {
         
         public virtual string ClassName {
             get {
@@ -490,5 +490,38 @@ namespace Invert.ECS.Graphs {
     }
     
     public partial interface IStringLiteralConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
+    }
+    
+    public class EachComponentNodeBase : ActionNode {
+        
+        private Component _Component;
+        
+        public override bool AllowMultipleInputs {
+            get {
+                return true;
+            }
+        }
+        
+        public override bool AllowMultipleOutputs {
+            get {
+                return true;
+            }
+        }
+        
+        [Invert.Core.GraphDesigner.InputSlot("Component", false, SectionVisibility.Always, OrderIndex=0, IsNewRow=true)]
+        public virtual Component ComponentInputSlot {
+            get {
+                if (_Component == null) {
+                    _Component = new Component() { Node = this };
+                }
+                return _Component;
+            }
+            set {
+                _Component = value;
+            }
+        }
+    }
+    
+    public partial interface IEachComponentConnectable : Invert.Core.GraphDesigner.IDiagramNodeItem, Invert.Core.GraphDesigner.IConnectable {
     }
 }

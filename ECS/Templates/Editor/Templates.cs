@@ -160,7 +160,7 @@ namespace Invert.ECS
             }
             set
             {
-                Ctx._("_{0} = value", Ctx.Item.Name);
+                //Ctx._("_{0} = value", Ctx.Item.Name);
             }
         }
 
@@ -396,7 +396,6 @@ namespace Invert.ECS
 
          public void TemplateSetup()
          {
-             
              Ctx.CurrentDecleration.BaseTypes.Clear();
              Ctx.CurrentDecleration.IsPartial = true;
              Ctx.CurrentDecleration.Name = Ctx.Data.Name;

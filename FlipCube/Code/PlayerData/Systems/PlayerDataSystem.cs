@@ -49,6 +49,7 @@ public class PlayerDataSystem : PlayerDataSystemBase
             LoadComponent(item);
         }
     }
+
     public virtual string GetDataByEntity(string entityId)
     {
         return PlayerPrefs.GetString(entityId.ToString(), null);

@@ -28,3 +28,28 @@ public class NotificationDataBase : object {
         }
     }
 }
+
+public class BoxABCollisionBase : object {
+    
+    private Int32 _BoxAID;
+    
+    private Int32 _BoxBID;
+    
+    public Int32 BoxAID {
+        get {
+            return _BoxAID;
+        }
+        set {
+            _BoxAID = value;
+        }
+    }
+    
+    public Int32 BoxBID {
+        get {
+            return _BoxBID;
+        }
+        set {
+            _BoxBID = value;
+        }
+    }
+}

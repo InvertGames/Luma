@@ -112,4 +112,11 @@ namespace Invert.ECS.Graphs {
                 base(graphItemObject, diagramViewModel) {
         }
     }
+    
+    public class EachComponentNodeViewModelBase : ActionNodeViewModel {
+        
+        public EachComponentNodeViewModelBase(EachComponentNode graphItemObject, Invert.Core.GraphDesigner.DiagramViewModel diagramViewModel) : 
+                base(graphItemObject, diagramViewModel) {
+        }
+    }
 }

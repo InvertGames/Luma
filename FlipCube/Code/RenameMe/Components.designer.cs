@@ -52,3 +52,17 @@ public class ScoringBase : Invert.ECS.Unity.UnityComponent {
 [UnityEngine.AddComponentMenu("RenameMe/Scoring")]
 public partial class Scoring {
 }
+
+public class BoxABase : Invert.ECS.Unity.UnityComponent {
+}
+
+[UnityEngine.AddComponentMenu("RenameMe/BoxA")]
+public partial class BoxA {
+}
+
+public class BoxBBase : Invert.ECS.Unity.UnityComponent {
+}
+
+[UnityEngine.AddComponentMenu("RenameMe/BoxB")]
+public partial class BoxB {
+}

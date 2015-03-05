@@ -2,6 +2,17 @@ using UnityEngine;
 
 namespace Invert.ECS.Unity
 {
+    /// <summary>
+    /// The Entity Component serves as an identifier for a game-object.  It has two purposes:
+    /// 1. Supplying the EntityId to other components at design time.
+    /// 2. Helping dispatchers know what entity to signal events for.
+    /// 
+    /// Assigning Ids:
+    /// The Custom Inspector for EntityComponent has two buttons.
+    /// Assign New Id - This will incremement your UserSettings "StartingId" and assign the value to this entity and any components that live on the same object.
+    /// Assign New To Children - This is nothing more than a convenience option.  If you are adding multiple game-object as children to this game-object then you can
+    /// easily assign new id's to its children.  This can be very beneficial in level building scenarios.
+    /// </summary>
     [ExecuteInEditMode]
     public class EntityComponent : MonoBehaviour,IEntityComponent
     {

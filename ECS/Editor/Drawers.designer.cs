@@ -113,4 +113,11 @@ namespace Invert.ECS.Graphs {
                 base(viewModel) {
         }
     }
+    
+    public class EachComponentNodeDrawerBase : GenericNodeDrawer<EachComponentNode,EachComponentNodeViewModel> {
+        
+        public EachComponentNodeDrawerBase(EachComponentNodeViewModel viewModel) : 
+                base(viewModel) {
+        }
+    }
 }

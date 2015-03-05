@@ -31,3 +31,7 @@ public class LevelEventDataBase : object {
 
 public class EnterLevelEventDataBase : object {
 }
+
+public class Base : object {
+}
+
