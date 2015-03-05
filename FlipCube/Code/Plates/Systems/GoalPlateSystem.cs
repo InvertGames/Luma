@@ -19,7 +19,7 @@ public class GoalPlateSystem : GoalPlateSystemBase {
     protected override void GravityOnEnter(PlateCubeCollsion data, TurnGravityOnEnter plateid, Cube cubeid)
     {
         base.GravityOnEnter(data, plateid, cubeid);
-        cubeid.rigidbody.useGravity = true;
-        cubeid.rigidbody.constraints = RigidbodyConstraints.None;
+        cubeid.GetComponent<Rigidbody>().useGravity = true;
+        cubeid.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
     }
 }

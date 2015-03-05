@@ -63,8 +63,8 @@ public class CubeGravitySystem : CubeGravitySystemBase
             var over = Physics.RaycastAll(new Ray(cube.transform.position, Vector3.down),2f);
             if (!over.Any(p => p.collider.GetComponent<Plate>() != null))
             {
-                cube.rigidbody.useGravity = true;
-                cube.rigidbody.constraints = RigidbodyConstraints.None;
+                cube.GetComponent<Rigidbody>().useGravity = true;
+                cube.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                 SignalOnFall(new EntityEventData() { EntityId = cube.EntityId });
             }
             else
@@ -87,8 +87,8 @@ public class CubeGravitySystem : CubeGravitySystemBase
                 if (!over.Any(p => p.collider.GetComponent<Plate>() != null))
                 {
 
-                    cube.rigidbody.useGravity = true;
-                    cube.rigidbody.constraints = RigidbodyConstraints.None;
+                    cube.GetComponent<Rigidbody>().useGravity = true;
+                    cube.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 
                     SignalOnFall(new EntityEventData() { EntityId = cube.EntityId });
                     return;

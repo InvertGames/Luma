@@ -71,7 +71,7 @@ public class SpecialFXSystem : SpecialFXSystemBase
         base.TweenPlateOff(data, tweenplatecolors);
         if (!tweenplatecolors.IsToggle)
         {
-            tweenplatecolors.renderer.material.colorTo(1f, tweenplatecolors.IdleColor);
+            tweenplatecolors.GetComponent<Renderer>().material.colorTo(1f, tweenplatecolors.IdleColor);
         }
         //tweenplatecolors.renderer.material.colorTo(2f, tweenplatecolors.IdleColor);
     }
@@ -83,20 +83,20 @@ public class SpecialFXSystem : SpecialFXSystemBase
         {
             if (tweenplatecolors.IsOn)
             {
-                tweenplatecolors.renderer.material.colorTo(0.1f, tweenplatecolors.IdleColor);
+                tweenplatecolors.GetComponent<Renderer>().material.colorTo(0.1f, tweenplatecolors.IdleColor);
                 tweenplatecolors.IsOn = false;
 
             }
             else
             {
-                tweenplatecolors.renderer.material.colorTo(0.1f, tweenplatecolors.OnEnterColor);
+                tweenplatecolors.GetComponent<Renderer>().material.colorTo(0.1f, tweenplatecolors.OnEnterColor);
                 tweenplatecolors.IsOn = true;
             }
 
         }
         else
         {
-            tweenplatecolors.renderer.material.colorTo(0.1f, tweenplatecolors.OnEnterColor);    
+            tweenplatecolors.GetComponent<Renderer>().material.colorTo(0.1f, tweenplatecolors.OnEnterColor);    
         }
         
         

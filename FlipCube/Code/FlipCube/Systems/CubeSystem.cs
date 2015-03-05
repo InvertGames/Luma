@@ -165,7 +165,7 @@ public class CubeSystem : CubeSystemBase
         });
 
         cube.RestState = RollerState.StandingUp;
-        cube.rigidbody.useGravity = false;
+        cube.GetComponent<Rigidbody>().useGravity = false;
         UseGravity(cube, false, false);
     }
 
@@ -210,8 +210,8 @@ public class CubeSystem : CubeSystemBase
         vector.z = Mathf.Round(vector.z / 90) * 90;
         roller.transform.eulerAngles = vector;
 
-        roller.gameObject.rigidbody.velocity = new Vector3(0f, 0f, 0f);
-        roller.gameObject.rigidbody.angularVelocity = new Vector3(0f, 0f, 0f);
+        roller.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+        roller.gameObject.GetComponent<Rigidbody>().angularVelocity = new Vector3(0f, 0f, 0f);
 
         yield return new WaitForSeconds(0.01f);
         roller.IsRolling = false;
@@ -373,9 +373,9 @@ public class CubeSystem : CubeSystemBase
 
     public virtual void UseGravity(Rollable roller, bool use, bool onlyVertical = false)
     {
-        roller.rigidbody.constraints = use ? RigidbodyConstraints.None :
+        roller.GetComponent<Rigidbody>().constraints = use ? RigidbodyConstraints.None :
             onlyVertical ? (RigidbodyConstraints)122 : RigidbodyConstraints.FreezeAll;
-        roller.rigidbody.useGravity = use;
+        roller.GetComponent<Rigidbody>().useGravity = use;
     }
 
     public void Roll(Rollable roller, Vector3 rotationPoint, Vector3 axis, float angle, Vector3 direction)

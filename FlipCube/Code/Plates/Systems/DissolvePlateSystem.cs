@@ -43,14 +43,14 @@ public class DissolvePlateSystem : DissolvePlateSystemBase
         for (int index = 0; index < len; index++)
         {
             var rb = rbs[index];
-            rb.collider.enabled = true;
+            rb.GetComponent<Collider>().enabled = true;
             rb.useGravity = true;
             rb.AddExplosionForce(1f, rb.transform.position, 0.1f);
             rb.transform.parent = null;
             //yield return new WaitForSeconds(0.05f);
             Destroy(rb.gameObject, 2f);
             var rb2 = rbs[len + index];
-            rb2.collider.enabled = true;
+            rb2.GetComponent<Collider>().enabled = true;
             rb2.useGravity = true;
             rb2.AddExplosionForce(1f, rb.transform.position, 0.1f);
             rb2.transform.parent = null;

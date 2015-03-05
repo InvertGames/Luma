@@ -26,8 +26,8 @@ public class ForgeSmoothCamera : MonoBehaviour
 
 	    if (target != null)
 	    {
-            var velocityX = target.transform.rigidbody.velocity.x;
-            var velocityY = target.transform.rigidbody.velocity.z;
+            var velocityX = target.transform.GetComponent<Rigidbody>().velocity.x;
+            var velocityY = target.transform.GetComponent<Rigidbody>().velocity.z;
             transform.position = new Vector3(Mathf.SmoothDamp(transform.position.x, between.x, ref velocityX, smoothTime),
                 transform.position.y,
                 Mathf.SmoothDamp(transform.position.z, between.z, ref velocityY, smoothTime));    

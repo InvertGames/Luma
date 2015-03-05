@@ -50,7 +50,7 @@ public class CameraSystem : CameraSystemBase
 
         var between = Following.transform.position + (_delta * 0.2f);
 
-        var rb = Following.rigidbody;
+        var rb = Following.GetComponent<Rigidbody>();
         if (Following != null && rb != null)
         {
             var velocityX = rb.velocity.x;
