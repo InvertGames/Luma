@@ -1,0 +1,8 @@
+{
+	"Identifier":"6cf6552f-fb9a-451a-b5db-8945732b626a"	, 
+	"Time":"11/13/2015 12:34:21 AM"	, 
+	"Group":"03421"	, 
+	"DataRecordId":"2521ac0a-1a84-4568-a37f-964008d1a600"	, 
+	"Type":2	, 
+	"RecordType":"Invert.uFrame.ECS.EcsWorkspace, Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
+	"Data":"{\r\n\t\"Identifier\":\"2521ac0a-1a84-4568-a37f-964008d1a600\"\t, \r\n\t\"Name\":\"GameModes\"\t, \r\n\t\"CurrentGraphId\":\"5105459a-e23d-4e35-a5e1-cd6980192b73\"\t, \r\n\t\"Expanded\":false}\r\n"}
