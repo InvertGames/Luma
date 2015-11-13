@@ -23,6 +23,7 @@ public class PlayerDataSystem : PlayerDataSystemBase
     protected override void ComponentCreated(IEvent e)
     {
         base.ComponentCreated(e);
+        
         var saveable = e.Data as ISavableComponent;
         if (saveable != null)
         {
@@ -30,9 +31,12 @@ public class PlayerDataSystem : PlayerDataSystemBase
             SaveableManager.RegisterComponent(saveable);
             LoadComponent(saveable);
         }
+        
+
+        
     }
 
-    private void LoadComponent(ISavableComponent saveable)
+    protected virtual void LoadComponent(ISavableComponent saveable)
     {
         var str = GetDataByEntity(saveable.EntityId + "_" + saveable.GetType().Name);
         if (str != null)
@@ -58,6 +62,14 @@ public class PlayerDataSystem : PlayerDataSystemBase
     public virtual void SetDataByEntity(string entityId, string data)
     {
         PlayerPrefs.SetString(entityId.ToString(), data);
+    }
+    protected virtual int GetPlayerStat(IComponent component, string key)
+    {
+        return PlayerPrefs.GetInt(key, 0);
+    }
+    protected virtual void SavePlayerStat(IComponent component, string key, int value)
+    {
+        PlayerPrefs.SetInt(key, value);
     }
 
     protected override void ComponentDestroyed(IEvent e)
@@ -189,13 +201,6 @@ public class PlayerDataSystem : PlayerDataSystemBase
 
     }
 
-    protected virtual int GetPlayerStat(IComponent component, string key)
-    {
-        return PlayerPrefs.GetInt(key,0);
-    }
-    protected virtual void SavePlayerStat(IComponent component, string key, int value)
-    {
-        PlayerPrefs.SetInt(key, value);
-    }
+
 
 }

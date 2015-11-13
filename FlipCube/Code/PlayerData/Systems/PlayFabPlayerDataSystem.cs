@@ -48,7 +48,7 @@ public class PlayFabPlayerDataSystem : PlayerDataSystem
             PlayFabClientAPI.GetUserData(request, result =>
             {
                 Data = result.Data;
-
+                
                 PlayFabClientAPI.GetUserStatistics(new GetUserStatisticsRequest()
                 {
                    

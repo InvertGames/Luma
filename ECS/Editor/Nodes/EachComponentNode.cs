@@ -7,6 +7,7 @@ namespace Invert.ECS.Graphs {
     
     
     public class EachComponentNode : EachComponentNodeBase {
+        
         public override IEnumerable<IContextVariable> ContextVariables
         {
             get { yield return new ContextVariable("item")

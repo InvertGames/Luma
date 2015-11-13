@@ -32,11 +32,19 @@ namespace Invert.ECS.Graphs {
                 return ChildItems.OfType<ComponentsReference>();
             }
         }
+        
 
-        public override IEnumerable<IHandlersConnectable> PossibleHandlers
-        {
-            get { return base.PossibleHandlers; }
-        }
+        //public override System.Collections.Generic.IEnumerable<IHandlersConnectable> PossibleHandlers
+        //{
+        //    get
+        //    {
+        //        return this.Project.AllGraphItems.OfType<IHandlersConnectable>();
+        //    }
+        //}
+        //public override IEnumerable<IHandlersConnectable> PossibleHandlers
+        //{
+        //    get { return base.PossibleHandlers; }
+        //}
     }
 
 }

@@ -68,7 +68,7 @@ namespace Invert.ECS.Graphs
            
             var typeContainer = InvertGraphEditor.TypesContainer;
             typeContainer.RegisterInstance(new GraphTypeInfo() {  Group = "",Name="ENTITY", Label = "ENTITY", IsPrimitive = true }, "ENTITY");
-            typeContainer.RegisterInstance(new GraphTypeInfo() { Type=typeof(UnityEngine.Color), Group = "",Name="Color", Label = "Color", IsPrimitive = true }, "Color");
+            typeContainer.RegisterInstance(new GraphTypeInfo() { Type=typeof(Color), Group = "",Name="Color", Label = "Color", IsPrimitive = true }, "Color");
             System.AddFlag("Unity System");
             EventHandler.Name = "Event Handler";
             Systems.HasSubNode<EnumNode>();

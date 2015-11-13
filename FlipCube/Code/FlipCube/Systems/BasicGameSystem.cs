@@ -110,13 +110,13 @@ public class BasicGameSystem : BasicGameSystemBase
 
         foreach (var player in PlayerManager.Components)
         {
-            PlayerSystem.SignalAddXp(Game, new PlayerExperienceData()
+            PlayerSystemBase.SignalAddXp(Game, new PlayerExperienceData()
             {
                 PlayerId = player.EntityId,
                 XP = gainedXp
             });
         }
-        PlayerDataSystem.SignalSaveGame(Game, new SaveGameEventData());
+        PlayerDataSystemBase.SignalSaveGame(Game, new SaveGameEventData());
     }
 
     protected override void OnEnteredLevel(LevelEventData data, Level level)

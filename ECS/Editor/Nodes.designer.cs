@@ -496,6 +496,10 @@ namespace Invert.ECS.Graphs {
         
         private Component _Component;
         
+        private Each _Each;
+        
+//        private Each _Each;
+        
         public override bool AllowMultipleInputs {
             get {
                 return true;
@@ -518,6 +522,32 @@ namespace Invert.ECS.Graphs {
             }
             set {
                 _Component = value;
+            }
+        }
+        
+        //[Invert.Core.GraphDesigner.OutputSlot("Each", false, SectionVisibility.Always, OrderIndex=0, IsNewRow=false)]
+        //public virtual Each EachOutputSlot {
+        //    get {
+        //        if (_Each == null) {
+        //            _Each = new Each() { Node = this };
+        //        }
+        //        return _Each;
+        //    }
+        //    set {
+        //        _Each = value;
+        //    }
+        //}
+        
+        [Invert.Core.GraphDesigner.OutputSlot("Each", false, SectionVisibility.Always, OrderIndex=0, IsNewRow=false)]
+        public virtual Each EachOutputSlot {
+            get {
+                if (_Each == null) {
+                    _Each = new Each() { Node = this };
+                }
+                return _Each;
+            }
+            set {
+                _Each = value;
             }
         }
     }

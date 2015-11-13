@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DarkTonic.MasterAudio;
 using Invert.ECS;
 using UnityEngine;
 
@@ -21,30 +22,20 @@ public class FlipCubeSoundSystem : FlipCubeSoundSystemBase
 
     }
 
-
     protected override void OnCubeLeft(PlateCubeCollsion data, Plate plateid) {
         base.OnCubeLeft(data, plateid);
         
     }
-
-
 
     protected override void OnCubeFall(EntityEventData data, Cube entityid) {
         base.OnCubeFall(data, entityid);
         MasterAudio.PlaySound("Fail");
     }
 
-    protected override void GameOver(IEvent e)
-    {
-        base.GameOver(e);
-
-    }
-
     protected override void OnComplete(CollisionEventData data, GoalPlate colliderid, Cube collideeid)
     {
         base.OnComplete(data, colliderid, collideeid);
         MasterAudio.PlaySound("Win");
-   
     }
 
     protected override void OnCubeMoved(MoveCubeData data)

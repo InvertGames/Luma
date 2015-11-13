@@ -26,7 +26,7 @@ namespace PlayFab.Editor
 			titleId = PlayFabData.TitleId;
 			catalogVersion = PlayFabData.CatalogVersion;
 			keepSessionKey = PlayFabData.KeepSessionKey;
-			pfLogo = (Texture2D)Resources.LoadAssetAtPath ("Assets/Playfab/Editor/PlayFablogo.png", typeof(Texture2D));
+			pfLogo = (Texture2D)AssetDatabase.LoadAssetAtPath ("Assets/Playfab/Editor/PlayFablogo.png", typeof(Texture2D));
 			hideFlags = HideFlags.HideAndDontSave;
 			txtStyle.normal.textColor = Color.red;
 			

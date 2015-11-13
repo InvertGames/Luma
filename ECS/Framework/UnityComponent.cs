@@ -77,17 +77,7 @@ namespace Invert.ECS.Unity
         }
         public void OnDisable()
         {
-//#if (UNITY_EDITOR)
-//            if (!Application.isPlaying)
-//            return;
-//#endif
-//            if (!_registered) return;
-//            var game = UnityGame.Instance;
-//            if (game != null)
-//            {
-//                game.ComponentSystem.DestroyComponentInstance(this.GetType(), this);
-//                _registered = false;
-//            }
+
         }
 
         public void OnDestroy()
