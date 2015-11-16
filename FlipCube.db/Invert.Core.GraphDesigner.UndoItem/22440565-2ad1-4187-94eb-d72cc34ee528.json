@@ -1,8 +1,0 @@
-{
-	"Identifier":"22440565-2ad1-4187-94eb-d72cc34ee528"	, 
-	"Time":"11/13/2015 12:36:37 AM"	, 
-	"Group":"03637"	, 
-	"DataRecordId":"7ecd6844-7f0a-4c0a-90f0-33512996f5b0"	, 
-	"Type":0	, 
-	"RecordType":"Invert.uFrame.ECS.EcsWorkspace, Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
-	"Data":"{\r\n\t\"Identifier\":\"7ecd6844-7f0a-4c0a-90f0-33512996f5b0\"\t, \r\n\t\"Name\":\"SpecialFX\"\t, \r\n\t\"Expanded\":false}\r\n"}
