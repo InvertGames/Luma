@@ -1,8 +1,0 @@
-{
-	"Identifier":"9669d270-bf9f-4c0c-954d-cd9b288de58b"	, 
-	"Time":"11/16/2015 7:25:00 PM"	, 
-	"Group":19250	, 
-	"DataRecordId":"5d7baf14-1468-42fb-a7b8-3a03f843accd"	, 
-	"Type":1	, 
-	"RecordType":"Invert.uFrame.ECS.CollectionItemAddedNode, Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
-	"Data":"{\r\n\t\"Immediate\":false\t, \r\n\t\"CodeHandler\":false\t, \r\n\t\"Custom\":true\t, \r\n\t\"VariableCount\":0\t, \r\n\t\"VariableName\":\"CollectionItemAddedNode14\"\t, \r\n\t\"Name\":\"OnDialogAddedToQueue\"\t, \r\n\t\"Order\":0\t, \r\n\t\"GraphId\":\"0da68782-0307-4d18-9360-2684bb481426\"\t, \r\n\t\"Identifier\":\"5d7baf14-1468-42fb-a7b8-3a03f843accd\"\t, \r\n\t\"Expanded\":false}\r\n"}
