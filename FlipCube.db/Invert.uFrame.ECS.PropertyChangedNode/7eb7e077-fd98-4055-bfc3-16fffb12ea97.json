@@ -1,0 +1,13 @@
+{
+	"PropertyInId":"83681f5e-ff7c-4007-90eb-ee4a763aab01"	, 
+	"OnlyWhenChanged":false	, 
+	"Immediate":true	, 
+	"CodeHandler":false	, 
+	"Custom":true	, 
+	"VariableCount":0	, 
+	"VariableName":"PropertyChangedNode1"	, 
+	"Name":"LoadingScreenIsLoadingChanged"	, 
+	"Order":0	, 
+	"GraphId":"51cab4f1-58b8-47a6-9554-7b5e9bb27f2e"	, 
+	"Identifier":"7eb7e077-fd98-4055-bfc3-16fffb12ea97"	, 
+	"Expanded":false}

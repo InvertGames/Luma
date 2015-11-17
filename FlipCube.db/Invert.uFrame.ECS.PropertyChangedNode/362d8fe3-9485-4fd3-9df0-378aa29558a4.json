@@ -1,0 +1,13 @@
+{
+	"PropertyInId":"0d12cb5e-5fea-4b3d-bcd5-192f85396e77"	, 
+	"OnlyWhenChanged":false	, 
+	"Immediate":true	, 
+	"CodeHandler":false	, 
+	"Custom":true	, 
+	"VariableCount":0	, 
+	"VariableName":"PropertyChangedNode2"	, 
+	"Name":"TaskIndicatorIsRunningChanged"	, 
+	"Order":0	, 
+	"GraphId":"51cab4f1-58b8-47a6-9554-7b5e9bb27f2e"	, 
+	"Identifier":"362d8fe3-9485-4fd3-9df0-378aa29558a4"	, 
+	"Expanded":false}
