@@ -1,8 +1,0 @@
-{
-	"Identifier":"7c258a8d-95a8-4445-8911-25c49a2abf21"	, 
-	"Time":"11/13/2015 12:37:41 AM"	, 
-	"Group":"03741"	, 
-	"DataRecordId":"e49e0088-74f8-44dc-afd8-591aa9df6bc0"	, 
-	"Type":0	, 
-	"RecordType":"Invert.uFrame.ECS.EcsWorkspace, Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
-	"Data":"{\r\n\t\"Identifier\":\"e49e0088-74f8-44dc-afd8-591aa9df6bc0\"\t, \r\n\t\"Name\":\"Game\"\t, \r\n\t\"Expanded\":false}\r\n"}

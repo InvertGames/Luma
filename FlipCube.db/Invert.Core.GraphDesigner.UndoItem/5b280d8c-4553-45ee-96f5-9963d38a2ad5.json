@@ -1,8 +1,0 @@
-{
-	"Identifier":"5b280d8c-4553-45ee-96f5-9963d38a2ad5"	, 
-	"Time":"11/13/2015 12:35:11 AM"	, 
-	"Group":"03511"	, 
-	"DataRecordId":"e05e13f2-e4b0-4323-88bf-3f8315f21813"	, 
-	"Type":2	, 
-	"RecordType":"Invert.uFrame.ECS.SystemNode, Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
-	"Data":"{\r\n\t\"VariableCount\":0\t, \r\n\t\"Order\":0\t, \r\n\t\"Identifier\":\"e05e13f2-e4b0-4323-88bf-3f8315f21813\"\t, \r\n\t\"Expanded\":false}\r\n"}

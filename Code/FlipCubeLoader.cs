@@ -13,15 +13,21 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.ECS;
     using uFrame.Kernel;
+    using uFrame.ECS;
     
     
     public partial class FlipCubeLoader : uFrame.Kernel.SystemLoader {
         
         public override void Load() {
             EcsSystem system = null;
+            system = this.AddSystem<MainMenuSystem>();
             system = this.AddSystem<PlayerCubeSystem>();
+            system = this.AddSystem<GameUISystem>();
+            system = this.AddSystem<MiscUISystem>();
+            system = this.AddSystem<DialogUISystem>();
+            system = this.AddSystem<ZoneManagementSystem>();
+            system = this.AddSystem<IntroSceneSystem>();
         }
     }
 }

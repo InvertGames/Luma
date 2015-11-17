@@ -1,0 +1,14 @@
+{
+	"Comments":"<b>Date</b>: 11/14/2015\n<b>Author</b>: Invert.Sini\n\n<b>Features</b>:\n- Multipurpose generic dialogs\n- Custom actions\n- Invoke via Command Event\n- Mono-styled dialog UI\n\n<b>How to wire UI:</b>\nUI is wired by creating several prefabs and then assigning it to the <i>DialogUISystem</i>. Additionally we will need a <i>DialogUIRoot</i> gameobject which will store all the dialog UI.\n\n1. In your UI scene (or any other scene which boots up all the UI) create a new GameObject with <i>Canvas</i> and <i>DialogUIRoot</i> components. This canvas will hold all the dialog UIs. There should be only one <i>DialogUIRoot</i> component per game.\n\n2. Create empty GameObject as a child of DialogUIRoot. Name it \"DialogUIPrefab\". This one will serve as a prefab for Dialog UI. Add <i>DialogUI</i> component to this object.\nInside of this object, design your background, header text and message text. You should design container for the buttons. Usually it is just an object, which defines rect area and has <i>Horisontal Layout Group</i> component. Save the prefab.\n\n3. Each button corresponds to the action that user may invoke from this dialog. Due to that, buttons will have their own prefab. Create a new button inside your buttons container in the DialogUI gameobject. Design the button. Consider adding Layout Element component for precise control over the layout. Duplicate the button to ensure that everything is aligned nicely, as you add more buttons."	, 
+	"MarkColor":29	, 
+	"HeaderText":"Generic Dialog System"	, 
+	"ShowMark":true	, 
+	"Size":	{
+		"x":"380.52"		, 
+		"y":"504.4"	}
+	, 
+	"Name":"NewNoteNode"	, 
+	"Order":0	, 
+	"GraphId":"0da68782-0307-4d18-9360-2684bb481426"	, 
+	"Identifier":"daf3ee08-d1e6-4d1b-845b-61e07cd5f8d5"	, 
+	"Expanded":false}
