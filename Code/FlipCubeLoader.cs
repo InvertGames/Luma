@@ -22,6 +22,21 @@ namespace FlipCube {
         public override void Load() {
             EcsSystem system = null;
             system = this.AddSystem<PlayerCubeSystem>();
+            system = this.AddSystem<PlayerSystem>();
+            system = this.AddSystem<CubeSystem>();
+            system = this.AddSystem<PlayFabPlayerStatsSystem>();
+            system = this.AddSystem<PlayerDataSystem>();
+            system = this.AddSystem<SettingsSystem>();
+            system = this.AddSystem<NotificationSystem>();
+            system = this.AddSystem<PlayerStatsSystem>();
+            system = this.AddSystem<PlayfabTitleDataSystem>();
+            system = this.AddSystem<PlayFabPlayerDataSystem>();
+            system = this.AddSystem<DemoPlayerSystem>();
+            system = this.AddSystem<LoginSystem>();
+            system = this.AddSystem<LoginUISystem>();
+            system = this.AddSystem<PlayfabLoginSystem>();
+            system = this.AddSystem<GameSystem>();
+            system = this.AddSystem<NotificationsUISystem>();
         }
     }
 }

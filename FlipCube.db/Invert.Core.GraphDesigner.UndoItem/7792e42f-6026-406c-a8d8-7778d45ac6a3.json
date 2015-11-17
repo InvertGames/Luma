@@ -1,0 +1,8 @@
+{
+	"Identifier":"7792e42f-6026-406c-a8d8-7778d45ac6a3"	, 
+	"Time":"11/16/2015 10:33:19 PM"	, 
+	"Group":223319	, 
+	"DataRecordId":"5d23c308-8b69-40aa-911c-aa0f8509fd4c"	, 
+	"Type":0	, 
+	"RecordType":"Invert.uFrame.ECS.SystemNode, Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
+	"Data":"{\r\n\t\"VariableCount\":0\t, \r\n\t\"Order\":0\t, \r\n\t\"Identifier\":\"5d23c308-8b69-40aa-911c-aa0f8509fd4c\"\t, \r\n\t\"Expanded\":false}\r\n"}

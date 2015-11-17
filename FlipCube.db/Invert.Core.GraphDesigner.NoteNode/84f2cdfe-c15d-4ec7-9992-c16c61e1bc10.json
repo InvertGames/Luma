@@ -1,0 +1,13 @@
+{
+	"Comments":"The player system handles the actual players data."	, 
+	"MarkColor":0	, 
+	"ShowMark":false	, 
+	"Size":	{
+		"x":225		, 
+		"y":72	}
+	, 
+	"Name":"NewNoteNode"	, 
+	"Order":0	, 
+	"GraphId":"aa730bf2-07c5-4ab6-bc5c-41d4fc516072"	, 
+	"Identifier":"84f2cdfe-c15d-4ec7-9992-c16c61e1bc10"	, 
+	"Expanded":false}
