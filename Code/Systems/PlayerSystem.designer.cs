@@ -20,8 +20,20 @@ namespace FlipCube {
     
     public partial class PlayerSystemBase : uFrame.ECS.EcsSystem {
         
+        private IEcsComponentManagerOf<Player> _PlayerManager;
+        
+        public IEcsComponentManagerOf<Player> PlayerManager {
+            get {
+                return _PlayerManager;
+            }
+            set {
+                _PlayerManager = value;
+            }
+        }
+        
         public override void Setup() {
             base.Setup();
+            PlayerManager = ComponentSystem.RegisterComponent<Player>(26);
         }
     }
     

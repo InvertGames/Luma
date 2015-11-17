@@ -1,8 +1,0 @@
-{
-	"Identifier":"0503a501-50f3-485d-9fdd-4a3433600327"	, 
-	"Time":"11/16/2015 10:33:41 PM"	, 
-	"Group":223341	, 
-	"DataRecordId":"1f7f8eb5-b3fa-4a1a-9d50-837e0cab8772"	, 
-	"Type":2	, 
-	"RecordType":"Invert.uFrame.ECS.EventNode, Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
-	"Data":"{\r\n\t\"EventId\":20\t, \r\n\t\"Name\":\"PlayerPlateSystem\"\t, \r\n\t\"Order\":0\t, \r\n\t\"GraphId\":\"22914ab0-d095-481e-bac5-f3d78374c28b\"\t, \r\n\t\"Identifier\":\"1f7f8eb5-b3fa-4a1a-9d50-837e0cab8772\"\t, \r\n\t\"Expanded\":false}\r\n"}
