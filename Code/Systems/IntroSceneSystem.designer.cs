@@ -23,7 +23,9 @@ namespace FlipCube {
         
         private IEcsComponentManagerOf<Intro> _IntroManager;
         
-        private IEcsComponentManagerOf<ZoneData> _ZoneDataManager;
+        private IEcsComponentManagerOf<LevelScene> _LevelSceneManager;
+        
+        private IEcsComponentManagerOf<LevelData> _LevelDataManager;
         
         public IEcsComponentManagerOf<Intro> IntroManager {
             get {
@@ -34,19 +36,29 @@ namespace FlipCube {
             }
         }
         
-        public IEcsComponentManagerOf<ZoneData> ZoneDataManager {
+        public IEcsComponentManagerOf<LevelScene> LevelSceneManager {
             get {
-                return _ZoneDataManager;
+                return _LevelSceneManager;
             }
             set {
-                _ZoneDataManager = value;
+                _LevelSceneManager = value;
+            }
+        }
+        
+        public IEcsComponentManagerOf<LevelData> LevelDataManager {
+            get {
+                return _LevelDataManager;
+            }
+            set {
+                _LevelDataManager = value;
             }
         }
         
         public override void Setup() {
             base.Setup();
             IntroManager = ComponentSystem.RegisterComponent<Intro>(2);
-            ZoneDataManager = ComponentSystem.RegisterComponent<ZoneData>(1);
+            LevelSceneManager = ComponentSystem.RegisterComponent<LevelScene>(40);
+            LevelDataManager = ComponentSystem.RegisterComponent<LevelData>(38);
             IntroManager.RemovedObservable.Subscribe(_=>IntroComponentDestroyed(_,_)).DisposeWith(this);
             IntroManager.CreatedObservable.Subscribe(OnPlayIntroFilter).DisposeWith(this);
         }

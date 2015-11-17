@@ -78,9 +78,4 @@ namespace FlipCube {
     }
 
 
-    public class DialogAction
-    {
-        public Action Action { get; set; }
-        public string Title { get; set; }
-    }
 }
