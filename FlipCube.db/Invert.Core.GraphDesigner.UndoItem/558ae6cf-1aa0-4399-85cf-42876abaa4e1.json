@@ -1,8 +1,0 @@
-{
-	"Identifier":"558ae6cf-1aa0-4399-85cf-42876abaa4e1"	, 
-	"Time":"11/16/2015 7:50:10 PM"	, 
-	"Group":195010	, 
-	"DataRecordId":"795220dd-9898-4e55-86f8-4c3d631f2207"	, 
-	"Type":2	, 
-	"RecordType":"Invert.uFrame.ECS.ComponentNode, Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
-	"Data":"{\r\n\t\"BlackBoard\":true\t, \r\n\t\"ComponentId\":37\t, \r\n\t\"Name\":\"Dialog\"\t, \r\n\t\"Order\":0\t, \r\n\t\"GraphId\":\"0da68782-0307-4d18-9360-2684bb481426\"\t, \r\n\t\"Identifier\":\"795220dd-9898-4e55-86f8-4c3d631f2207\"\t, \r\n\t\"Expanded\":false}\r\n"}
