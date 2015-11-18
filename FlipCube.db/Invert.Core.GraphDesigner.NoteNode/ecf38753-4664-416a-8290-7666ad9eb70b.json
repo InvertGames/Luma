@@ -1,0 +1,13 @@
+{
+	"Comments":"LevelData.EntityId corresponds to the specific level. \nRanged: 1-51 ?"	, 
+	"MarkColor":21	, 
+	"ShowMark":true	, 
+	"Size":	{
+		"x":"216.9"		, 
+		"y":"69.6"	}
+	, 
+	"Name":"NewNoteNode"	, 
+	"Order":0	, 
+	"GraphId":"706693e8-accc-444c-b18e-9d4a14a56a6a"	, 
+	"Identifier":"ecf38753-4664-416a-8290-7666ad9eb70b"	, 
+	"Expanded":false}

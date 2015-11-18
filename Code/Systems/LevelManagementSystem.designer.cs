@@ -15,11 +15,11 @@ namespace FlipCube {
     using System.Linq;
     using FlipCube;
     using uFrame.Kernel;
-    using uFrame.ECS;
     using UniRx;
+    using uFrame.ECS;
     
     
-    public partial class IntroSceneSystemBase : uFrame.ECS.EcsSystem {
+    public partial class LevelManagementSystemBase : uFrame.ECS.EcsSystem {
         
         private IEcsComponentManagerOf<Intro> _IntroManager;
         
@@ -59,49 +59,42 @@ namespace FlipCube {
             IntroManager = ComponentSystem.RegisterComponent<Intro>(2);
             LevelSceneManager = ComponentSystem.RegisterComponent<LevelScene>(40);
             LevelDataManager = ComponentSystem.RegisterComponent<LevelData>(38);
-            IntroManager.RemovedObservable.Subscribe(_=>IntroComponentDestroyed(_,_)).DisposeWith(this);
-            IntroManager.CreatedObservable.Subscribe(OnPlayIntroFilter).DisposeWith(this);
+            LevelSceneManager.CreatedObservable.Subscribe(OnLevelSceneLoadedFilter).DisposeWith(this);
+            this.OnEvent<FlipCube.LoadDependencyScenes>().Subscribe(_=>{ OnLoadDepsFilter(_); }).DisposeWith(this);
         }
         
-        protected virtual void IntroComponentDestroyed(Intro data, Intro group) {
+        protected virtual void OnLevelSceneLoaded(LevelScene data, LevelScene group) {
         }
         
-        protected void IntroComponentDestroyedFilter(Intro data) {
-            var GroupIntro = IntroManager[data.EntityId];
-            if (GroupIntro == null) {
+        protected void OnLevelSceneLoadedFilter(LevelScene data) {
+            var GroupLevelScene = LevelSceneManager[data.EntityId];
+            if (GroupLevelScene == null) {
                 return;
             }
-            if (!GroupIntro.Enabled) {
+            if (!GroupLevelScene.Enabled) {
                 return;
             }
-            this.IntroComponentDestroyed(data, GroupIntro);
+            this.OnLevelSceneLoaded(data, GroupLevelScene);
         }
         
-        protected virtual void OnPlayIntro(Intro data, Intro group) {
+        protected virtual void OnLoadDepsHandler(FlipCube.LoadDependencyScenes data) {
         }
         
-        protected void OnPlayIntroFilter(Intro data) {
-            var GroupIntro = IntroManager[data.EntityId];
-            if (GroupIntro == null) {
-                return;
-            }
-            if (!GroupIntro.Enabled) {
-                return;
-            }
-            this.OnPlayIntro(data, GroupIntro);
+        protected void OnLoadDepsFilter(FlipCube.LoadDependencyScenes data) {
+            this.OnLoadDepsHandler(data);
         }
     }
     
-    [uFrame.Attributes.uFrameIdentifier("dba54b4f-9c16-498b-ae3c-021f5857b030")]
-    public partial class IntroSceneSystem : IntroSceneSystemBase {
+    [uFrame.Attributes.uFrameIdentifier("cb99a24a-5702-4984-b147-63e83040489e")]
+    public partial class LevelManagementSystem : LevelManagementSystemBase {
         
-        private static IntroSceneSystem _Instance;
+        private static LevelManagementSystem _Instance;
         
-        public IntroSceneSystem() {
+        public LevelManagementSystem() {
             Instance = this;
         }
         
-        public static IntroSceneSystem Instance {
+        public static LevelManagementSystem Instance {
             get {
                 return _Instance;
             }

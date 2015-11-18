@@ -13,41 +13,38 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.Kernel;
+    using UniRx;
     using uFrame.ECS;
+    using FlipCube;
     using UnityEngine;
+    using UnityEngine.UI;
     
     
-    public class NewCollectionItemRemovedNode {
+    [uFrame.Attributes.EventId(3)]
+    public partial class DialogAction : object {
         
-        public DialogUI Group;
+        [UnityEngine.SerializeField()]
+        private String _Title;
         
-        public FlipCube.Dialog Item;
+        [UnityEngine.SerializeField()]
+        private Action _Action;
         
-        private DialogUI _Event;
-        
-        private uFrame.ECS.EcsSystem _System;
-        
-        public DialogUI Event {
+        public String Title {
             get {
-                return _Event;
+                return _Title;
             }
             set {
-                _Event = value;
+                _Title = value;
             }
         }
         
-        public uFrame.ECS.EcsSystem System {
+        public Action Action {
             get {
-                return _System;
+                return _Action;
             }
             set {
-                _System = value;
+                _Action = value;
             }
-        }
-        
-        public virtual System.Collections.IEnumerator Execute() {
-            yield break;
         }
     }
 }

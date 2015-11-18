@@ -13,15 +13,12 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using UniRx;
     using uFrame.ECS;
-    using uFrame.Kernel;
+    using FlipCube;
     
     
-    [uFrame.Attributes.uFrameIdentifier("cb99a24a-5702-4984-b147-63e83040489e")]
-    public partial class ZoneManagementSystemLoader : uFrame.Kernel.SystemLoader {
-        
-        public override void Load() {
-            this.AddSystem<ZoneManagementSystem>();
-        }
+    [uFrame.Attributes.EventId(4)]
+    public partial class LoadDependencyScenes : object {
     }
 }
