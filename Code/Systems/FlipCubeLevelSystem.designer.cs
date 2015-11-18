@@ -43,7 +43,7 @@ namespace FlipCube {
             var handler = new FlipCubeLevelSystemLevelFailedHandler();
             handler.System = this;
             handler.Event = data;
-            handler.Execute();
+            StartCoroutine(handler.Execute());
         }
         
         protected void FlipCubeLevelSystemLevelFailedFilter(FlipCube.LevelFailed data) {
@@ -55,7 +55,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Player = player;
-            handler.Execute();
+            StartCoroutine(handler.Execute());
         }
         
         protected void FlipCubeLevelSystemPlayerFallFilter(FlipCube.PlayerFall data) {

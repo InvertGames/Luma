@@ -67,7 +67,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Group = group;
-            handler.Execute();
+            StartCoroutine(handler.Execute());
         }
         
         protected void ResetPlayerFilter(FlipCube.LevelReset data) {

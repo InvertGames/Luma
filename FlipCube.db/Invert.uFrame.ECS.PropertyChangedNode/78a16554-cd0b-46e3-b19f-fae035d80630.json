@@ -1,0 +1,13 @@
+{
+	"PropertyInId":"31eeb60c-5b29-4da4-b43a-2460ed479718"	, 
+	"OnlyWhenChanged":false	, 
+	"Immediate":false	, 
+	"CodeHandler":false	, 
+	"Custom":true	, 
+	"VariableCount":0	, 
+	"VariableName":"PropertyChangedNode1"	, 
+	"Name":"LimitChanged"	, 
+	"Order":0	, 
+	"GraphId":"62167943-317d-4ab5-97a0-6a587830c0e6"	, 
+	"Identifier":"78a16554-cd0b-46e3-b19f-fae035d80630"	, 
+	"Expanded":false}

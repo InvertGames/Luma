@@ -34,7 +34,6 @@ namespace FlipCube {
         public override void Setup() {
             base.Setup();
             UserLoginInfoManager = ComponentSystem.RegisterComponent<UserLoginInfo>(23);
-            BlackBoardSystem.EnsureBlackBoard<UserLoginInfo>();
             this.OnEvent<FlipCube.UserLoggedIn>().Subscribe(_=>{ LoginSystemUserLoggedInFilter(_); }).DisposeWith(this);
             this.OnEvent<FlipCube.UserLoggedOut>().Subscribe(_=>{ LoginSystemUserLoggedOutFilter(_); }).DisposeWith(this);
         }
@@ -43,7 +42,7 @@ namespace FlipCube {
             var handler = new LoginSystemUserLoggedInHandler();
             handler.System = this;
             handler.Event = data;
-            handler.Execute();
+            StartCoroutine(handler.Execute());
         }
         
         protected void LoginSystemUserLoggedInFilter(FlipCube.UserLoggedIn data) {
@@ -54,7 +53,7 @@ namespace FlipCube {
             var handler = new LoginSystemUserLoggedOutHandler();
             handler.System = this;
             handler.Event = data;
-            handler.Execute();
+            StartCoroutine(handler.Execute());
         }
         
         protected void LoginSystemUserLoggedOutFilter(FlipCube.UserLoggedOut data) {

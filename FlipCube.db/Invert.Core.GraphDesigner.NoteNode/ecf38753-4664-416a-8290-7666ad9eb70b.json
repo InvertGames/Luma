@@ -1,5 +1,5 @@
 {
-	"Comments":"LevelData.EntityId corresponds to the specific level. \nRanged: 1-51 ?"	, 
+	"Comments":"LevelData.EntityId corresponds to the specific level. \nRanged: 101-1xx"	, 
 	"MarkColor":21	, 
 	"ShowMark":true	, 
 	"Size":	{

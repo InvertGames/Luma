@@ -23,25 +23,16 @@ namespace FlipCube {
     public partial class MoveRoller : object {
         
         [UnityEngine.SerializeField()]
-        private Int32 _Roller;
-        
-        [UnityEngine.SerializeField()]
         private Single _X;
         
         [UnityEngine.SerializeField()]
         private Single _Y;
         
         [UnityEngine.SerializeField()]
-        private Single _Z;
+        private Int32 _Roller;
         
-        public Int32 Roller {
-            get {
-                return _Roller;
-            }
-            set {
-                _Roller = value;
-            }
-        }
+        [UnityEngine.SerializeField()]
+        private Single _Z;
         
         public Single X {
             get {
@@ -58,6 +49,15 @@ namespace FlipCube {
             }
             set {
                 _Y = value;
+            }
+        }
+        
+        public Int32 Roller {
+            get {
+                return _Roller;
+            }
+            set {
+                _Roller = value;
             }
         }
         

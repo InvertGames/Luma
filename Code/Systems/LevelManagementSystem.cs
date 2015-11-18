@@ -39,6 +39,12 @@ namespace FlipCube {
                 AreDepsLoaded = true;
             }
         }
+
+        protected override void OnLevelLoaded(RunningLevel data, RunningLevel @group)
+        {
+            base.OnLevelLoaded(data, @group);
+            UnityEngine.Debug.Log("LEvel loaded: "+data.EntityId);
+        }
     }
 
     

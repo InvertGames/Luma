@@ -1,0 +1,13 @@
+{
+	"PropertyInId":"f9495f42-4498-47e0-949f-1f2bf7eddb5e"	, 
+	"OnlyWhenChanged":false	, 
+	"Immediate":true	, 
+	"CodeHandler":true	, 
+	"Custom":true	, 
+	"VariableCount":0	, 
+	"VariableName":"PropertyChangedNode0"	, 
+	"Name":"SkipChanged"	, 
+	"Order":0	, 
+	"GraphId":"62167943-317d-4ab5-97a0-6a587830c0e6"	, 
+	"Identifier":"6e8e3512-5ba7-4b7e-a0ea-66dde9044356"	, 
+	"Expanded":false}

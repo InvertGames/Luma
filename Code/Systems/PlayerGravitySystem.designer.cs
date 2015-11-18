@@ -44,7 +44,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Player = player;
-            handler.Execute();
+            StartCoroutine(handler.Execute());
         }
         
         protected void HandleGravityFilter(FlipCube.RollComplete data) {

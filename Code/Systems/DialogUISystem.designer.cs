@@ -48,7 +48,6 @@ namespace FlipCube {
         public override void Setup() {
             base.Setup();
             DialogUIManager = ComponentSystem.RegisterComponent<DialogUI>(16);
-            BlackBoardSystem.EnsureBlackBoard<DialogUI>();
             DialogManager = ComponentSystem.RegisterComponent<Dialog>(37);
             DialogManager.CreatedObservable.Subscribe(OnDialogCreatedFilter).DisposeWith(this);
             this.CollectionItemRemoved<DialogUI,FlipCube.Dialog>(Group=>Group.DialogQueue, OnDialogRemovedFromQueueFilter);

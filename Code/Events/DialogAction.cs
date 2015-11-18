@@ -13,30 +13,21 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using UniRx;
-    using uFrame.ECS;
     using FlipCube;
     using UnityEngine;
     using UnityEngine.UI;
+    using UniRx;
+    using uFrame.ECS;
     
     
     [uFrame.Attributes.EventId(3)]
     public partial class DialogAction : object {
         
         [UnityEngine.SerializeField()]
-        private String _Title;
-        
-        [UnityEngine.SerializeField()]
         private Action _Action;
         
-        public String Title {
-            get {
-                return _Title;
-            }
-            set {
-                _Title = value;
-            }
-        }
+        [UnityEngine.SerializeField()]
+        private String _Title;
         
         public Action Action {
             get {
@@ -44,6 +35,15 @@ namespace FlipCube {
             }
             set {
                 _Action = value;
+            }
+        }
+        
+        public String Title {
+            get {
+                return _Title;
+            }
+            set {
+                _Title = value;
             }
         }
     }

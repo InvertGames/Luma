@@ -47,7 +47,6 @@ namespace FlipCube {
             base.Setup();
             PlayerStatManager = ComponentSystem.RegisterGroup<PlayerStatGroup,IPlayerStat>();
             SettingsManager = ComponentSystem.RegisterComponent<Settings>(22);
-            BlackBoardSystem.EnsureBlackBoard<Settings>();
             this.OnEvent<FlipCube.SaveData>().Subscribe(_=>{ SavePlayerStatsFilter(_); }).DisposeWith(this);
             this.OnEvent<FlipCube.LoadData>().Subscribe(_=>{ LoadPlayerStatsFilter(_); }).DisposeWith(this);
             PlayerStatManager.CreatedObservable.Subscribe(LoadPlayerStatFilter).DisposeWith(this);
