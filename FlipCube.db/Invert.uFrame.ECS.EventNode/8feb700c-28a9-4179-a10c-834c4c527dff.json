@@ -1,0 +1,8 @@
+{
+	"EventId":37	, 
+	"Name":"LevelFailed"	, 
+	"Order":0	, 
+	"Comments":"Invoked when the level has been failed.\t"	, 
+	"GraphId":"85b06cf0-c86f-4bda-b84d-a151294dd884"	, 
+	"Identifier":"8feb700c-28a9-4179-a10c-834c4c527dff"	, 
+	"Expanded":false}

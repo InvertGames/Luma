@@ -16,8 +16,8 @@ namespace FlipCube {
     using FlipCube;
     using UnityEngine.UI;
     using uFrame.Kernel;
-    using UniRx;
     using uFrame.ECS;
+    using UniRx;
     
     
     public partial class NotificationsUISystemBase : uFrame.ECS.EcsSystem {

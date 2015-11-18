@@ -15,8 +15,8 @@ namespace FlipCube {
     using System.Linq;
     using FlipCube;
     using uFrame.Kernel;
-    using UniRx;
     using uFrame.ECS;
+    using UniRx;
     
     
     public partial class GameUISystemBase : uFrame.ECS.EcsSystem {

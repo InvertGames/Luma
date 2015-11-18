@@ -1,0 +1,11 @@
+{
+	"CodeHandler":false	, 
+	"Custom":true	, 
+	"MetaType":"uFrame.ECS.ISystemUpdate"	, 
+	"VariableCount":0	, 
+	"VariableName":"HandlerNode0"	, 
+	"Name":"PCPlayerInputSystemUpdate"	, 
+	"Order":0	, 
+	"GraphId":"1fd16006-9dc5-487d-80a0-cca7bf0e23db"	, 
+	"Identifier":"1d945858-8171-424b-9ac7-b46cde86d783"	, 
+	"Expanded":false}

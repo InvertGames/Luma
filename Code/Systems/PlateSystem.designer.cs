@@ -13,14 +13,20 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using FlipCube;
+    using UnityEngine;
     using uFrame.Kernel;
-    using UniRx;
     using uFrame.ECS;
+    using UniRx;
     
     
     public partial class PlateSystemBase : uFrame.ECS.EcsSystem {
         
         private IEcsComponentManagerOf<Plate> _PlateManager;
+        
+        private IEcsComponentManagerOf<PlayerStandingUp> _PlayerStandingUpManager;
+        
+        private IEcsComponentManagerOf<Player> _PlayerManager;
         
         public IEcsComponentManagerOf<Plate> PlateManager {
             get {
@@ -31,9 +37,134 @@ namespace FlipCube {
             }
         }
         
+        public IEcsComponentManagerOf<PlayerStandingUp> PlayerStandingUpManager {
+            get {
+                return _PlayerStandingUpManager;
+            }
+            set {
+                _PlayerStandingUpManager = value;
+            }
+        }
+        
+        public IEcsComponentManagerOf<Player> PlayerManager {
+            get {
+                return _PlayerManager;
+            }
+            set {
+                _PlayerManager = value;
+            }
+        }
+        
         public override void Setup() {
             base.Setup();
             PlateManager = ComponentSystem.RegisterComponent<Plate>(27);
+            PlayerStandingUpManager = ComponentSystem.RegisterGroup<PlayerStandingUpGroup,PlayerStandingUp>();
+            PlayerManager = ComponentSystem.RegisterComponent<Player>(26);
+            this.OnEvent<uFrame.ECS.OnCollisionEnterDispatcher>().Subscribe(_=>{ PlateSystemOnCollisionEnterStadingUpFilter(_); }).DisposeWith(this);
+            this.OnEvent<FlipCube.LevelReset>().Subscribe(_=>{ PlateSystemLevelResetFilter(_); }).DisposeWith(this);
+            this.OnEvent<uFrame.ECS.OnCollisionExitDispatcher>().Subscribe(_=>{ PlateSystemOnCollisionExitFilter(_); }).DisposeWith(this);
+            this.OnEvent<uFrame.ECS.OnCollisionEnterDispatcher>().Subscribe(_=>{ PlateSystemOnCollisionEnterFilter(_); }).DisposeWith(this);
+        }
+        
+        protected virtual void PlateSystemOnCollisionEnterStadingUpHandler(uFrame.ECS.OnCollisionEnterDispatcher data, Plate collider, PlayerStandingUp source) {
+            var handler = new PlateSystemOnCollisionEnterStadingUpHandler();
+            handler.System = this;
+            handler.Event = data;
+            handler.Collider = collider;
+            handler.Source = source;
+            handler.Execute();
+        }
+        
+        protected void PlateSystemOnCollisionEnterStadingUpFilter(uFrame.ECS.OnCollisionEnterDispatcher data) {
+            var ColliderPlate = PlateManager[data.ColliderId];
+            if (ColliderPlate == null) {
+                return;
+            }
+            if (!ColliderPlate.Enabled) {
+                return;
+            }
+            var SourceItem = PlayerStandingUpManager[data.EntityId];
+            if (SourceItem == null) {
+                return;
+            }
+            if (!SourceItem.Enabled) {
+                return;
+            }
+            this.PlateSystemOnCollisionEnterStadingUpHandler(data, ColliderPlate, SourceItem);
+        }
+        
+        protected virtual void PlateSystemLevelResetHandler(FlipCube.LevelReset data, Plate group) {
+            var handler = new PlateSystemLevelResetHandler();
+            handler.System = this;
+            handler.Event = data;
+            handler.Group = group;
+            handler.Execute();
+        }
+        
+        protected void PlateSystemLevelResetFilter(FlipCube.LevelReset data) {
+            var PlateItems = PlateManager.Components;
+            for (var PlateIndex = 0
+            ; PlateIndex < PlateItems.Count; PlateIndex++
+            ) {
+                if (!PlateItems[PlateIndex].Enabled) {
+                    continue;
+                }
+                this.PlateSystemLevelResetHandler(data, PlateItems[PlateIndex]);
+            }
+        }
+        
+        protected virtual void PlateSystemOnCollisionExitHandler(uFrame.ECS.OnCollisionExitDispatcher data, Plate collider, Player source) {
+            var handler = new PlateSystemOnCollisionExitHandler();
+            handler.System = this;
+            handler.Event = data;
+            handler.Collider = collider;
+            handler.Source = source;
+            handler.Execute();
+        }
+        
+        protected void PlateSystemOnCollisionExitFilter(uFrame.ECS.OnCollisionExitDispatcher data) {
+            var ColliderPlate = PlateManager[data.ColliderId];
+            if (ColliderPlate == null) {
+                return;
+            }
+            if (!ColliderPlate.Enabled) {
+                return;
+            }
+            var SourcePlayer = PlayerManager[data.EntityId];
+            if (SourcePlayer == null) {
+                return;
+            }
+            if (!SourcePlayer.Enabled) {
+                return;
+            }
+            this.PlateSystemOnCollisionExitHandler(data, ColliderPlate, SourcePlayer);
+        }
+        
+        protected virtual void PlateSystemOnCollisionEnterHandler(uFrame.ECS.OnCollisionEnterDispatcher data, Plate collider, Player source) {
+            var handler = new PlateSystemOnCollisionEnterHandler();
+            handler.System = this;
+            handler.Event = data;
+            handler.Collider = collider;
+            handler.Source = source;
+            handler.Execute();
+        }
+        
+        protected void PlateSystemOnCollisionEnterFilter(uFrame.ECS.OnCollisionEnterDispatcher data) {
+            var ColliderPlate = PlateManager[data.ColliderId];
+            if (ColliderPlate == null) {
+                return;
+            }
+            if (!ColliderPlate.Enabled) {
+                return;
+            }
+            var SourcePlayer = PlayerManager[data.EntityId];
+            if (SourcePlayer == null) {
+                return;
+            }
+            if (!SourcePlayer.Enabled) {
+                return;
+            }
+            this.PlateSystemOnCollisionEnterHandler(data, ColliderPlate, SourcePlayer);
         }
     }
     

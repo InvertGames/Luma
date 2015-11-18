@@ -14,8 +14,8 @@ namespace FlipCube {
     using System.Collections.Generic;
     using System.Linq;
     using uFrame.Kernel;
-    using UniRx;
     using uFrame.ECS;
+    using UniRx;
     
     
     public partial class NotificationSystemBase : uFrame.ECS.EcsSystem {

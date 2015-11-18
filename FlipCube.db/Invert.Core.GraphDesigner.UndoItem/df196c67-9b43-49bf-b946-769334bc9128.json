@@ -1,8 +1,0 @@
-{
-	"Identifier":"df196c67-9b43-49bf-b946-769334bc9128"	, 
-	"Time":"11/16/2015 10:33:12 PM"	, 
-	"Group":223312	, 
-	"DataRecordId":"df76b9c2-7c03-4513-9abe-c05073a1edbf"	, 
-	"Type":1	, 
-	"RecordType":"Invert.uFrame.ECS.ModuleNode, Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
-	"Data":"{\r\n\t\"Name\":\"PlayerPlateSystem\"\t, \r\n\t\"Order\":0\t, \r\n\t\"GraphId\":\"0c04cf86-77a1-4aaa-9f58-66a6c02c93b0\"\t, \r\n\t\"Identifier\":\"df76b9c2-7c03-4513-9abe-c05073a1edbf\"\t, \r\n\t\"Expanded\":false}\r\n"}
