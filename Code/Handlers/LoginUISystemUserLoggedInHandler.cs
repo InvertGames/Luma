@@ -13,9 +13,9 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.Kernel;
     using uFrame.ECS;
     using UnityEngine;
+    using uFrame.Kernel;
     
     
     public class LoginUISystemUserLoggedInHandler {
@@ -50,7 +50,7 @@ namespace FlipCube {
         
         public virtual System.Collections.IEnumerator Execute() {
             // LoopGroupNode
-            while (this.DebugInfo("3d74489c-0b8d-47b4-ae76-1bc8e0fe19aa","fe471139-5cf6-4036-9684-5ac1953d460b", this) == 1) yield return null;
+            while (this.DebugInfo("0057f1bd-681a-42f7-9e54-a120a2924893","fe471139-5cf6-4036-9684-5ac1953d460b", this) == 1) yield return null;
             var LoopGroupNode9_GroupComponents = System.ComponentSystem.RegisterComponent<FlipCube.LoginLoadingUI>().Components;
             for (var LoopGroupNode9_ItemIndex = 0
             ; LoopGroupNode9_ItemIndex < LoopGroupNode9_GroupComponents.Count; LoopGroupNode9_ItemIndex++

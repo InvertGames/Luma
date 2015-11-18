@@ -13,13 +13,13 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.ECS;
-    using UniRx;
     using FlipCube;
     using UnityEngine;
+    using UniRx;
+    using uFrame.ECS;
     
     
-    [uFrame.Attributes.EventId(16)]
+    [uFrame.Attributes.EventId(27)]
     public partial class RollComplete : object {
         
         [UnityEngine.SerializeField()]

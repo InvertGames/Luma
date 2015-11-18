@@ -13,9 +13,9 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.Kernel;
     using uFrame.ECS;
     using UnityEngine;
+    using uFrame.Kernel;
     
     
     public class UpdateClickCount {
@@ -52,7 +52,7 @@ namespace FlipCube {
         
         public virtual System.Collections.IEnumerator Execute() {
             // FormatStringAction
-            while (this.DebugInfo("1c2d0934-fe3d-44db-ac96-e6ac1da43e5c","126785ce-1876-481e-a85a-20faeb8e7092", this) == 1) yield return null;
+            while (this.DebugInfo("163a0f8b-06f5-419d-b2e4-67e606530c74","126785ce-1876-481e-a85a-20faeb8e7092", this) == 1) yield return null;
             FormatStringAction9_Result = string.Format(@"ClickCount: {0}", Group.Count);
             // SetVariableNode
             while (this.DebugInfo("126785ce-1876-481e-a85a-20faeb8e7092","4d9e2402-2c29-4ef4-a013-1dca4d91048f", this) == 1) yield return null;

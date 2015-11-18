@@ -13,11 +13,11 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.ECS;
     using UniRx;
+    using uFrame.ECS;
     
     
-    [uFrame.Attributes.EventId(9)]
+    [uFrame.Attributes.EventId(14)]
     public partial class NotificationMessage : object {
         
         [UnityEngine.SerializeField()]

@@ -25,28 +25,22 @@ namespace FlipCube {
     public partial class LevelSelectionUIItem : uFrame.ECS.EcsComponent {
         
         [UnityEngine.SerializeField()]
-        private Int32 _LevelIndex;
-        
-        [UnityEngine.SerializeField()]
         private Text _LevelTitleText;
         
-        private Subject<PropertyChangedEvent<Int32>> _LevelIndexObservable;
-        
-        private PropertyChangedEvent<Int32> _LevelIndexEvent;
+        [UnityEngine.SerializeField()]
+        private Int32 _LevelIndex;
         
         private Subject<PropertyChangedEvent<Text>> _LevelTitleTextObservable;
         
         private PropertyChangedEvent<Text> _LevelTitleTextEvent;
         
+        private Subject<PropertyChangedEvent<Int32>> _LevelIndexObservable;
+        
+        private PropertyChangedEvent<Int32> _LevelIndexEvent;
+        
         public override int ComponentId {
             get {
                 return 45;
-            }
-        }
-        
-        public IObservable<PropertyChangedEvent<Int32>> LevelIndexObservable {
-            get {
-                return _LevelIndexObservable ?? (_LevelIndexObservable = new Subject<PropertyChangedEvent<Int32>>());
             }
         }
         
@@ -56,12 +50,9 @@ namespace FlipCube {
             }
         }
         
-        public Int32 LevelIndex {
+        public IObservable<PropertyChangedEvent<Int32>> LevelIndexObservable {
             get {
-                return _LevelIndex;
-            }
-            set {
-                SetLevelIndex(value);
+                return _LevelIndexObservable ?? (_LevelIndexObservable = new Subject<PropertyChangedEvent<Int32>>());
             }
         }
         
@@ -74,12 +65,21 @@ namespace FlipCube {
             }
         }
         
-        public virtual void SetLevelIndex(Int32 value) {
-            SetProperty(ref _LevelIndex, value, ref _LevelIndexEvent, _LevelIndexObservable);
+        public Int32 LevelIndex {
+            get {
+                return _LevelIndex;
+            }
+            set {
+                SetLevelIndex(value);
+            }
         }
         
         public virtual void SetLevelTitleText(Text value) {
             SetProperty(ref _LevelTitleText, value, ref _LevelTitleTextEvent, _LevelTitleTextObservable);
+        }
+        
+        public virtual void SetLevelIndex(Int32 value) {
+            SetProperty(ref _LevelIndex, value, ref _LevelIndexEvent, _LevelIndexObservable);
         }
     }
 }

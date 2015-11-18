@@ -13,23 +13,23 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.ECS;
-    using UniRx;
     using FlipCube;
     using UnityEngine;
+    using UniRx;
+    using uFrame.ECS;
     
     
-    [uFrame.Attributes.EventId(21)]
+    [uFrame.Attributes.EventId(34)]
     public partial class RollCompleteStandingUp : object {
         
         [UnityEngine.SerializeField()]
         private Int32 _Player;
         
         [UnityEngine.SerializeField()]
-        private Int32 _Plate;
+        private RollStart _RollArgs;
         
         [UnityEngine.SerializeField()]
-        private RollStart _RollArgs;
+        private Int32 _Plate;
         
         public Int32 Player {
             get {
@@ -40,21 +40,21 @@ namespace FlipCube {
             }
         }
         
-        public Int32 Plate {
-            get {
-                return _Plate;
-            }
-            set {
-                _Plate = value;
-            }
-        }
-        
         public RollStart RollArgs {
             get {
                 return _RollArgs;
             }
             set {
                 _RollArgs = value;
+            }
+        }
+        
+        public Int32 Plate {
+            get {
+                return _Plate;
+            }
+            set {
+                _Plate = value;
             }
         }
     }
