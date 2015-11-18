@@ -1,0 +1,13 @@
+{
+	"PropertyInId":"98eda6fb-62e6-4ce9-920b-e08b341c704d"	, 
+	"OnlyWhenChanged":false	, 
+	"Immediate":true	, 
+	"CodeHandler":false	, 
+	"Custom":true	, 
+	"VariableCount":0	, 
+	"VariableName":"PropertyChangedNode3"	, 
+	"Name":"OnChanged"	, 
+	"Order":0	, 
+	"GraphId":"6b512b60-6ce9-4469-b29f-4199a4c55e12"	, 
+	"Identifier":"0fad49c0-36b0-48ee-9feb-7ba9c7ec63ed"	, 
+	"Expanded":false}

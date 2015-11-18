@@ -13,10 +13,10 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.Kernel;
     using uFrame.ECS;
-    using UniRx;
+    using uFrame.Kernel;
     using FlipCube;
+    using UniRx;
     
     
     public partial class FlipCubeLevelSystemBase : uFrame.ECS.EcsSystem {
