@@ -1,0 +1,7 @@
+{
+	"FriendlyName":"Player"	, 
+	"RelatedType":"uFrame.ECS.Entity"	, 
+	"Identifier":"d587a56f-d5d1-4e39-9028-656c6e405e7b"	, 
+	"NodeId":"822affdb-7a2d-460c-9d26-4e760e3d0440"	, 
+	"Order":0	, 
+	"Name":"Player"}

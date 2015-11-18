@@ -17,7 +17,7 @@ namespace FlipCube {
     using uFrame.Kernel;
     
     
-    [uFrame.Attributes.uFrameIdentifier("d9deebf1-015e-4f0b-91b8-126071419d7b")]
+    [uFrame.Attributes.uFrameIdentifier("91b142aa-3136-4d21-8166-e981490c4c39")]
     public partial class GameSystemLoader : uFrame.Kernel.SystemLoader {
         
         public override void Load() {

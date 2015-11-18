@@ -17,8 +17,8 @@ namespace FlipCube {
     using UnityEngine;
     using UnityEngine.UI;
     using uFrame.Kernel;
-    using UniRx;
     using uFrame.ECS;
+    using UniRx;
     
     
     public partial class DialogUISystemBase : uFrame.ECS.EcsSystem {

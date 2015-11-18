@@ -13,14 +13,28 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using FlipCube;
     using uFrame.Kernel;
-    using UniRx;
     using uFrame.ECS;
+    using UniRx;
     
     
     public partial class PlayerSystemBase : uFrame.ECS.EcsSystem {
         
+        private IEcsComponentManagerOf<PlayerRoller> _PlayerRollerManager;
+        
         private IEcsComponentManagerOf<Player> _PlayerManager;
+        
+        private IEcsComponentManagerOf<PlayerStandingUp> _PlayerStandingUpManager;
+        
+        public IEcsComponentManagerOf<PlayerRoller> PlayerRollerManager {
+            get {
+                return _PlayerRollerManager;
+            }
+            set {
+                _PlayerRollerManager = value;
+            }
+        }
         
         public IEcsComponentManagerOf<Player> PlayerManager {
             get {
@@ -31,9 +45,41 @@ namespace FlipCube {
             }
         }
         
+        public IEcsComponentManagerOf<PlayerStandingUp> PlayerStandingUpManager {
+            get {
+                return _PlayerStandingUpManager;
+            }
+            set {
+                _PlayerStandingUpManager = value;
+            }
+        }
+        
         public override void Setup() {
             base.Setup();
+            PlayerRollerManager = ComponentSystem.RegisterGroup<PlayerRollerGroup,PlayerRoller>();
             PlayerManager = ComponentSystem.RegisterComponent<Player>(26);
+            PlayerStandingUpManager = ComponentSystem.RegisterGroup<PlayerStandingUpGroup,PlayerStandingUp>();
+            this.OnEvent<FlipCube.LevelReset>().Subscribe(_=>{ ResetPlayerFilter(_); }).DisposeWith(this);
+        }
+        
+        protected virtual void ResetPlayerHandler(FlipCube.LevelReset data, PlayerRoller group) {
+            var handler = new ResetPlayerHandler();
+            handler.System = this;
+            handler.Event = data;
+            handler.Group = group;
+            handler.Execute();
+        }
+        
+        protected void ResetPlayerFilter(FlipCube.LevelReset data) {
+            var PlayerRollerItems = PlayerRollerManager.Components;
+            for (var PlayerRollerIndex = 0
+            ; PlayerRollerIndex < PlayerRollerItems.Count; PlayerRollerIndex++
+            ) {
+                if (!PlayerRollerItems[PlayerRollerIndex].Enabled) {
+                    continue;
+                }
+                this.ResetPlayerHandler(data, PlayerRollerItems[PlayerRollerIndex]);
+            }
         }
     }
     

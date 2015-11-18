@@ -13,11 +13,37 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using FlipCube;
+    using UnityEngine;
     using UniRx;
     using uFrame.ECS;
     
     
-    [uFrame.Attributes.EventId(20)]
+    [uFrame.Attributes.EventId(31)]
     public partial class PlayerLandedOnPlate : object {
+        
+        [UnityEngine.SerializeField()]
+        private Int32 _Player;
+        
+        [UnityEngine.SerializeField()]
+        private Int32 _Plate;
+        
+        public Int32 Player {
+            get {
+                return _Player;
+            }
+            set {
+                _Player = value;
+            }
+        }
+        
+        public Int32 Plate {
+            get {
+                return _Plate;
+            }
+            set {
+                _Plate = value;
+            }
+        }
     }
 }

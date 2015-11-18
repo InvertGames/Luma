@@ -16,8 +16,8 @@ namespace FlipCube {
     using UnityEngine.UI;
     using FlipCube;
     using uFrame.Kernel;
-    using UniRx;
     using uFrame.ECS;
+    using UniRx;
     
     
     public partial class DemoPlayerSystemBase : uFrame.ECS.EcsSystem {

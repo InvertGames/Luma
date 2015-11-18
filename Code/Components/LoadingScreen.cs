@@ -16,8 +16,8 @@ namespace FlipCube {
     using UnityEngine.UI;
     using UnityEngine;
     using Invert.Json;
-    using UniRx;
     using uFrame.ECS;
+    using UniRx;
     
     
     [uFrame.Attributes.ComponentId(29)]
