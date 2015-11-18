@@ -13,11 +13,11 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using FlipCube;
-    using UnityEngine.UI;
     using uFrame.Kernel;
     using uFrame.ECS;
     using UniRx;
+    using FlipCube;
+    using UnityEngine.UI;
     
     
     public partial class NotificationsUISystemBase : uFrame.ECS.EcsSystem {

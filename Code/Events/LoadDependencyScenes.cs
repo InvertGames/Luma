@@ -13,12 +13,12 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using UniRx;
     using uFrame.ECS;
+    using UniRx;
     using FlipCube;
     
     
-    [uFrame.Attributes.EventId(4)]
+    [uFrame.Attributes.EventId(5)]
     public partial class LoadDependencyScenes : object {
     }
 }

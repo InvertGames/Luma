@@ -13,10 +13,10 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using FlipCube;
     using uFrame.Kernel;
-    using UniRx;
     using uFrame.ECS;
+    using UniRx;
+    using FlipCube;
     
     
     public partial class LevelManagementSystemBase : uFrame.ECS.EcsSystem {
@@ -24,6 +24,8 @@ namespace FlipCube {
         private IEcsComponentManagerOf<Intro> _IntroManager;
         
         private IEcsComponentManagerOf<LevelScene> _LevelSceneManager;
+        
+        private IEcsComponentManagerOf<ZoneData> _ZoneDataManager;
         
         private IEcsComponentManagerOf<LevelData> _LevelDataManager;
         
@@ -45,6 +47,15 @@ namespace FlipCube {
             }
         }
         
+        public IEcsComponentManagerOf<ZoneData> ZoneDataManager {
+            get {
+                return _ZoneDataManager;
+            }
+            set {
+                _ZoneDataManager = value;
+            }
+        }
+        
         public IEcsComponentManagerOf<LevelData> LevelDataManager {
             get {
                 return _LevelDataManager;
@@ -58,6 +69,7 @@ namespace FlipCube {
             base.Setup();
             IntroManager = ComponentSystem.RegisterComponent<Intro>(2);
             LevelSceneManager = ComponentSystem.RegisterComponent<LevelScene>(40);
+            ZoneDataManager = ComponentSystem.RegisterComponent<ZoneData>(1);
             LevelDataManager = ComponentSystem.RegisterComponent<LevelData>(38);
             LevelSceneManager.CreatedObservable.Subscribe(OnLevelSceneLoadedFilter).DisposeWith(this);
             this.OnEvent<FlipCube.LoadDependencyScenes>().Subscribe(_=>{ OnLoadDepsFilter(_); }).DisposeWith(this);

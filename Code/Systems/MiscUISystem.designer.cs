@@ -13,12 +13,12 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using FlipCube;
-    using UnityEngine.UI;
-    using UnityEngine;
     using uFrame.Kernel;
     using uFrame.ECS;
     using UniRx;
+    using FlipCube;
+    using UnityEngine.UI;
+    using UnityEngine;
     
     
     public partial class MiscUISystemBase : uFrame.ECS.EcsSystem {
@@ -48,7 +48,9 @@ namespace FlipCube {
         public override void Setup() {
             base.Setup();
             LoadingScreenManager = ComponentSystem.RegisterComponent<LoadingScreen>(29);
+            BlackBoardSystem.EnsureBlackBoard<LoadingScreen>();
             BackgroundTaskIndicatorManager = ComponentSystem.RegisterComponent<BackgroundTaskIndicator>(30);
+            BlackBoardSystem.EnsureBlackBoard<BackgroundTaskIndicator>();
             this.PropertyChangedEvent<BackgroundTaskIndicator,System.String>(Group=>Group.MessageObservable, TaskIndicatorMessageChangedFilter, Group=>Group.Message, false);
             this.PropertyChangedEvent<BackgroundTaskIndicator,System.Boolean>(Group=>Group.IsRunningObservable, TaskIndicatorIsRunningChangedFilter, Group=>Group.IsRunning, false);
             this.PropertyChangedEvent<LoadingScreen,System.Boolean>(Group=>Group.IsLoadingObservable, LoadingScreenIsLoadingChangedFilter, Group=>Group.IsLoading, false);

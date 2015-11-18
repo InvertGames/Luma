@@ -13,8 +13,8 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.Kernel;
     using uFrame.ECS;
+    using uFrame.Kernel;
     
     
     #region 
@@ -25,6 +25,13 @@ static
 static
         public uFrame.ECS.IEcsComponentManagerOf<Intro> IntroManager(this uFrame.ECS.IEcsSystem system) {
             return system.ComponentSystem.RegisterComponent<Intro>();
+        }
+        #endregion
+        
+        #region 
+static
+        public uFrame.ECS.IEcsComponentManagerOf<ZoneData> ZoneDataManager(this uFrame.ECS.IEcsSystem system) {
+            return system.ComponentSystem.RegisterComponent<ZoneData>();
         }
         #endregion
         
@@ -46,6 +53,13 @@ static
 static
         public List<Intro> IntroComponents(this uFrame.ECS.IEcsSystem system) {
             return system.ComponentSystem.RegisterComponent<Intro>().Components;
+        }
+        #endregion
+        
+        #region 
+static
+        public List<ZoneData> ZoneDataComponents(this uFrame.ECS.IEcsSystem system) {
+            return system.ComponentSystem.RegisterComponent<ZoneData>().Components;
         }
         #endregion
         

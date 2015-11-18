@@ -13,17 +13,14 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using uFrame.ECS;
+    using UniRx;
     using FlipCube;
     using UnityEngine;
-    using UniRx;
-    using uFrame.ECS;
     
     
-    [uFrame.Attributes.EventId(40)]
+    [uFrame.Attributes.EventId(27)]
     public partial class MoveRoller : object {
-        
-        [UnityEngine.SerializeField()]
-        private Int32 _Roller;
         
         [UnityEngine.SerializeField()]
         private Single _X;
@@ -32,16 +29,10 @@ namespace FlipCube {
         private Single _Y;
         
         [UnityEngine.SerializeField()]
-        private Single _Z;
+        private Int32 _Roller;
         
-        public Int32 Roller {
-            get {
-                return _Roller;
-            }
-            set {
-                _Roller = value;
-            }
-        }
+        [UnityEngine.SerializeField()]
+        private Single _Z;
         
         public Single X {
             get {
@@ -58,6 +49,15 @@ namespace FlipCube {
             }
             set {
                 _Y = value;
+            }
+        }
+        
+        public Int32 Roller {
+            get {
+                return _Roller;
+            }
+            set {
+                _Roller = value;
             }
         }
         

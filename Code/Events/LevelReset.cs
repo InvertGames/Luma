@@ -13,11 +13,11 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using UniRx;
     using uFrame.ECS;
+    using UniRx;
     
     
-    [uFrame.Attributes.EventId(38)]
+    [uFrame.Attributes.EventId(25)]
     public partial class LevelReset : object {
     }
 }
