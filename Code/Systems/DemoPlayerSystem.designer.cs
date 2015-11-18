@@ -13,11 +13,11 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using UnityEngine.UI;
-    using FlipCube;
     using uFrame.Kernel;
     using uFrame.ECS;
     using UniRx;
+    using UnityEngine.UI;
+    using FlipCube;
     
     
     public partial class DemoPlayerSystemBase : uFrame.ECS.EcsSystem {
