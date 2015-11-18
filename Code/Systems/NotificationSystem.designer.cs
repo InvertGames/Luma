@@ -29,7 +29,7 @@ namespace FlipCube {
             var handler = new LogDebugMessageHandler();
             handler.System = this;
             handler.Event = data;
-            handler.Execute();
+            StartCoroutine(handler.Execute());
         }
         
         protected void LogDebugMessageFilter(FlipCube.NotificationMessage data) {

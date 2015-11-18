@@ -13,17 +13,21 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using FlipCube;
     using uFrame.Kernel;
     using uFrame.ECS;
     using UniRx;
-    using FlipCube;
     
     
     public partial class IntroSceneSystemBase : uFrame.ECS.EcsSystem {
         
         private IEcsComponentManagerOf<Intro> _IntroManager;
         
+        private IEcsComponentManagerOf<RunningLevel> _RunningLevelManager;
+        
         private IEcsComponentManagerOf<LevelScene> _LevelSceneManager;
+        
+        private IEcsComponentManagerOf<UIScene> _UISceneManager;
         
         private IEcsComponentManagerOf<ZoneData> _ZoneDataManager;
         
@@ -38,12 +42,30 @@ namespace FlipCube {
             }
         }
         
+        public IEcsComponentManagerOf<RunningLevel> RunningLevelManager {
+            get {
+                return _RunningLevelManager;
+            }
+            set {
+                _RunningLevelManager = value;
+            }
+        }
+        
         public IEcsComponentManagerOf<LevelScene> LevelSceneManager {
             get {
                 return _LevelSceneManager;
             }
             set {
                 _LevelSceneManager = value;
+            }
+        }
+        
+        public IEcsComponentManagerOf<UIScene> UISceneManager {
+            get {
+                return _UISceneManager;
+            }
+            set {
+                _UISceneManager = value;
             }
         }
         
@@ -68,7 +90,9 @@ namespace FlipCube {
         public override void Setup() {
             base.Setup();
             IntroManager = ComponentSystem.RegisterComponent<Intro>(2);
+            RunningLevelManager = ComponentSystem.RegisterGroup<RunningLevelGroup,RunningLevel>();
             LevelSceneManager = ComponentSystem.RegisterComponent<LevelScene>(40);
+            UISceneManager = ComponentSystem.RegisterComponent<UIScene>(41);
             ZoneDataManager = ComponentSystem.RegisterComponent<ZoneData>(1);
             LevelDataManager = ComponentSystem.RegisterComponent<LevelData>(38);
             IntroManager.RemovedObservable.Subscribe(_=>IntroComponentDestroyed(_,_)).DisposeWith(this);

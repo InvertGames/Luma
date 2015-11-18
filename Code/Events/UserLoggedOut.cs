@@ -13,11 +13,11 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.ECS;
     using UniRx;
+    using uFrame.ECS;
     
     
-    [uFrame.Attributes.EventId(4)]
+    [uFrame.Attributes.EventId(3)]
     public partial class UserLoggedOut : object {
     }
 }

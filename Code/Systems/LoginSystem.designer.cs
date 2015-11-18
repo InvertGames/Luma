@@ -42,7 +42,7 @@ namespace FlipCube {
             var handler = new LoginSystemUserLoggedInHandler();
             handler.System = this;
             handler.Event = data;
-            handler.Execute();
+            StartCoroutine(handler.Execute());
         }
         
         protected void LoginSystemUserLoggedInFilter(FlipCube.UserLoggedIn data) {
@@ -53,7 +53,7 @@ namespace FlipCube {
             var handler = new LoginSystemUserLoggedOutHandler();
             handler.System = this;
             handler.Event = data;
-            handler.Execute();
+            StartCoroutine(handler.Execute());
         }
         
         protected void LoginSystemUserLoggedOutFilter(FlipCube.UserLoggedOut data) {

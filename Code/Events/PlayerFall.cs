@@ -13,13 +13,13 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using UniRx;
-    using uFrame.ECS;
     using FlipCube;
     using UnityEngine;
+    using UniRx;
+    using uFrame.ECS;
     
     
-    [uFrame.Attributes.EventId(22)]
+    [uFrame.Attributes.EventId(35)]
     public partial class PlayerFall : object {
         
         [UnityEngine.SerializeField()]
