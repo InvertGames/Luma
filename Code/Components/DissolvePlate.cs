@@ -23,10 +23,36 @@ namespace FlipCube {
     [uFrame.Attributes.uFrameIdentifier("09898d79-91e4-46c3-86f7-3bd374bbf965")]
     public partial class DissolvePlate : uFrame.ECS.EcsComponent {
         
+        [UnityEngine.SerializeField()]
+        private Boolean _IsDissolved;
+        
+        private Subject<PropertyChangedEvent<Boolean>> _IsDissolvedObservable;
+        
+        private PropertyChangedEvent<Boolean> _IsDissolvedEvent;
+        
         public override int ComponentId {
             get {
                 return 47;
             }
+        }
+        
+        public IObservable<PropertyChangedEvent<Boolean>> IsDissolvedObservable {
+            get {
+                return _IsDissolvedObservable ?? (_IsDissolvedObservable = new Subject<PropertyChangedEvent<Boolean>>());
+            }
+        }
+        
+        public Boolean IsDissolved {
+            get {
+                return _IsDissolved;
+            }
+            set {
+                SetIsDissolved(value);
+            }
+        }
+        
+        public virtual void SetIsDissolved(Boolean value) {
+            SetProperty(ref _IsDissolved, value, ref _IsDissolvedEvent, _IsDissolvedObservable);
         }
     }
 }
