@@ -9,13 +9,13 @@
 // ------------------------------------------------------------------------------
 
 namespace FlipCube {
+    using FlipCube;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using UniRx;
-    using FlipCube;
     using uFrame.ECS;
+    using UniRx;
     
     
     [uFrame.Attributes.EventId(5)]

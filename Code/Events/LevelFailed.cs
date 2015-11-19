@@ -13,8 +13,8 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using UniRx;
     using uFrame.ECS;
+    using UniRx;
     
     
     [uFrame.Attributes.EventId(24)]

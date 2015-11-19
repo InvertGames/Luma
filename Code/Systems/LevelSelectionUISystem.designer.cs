@@ -9,15 +9,15 @@
 // ------------------------------------------------------------------------------
 
 namespace FlipCube {
+    using FlipCube;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using FlipCube;
-    using UnityEngine.UI;
-    using uFrame.Kernel;
     using uFrame.ECS;
+    using uFrame.Kernel;
     using UniRx;
+    using UnityEngine.UI;
     
     
     public partial class LevelSelectionUISystemBase : uFrame.ECS.EcsSystem {

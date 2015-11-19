@@ -9,15 +9,15 @@
 // ------------------------------------------------------------------------------
 
 namespace FlipCube {
+    using FlipCube;
+    using Invert.Json;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using FlipCube;
-    using UnityEngine;
     using uFrame.ECS;
     using UniRx;
-    using Invert.Json;
+    using UnityEngine;
     
     
     [uFrame.Attributes.ComponentId(38)]

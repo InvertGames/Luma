@@ -9,16 +9,16 @@
 // ------------------------------------------------------------------------------
 
 namespace FlipCube {
+    using FlipCube;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using uFrame.ECS;
     using uFrame.Kernel;
-    using FlipCube;
-    using UnityEngine.UI;
-    using UnityEngine;
     using UniRx;
+    using UnityEngine;
+    using UnityEngine.UI;
     
     
     public partial class MiscUISystemBase : uFrame.ECS.EcsSystem {

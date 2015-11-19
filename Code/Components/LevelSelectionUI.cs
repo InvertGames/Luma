@@ -9,12 +9,12 @@
 // ------------------------------------------------------------------------------
 
 namespace FlipCube {
+    using FlipCube;
+    using Invert.Json;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using FlipCube;
-    using Invert.Json;
     using uFrame.ECS;
     using UniRx;
     using UnityEngine;

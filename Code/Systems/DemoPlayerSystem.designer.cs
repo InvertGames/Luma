@@ -9,15 +9,15 @@
 // ------------------------------------------------------------------------------
 
 namespace FlipCube {
+    using FlipCube;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using uFrame.ECS;
     using uFrame.Kernel;
-    using UnityEngine.UI;
-    using FlipCube;
     using UniRx;
+    using UnityEngine.UI;
     
     
     public partial class DemoPlayerSystemBase : uFrame.ECS.EcsSystem {

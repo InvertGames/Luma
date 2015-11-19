@@ -9,15 +9,15 @@
 // ------------------------------------------------------------------------------
 
 namespace FlipCube {
+    using FlipCube;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using uFrame.ECS;
     using uFrame.Kernel;
-    using FlipCube;
-    using UnityEngine;
     using UniRx;
+    using UnityEngine;
     
     
     public partial class PlayerGravitySystemBase : uFrame.ECS.EcsSystem {

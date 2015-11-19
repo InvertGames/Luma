@@ -13,8 +13,8 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.Kernel;
     using uFrame.ECS;
+    using uFrame.Kernel;
     
     
     public partial class FlipCubeLoader : uFrame.Kernel.SystemLoader {
@@ -33,6 +33,7 @@ namespace FlipCube {
             system = this.AddSystem<PlayerGravitySystem>();
             system = this.AddSystem<FlipCubeLevelSystem>();
             system = this.AddSystem<PlayFabPlayerDataSystem>();
+            system = this.AddSystem<LevelSelectionUISystem>();
             system = this.AddSystem<DemoPlayerSystem>();
             system = this.AddSystem<LevelSystem>();
             system = this.AddSystem<LoginSystem>();
