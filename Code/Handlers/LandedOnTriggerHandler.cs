@@ -20,6 +20,8 @@ namespace FlipCube {
     
     public class LandedOnTriggerHandler {
         
+        public SwitchPlateTrigger Plate;
+        
         public Roller Player;
         
         private FlipCube.RollCompleteStandingUp _Event;

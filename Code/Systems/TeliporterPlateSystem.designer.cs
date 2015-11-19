@@ -21,18 +21,9 @@ namespace FlipCube {
     
     public partial class TeliporterPlateSystemBase : uFrame.ECS.EcsSystem {
         
-        private IEcsComponentManagerOf<PlayerRoller> _PlayerRollerManager;
-        
         private IEcsComponentManagerOf<TeliporterPlate> _TeliporterPlateManager;
         
-        public IEcsComponentManagerOf<PlayerRoller> PlayerRollerManager {
-            get {
-                return _PlayerRollerManager;
-            }
-            set {
-                _PlayerRollerManager = value;
-            }
-        }
+        private IEcsComponentManagerOf<PlayerRoller> _PlayerRollerManager;
         
         public IEcsComponentManagerOf<TeliporterPlate> TeliporterPlateManager {
             get {
@@ -43,22 +34,39 @@ namespace FlipCube {
             }
         }
         
+        public IEcsComponentManagerOf<PlayerRoller> PlayerRollerManager {
+            get {
+                return _PlayerRollerManager;
+            }
+            set {
+                _PlayerRollerManager = value;
+            }
+        }
+        
         public override void Setup() {
             base.Setup();
-            PlayerRollerManager = ComponentSystem.RegisterGroup<PlayerRollerGroup,PlayerRoller>();
             TeliporterPlateManager = ComponentSystem.RegisterComponent<TeliporterPlate>(44);
+            PlayerRollerManager = ComponentSystem.RegisterGroup<PlayerRollerGroup,PlayerRoller>();
             this.OnEvent<FlipCube.RollCompleteStandingUp>().Subscribe(_=>{ TeliporterPlateSystemRollCompleteStandingUpFilter(_); }).DisposeWith(this);
         }
         
-        protected virtual void TeliporterPlateSystemRollCompleteStandingUpHandler(FlipCube.RollCompleteStandingUp data, PlayerRoller player) {
+        protected virtual void TeliporterPlateSystemRollCompleteStandingUpHandler(FlipCube.RollCompleteStandingUp data, TeliporterPlate plate, PlayerRoller player) {
             var handler = new TeliporterPlateSystemRollCompleteStandingUpHandler();
             handler.System = this;
             handler.Event = data;
+            handler.Plate = plate;
             handler.Player = player;
             StartCoroutine(handler.Execute());
         }
         
         protected void TeliporterPlateSystemRollCompleteStandingUpFilter(FlipCube.RollCompleteStandingUp data) {
+            var PlateTeliporterPlate = TeliporterPlateManager[data.Plate];
+            if (PlateTeliporterPlate == null) {
+                return;
+            }
+            if (!PlateTeliporterPlate.Enabled) {
+                return;
+            }
             var PlayerItem = PlayerRollerManager[data.Player];
             if (PlayerItem == null) {
                 return;
@@ -66,7 +74,7 @@ namespace FlipCube {
             if (!PlayerItem.Enabled) {
                 return;
             }
-            this.TeliporterPlateSystemRollCompleteStandingUpHandler(data, PlayerItem);
+            this.TeliporterPlateSystemRollCompleteStandingUpHandler(data, PlateTeliporterPlate, PlayerItem);
         }
     }
     

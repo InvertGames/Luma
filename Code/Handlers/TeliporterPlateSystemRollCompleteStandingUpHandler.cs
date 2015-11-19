@@ -20,6 +20,8 @@ namespace FlipCube {
     
     public class TeliporterPlateSystemRollCompleteStandingUpHandler {
         
+        public TeliporterPlate Plate;
+        
         public PlayerRoller Player;
         
         private FlipCube.RollCompleteStandingUp _Event;
