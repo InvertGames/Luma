@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Experimental.Director;
 
 namespace FlipCube {
     using System;
@@ -18,7 +20,6 @@ namespace FlipCube {
         private int _contentOnHash;
         private IEcsComponentManagerOf<LevelData> _levelDataManager;
 
-
         public LevelSelectionUI UI
         {
             get { return _ui ?? (_ui = BlackBoardSystem.Get<LevelSelectionUI> ()); }
@@ -27,8 +28,7 @@ namespace FlipCube {
 
         public Animator UIAnimator
         {
-            get { return _uiAnimator ?? (_uiAnimator = UI.Animator); }
-            set { _uiAnimator = value; }
+            get { return UI != null ? UI.Animator : null; }
         }
 
         public IEcsComponentManagerOf<LevelData> LevelDataManager
@@ -39,15 +39,12 @@ namespace FlipCube {
 
         protected override void SkipChanged(LevelSelectionUI data, LevelSelectionUI group, PropertyChangedEvent<System.Int32> value)
         {
-            StartCoroutine(AnimatedUIUpdate());
-        }
-        
-        protected override void LimitChanged(LevelSelectionUI data, LevelSelectionUI group, PropertyChangedEvent<System.Int32> value) {
-            StartCoroutine(AnimatedUIUpdate());
+            UIAnimator.SetTrigger("ReloadLevelSelectionGrid");
         }
 
-        protected override void PageChanged(LevelSelectionUI data, LevelSelectionUI group, PropertyChangedEvent<System.Int32> value) {
-            StartCoroutine(AnimatedUIUpdate());
+        protected override void HiddenChanged(LevelSelectionUI data, LevelSelectionUI @group, PropertyChangedEvent<bool> value)
+        {
+            UIAnimator.SetBool("Hidden",value.CurrentValue);
         }
 
         protected override void LevelIndexChanged(LevelSelectionUIItem data, LevelSelectionUIItem group, PropertyChangedEvent<System.Int32> value)
@@ -76,23 +73,37 @@ namespace FlipCube {
             set { _contentOnHash = value; }
         }
 
-        protected IEnumerator AnimatedUIUpdate()
+        protected override void UpdateLevelSelectionGridHandler(LevelSelectionGridReadyForUpdate data)
         {
-            UIAnimator.SetBool("Hidden",true);  
-            while (UIAnimator.GetCurrentAnimatorStateInfo(0).shortNameHash != ContentOffHash) yield return null;
-
-
+            base.UpdateLevelSelectionGridHandler(data);
+            Debug.Log("Check");
+            if (!BlackBoardSystem.Has<LevelSelectionUI>()) return;
+            Debug.Log("Update");
 
             for (int i = 0; i < UI.UIItems.Count; i++)
             {
                 UI.UIItems[i].LevelIndex = UI.Skip + i + 1;
             }
-
-            UIAnimator.SetBool("Hidden", false);
-            yield break;
         }
 
 
+        protected override void OnLevelSelectionUIShownHandler(LevelSelectionUIShown data)
+        {
+            base.OnLevelSelectionUIShownHandler(data);
+            if (!BlackBoardSystem.Has<LevelSelectionUI>()) return;
 
+            UI.Hidden = false;
+
+        }
+
+        protected override void OnLevelSelectionUIHidingHandler(LevelSelectionUIHiding data)
+        {
+            base.OnLevelSelectionUIHidingHandler(data);
+            if (!BlackBoardSystem.Has<LevelSelectionUI>()) return;
+
+            UI.Hidden = true;
+        }
     }
 }
+
+

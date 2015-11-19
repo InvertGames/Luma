@@ -13,12 +13,12 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using UniRx;
     using uFrame.ECS;
     using uFrame.Kernel;
-    using UniRx;
     
     
-    [uFrame.Attributes.ComponentId(43)]
+    [uFrame.Attributes.ComponentId(45)]
     public partial class RunningLevel : uFrame.ECS.GroupItem {
         
         private LevelData _LevelData;
@@ -45,7 +45,7 @@ namespace FlipCube {
         
         public override int ComponentId {
             get {
-                return 43;
+                return 45;
             }
         }
     }

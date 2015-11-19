@@ -14,10 +14,10 @@ namespace FlipCube {
     using System.Collections.Generic;
     using System.Linq;
     using FlipCube;
-    using Invert.Json;
-    using UniRx;
-    using UnityEngine;
     using uFrame.ECS;
+    using Invert.Json;
+    using UnityEngine;
+    using UniRx;
     
     
     [uFrame.Attributes.ComponentId(44)]

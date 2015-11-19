@@ -13,10 +13,10 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.Kernel;
     using uFrame.ECS;
-    using UniRx;
+    using uFrame.Kernel;
     using FlipCube;
+    using UniRx;
     
     
     public partial class TeliporterPlateSystemBase : uFrame.ECS.EcsSystem {
@@ -56,7 +56,7 @@ namespace FlipCube {
             handler.Event = data;
             handler.Player = player;
             handler.Plate = plate;
-            handler.Execute();
+            StartCoroutine(handler.Execute());
         }
         
         protected void TeliporterPlateSystemRollCompleteStandingUpFilter(FlipCube.RollCompleteStandingUp data) {

@@ -13,11 +13,11 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using UniRx;
     using uFrame.ECS;
+    using UniRx;
     
     
-    [uFrame.Attributes.EventId(7)]
+    [uFrame.Attributes.EventId(6)]
     public partial class LoadData : object {
     }
 }
