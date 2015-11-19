@@ -13,9 +13,9 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using UnityEngine;
     using uFrame.ECS;
     using uFrame.Kernel;
+    using UnityEngine;
     
     
     public class FlipCubeLevelSystemPlayerFallHandler {
@@ -46,13 +46,11 @@ namespace FlipCube {
             }
         }
         
-        public virtual System.Collections.IEnumerator Execute() {
+        public virtual void Execute() {
             // PublishEventNode
-            while (this.DebugInfo("8b014875-05d2-4e5e-9977-dc2faa26803d","c207438a-42cd-490a-954f-26e996667e27", this) == 1) yield return null;
             var PublishEventNode2_Event = new LevelFailed();
             System.Publish(PublishEventNode2_Event);
             PublishEventNode2_Result = PublishEventNode2_Event;
-            yield break;
         }
     }
 }

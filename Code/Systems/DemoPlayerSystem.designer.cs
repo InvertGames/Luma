@@ -9,15 +9,15 @@
 // ------------------------------------------------------------------------------
 
 namespace FlipCube {
+    using FlipCube;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using uFrame.ECS;
-    using UnityEngine.UI;
     using uFrame.Kernel;
-    using FlipCube;
     using UniRx;
+    using UnityEngine.UI;
     
     
     public partial class DemoPlayerSystemBase : uFrame.ECS.EcsSystem {
@@ -60,7 +60,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Source = source;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void DemoPlayerSystemPointerClickFilter(uFrame.ECS.MouseDownDispatcher data) {
@@ -95,7 +95,7 @@ namespace FlipCube {
             handler.Group = group;
             handler.OldValue = value.PreviousValue;
             handler.NewValue = value.CurrentValue;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void UpdateClickCountFilter(ClickCount data, PropertyChangedEvent<System.Int32> value) {
@@ -114,7 +114,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Source = source;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void SaveGameButtonClickedFilter(uFrame.ECS.PointerClickDispatcher data) {

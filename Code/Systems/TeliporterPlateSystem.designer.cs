@@ -9,13 +9,13 @@
 // ------------------------------------------------------------------------------
 
 namespace FlipCube {
+    using FlipCube;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using uFrame.ECS;
     using uFrame.Kernel;
-    using FlipCube;
     using UniRx;
     
     
@@ -56,7 +56,7 @@ namespace FlipCube {
             handler.Event = data;
             handler.Player = player;
             handler.Plate = plate;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void TeliporterPlateSystemRollCompleteStandingUpFilter(FlipCube.RollCompleteStandingUp data) {

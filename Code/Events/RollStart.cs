@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 
 namespace FlipCube {
+    using FlipCube;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -16,7 +17,6 @@ namespace FlipCube {
     using uFrame.ECS;
     using UniRx;
     using UnityEngine;
-    using FlipCube;
     
     
     [uFrame.Attributes.EventId(15)]

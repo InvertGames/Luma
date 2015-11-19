@@ -13,9 +13,9 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using UnityEngine;
     using uFrame.ECS;
     using uFrame.Kernel;
+    using UnityEngine;
     
     
     public class PlateSystemOnCollisionEnterStadingUpHandler {
@@ -46,8 +46,7 @@ namespace FlipCube {
             }
         }
         
-        public virtual System.Collections.IEnumerator Execute() {
-            yield break;
+        public virtual void Execute() {
         }
     }
 }

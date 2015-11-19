@@ -9,15 +9,15 @@
 // ------------------------------------------------------------------------------
 
 namespace FlipCube {
+    using FlipCube;
+    using Invert.Json;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using FlipCube;
     using uFrame.ECS;
-    using Invert.Json;
-    using UnityEngine;
     using UniRx;
+    using UnityEngine;
     
     
     [uFrame.Attributes.ComponentId(44)]
@@ -28,10 +28,16 @@ namespace FlipCube {
         private Animator _Animator;
         
         [UnityEngine.SerializeField()]
+        private Boolean _IsDirty;
+        
+        [UnityEngine.SerializeField()]
+        private Int32 _Page;
+        
+        [UnityEngine.SerializeField()]
         private Int32 _Skip;
         
         [UnityEngine.SerializeField()]
-        private Boolean _Hidden;
+        private Int32 _Limit;
         
         [UnityEngine.SerializeField()]
         private LevelSelectionUIItem[] _UIItems;
@@ -42,13 +48,21 @@ namespace FlipCube {
         
         private PropertyChangedEvent<Animator> _AnimatorEvent;
         
+        private Subject<PropertyChangedEvent<Boolean>> _IsDirtyObservable;
+        
+        private PropertyChangedEvent<Boolean> _IsDirtyEvent;
+        
+        private Subject<PropertyChangedEvent<Int32>> _PageObservable;
+        
+        private PropertyChangedEvent<Int32> _PageEvent;
+        
         private Subject<PropertyChangedEvent<Int32>> _SkipObservable;
         
         private PropertyChangedEvent<Int32> _SkipEvent;
         
-        private Subject<PropertyChangedEvent<Boolean>> _HiddenObservable;
+        private Subject<PropertyChangedEvent<Int32>> _LimitObservable;
         
-        private PropertyChangedEvent<Boolean> _HiddenEvent;
+        private PropertyChangedEvent<Int32> _LimitEvent;
         
         public override int ComponentId {
             get {
@@ -62,15 +76,27 @@ namespace FlipCube {
             }
         }
         
+        public IObservable<PropertyChangedEvent<Boolean>> IsDirtyObservable {
+            get {
+                return _IsDirtyObservable ?? (_IsDirtyObservable = new Subject<PropertyChangedEvent<Boolean>>());
+            }
+        }
+        
+        public IObservable<PropertyChangedEvent<Int32>> PageObservable {
+            get {
+                return _PageObservable ?? (_PageObservable = new Subject<PropertyChangedEvent<Int32>>());
+            }
+        }
+        
         public IObservable<PropertyChangedEvent<Int32>> SkipObservable {
             get {
                 return _SkipObservable ?? (_SkipObservable = new Subject<PropertyChangedEvent<Int32>>());
             }
         }
         
-        public IObservable<PropertyChangedEvent<Boolean>> HiddenObservable {
+        public IObservable<PropertyChangedEvent<Int32>> LimitObservable {
             get {
-                return _HiddenObservable ?? (_HiddenObservable = new Subject<PropertyChangedEvent<Boolean>>());
+                return _LimitObservable ?? (_LimitObservable = new Subject<PropertyChangedEvent<Int32>>());
             }
         }
         
@@ -83,6 +109,24 @@ namespace FlipCube {
             }
         }
         
+        public Boolean IsDirty {
+            get {
+                return _IsDirty;
+            }
+            set {
+                SetIsDirty(value);
+            }
+        }
+        
+        public Int32 Page {
+            get {
+                return _Page;
+            }
+            set {
+                SetPage(value);
+            }
+        }
+        
         public Int32 Skip {
             get {
                 return _Skip;
@@ -92,12 +136,12 @@ namespace FlipCube {
             }
         }
         
-        public Boolean Hidden {
+        public Int32 Limit {
             get {
-                return _Hidden;
+                return _Limit;
             }
             set {
-                SetHidden(value);
+                SetLimit(value);
             }
         }
         
@@ -114,12 +158,20 @@ namespace FlipCube {
             SetProperty(ref _Animator, value, ref _AnimatorEvent, _AnimatorObservable);
         }
         
+        public virtual void SetIsDirty(Boolean value) {
+            SetProperty(ref _IsDirty, value, ref _IsDirtyEvent, _IsDirtyObservable);
+        }
+        
+        public virtual void SetPage(Int32 value) {
+            SetProperty(ref _Page, value, ref _PageEvent, _PageObservable);
+        }
+        
         public virtual void SetSkip(Int32 value) {
             SetProperty(ref _Skip, value, ref _SkipEvent, _SkipObservable);
         }
         
-        public virtual void SetHidden(Boolean value) {
-            SetProperty(ref _Hidden, value, ref _HiddenEvent, _HiddenObservable);
+        public virtual void SetLimit(Int32 value) {
+            SetProperty(ref _Limit, value, ref _LimitEvent, _LimitObservable);
         }
     }
 }

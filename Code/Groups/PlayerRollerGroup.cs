@@ -14,8 +14,8 @@ namespace FlipCube {
     using System.Collections.Generic;
     using System.Linq;
     using uFrame.ECS;
-    using UniRx;
     using uFrame.Kernel;
+    using UniRx;
     
     
     public partial class PlayerRollerGroup : ReactiveGroup<PlayerRoller> {

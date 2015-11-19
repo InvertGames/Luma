@@ -13,9 +13,9 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using UnityEngine;
     using uFrame.ECS;
     using uFrame.Kernel;
+    using UnityEngine;
     
     
     public class DemoPlayerSystemPointerClickHandler {
@@ -48,16 +48,13 @@ namespace FlipCube {
             }
         }
         
-        public virtual System.Collections.IEnumerator Execute() {
+        public virtual void Execute() {
             ActionNode4_a = Source.Count;
             // ActionNode
-            while (this.DebugInfo("3d74489c-0b8d-47b4-ae76-1bc8e0fe19aa","26cfbe87-dea8-4796-91c7-7ad6ab9dce44", this) == 1) yield return null;
             // Visit uFrame.Actions.IntLibrary.Increment
             ActionNode4_Result = uFrame.Actions.IntLibrary.Increment(ActionNode4_a);
             // SetVariableNode
-            while (this.DebugInfo("26cfbe87-dea8-4796-91c7-7ad6ab9dce44","0057f1bd-681a-42f7-9e54-a120a2924893", this) == 1) yield return null;
             Source.Count = (System.Int32)ActionNode4_Result;
-            yield break;
         }
     }
 }

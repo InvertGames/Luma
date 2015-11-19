@@ -9,15 +9,15 @@
 // ------------------------------------------------------------------------------
 
 namespace FlipCube {
+    using FlipCube;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using uFrame.ECS;
     using uFrame.Kernel;
-    using FlipCube;
-    using UnityEngine;
     using UniRx;
+    using UnityEngine;
     
     
     public partial class PlayerGravitySystemBase : uFrame.ECS.EcsSystem {
@@ -44,7 +44,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Player = player;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void HandleGravityFilter(FlipCube.RollComplete data) {
