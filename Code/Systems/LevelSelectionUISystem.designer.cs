@@ -22,18 +22,9 @@ namespace FlipCube {
     
     public partial class LevelSelectionUISystemBase : uFrame.ECS.EcsSystem {
         
-        private IEcsComponentManagerOf<LevelSelectionUIItem> _LevelSelectionUIItemManager;
-        
         private IEcsComponentManagerOf<LevelSelectionUI> _LevelSelectionUIManager;
         
-        public IEcsComponentManagerOf<LevelSelectionUIItem> LevelSelectionUIItemManager {
-            get {
-                return _LevelSelectionUIItemManager;
-            }
-            set {
-                _LevelSelectionUIItemManager = value;
-            }
-        }
+        private IEcsComponentManagerOf<LevelSelectionUIItem> _LevelSelectionUIItemManager;
         
         public IEcsComponentManagerOf<LevelSelectionUI> LevelSelectionUIManager {
             get {
@@ -44,14 +35,32 @@ namespace FlipCube {
             }
         }
         
+        public IEcsComponentManagerOf<LevelSelectionUIItem> LevelSelectionUIItemManager {
+            get {
+                return _LevelSelectionUIItemManager;
+            }
+            set {
+                _LevelSelectionUIItemManager = value;
+            }
+        }
+        
         public override void Setup() {
             base.Setup();
-            LevelSelectionUIItemManager = ComponentSystem.RegisterComponent<LevelSelectionUIItem>(45);
             LevelSelectionUIManager = ComponentSystem.RegisterComponent<LevelSelectionUI>(44);
+            LevelSelectionUIItemManager = ComponentSystem.RegisterComponent<LevelSelectionUIItem>(45);
+            this.OnEvent<FlipCube.LevelSelectionUIShown>().Subscribe(_=>{ OnLevelSelectionUIShownFilter(_); }).DisposeWith(this);
             this.PropertyChangedEvent<LevelSelectionUI,System.Int32>(Group=>Group.SkipObservable, SkipChangedFilter, Group=>Group.Skip, false);
-            this.PropertyChangedEvent<LevelSelectionUI,System.Int32>(Group=>Group.LimitObservable, LimitChangedFilter, null, false);
+            this.OnEvent<FlipCube.LevelSelectionUIHiding>().Subscribe(_=>{ OnLevelSelectionUIHidingFilter(_); }).DisposeWith(this);
             this.PropertyChangedEvent<LevelSelectionUIItem,System.Int32>(Group=>Group.LevelIndexObservable, LevelIndexChangedFilter, Group=>Group.LevelIndex, false);
-            this.PropertyChangedEvent<LevelSelectionUI,System.Int32>(Group=>Group.PageObservable, PageChangedFilter, Group=>Group.Page, false);
+            this.PropertyChangedEvent<LevelSelectionUI,System.Boolean>(Group=>Group.HiddenObservable, HiddenChangedFilter, Group=>Group.Hidden, false);
+            this.OnEvent<FlipCube.LevelSelectionGridReadyForUpdate>().Subscribe(_=>{ UpdateLevelSelectionGridFilter(_); }).DisposeWith(this);
+        }
+        
+        protected virtual void OnLevelSelectionUIShownHandler(FlipCube.LevelSelectionUIShown data) {
+        }
+        
+        protected void OnLevelSelectionUIShownFilter(FlipCube.LevelSelectionUIShown data) {
+            this.OnLevelSelectionUIShownHandler(data);
         }
         
         protected virtual void SkipChanged(LevelSelectionUI data, LevelSelectionUI group, PropertyChangedEvent<System.Int32> value) {
@@ -68,18 +77,11 @@ namespace FlipCube {
             this.SkipChanged(data, GroupLevelSelectionUI, value);
         }
         
-        protected virtual void LimitChanged(LevelSelectionUI data, LevelSelectionUI group, PropertyChangedEvent<System.Int32> value) {
+        protected virtual void OnLevelSelectionUIHidingHandler(FlipCube.LevelSelectionUIHiding data) {
         }
         
-        protected void LimitChangedFilter(LevelSelectionUI data, PropertyChangedEvent<System.Int32> value) {
-            var GroupLevelSelectionUI = LevelSelectionUIManager[data.EntityId];
-            if (GroupLevelSelectionUI == null) {
-                return;
-            }
-            if (!GroupLevelSelectionUI.Enabled) {
-                return;
-            }
-            this.LimitChanged(data, GroupLevelSelectionUI, value);
+        protected void OnLevelSelectionUIHidingFilter(FlipCube.LevelSelectionUIHiding data) {
+            this.OnLevelSelectionUIHidingHandler(data);
         }
         
         protected virtual void LevelIndexChanged(LevelSelectionUIItem data, LevelSelectionUIItem group, PropertyChangedEvent<System.Int32> value) {
@@ -96,10 +98,17 @@ namespace FlipCube {
             this.LevelIndexChanged(data, GroupLevelSelectionUIItem, value);
         }
         
-        protected virtual void PageChanged(LevelSelectionUI data, LevelSelectionUI group, PropertyChangedEvent<System.Int32> value) {
+        protected virtual void HiddenChanged(LevelSelectionUI data, LevelSelectionUI group, PropertyChangedEvent<System.Boolean> value) {
+            var handler = new HiddenChanged();
+            handler.System = this;
+            handler.Event = data;
+            handler.Group = group;
+            handler.OldValue = value.PreviousValue;
+            handler.NewValue = value.CurrentValue;
+            StartCoroutine(handler.Execute());
         }
         
-        protected void PageChangedFilter(LevelSelectionUI data, PropertyChangedEvent<System.Int32> value) {
+        protected void HiddenChangedFilter(LevelSelectionUI data, PropertyChangedEvent<System.Boolean> value) {
             var GroupLevelSelectionUI = LevelSelectionUIManager[data.EntityId];
             if (GroupLevelSelectionUI == null) {
                 return;
@@ -107,7 +116,14 @@ namespace FlipCube {
             if (!GroupLevelSelectionUI.Enabled) {
                 return;
             }
-            this.PageChanged(data, GroupLevelSelectionUI, value);
+            this.HiddenChanged(data, GroupLevelSelectionUI, value);
+        }
+        
+        protected virtual void UpdateLevelSelectionGridHandler(FlipCube.LevelSelectionGridReadyForUpdate data) {
+        }
+        
+        protected void UpdateLevelSelectionGridFilter(FlipCube.LevelSelectionGridReadyForUpdate data) {
+            this.UpdateLevelSelectionGridHandler(data);
         }
     }
     

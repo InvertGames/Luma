@@ -22,8 +22,6 @@ namespace FlipCube {
         
         public PlayerRoller Player;
         
-        public TeliporterPlate Plate;
-        
         private FlipCube.RollCompleteStandingUp _Event;
         
         private uFrame.ECS.EcsSystem _System;
@@ -46,7 +44,8 @@ namespace FlipCube {
             }
         }
         
-        public virtual void Execute() {
+        public virtual System.Collections.IEnumerator Execute() {
+            yield break;
         }
     }
 }

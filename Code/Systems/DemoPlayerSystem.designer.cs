@@ -60,7 +60,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Source = source;
-            handler.Execute();
+            StartCoroutine(handler.Execute());
         }
         
         protected void DemoPlayerSystemPointerClickFilter(uFrame.ECS.MouseDownDispatcher data) {
@@ -95,7 +95,7 @@ namespace FlipCube {
             handler.Group = group;
             handler.OldValue = value.PreviousValue;
             handler.NewValue = value.CurrentValue;
-            handler.Execute();
+            StartCoroutine(handler.Execute());
         }
         
         protected void UpdateClickCountFilter(ClickCount data, PropertyChangedEvent<System.Int32> value) {
@@ -114,7 +114,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Source = source;
-            handler.Execute();
+            StartCoroutine(handler.Execute());
         }
         
         protected void SaveGameButtonClickedFilter(uFrame.ECS.PointerClickDispatcher data) {

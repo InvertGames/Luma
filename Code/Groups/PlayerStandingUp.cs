@@ -13,9 +13,9 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using UniRx;
     using uFrame.ECS;
     using uFrame.Kernel;
+    using UniRx;
     
     
     [uFrame.Attributes.ComponentId(43)]

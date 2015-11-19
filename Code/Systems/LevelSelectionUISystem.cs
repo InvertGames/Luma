@@ -46,7 +46,7 @@ namespace FlipCube {
         {
             UIAnimator.SetBool("Hidden",value.CurrentValue);
         }
-
+        
         protected override void LevelIndexChanged(LevelSelectionUIItem data, LevelSelectionUIItem group, PropertyChangedEvent<System.Int32> value)
         {
             var levelData = LevelDataManager.ForEntity(data.LevelIndex + 100) as LevelData;

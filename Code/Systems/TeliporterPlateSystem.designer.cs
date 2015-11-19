@@ -50,13 +50,12 @@ namespace FlipCube {
             this.OnEvent<FlipCube.RollCompleteStandingUp>().Subscribe(_=>{ TeliporterPlateSystemRollCompleteStandingUpFilter(_); }).DisposeWith(this);
         }
         
-        protected virtual void TeliporterPlateSystemRollCompleteStandingUpHandler(FlipCube.RollCompleteStandingUp data, PlayerRoller player, TeliporterPlate plate) {
+        protected virtual void TeliporterPlateSystemRollCompleteStandingUpHandler(FlipCube.RollCompleteStandingUp data, PlayerRoller player) {
             var handler = new TeliporterPlateSystemRollCompleteStandingUpHandler();
             handler.System = this;
             handler.Event = data;
             handler.Player = player;
-            handler.Plate = plate;
-            handler.Execute();
+            StartCoroutine(handler.Execute());
         }
         
         protected void TeliporterPlateSystemRollCompleteStandingUpFilter(FlipCube.RollCompleteStandingUp data) {
@@ -67,14 +66,7 @@ namespace FlipCube {
             if (!PlayerItem.Enabled) {
                 return;
             }
-            var PlateTeliporterPlate = TeliporterPlateManager[data.Plate];
-            if (PlateTeliporterPlate == null) {
-                return;
-            }
-            if (!PlateTeliporterPlate.Enabled) {
-                return;
-            }
-            this.TeliporterPlateSystemRollCompleteStandingUpHandler(data, PlayerItem, PlateTeliporterPlate);
+            this.TeliporterPlateSystemRollCompleteStandingUpHandler(data, PlayerItem);
         }
     }
     

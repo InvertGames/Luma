@@ -25,7 +25,7 @@ namespace FlipCube {
             base.ResetSwitchPlateTriggerHandler(data, @group);
         }
 
-        protected override void LandedOnTriggerHandler(RollCompleteStandingUp data, Roller player, SwitchPlateTrigger plate)
+       /* protected override void LandedOnTriggerHandler(RollCompleteStandingUp data, Roller player, SwitchPlateTrigger plate)
         {
             base.LandedOnTriggerHandler(data, player, plate);
 
@@ -36,7 +36,7 @@ namespace FlipCube {
 
             }
 
-        }
+        }*/
 
         protected override void OnChanged(SwitchPlate data, SwitchPlate target, PropertyChangedEvent<bool> value)
         {

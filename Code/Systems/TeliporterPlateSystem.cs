@@ -10,7 +10,7 @@ namespace FlipCube {
     
     
     public partial class TeliporterPlateSystem : TeliporterPlateSystemBase {
-        protected override void TeliporterPlateSystemRollCompleteStandingUpHandler(RollCompleteStandingUp data, PlayerRoller player,
+        /*protected override void TeliporterPlateSystemRollCompleteStandingUpHandler(RollCompleteStandingUp data, PlayerRoller player,
             TeliporterPlate plate)
         {
 
@@ -22,7 +22,7 @@ namespace FlipCube {
                 Y = targetPosition.y,
                 Z = targetPosition.z
             });
-        }
+        }*/
 
     }
 }

@@ -9,17 +9,17 @@
 // ------------------------------------------------------------------------------
 
 namespace FlipCube {
+    using FlipCube;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using uFrame.ECS;
     using UniRx;
-    using FlipCube;
     using UnityEngine.UI;
     
     
-    [uFrame.Attributes.EventId(44)]
+    [uFrame.Attributes.EventId(30)]
     public partial class LevelSelectionUIHiding : object {
     }
 }

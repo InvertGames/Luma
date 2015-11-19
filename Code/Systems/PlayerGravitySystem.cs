@@ -75,7 +75,7 @@ namespace FlipCube {
                     this.Publish(new RollCompleteStandingUp()
                     {
                         Player = player.EntityId,
-                        Plate = over[0].collider.GetComponent<Entity>().EntityId,
+                        //Plate = over[0].collider.GetComponent<Entity>().EntityId,
                         RollArgs = data.RollArgs
                     });
                     //SignalRollCompletedStandingUp(new PlateCubeCollsion()

@@ -13,9 +13,9 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using UnityEngine;
     using uFrame.ECS;
     using uFrame.Kernel;
+    using UnityEngine;
     
     
     public class HiddenChanged {

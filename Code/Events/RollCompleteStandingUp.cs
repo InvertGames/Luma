@@ -26,9 +26,6 @@ namespace FlipCube {
         private Int32 _Player;
         
         [UnityEngine.SerializeField()]
-        private Int32 _Plate;
-        
-        [UnityEngine.SerializeField()]
         private RollStart _RollArgs;
         
         public Int32 Player {
@@ -37,15 +34,6 @@ namespace FlipCube {
             }
             set {
                 _Player = value;
-            }
-        }
-        
-        public Int32 Plate {
-            get {
-                return _Plate;
-            }
-            set {
-                _Plate = value;
             }
         }
         
