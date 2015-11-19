@@ -18,7 +18,7 @@ namespace FlipCube {
     using UniRx;
     
     
-    [uFrame.Attributes.ComponentId(41)]
+    [uFrame.Attributes.ComponentId(1)]
     public partial class PlayerRoller : uFrame.ECS.GroupItem {
         
         private Roller _Roller;
@@ -45,7 +45,7 @@ namespace FlipCube {
         
         public override int ComponentId {
             get {
-                return 41;
+                return 1;
             }
         }
     }
