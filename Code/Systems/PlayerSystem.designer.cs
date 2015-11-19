@@ -13,10 +13,10 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.Kernel;
     using uFrame.ECS;
-    using UniRx;
+    using uFrame.Kernel;
     using FlipCube;
+    using UniRx;
     
     
     public partial class PlayerSystemBase : uFrame.ECS.EcsSystem {
@@ -67,7 +67,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Group = group;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void ResetPlayerFilter(FlipCube.LevelReset data) {

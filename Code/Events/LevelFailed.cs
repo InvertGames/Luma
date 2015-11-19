@@ -17,7 +17,7 @@ namespace FlipCube {
     using uFrame.ECS;
     
     
-    [uFrame.Attributes.EventId(37)]
+    [uFrame.Attributes.EventId(24)]
     public partial class LevelFailed : object {
     }
 }

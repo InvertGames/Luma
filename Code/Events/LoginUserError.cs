@@ -17,7 +17,7 @@ namespace FlipCube {
     using uFrame.ECS;
     
     
-    [uFrame.Attributes.EventId(13)]
+    [uFrame.Attributes.EventId(8)]
     public partial class LoginUserError : object {
         
         [UnityEngine.SerializeField()]

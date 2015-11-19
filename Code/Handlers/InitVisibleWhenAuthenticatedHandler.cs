@@ -44,11 +44,9 @@ namespace FlipCube {
             }
         }
         
-        public virtual System.Collections.IEnumerator Execute() {
+        public virtual void Execute() {
             // SetVariableNode
-            while (this.DebugInfo("","f6399b8b-7316-403d-a45d-7cdfced45c42", this) == 1) yield return null;
             Group.Entity.gameObject.active = (System.Boolean)System.BlackBoardSystem.Get<UserLoginInfo>().IsLoggedIn;
-            yield break;
         }
     }
 }

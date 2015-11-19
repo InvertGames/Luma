@@ -19,8 +19,6 @@ namespace FlipCube {
         
         MainMenu,
         
-        LevelSelection,
-        
         Authentication,
         
         Profile,

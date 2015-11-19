@@ -17,7 +17,7 @@ namespace FlipCube {
     using uFrame.ECS;
     
     
-    [uFrame.Attributes.EventId(3)]
+    [uFrame.Attributes.EventId(4)]
     public partial class UserLoggedOut : object {
     }
 }

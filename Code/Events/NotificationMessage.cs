@@ -17,7 +17,7 @@ namespace FlipCube {
     using uFrame.ECS;
     
     
-    [uFrame.Attributes.EventId(14)]
+    [uFrame.Attributes.EventId(9)]
     public partial class NotificationMessage : object {
         
         [UnityEngine.SerializeField()]

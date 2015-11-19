@@ -17,7 +17,7 @@ namespace FlipCube {
     using uFrame.ECS;
     
     
-    [uFrame.Attributes.EventId(38)]
+    [uFrame.Attributes.EventId(25)]
     public partial class LevelReset : object {
     }
 }

@@ -13,9 +13,9 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using FlipCube;
-    using uFrame.Kernel;
     using uFrame.ECS;
+    using uFrame.Kernel;
+    using FlipCube;
     using UniRx;
     
     
@@ -43,7 +43,7 @@ namespace FlipCube {
             var handler = new FlipCubeLevelSystemLevelFailedHandler();
             handler.System = this;
             handler.Event = data;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void FlipCubeLevelSystemLevelFailedFilter(FlipCube.LevelFailed data) {
@@ -55,7 +55,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Player = player;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void FlipCubeLevelSystemPlayerFallFilter(FlipCube.PlayerFall data) {

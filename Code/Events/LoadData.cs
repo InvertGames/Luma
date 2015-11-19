@@ -17,7 +17,7 @@ namespace FlipCube {
     using uFrame.ECS;
     
     
-    [uFrame.Attributes.EventId(7)]
+    [uFrame.Attributes.EventId(6)]
     public partial class LoadData : object {
     }
 }

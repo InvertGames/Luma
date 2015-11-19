@@ -13,12 +13,12 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using FlipCube;
     using UniRx;
     using uFrame.ECS;
+    using FlipCube;
     
     
-    [uFrame.Attributes.EventId(23)]
+    [uFrame.Attributes.EventId(12)]
     public partial class MoveRight : object {
         
         [UnityEngine.SerializeField()]

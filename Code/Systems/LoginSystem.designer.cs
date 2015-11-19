@@ -13,8 +13,8 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.Kernel;
     using uFrame.ECS;
+    using uFrame.Kernel;
     using UniRx;
     
     
@@ -42,7 +42,7 @@ namespace FlipCube {
             var handler = new LoginSystemUserLoggedInHandler();
             handler.System = this;
             handler.Event = data;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void LoginSystemUserLoggedInFilter(FlipCube.UserLoggedIn data) {
@@ -53,7 +53,7 @@ namespace FlipCube {
             var handler = new LoginSystemUserLoggedOutHandler();
             handler.System = this;
             handler.Event = data;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void LoginSystemUserLoggedOutFilter(FlipCube.UserLoggedOut data) {

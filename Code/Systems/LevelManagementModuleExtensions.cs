@@ -13,20 +13,13 @@ namespace FlipCube {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.Kernel;
     using uFrame.ECS;
+    using uFrame.Kernel;
     
     
     #region 
 static
     public class LevelManagementModuleExtensions {
-        
-        #region 
-static
-        public uFrame.ECS.IEcsComponentManagerOf<UIScene> UISceneManager(this uFrame.ECS.IEcsSystem system) {
-            return system.ComponentSystem.RegisterComponent<UIScene>();
-        }
-        #endregion
         
         #region 
 static
@@ -58,20 +51,6 @@ static
         
         #region 
 static
-        public uFrame.ECS.IEcsComponentManagerOf<RunningLevel> RunningLevelManager(this uFrame.ECS.IEcsSystem system) {
-            return system.ComponentSystem.RegisterComponent<RunningLevel>();
-        }
-        #endregion
-        
-        #region 
-static
-        public List<UIScene> UISceneComponents(this uFrame.ECS.IEcsSystem system) {
-            return system.ComponentSystem.RegisterComponent<UIScene>().Components;
-        }
-        #endregion
-        
-        #region 
-static
         public List<Intro> IntroComponents(this uFrame.ECS.IEcsSystem system) {
             return system.ComponentSystem.RegisterComponent<Intro>().Components;
         }
@@ -95,13 +74,6 @@ static
 static
         public List<LevelData> LevelDataComponents(this uFrame.ECS.IEcsSystem system) {
             return system.ComponentSystem.RegisterComponent<LevelData>().Components;
-        }
-        #endregion
-        
-        #region 
-static
-        public List<RunningLevel> RunningLevelComponents(this uFrame.ECS.IEcsSystem system) {
-            return system.ComponentSystem.RegisterComponent<RunningLevel>().Components;
         }
         #endregion
     }
