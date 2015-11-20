@@ -1,0 +1,12 @@
+{
+	"CodeHandler":false	, 
+	"Custom":false	, 
+	"MetaType":"08e3b826-720b-49a7-b78b-760764acc1f5"	, 
+	"VariableCount":0	, 
+	"VariableName":"HandlerNode1"	, 
+	"Name":"ResetDissolvePlate"	, 
+	"Order":0	, 
+	"Comments":"Resets the Dissolve Plate by re-instantiating the dissolve plate. \n"	, 
+	"GraphId":"6c6e6e7e-ddaf-401c-9c97-81d78c0c0b84"	, 
+	"Identifier":"de108111-7c14-4995-bf41-b0daf64b72e8"	, 
+	"Expanded":false}

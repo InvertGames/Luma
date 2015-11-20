@@ -6,6 +6,7 @@
 	"VariableName":"HandlerNode2"	, 
 	"Name":"ResetSwitchPlateTrigger"	, 
 	"Order":0	, 
+	"Comments":""	, 
 	"GraphId":"6b512b60-6ce9-4469-b29f-4199a4c55e12"	, 
 	"Identifier":"ce177e64-e182-485b-aa87-e54c551f76dc"	, 
 	"Expanded":false}

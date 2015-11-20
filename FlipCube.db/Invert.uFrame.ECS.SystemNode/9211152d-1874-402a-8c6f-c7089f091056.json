@@ -2,6 +2,7 @@
 	"VariableCount":0	, 
 	"Name":"PlateSystem"	, 
 	"Order":0	, 
+	"Comments":"The plate system handles basic roller/plate interactions.  \n\nNote: These are collider interactions, for better and exact roll complete events see RollerSystem Events."	, 
 	"GraphId":"e2656063-5446-452e-88c9-f513b3f1a514"	, 
 	"Identifier":"9211152d-1874-402a-8c6f-c7089f091056"	, 
 	"Expanded":false}

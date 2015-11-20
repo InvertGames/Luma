@@ -1,6 +1,7 @@
 {
 	"FriendlyName":"Roller"	, 
 	"RelatedType":"uFrame.ECS.Entity"	, 
+	"Description":""	, 
 	"Identifier":"e5ea0652-7ce0-47b0-a7f7-c76082e6903b"	, 
 	"NodeId":"2fdcc6e2-b575-4958-b544-2b6a0767d6ea"	, 
 	"Order":0	, 

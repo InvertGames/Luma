@@ -38,7 +38,6 @@ namespace FlipCube {
             var subAngle = rollArgs.Angle / steps;
             var waitFor = roller.RollSpeed / steps;
             // Rotate the cube by the point, axis and angle
-            Debug.Log(string.Format("{0} - {1} - {2}", steps, subAngle, waitFor));
             for (var i = 1; i < steps; i++)
             {
                 yield return new WaitForSeconds(waitFor);

@@ -3,6 +3,7 @@
 	"ComponentId":46	, 
 	"Name":"SwitchPlateTrigger"	, 
 	"Order":0	, 
+	"Comments":"This component triggers to all switch plates with the same \"GroupNumber\" to trigger on and off."	, 
 	"GraphId":"6b512b60-6ce9-4469-b29f-4199a4c55e12"	, 
 	"Identifier":"48999917-4f8c-4541-bfba-d12baf40d336"	, 
 	"Expanded":false}
