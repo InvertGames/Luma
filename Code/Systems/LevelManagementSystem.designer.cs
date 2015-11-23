@@ -17,6 +17,7 @@ namespace FlipCube {
     using uFrame.ECS;
     using uFrame.Kernel;
     using UniRx;
+    using UnityEngine;
     
     
     public partial class LevelManagementSystemBase : uFrame.ECS.EcsSystem {
@@ -25,13 +26,11 @@ namespace FlipCube {
         
         private IEcsComponentManagerOf<RunningLevel> _RunningLevelManager;
         
-        private IEcsComponentManagerOf<LevelScene> _LevelSceneManager;
+        private IEcsComponentManagerOf<LevelData> _LevelDataManager;
         
         private IEcsComponentManagerOf<UIScene> _UISceneManager;
         
-        private IEcsComponentManagerOf<ZoneData> _ZoneDataManager;
-        
-        private IEcsComponentManagerOf<LevelData> _LevelDataManager;
+        private IEcsComponentManagerOf<LevelScene> _LevelSceneManager;
         
         public IEcsComponentManagerOf<Intro> IntroManager {
             get {
@@ -51,12 +50,12 @@ namespace FlipCube {
             }
         }
         
-        public IEcsComponentManagerOf<LevelScene> LevelSceneManager {
+        public IEcsComponentManagerOf<LevelData> LevelDataManager {
             get {
-                return _LevelSceneManager;
+                return _LevelDataManager;
             }
             set {
-                _LevelSceneManager = value;
+                _LevelDataManager = value;
             }
         }
         
@@ -69,21 +68,12 @@ namespace FlipCube {
             }
         }
         
-        public IEcsComponentManagerOf<ZoneData> ZoneDataManager {
+        public IEcsComponentManagerOf<LevelScene> LevelSceneManager {
             get {
-                return _ZoneDataManager;
+                return _LevelSceneManager;
             }
             set {
-                _ZoneDataManager = value;
-            }
-        }
-        
-        public IEcsComponentManagerOf<LevelData> LevelDataManager {
-            get {
-                return _LevelDataManager;
-            }
-            set {
-                _LevelDataManager = value;
+                _LevelSceneManager = value;
             }
         }
         
@@ -91,40 +81,48 @@ namespace FlipCube {
             base.Setup();
             IntroManager = ComponentSystem.RegisterComponent<Intro>(2);
             RunningLevelManager = ComponentSystem.RegisterGroup<RunningLevelGroup,RunningLevel>();
-            LevelSceneManager = ComponentSystem.RegisterComponent<LevelScene>(40);
-            UISceneManager = ComponentSystem.RegisterComponent<UIScene>(41);
-            ZoneDataManager = ComponentSystem.RegisterComponent<ZoneData>(1);
             LevelDataManager = ComponentSystem.RegisterComponent<LevelData>(38);
-            LevelSceneManager.CreatedObservable.Subscribe(OnLevelSceneLoadedFilter).DisposeWith(this);
-            this.OnEvent<FlipCube.LoadDependencyScenes>().Subscribe(_=>{ OnLoadDepsFilter(_); }).DisposeWith(this);
-            RunningLevelManager.CreatedObservable.Subscribe(OnLevelLoadedFilter).DisposeWith(this);
+            UISceneManager = ComponentSystem.RegisterComponent<UIScene>(41);
+            LevelSceneManager = ComponentSystem.RegisterComponent<LevelScene>(40);
+            this.OnEvent<FlipCube.UnloadLevel>().Subscribe(_=>{ LevelManagementSystemUnloadLevelFilter(_); }).DisposeWith(this);
+            this.OnEvent<FlipCube.LoadLevel>().Subscribe(_=>{ LevelManagementSystemLoadLevelFilter(_); }).DisposeWith(this);
+            RunningLevelManager.CreatedObservable.Subscribe(LevelManagementSystemOnRunningLevelCreatedFilter).DisposeWith(this);
+            RunningLevelManager.RemovedObservable.Subscribe(_=>RunningLevelComponentDestroyed(_,_)).DisposeWith(this);
+            this.OnEvent<uFrame.Kernel.GameReadyEvent>().Subscribe(_=>{ LevelManagementSystemOnGameReadyFilter(_); }).DisposeWith(this);
         }
         
-        protected virtual void OnLevelSceneLoaded(LevelScene data, LevelScene group) {
+        protected virtual void LevelManagementSystemUnloadLevelHandler(FlipCube.UnloadLevel data, RunningLevel source) {
         }
         
-        protected void OnLevelSceneLoadedFilter(LevelScene data) {
-            var GroupLevelScene = LevelSceneManager[data.EntityId];
-            if (GroupLevelScene == null) {
+        protected void LevelManagementSystemUnloadLevelFilter(FlipCube.UnloadLevel data) {
+            var SourceItem = RunningLevelManager[data.Source];
+            if (SourceItem == null) {
                 return;
             }
-            if (!GroupLevelScene.Enabled) {
+            if (!SourceItem.Enabled) {
                 return;
             }
-            this.OnLevelSceneLoaded(data, GroupLevelScene);
+            this.LevelManagementSystemUnloadLevelHandler(data, SourceItem);
         }
         
-        protected virtual void OnLoadDepsHandler(FlipCube.LoadDependencyScenes data) {
+        protected virtual void LevelManagementSystemLoadLevelHandler(FlipCube.LoadLevel data, LevelData source) {
         }
         
-        protected void OnLoadDepsFilter(FlipCube.LoadDependencyScenes data) {
-            this.OnLoadDepsHandler(data);
+        protected void LevelManagementSystemLoadLevelFilter(FlipCube.LoadLevel data) {
+            var SourceLevelData = LevelDataManager[data.Source];
+            if (SourceLevelData == null) {
+                return;
+            }
+            if (!SourceLevelData.Enabled) {
+                return;
+            }
+            this.LevelManagementSystemLoadLevelHandler(data, SourceLevelData);
         }
         
-        protected virtual void OnLevelLoaded(RunningLevel data, RunningLevel group) {
+        protected virtual void LevelManagementSystemOnRunningLevelCreated(RunningLevel data, RunningLevel group) {
         }
         
-        protected void OnLevelLoadedFilter(RunningLevel data) {
+        protected void LevelManagementSystemOnRunningLevelCreatedFilter(RunningLevel data) {
             var GroupItem = RunningLevelManager[data.EntityId];
             if (GroupItem == null) {
                 return;
@@ -132,7 +130,28 @@ namespace FlipCube {
             if (!GroupItem.Enabled) {
                 return;
             }
-            this.OnLevelLoaded(data, GroupItem);
+            this.LevelManagementSystemOnRunningLevelCreated(data, GroupItem);
+        }
+        
+        protected virtual void RunningLevelComponentDestroyed(RunningLevel data, RunningLevel group) {
+        }
+        
+        protected void RunningLevelComponentDestroyedFilter(RunningLevel data) {
+            var GroupItem = RunningLevelManager[data.EntityId];
+            if (GroupItem == null) {
+                return;
+            }
+            if (!GroupItem.Enabled) {
+                return;
+            }
+            this.RunningLevelComponentDestroyed(data, GroupItem);
+        }
+        
+        protected virtual void LevelManagementSystemOnGameReadyHandler(uFrame.Kernel.GameReadyEvent data) {
+        }
+        
+        protected void LevelManagementSystemOnGameReadyFilter(uFrame.Kernel.GameReadyEvent data) {
+            this.LevelManagementSystemOnGameReadyHandler(data);
         }
     }
     
@@ -140,6 +159,12 @@ namespace FlipCube {
     public partial class LevelManagementSystem : LevelManagementSystemBase {
         
         private static LevelManagementSystem _Instance;
+        
+        [UnityEngine.SerializeField()]
+        private List<string> _GameDependencyScenes;
+        
+        [UnityEngine.SerializeField()]
+        private List<string> _LevelDependencyScenes;
         
         public LevelManagementSystem() {
             Instance = this;
@@ -151,6 +176,24 @@ namespace FlipCube {
             }
             set {
                 _Instance = value;
+            }
+        }
+        
+        public List<string> GameDependencyScenes {
+            get {
+                return _GameDependencyScenes;
+            }
+            set {
+                _GameDependencyScenes = value;
+            }
+        }
+        
+        public List<string> LevelDependencyScenes {
+            get {
+                return _LevelDependencyScenes;
+            }
+            set {
+                _LevelDependencyScenes = value;
             }
         }
     }

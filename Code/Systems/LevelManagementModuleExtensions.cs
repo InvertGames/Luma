@@ -37,13 +37,6 @@ static
         
         #region 
 static
-        public uFrame.ECS.IEcsComponentManagerOf<ZoneData> ZoneDataManager(this uFrame.ECS.IEcsSystem system) {
-            return system.ComponentSystem.RegisterComponent<ZoneData>();
-        }
-        #endregion
-        
-        #region 
-static
         public uFrame.ECS.IEcsComponentManagerOf<LevelScene> LevelSceneManager(this uFrame.ECS.IEcsSystem system) {
             return system.ComponentSystem.RegisterComponent<LevelScene>();
         }
@@ -74,13 +67,6 @@ static
 static
         public List<Intro> IntroComponents(this uFrame.ECS.IEcsSystem system) {
             return system.ComponentSystem.RegisterComponent<Intro>().Components;
-        }
-        #endregion
-        
-        #region 
-static
-        public List<ZoneData> ZoneDataComponents(this uFrame.ECS.IEcsSystem system) {
-            return system.ComponentSystem.RegisterComponent<ZoneData>().Components;
         }
         #endregion
         

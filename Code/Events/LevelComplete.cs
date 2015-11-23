@@ -17,7 +17,7 @@ namespace FlipCube {
     using UniRx;
     
     
-    [uFrame.Attributes.EventId(23)]
+    [uFrame.Attributes.EventId(22)]
     public partial class LevelComplete : object {
     }
 }

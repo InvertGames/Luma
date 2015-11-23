@@ -1,109 +1,128 @@
-using System.Collections;
-using UnityEngine;
-using UnityEngine.Experimental.Director;
-
 namespace FlipCube {
+    using FlipCube;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using FlipCube;
-    using uFrame.Kernel;
     using uFrame.ECS;
+    using uFrame.Kernel;
     using UniRx;
+    using UnityEngine;
+    using UnityEngine.UI;
     
     
-    public partial class LevelSelectionUISystem : LevelSelectionUISystemBase {
-        private LevelSelectionUI _ui;
-        private Animator _uiAnimator;
-        private int _contentOutHash;
-        private int _contentOnHash;
+    public partial class LevelSelectionUISystem {
         private IEcsComponentManagerOf<LevelData> _levelDataManager;
 
-        public LevelSelectionUI UI
-        {
-            get { return _ui ?? (_ui = BlackBoardSystem.Get<LevelSelectionUI> ()); }
-            set { _ui = value; }
-        }
-
-        public Animator UIAnimator
-        {
-            get { return UI != null ? UI.Animator : null; }
-        }
 
         public IEcsComponentManagerOf<LevelData> LevelDataManager
         {
-            get { return _levelDataManager ?? (_levelDataManager = ComponentSystem.RegisterComponent<LevelData>()); }
+            get { return _levelDataManager ?? (_levelDataManager = LevelManagementSystem.Instance.LevelDataManager); }
             set { _levelDataManager = value; }
         }
 
-        protected override void SkipChanged(LevelSelectionUI data, LevelSelectionUI group, PropertyChangedEvent<System.Int32> value)
+        protected override void LevelSelectionWidgetCreated(LevelSelectionWidget data, LevelSelectionWidget @group)
         {
-            UIAnimator.SetTrigger("ReloadLevelSelectionGrid");
+            base.LevelSelectionWidgetCreated(data, @group);
+            data.LevelSelectionUI.NextButton.OnClickAsObservable().Subscribe(_ => LevelSelectionNextButtonPressed(data));
+            data.LevelSelectionUI.BackButton.OnClickAsObservable().Subscribe(_ => LevelSelectionBackButtonPressed(data));
         }
 
-        protected override void HiddenChanged(LevelSelectionUI data, LevelSelectionUI @group, PropertyChangedEvent<bool> value)
+
+        private void LevelSelectionBackButtonPressed(LevelSelectionWidget data)
         {
-            UIAnimator.SetBool("Hidden",value.CurrentValue);
+            var selectionGrid =
+      data.Composite.Widgets.Select(s => LevelGridWidgetManager.ForEntity(s.EntityId) as LevelGridWidget).FirstOrDefault(w => w != null);
+            if (selectionGrid != null) MoveSelectionGrid(selectionGrid, - 10);
         }
-        
-        protected override void LevelIndexChanged(LevelSelectionUIItem data, LevelSelectionUIItem group, PropertyChangedEvent<System.Int32> value)
+
+        private void LevelSelectionNextButtonPressed(LevelSelectionWidget data)
         {
-            var levelData = LevelDataManager.ForEntity(data.LevelIndex + 100) as LevelData;
-            if (levelData == null)
+            var selectionGrid =
+                data.Composite.Widgets.Select(s => LevelGridWidgetManager.ForEntity(s.EntityId) as LevelGridWidget).FirstOrDefault(w=>w != null);
+            if (selectionGrid != null) MoveSelectionGrid(selectionGrid, + 10);
+        }
+
+        private void MoveSelectionGrid(LevelGridWidget selectionGrid, int offset)
+        {
+            var levels = LevelDataManager.Components.ToArray();
+            var newSkip = selectionGrid.LevelGridUI.Skip + offset;
+            if (newSkip > levels.Length || newSkip < 0) return;
+            selectionGrid.LevelGridUI.Skip = newSkip;
+        }
+
+        protected override void LevelGridItemBoundLevelChanged(LevelGridItemUI data, LevelGridItemUI @group, PropertyChangedEvent<int> value)
+        {
+            base.LevelGridItemBoundLevelChanged(data, @group, value);
+            var level = LevelDataManager.ForEntity(data.BoundLevel) as LevelData;
+            if (level != null)
             {
-                data.gameObject.SetActive(false);
+                data.gameObject.SetActive(true);
+                data.LevelNameText.text = level.name;
             }
             else
             {
-                data.gameObject.SetActive(true);
-                data.LevelTitleText.text = "Level " + (levelData.EntityId - 100);
+                data.gameObject.SetActive(false);
             }
-
         }
 
-        public int ContentOffHash
+        protected override void LevelDataCreated(LevelData data, LevelData @group)
         {
-            get { return _contentOutHash == 0 ? (_contentOutHash = Animator.StringToHash("Content_OFF")) : _contentOutHash; }
-            set { _contentOutHash = value; }
-        }
-        public int ContentOnHash
-        {
-            get { return _contentOnHash == 0 ? (_contentOnHash = Animator.StringToHash("Content_ON")) : _contentOnHash; }
-            set { _contentOnHash = value; }
-        }
-
-        protected override void UpdateLevelSelectionGridHandler(LevelSelectionGridReadyForUpdate data)
-        {
-            base.UpdateLevelSelectionGridHandler(data);
-            Debug.Log("Check");
-            if (!BlackBoardSystem.Has<LevelSelectionUI>()) return;
-            Debug.Log("Update");
-
-            for (int i = 0; i < UI.UIItems.Count; i++)
+            base.LevelDataCreated(data, @group);
+            foreach (var uis in LevelGridWidgetManager.Components)
             {
-                UI.UIItems[i].LevelIndex = UI.Skip + i + 1;
+                uis.LevelGridUI.RequiresUpdate = true;
             }
         }
 
-
-        protected override void OnLevelSelectionUIShownHandler(LevelSelectionUIShown data)
+        protected override void LevelGridRequireUpdateChanged(LevelGridWidget data, LevelGridWidget @group, PropertyChangedEvent<bool> value)
         {
-            base.OnLevelSelectionUIShownHandler(data);
-            if (!BlackBoardSystem.Has<LevelSelectionUI>()) return;
-
-            UI.Hidden = false;
-
+            base.LevelGridRequireUpdateChanged(data, @group, value);
+            if(value.CurrentValue && value.CurrentValue != value.PreviousValue)
+            data.Animated.Animator.SetTrigger("UpdateRequired");
         }
 
-        protected override void OnLevelSelectionUIHidingHandler(LevelSelectionUIHiding data)
+        protected override void LevelSelectionSkipChanged(LevelGridWidget data, LevelGridWidget @group, PropertyChangedEvent<int> value)
         {
-            base.OnLevelSelectionUIHidingHandler(data);
-            if (!BlackBoardSystem.Has<LevelSelectionUI>()) return;
+            data.LevelGridUI.RequiresUpdate = true;
+        }
 
-            UI.Hidden = true;
+        protected override void OnLevelGridTrySelectLevelHandler(LevelGridTrySelectLevel data, LevelGridItemUI source)
+        {
+            base.OnLevelGridTrySelectLevelHandler(data, source);
+            var level = LevelDataManager.ForEntity(source.BoundLevel) as LevelData;
+            if (level != null)
+            {
+                this.Publish(new LoadLevel()
+                {
+                    Source = level.EntityId
+                });
+            }
+            //TODO : Publish Load Level Event
+        }
+
+        protected override void LevelGridItemCreated(LevelGridItemUI data, LevelGridItemUI @group)
+        {
+            base.LevelGridItemCreated(data, @group);
+            data.SelectButton.OnClickAsObservable().Subscribe(_ => Publish(new LevelGridTrySelectLevel()
+            {
+                Source = data.EntityId
+            }));
+        }
+
+        protected override void LevelGridWidgetStateChanged(LevelGridWidget data, LevelGridWidget @group, PropertyChangedEvent<WidgetState> value)
+        {
+            base.LevelGridWidgetStateChanged(data, @group, value);
+            if (value.CurrentValue == WidgetState.Showing && data.LevelGridUI.RequiresUpdate)
+            {
+                data.LevelGridUI.RequiresUpdate = false;
+
+                var items = data.LevelGridUI.LevelGridItems.ToArray();
+                for (int i = 0; i < items.Length; i++)
+                {
+                    items[i].BoundLevel = 101 + data.LevelGridUI.Skip + i;
+                }
+            } 
         }
     }
 }
-
-

@@ -1,0 +1,13 @@
+{
+	"PropertyInId":"237e8965-148c-4fd2-8a3b-dee37cde40a7"	, 
+	"OnlyWhenChanged":false	, 
+	"Immediate":true	, 
+	"CodeHandler":false	, 
+	"Custom":true	, 
+	"VariableCount":0	, 
+	"VariableName":"PropertyChangedNode7"	, 
+	"Name":"OnUIWidgetStateChanged"	, 
+	"Order":0	, 
+	"GraphId":"d180f5fc-0620-4d80-94bd-1432e146bc3c"	, 
+	"Identifier":"366432bd-8a80-48e4-af85-8d20aabb305a"	, 
+	"Expanded":false}

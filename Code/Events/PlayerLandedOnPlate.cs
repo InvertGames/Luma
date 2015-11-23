@@ -19,7 +19,7 @@ namespace FlipCube {
     using UnityEngine;
     
     
-    [uFrame.Attributes.EventId(18)]
+    [uFrame.Attributes.EventId(17)]
     public partial class PlayerLandedOnPlate : object {
         
         [UnityEngine.SerializeField()]

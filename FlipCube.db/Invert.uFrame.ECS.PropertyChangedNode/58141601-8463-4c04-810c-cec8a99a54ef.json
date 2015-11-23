@@ -1,0 +1,13 @@
+{
+	"PropertyInId":"d13fe3cc-40a9-4091-b1ca-fc534592b0de"	, 
+	"OnlyWhenChanged":false	, 
+	"Immediate":true	, 
+	"CodeHandler":false	, 
+	"Custom":false	, 
+	"VariableCount":0	, 
+	"VariableName":"PropertyChangedNode0"	, 
+	"Name":"OnLoadingPanelMessageChanged"	, 
+	"Order":0	, 
+	"GraphId":"8ecce1f3-fcc2-4326-b3cd-a5a8c9cfb947"	, 
+	"Identifier":"58141601-8463-4c04-810c-cec8a99a54ef"	, 
+	"Expanded":false}

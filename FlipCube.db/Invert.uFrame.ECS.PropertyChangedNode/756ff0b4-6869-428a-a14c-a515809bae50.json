@@ -1,0 +1,13 @@
+{
+	"PropertyInId":"f1184bd9-3a09-443b-949d-8560e47283d9"	, 
+	"OnlyWhenChanged":false	, 
+	"Immediate":true	, 
+	"CodeHandler":false	, 
+	"Custom":true	, 
+	"VariableCount":0	, 
+	"VariableName":"PropertyChangedNode3"	, 
+	"Name":"CompositeWidgetIsActiveChanged"	, 
+	"Order":0	, 
+	"GraphId":"d180f5fc-0620-4d80-94bd-1432e146bc3c"	, 
+	"Identifier":"756ff0b4-6869-428a-a14c-a515809bae50"	, 
+	"Expanded":false}

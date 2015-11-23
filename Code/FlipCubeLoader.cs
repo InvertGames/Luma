@@ -21,37 +21,38 @@ namespace FlipCube {
         
         public override void Load() {
             EcsSystem system = null;
-            system = this.AddSystem<MainMenuSystem>();
+            system = this.AddSystem<UIWidgetSystem>();
             system = this.AddSystem<PlayFabPlayerStatsSystem>();
             system = this.AddSystem<PlayerDataSystem>();
+            system = this.AddSystem<LevelSelectionUISystem>();
             system = this.AddSystem<SettingsSystem>();
             system = this.AddSystem<DisolvePlateSystem>();
             system = this.AddSystem<NotificationSystem>();
             system = this.AddSystem<PlayerStatsSystem>();
             system = this.AddSystem<PlayerInputSystem>();
-            system = this.AddSystem<PlateFXSystem>();
             system = this.AddSystem<PlayfabTitleDataSystem>();
-            system = this.AddSystem<WinPlateSystem>();
             system = this.AddSystem<PlayerGravitySystem>();
+            system = this.AddSystem<GameAudioSystem>();
             system = this.AddSystem<FlipCubeLevelSystem>();
             system = this.AddSystem<PlayFabPlayerDataSystem>();
-            system = this.AddSystem<LevelSelectionUISystem>();
+            system = this.AddSystem<DemoPlayerSystem>();
             system = this.AddSystem<LevelSystem>();
             system = this.AddSystem<LoginSystem>();
             system = this.AddSystem<TeliporterPlateSystem>();
-            system = this.AddSystem<GameUISystem>();
             system = this.AddSystem<PlayerSystem>();
             system = this.AddSystem<LoginUISystem>();
             system = this.AddSystem<GameSystem>();
             system = this.AddSystem<PlateSystem>();
             system = this.AddSystem<PlayfabLoginSystem>();
             system = this.AddSystem<SwitchPlateSystem>();
+            system = this.AddSystem<GenericWidgetsSystem>();
+            system = this.AddSystem<LeaderboardUISystem>();
             system = this.AddSystem<SoundSystem>();
-            system = this.AddSystem<MiscUISystem>();
             system = this.AddSystem<DialogUISystem>();
             system = this.AddSystem<RollerSystem>();
             system = this.AddSystem<LevelManagementSystem>();
             system = this.AddSystem<IntroSceneSystem>();
+            system = this.AddSystem<FlipCubeAudioSystem>();
             system = this.AddSystem<NotificationsUISystem>();
         }
     }

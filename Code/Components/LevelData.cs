@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 
 namespace FlipCube {
+    using FlipCube;
     using Invert.Json;
     using System;
     using System.Collections;
@@ -23,10 +24,50 @@ namespace FlipCube {
     [uFrame.Attributes.uFrameIdentifier("de233a70-9951-4951-a8eb-ac1311b45c49")]
     public partial class LevelData : uFrame.ECS.EcsComponent {
         
+        [UnityEngine.SerializeField()]
+        private LevelState _State;
+        
+        [UnityEngine.SerializeField()]
+        private String[] _SceneDependencies;
+        
+        private ReactiveCollection<String> _SceneDependenciesReactive;
+        
+        private Subject<PropertyChangedEvent<LevelState>> _StateObservable;
+        
+        private PropertyChangedEvent<LevelState> _StateEvent;
+        
         public override int ComponentId {
             get {
                 return 38;
             }
+        }
+        
+        public IObservable<PropertyChangedEvent<LevelState>> StateObservable {
+            get {
+                return _StateObservable ?? (_StateObservable = new Subject<PropertyChangedEvent<LevelState>>());
+            }
+        }
+        
+        public LevelState State {
+            get {
+                return _State;
+            }
+            set {
+                SetState(value);
+            }
+        }
+        
+        public ReactiveCollection<String> SceneDependencies {
+            get {
+                if (_SceneDependenciesReactive == null) {
+                    _SceneDependenciesReactive = new ReactiveCollection<String>(_SceneDependencies ?? new String[] { });
+                }
+                return _SceneDependenciesReactive;
+            }
+        }
+        
+        public virtual void SetState(LevelState value) {
+            SetProperty(ref _State, value, ref _StateEvent, _StateObservable);
         }
     }
 }

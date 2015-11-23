@@ -9,7 +9,6 @@
 // ------------------------------------------------------------------------------
 
 namespace FlipCube {
-    using FlipCube;
     using Invert.Json;
     using System;
     using System.Collections;
@@ -18,108 +17,69 @@ namespace FlipCube {
     using uFrame.ECS;
     using UniRx;
     using UnityEngine;
+    using UnityEngine.UI;
     
     
-    [uFrame.Attributes.ComponentId(44)]
-    [uFrame.Attributes.uFrameIdentifier("55170ed3-4a31-4c51-ba69-04ebac8f7ab5")]
-    public partial class LevelSelectionUI : uFrame.ECS.EcsComponent, uFrame.ECS.IBlackBoardComponent {
+    [uFrame.Attributes.ComponentId(78)]
+    [uFrame.Attributes.uFrameIdentifier("08ba657c-ec42-41e3-b77a-8abcb64c2d6e")]
+    public partial class LevelSelectionUI : uFrame.ECS.EcsComponent {
         
         [UnityEngine.SerializeField()]
-        private Animator _Animator;
+        private Button _BackButton;
         
         [UnityEngine.SerializeField()]
-        private Int32 _Skip;
+        private Button _NextButton;
         
-        [UnityEngine.SerializeField()]
-        private Boolean _Hidden;
+        private Subject<PropertyChangedEvent<Button>> _BackButtonObservable;
         
-        [UnityEngine.SerializeField()]
-        private LevelSelectionUIItem[] _UIItems;
+        private PropertyChangedEvent<Button> _BackButtonEvent;
         
-        private ReactiveCollection<LevelSelectionUIItem> _UIItemsReactive;
+        private Subject<PropertyChangedEvent<Button>> _NextButtonObservable;
         
-        private Subject<PropertyChangedEvent<Animator>> _AnimatorObservable;
-        
-        private PropertyChangedEvent<Animator> _AnimatorEvent;
-        
-        private Subject<PropertyChangedEvent<Int32>> _SkipObservable;
-        
-        private PropertyChangedEvent<Int32> _SkipEvent;
-        
-        private Subject<PropertyChangedEvent<Boolean>> _HiddenObservable;
-        
-        private PropertyChangedEvent<Boolean> _HiddenEvent;
+        private PropertyChangedEvent<Button> _NextButtonEvent;
         
         public override int ComponentId {
             get {
-                return 44;
+                return 78;
             }
         }
         
-        public IObservable<PropertyChangedEvent<Animator>> AnimatorObservable {
+        public IObservable<PropertyChangedEvent<Button>> BackButtonObservable {
             get {
-                return _AnimatorObservable ?? (_AnimatorObservable = new Subject<PropertyChangedEvent<Animator>>());
+                return _BackButtonObservable ?? (_BackButtonObservable = new Subject<PropertyChangedEvent<Button>>());
             }
         }
         
-        public IObservable<PropertyChangedEvent<Int32>> SkipObservable {
+        public IObservable<PropertyChangedEvent<Button>> NextButtonObservable {
             get {
-                return _SkipObservable ?? (_SkipObservable = new Subject<PropertyChangedEvent<Int32>>());
+                return _NextButtonObservable ?? (_NextButtonObservable = new Subject<PropertyChangedEvent<Button>>());
             }
         }
         
-        public IObservable<PropertyChangedEvent<Boolean>> HiddenObservable {
+        public Button BackButton {
             get {
-                return _HiddenObservable ?? (_HiddenObservable = new Subject<PropertyChangedEvent<Boolean>>());
-            }
-        }
-        
-        public Animator Animator {
-            get {
-                return _Animator;
+                return _BackButton;
             }
             set {
-                SetAnimator(value);
+                SetBackButton(value);
             }
         }
         
-        public Int32 Skip {
+        public Button NextButton {
             get {
-                return _Skip;
+                return _NextButton;
             }
             set {
-                SetSkip(value);
+                SetNextButton(value);
             }
         }
         
-        public Boolean Hidden {
-            get {
-                return _Hidden;
-            }
-            set {
-                SetHidden(value);
-            }
+        public virtual void SetBackButton(Button value) {
+            SetProperty(ref _BackButton, value, ref _BackButtonEvent, _BackButtonObservable);
         }
         
-        public ReactiveCollection<LevelSelectionUIItem> UIItems {
-            get {
-                if (_UIItemsReactive == null) {
-                    _UIItemsReactive = new ReactiveCollection<LevelSelectionUIItem>(_UIItems ?? new LevelSelectionUIItem[] { });
-                }
-                return _UIItemsReactive;
-            }
-        }
-        
-        public virtual void SetAnimator(Animator value) {
-            SetProperty(ref _Animator, value, ref _AnimatorEvent, _AnimatorObservable);
-        }
-        
-        public virtual void SetSkip(Int32 value) {
-            SetProperty(ref _Skip, value, ref _SkipEvent, _SkipObservable);
-        }
-        
-        public virtual void SetHidden(Boolean value) {
-            SetProperty(ref _Hidden, value, ref _HiddenEvent, _HiddenObservable);
+        public virtual void SetNextButton(Button value) {
+            SetProperty(ref _NextButton, value, ref _NextButtonEvent, _NextButtonObservable);
         }
     }
 }

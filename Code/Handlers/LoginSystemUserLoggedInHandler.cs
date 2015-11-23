@@ -48,7 +48,7 @@ namespace FlipCube {
         
         public virtual System.Collections.IEnumerator Execute() {
             // SetVariableNode
-            while (this.DebugInfo("31600f72-c34b-4a8e-b5e3-8ebfb0a370c5","3acd4794-2a34-4e8e-914a-327acab7664a", this) == 1) yield return null;
+            while (this.DebugInfo("8b014875-05d2-4e5e-9977-dc2faa26803d","3acd4794-2a34-4e8e-914a-327acab7664a", this) == 1) yield return null;
             System.BlackBoardSystem.Get<UserLoginInfo>().IsLoggedIn = (System.Boolean)Yes;
             // PublishEventNode
             while (this.DebugInfo("3acd4794-2a34-4e8e-914a-327acab7664a","5bdadfd1-49f1-4b69-a7be-3ea1626e9ffe", this) == 1) yield return null;

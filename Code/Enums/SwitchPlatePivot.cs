@@ -17,11 +17,11 @@ namespace FlipCube {
     
     public enum SwitchPlatePivot {
         
-        Right,
+        Back,
         
         Left,
         
-        Back,
+        Right,
         
         Top,
     }

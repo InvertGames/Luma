@@ -1,0 +1,13 @@
+{
+	"PropertyInId":"26c1fd15-0eda-4d43-b315-45a802291550"	, 
+	"OnlyWhenChanged":false	, 
+	"Immediate":true	, 
+	"CodeHandler":false	, 
+	"Custom":true	, 
+	"VariableCount":0	, 
+	"VariableName":"PropertyChangedNode8"	, 
+	"Name":"SingularWidgetIsActiveChanged"	, 
+	"Order":0	, 
+	"GraphId":"d180f5fc-0620-4d80-94bd-1432e146bc3c"	, 
+	"Identifier":"e07dd489-5809-4cd0-bad1-b78cdcad88aa"	, 
+	"Expanded":false}

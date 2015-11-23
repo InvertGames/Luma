@@ -18,15 +18,21 @@ namespace FlipCube {
     using UnityEngine;
     
     
-    public class SoundSystemMoveForwardHandler {
+    public class UpdateClickCount {
         
-        public Roller Player;
+        public ClickCount Group;
         
-        private FlipCube.MoveForward _Event;
+        public int OldValue;
+        
+        public int NewValue;
+        
+        private ClickCount _Event;
         
         private uFrame.ECS.EcsSystem _System;
         
-        public FlipCube.MoveForward Event {
+        private string FormatStringAction9_Result = default( System.String );
+        
+        public ClickCount Event {
             get {
                 return _Event;
             }
@@ -45,6 +51,12 @@ namespace FlipCube {
         }
         
         public virtual System.Collections.IEnumerator Execute() {
+            // FormatStringAction
+            while (this.DebugInfo("1c2d0934-fe3d-44db-ac96-e6ac1da43e5c","126785ce-1876-481e-a85a-20faeb8e7092", this) == 1) yield return null;
+            FormatStringAction9_Result = string.Format(@"ClickCount: {0}", Group.Count);
+            // SetVariableNode
+            while (this.DebugInfo("126785ce-1876-481e-a85a-20faeb8e7092","4d9e2402-2c29-4ef4-a013-1dca4d91048f", this) == 1) yield return null;
+            DemoPlayerSystem.Instance.ClickCountLabel.text = (System.String)FormatStringAction9_Result;
             yield break;
         }
     }

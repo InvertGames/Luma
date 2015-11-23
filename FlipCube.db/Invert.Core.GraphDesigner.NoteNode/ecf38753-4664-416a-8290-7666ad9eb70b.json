@@ -1,10 +1,10 @@
 {
-	"Comments":"LevelData.EntityId corresponds to the specific level. \nRanged: 101-1xx"	, 
+	"Comments":"LevelData.EntityId and LevelScene.EntityId must match and correspond to the specific level. \nRanged: 101-1xx"	, 
 	"MarkColor":21	, 
 	"ShowMark":true	, 
 	"Size":	{
-		"x":"216.9"		, 
-		"y":"69.6"	}
+		"x":"266.8"		, 
+		"y":"83.9"	}
 	, 
 	"Name":"NewNoteNode"	, 
 	"Order":0	, 
