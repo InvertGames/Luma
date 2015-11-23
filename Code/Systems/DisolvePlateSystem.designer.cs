@@ -49,6 +49,7 @@ namespace FlipCube {
             RollerManager = ComponentSystem.RegisterComponent<Roller>(38);
             DissolvePlateManager = ComponentSystem.RegisterComponent<DissolvePlate>(47);
             this.OnEvent<FlipCube.PlayerLeftPlate>().Subscribe(_=>{ DissolvePlateExitFilter(_); }).DisposeWith(this);
+            this.OnEvent<FlipCube.LevelReset>().Subscribe(_=>{ ResetDissolvePlateFilter(_); }).DisposeWith(this);
         }
         
         protected virtual void DissolvePlateExitHandler(FlipCube.PlayerLeftPlate data, Roller player, DissolvePlate plate) {
@@ -70,6 +71,26 @@ namespace FlipCube {
                 return;
             }
             this.DissolvePlateExitHandler(data, PlayerRoller, PlateDissolvePlate);
+        }
+        
+        protected virtual void ResetDissolvePlateHandler(FlipCube.LevelReset data, DissolvePlate group) {
+            var handler = new ResetDissolvePlateHandler();
+            handler.System = this;
+            handler.Event = data;
+            handler.Group = group;
+            StartCoroutine(handler.Execute());
+        }
+        
+        protected void ResetDissolvePlateFilter(FlipCube.LevelReset data) {
+            var DissolvePlateItems = DissolvePlateManager.Components;
+            for (var DissolvePlateIndex = 0
+            ; DissolvePlateIndex < DissolvePlateItems.Count; DissolvePlateIndex++
+            ) {
+                if (!DissolvePlateItems[DissolvePlateIndex].Enabled) {
+                    continue;
+                }
+                this.ResetDissolvePlateHandler(data, DissolvePlateItems[DissolvePlateIndex]);
+            }
         }
     }
     

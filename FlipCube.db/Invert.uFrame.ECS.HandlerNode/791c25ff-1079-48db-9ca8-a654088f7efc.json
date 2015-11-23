@@ -6,6 +6,7 @@
 	"VariableName":"HandlerNode2"	, 
 	"Name":"PlateSystemOnCollisionExit"	, 
 	"Order":0	, 
+	"Comments":""	, 
 	"GraphId":"e2656063-5446-452e-88c9-f513b3f1a514"	, 
 	"Identifier":"791c25ff-1079-48db-9ca8-a654088f7efc"	, 
 	"Expanded":false}

@@ -7,6 +7,7 @@
 	"VariableName":"HandlerNode12"	, 
 	"Name":"PlayfabLoginSystemLoginUser"	, 
 	"Order":0	, 
+	"Comments":"Logs a user in based on the username and password of LoginUser."	, 
 	"GraphId":"5938dc25-79e6-4bd7-945e-94198e3dd6da"	, 
 	"Identifier":"79129db9-5315-4ddf-b6f9-3f371d374887"	, 
 	"Expanded":true}

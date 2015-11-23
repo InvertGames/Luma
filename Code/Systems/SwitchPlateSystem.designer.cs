@@ -24,9 +24,9 @@ namespace FlipCube {
         
         private IEcsComponentManagerOf<SwitchPlate> _SwitchPlateManager;
         
-        private IEcsComponentManagerOf<Roller> _RollerManager;
-        
         private IEcsComponentManagerOf<SwitchPlateTrigger> _SwitchPlateTriggerManager;
+        
+        private IEcsComponentManagerOf<Roller> _RollerManager;
         
         public IEcsComponentManagerOf<SwitchPlate> SwitchPlateManager {
             get {
@@ -34,15 +34,6 @@ namespace FlipCube {
             }
             set {
                 _SwitchPlateManager = value;
-            }
-        }
-        
-        public IEcsComponentManagerOf<Roller> RollerManager {
-            get {
-                return _RollerManager;
-            }
-            set {
-                _RollerManager = value;
             }
         }
         
@@ -55,11 +46,20 @@ namespace FlipCube {
             }
         }
         
+        public IEcsComponentManagerOf<Roller> RollerManager {
+            get {
+                return _RollerManager;
+            }
+            set {
+                _RollerManager = value;
+            }
+        }
+        
         public override void Setup() {
             base.Setup();
             SwitchPlateManager = ComponentSystem.RegisterComponent<SwitchPlate>(45);
-            RollerManager = ComponentSystem.RegisterComponent<Roller>(38);
             SwitchPlateTriggerManager = ComponentSystem.RegisterComponent<SwitchPlateTrigger>(46);
+            RollerManager = ComponentSystem.RegisterComponent<Roller>(38);
             this.PropertyChangedEvent<SwitchPlate,System.Boolean>(Group=>Group.OnObservable, OnChangedFilter, Group=>Group.On, false);
             this.OnEvent<FlipCube.LevelReset>().Subscribe(_=>{ ResetSwitchPlateTriggerFilter(_); }).DisposeWith(this);
             this.OnEvent<FlipCube.LevelReset>().Subscribe(_=>{ ResetSwitchPlateFilter(_); }).DisposeWith(this);
@@ -120,15 +120,23 @@ namespace FlipCube {
             }
         }
         
-        protected virtual void LandedOnTriggerHandler(FlipCube.RollCompleteStandingUp data, Roller player) {
+        protected virtual void LandedOnTriggerHandler(FlipCube.RollCompleteStandingUp data, SwitchPlateTrigger plate, Roller player) {
             var handler = new LandedOnTriggerHandler();
             handler.System = this;
             handler.Event = data;
+            handler.Plate = plate;
             handler.Player = player;
             StartCoroutine(handler.Execute());
         }
         
         protected void LandedOnTriggerFilter(FlipCube.RollCompleteStandingUp data) {
+            var PlateSwitchPlateTrigger = SwitchPlateTriggerManager[data.Plate];
+            if (PlateSwitchPlateTrigger == null) {
+                return;
+            }
+            if (!PlateSwitchPlateTrigger.Enabled) {
+                return;
+            }
             var PlayerRoller = RollerManager[data.Player];
             if (PlayerRoller == null) {
                 return;
@@ -136,7 +144,7 @@ namespace FlipCube {
             if (!PlayerRoller.Enabled) {
                 return;
             }
-            this.LandedOnTriggerHandler(data, PlayerRoller);
+            this.LandedOnTriggerHandler(data, PlateSwitchPlateTrigger, PlayerRoller);
         }
     }
     

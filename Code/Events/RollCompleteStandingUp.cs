@@ -23,10 +23,22 @@ namespace FlipCube {
     public partial class RollCompleteStandingUp : object {
         
         [UnityEngine.SerializeField()]
+        private Int32 _Plate;
+        
+        [UnityEngine.SerializeField()]
         private Int32 _Player;
         
         [UnityEngine.SerializeField()]
         private RollStart _RollArgs;
+        
+        public Int32 Plate {
+            get {
+                return _Plate;
+            }
+            set {
+                _Plate = value;
+            }
+        }
         
         public Int32 Player {
             get {

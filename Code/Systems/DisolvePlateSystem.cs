@@ -1,4 +1,5 @@
-namespace FlipCube {
+namespace FlipCube
+{
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -8,20 +9,27 @@ namespace FlipCube {
     using FlipCube;
     using UnityEngine;
     using UniRx;
-    
-    
-    public partial class DisolvePlateSystem {
+
+
+    public partial class DisolvePlateSystem
+    {
         public GameObject DissolvePlatePrefab;
-        protected override void DissolvePlateExitHandler(FlipCube.PlayerLeftPlate data, Roller player, DissolvePlate plate) {
-            foreach (var item in DissolvePlateManager.Components.ToArray())
-            {
-                if (!item.IsDissolved) continue;
-                var entityId = item.EntityId;
-                var newPlate = Instantiate(DissolvePlatePrefab) as GameObject;
-                newPlate.transform.parent = item.transform.parent;
-                newPlate.transform.position = item.transform.position;
-                DestroyImmediate(item.gameObject);
-            }
+        protected override void ResetDissolvePlateHandler(LevelReset data, DissolvePlate item)
+        {
+
+
+            if (!item.IsDissolved) return;
+            var entityId = item.EntityId;
+            var newPlate = Instantiate(DissolvePlatePrefab) as GameObject;
+            newPlate.transform.parent = item.transform.parent;
+            newPlate.transform.position = item.transform.position;
+            DestroyImmediate(item.gameObject);
+
+        }
+
+        protected override void DissolvePlateExitHandler(FlipCube.PlayerLeftPlate data, Roller player, DissolvePlate plate)
+        {
+            StartCoroutine(Break(plate));
         }
         public IEnumerator Break(DissolvePlate dissolveplate)
         {

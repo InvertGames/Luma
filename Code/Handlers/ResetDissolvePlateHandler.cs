@@ -15,38 +15,37 @@ namespace FlipCube {
     using System.Linq;
     using uFrame.ECS;
     using uFrame.Kernel;
-    using UniRx;
+    using UnityEngine;
     
     
-    [uFrame.Attributes.ComponentId(2)]
-    public partial class PlayerStandingUp : uFrame.ECS.GroupItem {
+    public class ResetDissolvePlateHandler {
         
-        private Roller _Roller;
+        public DissolvePlate Group;
         
-        private Player _Player;
+        private FlipCube.LevelReset _Event;
         
-        public Roller Roller {
+        private uFrame.ECS.EcsSystem _System;
+        
+        public FlipCube.LevelReset Event {
             get {
-                return _Roller;
+                return _Event;
             }
             set {
-                _Roller = value;
+                _Event = value;
             }
         }
         
-        public Player Player {
+        public uFrame.ECS.EcsSystem System {
             get {
-                return _Player;
+                return _System;
             }
             set {
-                _Player = value;
+                _System = value;
             }
         }
         
-        public override int ComponentId {
-            get {
-                return 2;
-            }
+        public virtual System.Collections.IEnumerator Execute() {
+            yield break;
         }
     }
 }
