@@ -58,7 +58,7 @@ namespace FlipCube {
             handler.Event = data;
             handler.Plate = plate;
             handler.Player = player;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void TeliporterPlateSystemRollCompleteStandingUpFilter(FlipCube.RollCompleteStandingUp data) {

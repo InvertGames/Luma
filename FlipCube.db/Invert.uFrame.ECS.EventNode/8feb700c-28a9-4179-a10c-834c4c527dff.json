@@ -1,5 +1,5 @@
 {
-	"EventId":23	, 
+	"EventId":22	, 
 	"Name":"LevelFailed"	, 
 	"Order":0	, 
 	"Comments":"Invoked when the level has been failed.\t"	, 

@@ -46,16 +46,13 @@ namespace FlipCube {
             }
         }
         
-        public virtual System.Collections.IEnumerator Execute() {
+        public virtual void Execute() {
             // SetVariableNode
-            while (this.DebugInfo("8b014875-05d2-4e5e-9977-dc2faa26803d","3acd4794-2a34-4e8e-914a-327acab7664a", this) == 1) yield return null;
             System.BlackBoardSystem.Get<UserLoginInfo>().IsLoggedIn = (System.Boolean)Yes;
             // PublishEventNode
-            while (this.DebugInfo("3acd4794-2a34-4e8e-914a-327acab7664a","5bdadfd1-49f1-4b69-a7be-3ea1626e9ffe", this) == 1) yield return null;
             var PublishEventNode5_Event = new LoadData();
             System.Publish(PublishEventNode5_Event);
             PublishEventNode5_Result = PublishEventNode5_Event;
-            yield break;
         }
     }
 }

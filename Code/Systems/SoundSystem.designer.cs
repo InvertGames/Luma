@@ -92,7 +92,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Player = player;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void SoundSystemMoveLeftFilter(FlipCube.MoveLeft data) {
@@ -111,7 +111,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Player = player;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void SoundSystemMoveForwardFilter(FlipCube.MoveForward data) {
@@ -130,7 +130,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Player = player;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void SoundSystemMoveBackwardFilter(FlipCube.MoveBackward data) {
@@ -149,7 +149,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Player = player;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void SoundSystemMoveRightFilter(FlipCube.MoveRight data) {

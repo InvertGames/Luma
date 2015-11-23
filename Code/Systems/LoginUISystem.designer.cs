@@ -97,7 +97,7 @@ namespace FlipCube {
             var handler = new ShowLoginScreenHandler();
             handler.System = this;
             handler.Event = data;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void ShowLoginScreenFilter(FlipCube.UserLoggedOut data) {
@@ -109,7 +109,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Group = group;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void InitVisibleWhenNotAuthenticatedFilter(VisibleWhenNotAuthenticated data) {
@@ -127,7 +127,7 @@ namespace FlipCube {
             var handler = new HideLoadingUIHandler();
             handler.System = this;
             handler.Event = data;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void HideLoadingUIFilter(FlipCube.UserLoggedIn data) {
@@ -139,7 +139,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Group = group;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void InitVisibleWhenAuthenticatedFilter(VisibleWhenAuthenticated data) {
@@ -157,7 +157,7 @@ namespace FlipCube {
             var handler = new LoginUISystemLoginUserHandler();
             handler.System = this;
             handler.Event = data;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void LoginUISystemLoginUserFilter(FlipCube.LoginUser data) {
@@ -169,7 +169,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Source = source;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void SignalLoginUserFilter(uFrame.ECS.PointerClickDispatcher data) {
@@ -187,7 +187,7 @@ namespace FlipCube {
             var handler = new LoginUISystemUserLoggedInHandler();
             handler.System = this;
             handler.Event = data;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void LoginUISystemUserLoggedInFilter(FlipCube.UserLoggedIn data) {

@@ -20,24 +20,15 @@ namespace FlipCube {
     
     public partial class LoadingPanelWidgetGroup : ReactiveGroup<LoadingPanelWidget> {
         
-        private IEcsComponentManagerOf<LoadingPanel> _LoadingPanelManager;
-        
         private IEcsComponentManagerOf<UIWidget> _UIWidgetManager;
+        
+        private IEcsComponentManagerOf<LoadingPanel> _LoadingPanelManager;
         
         private int lastEntityId;
         
-        private LoadingPanel LoadingPanel;
-        
         private UIWidget UIWidget;
         
-        public IEcsComponentManagerOf<LoadingPanel> LoadingPanelManager {
-            get {
-                return _LoadingPanelManager;
-            }
-            set {
-                _LoadingPanelManager = value;
-            }
-        }
+        private LoadingPanel LoadingPanel;
         
         public IEcsComponentManagerOf<UIWidget> UIWidgetManager {
             get {
@@ -48,21 +39,30 @@ namespace FlipCube {
             }
         }
         
+        public IEcsComponentManagerOf<LoadingPanel> LoadingPanelManager {
+            get {
+                return _LoadingPanelManager;
+            }
+            set {
+                _LoadingPanelManager = value;
+            }
+        }
+        
         public override System.Collections.Generic.IEnumerable<UniRx.IObservable<int>> Install(uFrame.ECS.IComponentSystem componentSystem) {
-            LoadingPanelManager = componentSystem.RegisterComponent<LoadingPanel>();
-            yield return LoadingPanelManager.CreatedObservable.Select(_=>_.EntityId);;
-            yield return LoadingPanelManager.RemovedObservable.Select(_=>_.EntityId);;
             UIWidgetManager = componentSystem.RegisterComponent<UIWidget>();
             yield return UIWidgetManager.CreatedObservable.Select(_=>_.EntityId);;
             yield return UIWidgetManager.RemovedObservable.Select(_=>_.EntityId);;
+            LoadingPanelManager = componentSystem.RegisterComponent<LoadingPanel>();
+            yield return LoadingPanelManager.CreatedObservable.Select(_=>_.EntityId);;
+            yield return LoadingPanelManager.RemovedObservable.Select(_=>_.EntityId);;
         }
         
         public override bool Match(int entityId) {
             lastEntityId = entityId;
-            if ((LoadingPanel = LoadingPanelManager[entityId]) == null) {
+            if ((UIWidget = UIWidgetManager[entityId]) == null) {
                 return false;
             }
-            if ((UIWidget = UIWidgetManager[entityId]) == null) {
+            if ((LoadingPanel = LoadingPanelManager[entityId]) == null) {
                 return false;
             }
             return true;
@@ -71,8 +71,8 @@ namespace FlipCube {
         public override LoadingPanelWidget Select() {
             var item = new LoadingPanelWidget();;
             item.EntityId = lastEntityId;
-            item.LoadingPanel = LoadingPanel;
             item.UIWidget = UIWidget;
+            item.LoadingPanel = LoadingPanel;
             return item;
         }
     }

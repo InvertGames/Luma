@@ -72,7 +72,7 @@ namespace FlipCube {
             handler.Event = data;
             handler.Collider = collider;
             handler.Source = source;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void PlateSystemOnCollisionEnterStadingUpFilter(uFrame.ECS.OnCollisionEnterDispatcher data) {
@@ -98,7 +98,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Group = group;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void PlateSystemLevelResetFilter(FlipCube.LevelReset data) {
@@ -119,7 +119,7 @@ namespace FlipCube {
             handler.Event = data;
             handler.Collider = collider;
             handler.Source = source;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void PlateSystemOnCollisionExitFilter(uFrame.ECS.OnCollisionExitDispatcher data) {
@@ -146,7 +146,7 @@ namespace FlipCube {
             handler.Event = data;
             handler.Collider = collider;
             handler.Source = source;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void PlateSystemOnCollisionEnterFilter(uFrame.ECS.OnCollisionEnterDispatcher data) {

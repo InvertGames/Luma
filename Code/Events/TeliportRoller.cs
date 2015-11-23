@@ -19,7 +19,7 @@ namespace FlipCube {
     using UnityEngine;
     
     
-    [uFrame.Attributes.EventId(31)]
+    [uFrame.Attributes.EventId(30)]
     public partial class TeliportRoller : object {
         
         [UnityEngine.SerializeField()]

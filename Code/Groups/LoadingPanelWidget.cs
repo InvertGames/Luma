@@ -18,21 +18,12 @@ namespace FlipCube {
     using UniRx;
     
     
-    [uFrame.Attributes.ComponentId(75)]
+    [uFrame.Attributes.ComponentId(8)]
     public partial class LoadingPanelWidget : uFrame.ECS.GroupItem {
-        
-        private LoadingPanel _LoadingPanel;
         
         private UIWidget _UIWidget;
         
-        public LoadingPanel LoadingPanel {
-            get {
-                return _LoadingPanel;
-            }
-            set {
-                _LoadingPanel = value;
-            }
-        }
+        private LoadingPanel _LoadingPanel;
         
         public UIWidget UIWidget {
             get {
@@ -43,9 +34,18 @@ namespace FlipCube {
             }
         }
         
+        public LoadingPanel LoadingPanel {
+            get {
+                return _LoadingPanel;
+            }
+            set {
+                _LoadingPanel = value;
+            }
+        }
+        
         public override int ComponentId {
             get {
-                return 75;
+                return 8;
             }
         }
     }

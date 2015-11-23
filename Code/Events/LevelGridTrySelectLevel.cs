@@ -19,7 +19,7 @@ namespace FlipCube {
     using UnityEngine.UI;
     
     
-    [uFrame.Attributes.EventId(28)]
+    [uFrame.Attributes.EventId(27)]
     public partial class LevelGridTrySelectLevel : object {
         
         [UnityEngine.SerializeField()]

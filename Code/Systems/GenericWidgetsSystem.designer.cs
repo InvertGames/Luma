@@ -58,7 +58,7 @@ namespace FlipCube {
             handler.Group = group;
             handler.OldValue = value.PreviousValue;
             handler.NewValue = value.CurrentValue;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void OnLoadingPanelMessageChangedFilter(LoadingPanelWidget data, PropertyChangedEvent<System.String> value) {

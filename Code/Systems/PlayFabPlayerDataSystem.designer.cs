@@ -17,6 +17,7 @@ namespace FlipCube {
     using uFrame.ECS;
     using uFrame.Kernel;
     using UniRx;
+    using UnityEngine;
     
     
     public partial class PlayFabPlayerDataSystemBase : uFrame.ECS.EcsSystem {

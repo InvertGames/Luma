@@ -30,7 +30,7 @@ namespace FlipCube {
             var handler = new GameAudioSystemPlayAudioFXHandler();
             handler.System = this;
             handler.Event = data;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void GameAudioSystemPlayAudioFXFilter(FlipCube.PlayAudioFX data) {

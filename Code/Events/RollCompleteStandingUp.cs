@@ -19,7 +19,7 @@ namespace FlipCube {
     using UnityEngine;
     
     
-    [uFrame.Attributes.EventId(20)]
+    [uFrame.Attributes.EventId(19)]
     public partial class RollCompleteStandingUp : object {
         
         [UnityEngine.SerializeField()]

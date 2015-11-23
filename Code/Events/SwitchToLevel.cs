@@ -16,33 +16,20 @@ namespace FlipCube {
     using System.Linq;
     using uFrame.ECS;
     using UniRx;
-    using UnityEngine;
     
     
-    [uFrame.Attributes.EventId(16)]
-    public partial class PlayerLandedOnPlate : object {
+    [uFrame.Attributes.EventId(32)]
+    public partial class SwitchToLevel : object {
         
         [UnityEngine.SerializeField()]
-        private Int32 _Player;
+        private Int32 _Properties;
         
-        [UnityEngine.SerializeField()]
-        private Int32 _Plate;
-        
-        public Int32 Player {
+        public Int32 Properties {
             get {
-                return _Player;
+                return _Properties;
             }
             set {
-                _Player = value;
-            }
-        }
-        
-        public Int32 Plate {
-            get {
-                return _Plate;
-            }
-            set {
-                _Plate = value;
+                _Properties = value;
             }
         }
     }

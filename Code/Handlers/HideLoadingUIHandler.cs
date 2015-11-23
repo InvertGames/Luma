@@ -60,62 +60,52 @@ namespace FlipCube {
             }
         }
         
-        public virtual System.Collections.IEnumerator Execute() {
+        public virtual void Execute() {
             // LoopGroupNode
-            while (this.DebugInfo("f6399b8b-7316-403d-a45d-7cdfced45c42","9d32636d-c3ef-4237-b961-0bc895b9158b", this) == 1) yield return null;
             var LoopGroupNode18_GroupComponents = System.ComponentSystem.RegisterComponent<FlipCube.LoginLoadingUI>().Components;
             for (var LoopGroupNode18_ItemIndex = 0
             ; LoopGroupNode18_ItemIndex < LoopGroupNode18_GroupComponents.Count; LoopGroupNode18_ItemIndex++
             ) {
                 LoopGroupNode18_Item = LoopGroupNode18_GroupComponents[LoopGroupNode18_ItemIndex];
-                System.StartCoroutine(LoopGroupNode18_Next());
+                LoopGroupNode18_Next();
             }
             // LoopGroupNode
-            while (this.DebugInfo("fdddb3e2-3980-4d72-877d-c40e9e317ee8","f8fe1686-3278-4854-8bdb-5f89a1c124af", this) == 1) yield return null;
             var LoopGroupNode23_GroupComponents = System.ComponentSystem.RegisterComponent<FlipCube.VisibleWhenAuthenticated>().Components;
             for (var LoopGroupNode23_ItemIndex = 0
             ; LoopGroupNode23_ItemIndex < LoopGroupNode23_GroupComponents.Count; LoopGroupNode23_ItemIndex++
             ) {
                 LoopGroupNode23_Item = LoopGroupNode23_GroupComponents[LoopGroupNode23_ItemIndex];
-                System.StartCoroutine(LoopGroupNode23_Next());
+                LoopGroupNode23_Next();
             }
             // LoopGroupNode
-            while (this.DebugInfo("39de072c-c39e-4984-b5cb-c47f744cae09","7267afae-909f-4565-8ed5-027b1a50aadc", this) == 1) yield return null;
             var LoopGroupNode26_GroupComponents = System.ComponentSystem.RegisterComponent<FlipCube.VisibleWhenNotAuthenticated>().Components;
             for (var LoopGroupNode26_ItemIndex = 0
             ; LoopGroupNode26_ItemIndex < LoopGroupNode26_GroupComponents.Count; LoopGroupNode26_ItemIndex++
             ) {
                 LoopGroupNode26_Item = LoopGroupNode26_GroupComponents[LoopGroupNode26_ItemIndex];
-                System.StartCoroutine(LoopGroupNode26_Next());
+                LoopGroupNode26_Next();
             }
-            yield break;
         }
         
-        private System.Collections.IEnumerator LoopGroupNode18_Next() {
+        private void LoopGroupNode18_Next() {
             ActionNode19_behaviour = LoopGroupNode18_Item;
             // ActionNode
-            while (this.DebugInfo("9d32636d-c3ef-4237-b961-0bc895b9158b","fdddb3e2-3980-4d72-877d-c40e9e317ee8", this) == 1) yield return null;
             // Visit uFrame.Actions.GameObjects.DeactiateGameObject
             uFrame.Actions.GameObjects.DeactiateGameObject(ActionNode19_gameObject, ActionNode19_behaviour);
-            yield break;
         }
         
-        private System.Collections.IEnumerator LoopGroupNode23_Next() {
+        private void LoopGroupNode23_Next() {
             ActionNode25_behaviour = LoopGroupNode23_Item;
             // ActionNode
-            while (this.DebugInfo("f8fe1686-3278-4854-8bdb-5f89a1c124af","39de072c-c39e-4984-b5cb-c47f744cae09", this) == 1) yield return null;
             // Visit uFrame.Actions.GameObjects.ActivateGameObject
             uFrame.Actions.GameObjects.ActivateGameObject(ActionNode25_gameObject, ActionNode25_behaviour);
-            yield break;
         }
         
-        private System.Collections.IEnumerator LoopGroupNode26_Next() {
+        private void LoopGroupNode26_Next() {
             ActionNode27_behaviour = LoopGroupNode26_Item;
             // ActionNode
-            while (this.DebugInfo("7267afae-909f-4565-8ed5-027b1a50aadc","31600f72-c34b-4a8e-b5e3-8ebfb0a370c5", this) == 1) yield return null;
             // Visit uFrame.Actions.GameObjects.DeactiateGameObject
             uFrame.Actions.GameObjects.DeactiateGameObject(ActionNode27_gameObject, ActionNode27_behaviour);
-            yield break;
         }
     }
 }

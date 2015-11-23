@@ -18,19 +18,15 @@ namespace FlipCube {
     using UnityEngine;
     
     
-    public class DemoPlayerSystemPointerClickHandler {
+    public class SoundSystemMoveLeftHandler {
         
-        public ClickCount Source;
+        public Roller Player;
         
-        private uFrame.ECS.MouseDownDispatcher _Event;
+        private FlipCube.MoveLeft _Event;
         
         private uFrame.ECS.EcsSystem _System;
         
-        private int ActionNode4_a = default( System.Int32 );
-        
-        private int ActionNode4_Result = default( System.Int32 );
-        
-        public uFrame.ECS.MouseDownDispatcher Event {
+        public FlipCube.MoveLeft Event {
             get {
                 return _Event;
             }
@@ -48,16 +44,7 @@ namespace FlipCube {
             }
         }
         
-        public virtual System.Collections.IEnumerator Execute() {
-            ActionNode4_a = Source.Count;
-            // ActionNode
-            while (this.DebugInfo("","26cfbe87-dea8-4796-91c7-7ad6ab9dce44", this) == 1) yield return null;
-            // Visit uFrame.Actions.IntLibrary.Increment
-            ActionNode4_Result = uFrame.Actions.IntLibrary.Increment(ActionNode4_a);
-            // SetVariableNode
-            while (this.DebugInfo("26cfbe87-dea8-4796-91c7-7ad6ab9dce44","0057f1bd-681a-42f7-9e54-a120a2924893", this) == 1) yield return null;
-            Source.Count = (System.Int32)ActionNode4_Result;
-            yield break;
+        public virtual void Execute() {
         }
     }
 }

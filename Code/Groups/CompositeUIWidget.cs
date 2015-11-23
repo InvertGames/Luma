@@ -18,7 +18,7 @@ namespace FlipCube {
     using UniRx;
     
     
-    [uFrame.Attributes.ComponentId(63)]
+    [uFrame.Attributes.ComponentId(5)]
     public partial class CompositeUIWidget : uFrame.ECS.GroupItem {
         
         private Composite _Composite;
@@ -56,7 +56,7 @@ namespace FlipCube {
         
         public override int ComponentId {
             get {
-                return 63;
+                return 5;
             }
         }
     }

@@ -18,7 +18,7 @@ namespace FlipCube {
     using UniRx;
     
     
-    [uFrame.Attributes.ComponentId(73)]
+    [uFrame.Attributes.ComponentId(7)]
     public partial class LeaderboardWidget : uFrame.ECS.GroupItem {
         
         private Composite _Composite;
@@ -56,7 +56,7 @@ namespace FlipCube {
         
         public override int ComponentId {
             get {
-                return 73;
+                return 7;
             }
         }
     }

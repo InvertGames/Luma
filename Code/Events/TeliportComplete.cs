@@ -18,7 +18,7 @@ namespace FlipCube {
     using UniRx;
     
     
-    [uFrame.Attributes.EventId(32)]
+    [uFrame.Attributes.EventId(31)]
     public partial class TeliportComplete : object {
         
         [UnityEngine.SerializeField()]

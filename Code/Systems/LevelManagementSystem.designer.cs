@@ -166,6 +166,9 @@ namespace FlipCube {
         [UnityEngine.SerializeField()]
         private List<string> _LevelDependencyScenes;
         
+        [UnityEngine.SerializeField()]
+        private List<string> _MenuDependencyScenes;
+        
         public LevelManagementSystem() {
             Instance = this;
         }
@@ -194,6 +197,15 @@ namespace FlipCube {
             }
             set {
                 _LevelDependencyScenes = value;
+            }
+        }
+        
+        public List<string> MenuDependencyScenes {
+            get {
+                return _MenuDependencyScenes;
+            }
+            set {
+                _MenuDependencyScenes = value;
             }
         }
     }

@@ -18,7 +18,7 @@ namespace FlipCube {
     using UniRx;
     
     
-    [uFrame.Attributes.EventId(29)]
+    [uFrame.Attributes.EventId(28)]
     public partial class LoadLevel : object {
         
         [UnityEngine.SerializeField()]

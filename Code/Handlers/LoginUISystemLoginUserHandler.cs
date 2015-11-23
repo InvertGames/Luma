@@ -54,44 +54,37 @@ namespace FlipCube {
             }
         }
         
-        public virtual System.Collections.IEnumerator Execute() {
+        public virtual void Execute() {
             // LoopGroupNode
-            while (this.DebugInfo("eed8b3f0-85d4-49be-ac66-f9909f789645","bf5fbcad-43c2-4759-b360-4275469633f9", this) == 1) yield return null;
             var LoopGroupNode15_GroupComponents = System.ComponentSystem.RegisterComponent<FlipCube.LoginLoadingUI>().Components;
             for (var LoopGroupNode15_ItemIndex = 0
             ; LoopGroupNode15_ItemIndex < LoopGroupNode15_GroupComponents.Count; LoopGroupNode15_ItemIndex++
             ) {
                 LoopGroupNode15_Item = LoopGroupNode15_GroupComponents[LoopGroupNode15_ItemIndex];
-                System.StartCoroutine(LoopGroupNode15_Next());
+                LoopGroupNode15_Next();
             }
             // LoopGroupNode
-            while (this.DebugInfo("3de2cdda-78ca-4535-b420-4d8ea7aeccad","29156af0-722d-4ad6-bb24-bf65747201b2", this) == 1) yield return null;
             var LoopGroupNode21_GroupComponents = System.ComponentSystem.RegisterComponent<FlipCube.LoginUI>().Components;
             for (var LoopGroupNode21_ItemIndex = 0
             ; LoopGroupNode21_ItemIndex < LoopGroupNode21_GroupComponents.Count; LoopGroupNode21_ItemIndex++
             ) {
                 LoopGroupNode21_Item = LoopGroupNode21_GroupComponents[LoopGroupNode21_ItemIndex];
-                System.StartCoroutine(LoopGroupNode21_Next());
+                LoopGroupNode21_Next();
             }
-            yield break;
         }
         
-        private System.Collections.IEnumerator LoopGroupNode15_Next() {
+        private void LoopGroupNode15_Next() {
             ActionNode14_behaviour = LoopGroupNode15_Item;
             // ActionNode
-            while (this.DebugInfo("bf5fbcad-43c2-4759-b360-4275469633f9","3de2cdda-78ca-4535-b420-4d8ea7aeccad", this) == 1) yield return null;
             // Visit uFrame.Actions.GameObjects.ActivateGameObject
             uFrame.Actions.GameObjects.ActivateGameObject(ActionNode14_gameObject, ActionNode14_behaviour);
-            yield break;
         }
         
-        private System.Collections.IEnumerator LoopGroupNode21_Next() {
+        private void LoopGroupNode21_Next() {
             ActionNode22_behaviour = LoopGroupNode21_Item;
             // ActionNode
-            while (this.DebugInfo("29156af0-722d-4ad6-bb24-bf65747201b2","163a0f8b-06f5-419d-b2e4-67e606530c74", this) == 1) yield return null;
             // Visit uFrame.Actions.GameObjects.DeactiateGameObject
             uFrame.Actions.GameObjects.DeactiateGameObject(ActionNode22_gameObject, ActionNode22_behaviour);
-            yield break;
         }
     }
 }

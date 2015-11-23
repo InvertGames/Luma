@@ -19,7 +19,7 @@ namespace FlipCube {
     using UnityEngine;
     
     
-    [uFrame.Attributes.EventId(26)]
+    [uFrame.Attributes.EventId(25)]
     public partial class MoveRoller : object {
         
         [UnityEngine.SerializeField()]

@@ -42,8 +42,7 @@ namespace FlipCube {
             }
         }
         
-        public virtual System.Collections.IEnumerator Execute() {
-            yield break;
+        public virtual void Execute() {
         }
     }
 }

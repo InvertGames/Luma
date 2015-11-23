@@ -85,7 +85,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Group = group;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void ResetSwitchPlateTriggerFilter(FlipCube.LevelReset data) {
@@ -105,7 +105,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Group = group;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void ResetSwitchPlateFilter(FlipCube.LevelReset data) {
@@ -126,7 +126,7 @@ namespace FlipCube {
             handler.Event = data;
             handler.Plate = plate;
             handler.Player = player;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void LandedOnTriggerFilter(FlipCube.RollCompleteStandingUp data) {

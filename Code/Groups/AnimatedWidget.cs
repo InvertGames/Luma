@@ -18,7 +18,7 @@ namespace FlipCube {
     using UniRx;
     
     
-    [uFrame.Attributes.ComponentId(59)]
+    [uFrame.Attributes.ComponentId(4)]
     public partial class AnimatedWidget : uFrame.ECS.GroupItem {
         
         private Animated _Animated;
@@ -45,7 +45,7 @@ namespace FlipCube {
         
         public override int ComponentId {
             get {
-                return 59;
+                return 4;
             }
         }
     }

@@ -63,7 +63,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Group = group;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void RollerCreatedFilter(Roller data) {
@@ -81,7 +81,7 @@ namespace FlipCube {
             var handler = new CalculatePositionsHandler();
             handler.System = this;
             handler.Group = group;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void CalculatePositionsFilter() {
@@ -147,7 +147,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Roller = roller;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void OnMoveRollerFilter(FlipCube.MoveRoller data) {

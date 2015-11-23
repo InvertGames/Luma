@@ -18,7 +18,7 @@ namespace FlipCube {
     using UniRx;
     
     
-    [uFrame.Attributes.ComponentId(82)]
+    [uFrame.Attributes.ComponentId(11)]
     public partial class LevelSelectionWidget : uFrame.ECS.GroupItem {
         
         private LevelSelectionUI _LevelSelectionUI;
@@ -56,7 +56,7 @@ namespace FlipCube {
         
         public override int ComponentId {
             get {
-                return 82;
+                return 11;
             }
         }
     }

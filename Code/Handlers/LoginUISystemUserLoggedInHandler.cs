@@ -48,26 +48,22 @@ namespace FlipCube {
             }
         }
         
-        public virtual System.Collections.IEnumerator Execute() {
+        public virtual void Execute() {
             // LoopGroupNode
-            while (this.DebugInfo("3d74489c-0b8d-47b4-ae76-1bc8e0fe19aa","fe471139-5cf6-4036-9684-5ac1953d460b", this) == 1) yield return null;
             var LoopGroupNode9_GroupComponents = System.ComponentSystem.RegisterComponent<FlipCube.LoginLoadingUI>().Components;
             for (var LoopGroupNode9_ItemIndex = 0
             ; LoopGroupNode9_ItemIndex < LoopGroupNode9_GroupComponents.Count; LoopGroupNode9_ItemIndex++
             ) {
                 LoopGroupNode9_Item = LoopGroupNode9_GroupComponents[LoopGroupNode9_ItemIndex];
-                System.StartCoroutine(LoopGroupNode9_Next());
+                LoopGroupNode9_Next();
             }
-            yield break;
         }
         
-        private System.Collections.IEnumerator LoopGroupNode9_Next() {
+        private void LoopGroupNode9_Next() {
             ActionNode6_behaviour = LoopGroupNode9_Item;
             // ActionNode
-            while (this.DebugInfo("fe471139-5cf6-4036-9684-5ac1953d460b","eed8b3f0-85d4-49be-ac66-f9909f789645", this) == 1) yield return null;
             // Visit uFrame.Actions.GameObjects.DeactiateGameObject
             uFrame.Actions.GameObjects.DeactiateGameObject(ActionNode6_gameObject, ActionNode6_behaviour);
-            yield break;
         }
     }
 }

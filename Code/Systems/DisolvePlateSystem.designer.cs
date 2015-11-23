@@ -78,7 +78,7 @@ namespace FlipCube {
             handler.System = this;
             handler.Event = data;
             handler.Group = group;
-            StartCoroutine(handler.Execute());
+            handler.Execute();
         }
         
         protected void ResetDissolvePlateFilter(FlipCube.LevelReset data) {
