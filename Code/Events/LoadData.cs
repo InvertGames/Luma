@@ -17,7 +17,7 @@ namespace FlipCube {
     using UniRx;
     
     
-    [uFrame.Attributes.EventId(6)]
+    [uFrame.Attributes.EventId(5)]
     public partial class LoadData : object {
     }
 }

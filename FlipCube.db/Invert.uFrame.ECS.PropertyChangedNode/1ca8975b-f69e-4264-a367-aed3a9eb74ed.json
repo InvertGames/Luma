@@ -1,0 +1,13 @@
+{
+	"PropertyInId":"4ea7a448-421c-48c3-bb39-7654941a68b4"	, 
+	"OnlyWhenChanged":false	, 
+	"Immediate":true	, 
+	"CodeHandler":false	, 
+	"Custom":true	, 
+	"VariableCount":0	, 
+	"VariableName":"PropertyChangedNode3"	, 
+	"Name":"LevelGridWidgetStateChanged"	, 
+	"Order":0	, 
+	"GraphId":"0dff4bde-ebe5-4894-a094-57ce734d3537"	, 
+	"Identifier":"1ca8975b-f69e-4264-a367-aed3a9eb74ed"	, 
+	"Expanded":false}

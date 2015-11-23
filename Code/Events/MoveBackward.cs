@@ -18,7 +18,7 @@ namespace FlipCube {
     using UniRx;
     
     
-    [uFrame.Attributes.EventId(11)]
+    [uFrame.Attributes.EventId(10)]
     public partial class MoveBackward : object {
         
         [UnityEngine.SerializeField()]

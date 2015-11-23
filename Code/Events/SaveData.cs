@@ -17,7 +17,7 @@ namespace FlipCube {
     using UniRx;
     
     
-    [uFrame.Attributes.EventId(7)]
+    [uFrame.Attributes.EventId(6)]
     public partial class SaveData : object {
     }
 }

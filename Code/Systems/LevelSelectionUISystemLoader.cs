@@ -17,7 +17,7 @@ namespace FlipCube {
     using uFrame.Kernel;
     
     
-    [uFrame.Attributes.uFrameIdentifier("4e0e6ed9-2181-40c1-aa62-bd0e6b71fc19")]
+    [uFrame.Attributes.uFrameIdentifier("1f7199a3-8efe-4556-8634-b5717882c10b")]
     public partial class LevelSelectionUISystemLoader : uFrame.Kernel.SystemLoader {
         
         public override void Load() {

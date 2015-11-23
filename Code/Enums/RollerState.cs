@@ -17,10 +17,10 @@ namespace FlipCube {
     
     public enum RollerState {
         
+        LayingAcross,
+        
         LayingForward,
         
         StandingUp,
-        
-        LayingAcross,
     }
 }

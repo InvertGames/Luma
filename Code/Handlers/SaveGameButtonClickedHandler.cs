@@ -48,7 +48,7 @@ namespace FlipCube {
         
         public virtual System.Collections.IEnumerator Execute() {
             // PublishEventNode
-            while (this.DebugInfo("eed8b3f0-85d4-49be-ac66-f9909f789645","1c2d0934-fe3d-44db-ac96-e6ac1da43e5c", this) == 1) yield return null;
+            while (this.DebugInfo("0057f1bd-681a-42f7-9e54-a120a2924893","1c2d0934-fe3d-44db-ac96-e6ac1da43e5c", this) == 1) yield return null;
             var PublishEventNode12_Event = new SaveData();
             System.Publish(PublishEventNode12_Event);
             PublishEventNode12_Result = PublishEventNode12_Event;

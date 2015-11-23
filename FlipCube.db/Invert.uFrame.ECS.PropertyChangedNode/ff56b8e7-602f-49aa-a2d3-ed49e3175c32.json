@@ -1,0 +1,13 @@
+{
+	"PropertyInId":"e325532e-b67e-4cc5-8709-56d018a5c381"	, 
+	"OnlyWhenChanged":false	, 
+	"Immediate":true	, 
+	"CodeHandler":false	, 
+	"Custom":true	, 
+	"VariableCount":0	, 
+	"VariableName":"PropertyChangedNode0"	, 
+	"Name":"LevelGridItemBoundLevelChanged"	, 
+	"Order":0	, 
+	"GraphId":"0dff4bde-ebe5-4894-a094-57ce734d3537"	, 
+	"Identifier":"ff56b8e7-602f-49aa-a2d3-ed49e3175c32"	, 
+	"Expanded":false}

@@ -17,6 +17,7 @@ namespace FlipCube {
     using uFrame.ECS;
     using uFrame.Kernel;
     using UniRx;
+    using UnityEngine;
     using UnityEngine.UI;
     
     

@@ -17,7 +17,7 @@ namespace FlipCube {
     using UniRx;
     
     
-    [uFrame.Attributes.EventId(9)]
+    [uFrame.Attributes.EventId(8)]
     public partial class NotificationMessage : object {
         
         [UnityEngine.SerializeField()]

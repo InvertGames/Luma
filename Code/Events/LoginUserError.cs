@@ -17,7 +17,7 @@ namespace FlipCube {
     using UniRx;
     
     
-    [uFrame.Attributes.EventId(8)]
+    [uFrame.Attributes.EventId(7)]
     public partial class LoginUserError : object {
         
         [UnityEngine.SerializeField()]

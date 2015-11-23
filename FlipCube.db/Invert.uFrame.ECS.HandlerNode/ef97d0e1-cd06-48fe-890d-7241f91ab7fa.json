@@ -1,0 +1,11 @@
+{
+	"CodeHandler":true	, 
+	"Custom":true	, 
+	"MetaType":"uFrame.Kernel.GameReadyEvent"	, 
+	"VariableCount":0	, 
+	"VariableName":"HandlerNode12"	, 
+	"Name":"LevelManagementSystemOnGameReady"	, 
+	"Order":0	, 
+	"GraphId":"706693e8-accc-444c-b18e-9d4a14a56a6a"	, 
+	"Identifier":"ef97d0e1-cd06-48fe-890d-7241f91ab7fa"	, 
+	"Expanded":false}

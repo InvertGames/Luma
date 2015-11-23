@@ -17,7 +17,7 @@ namespace FlipCube {
     using UniRx;
     
     
-    [uFrame.Attributes.EventId(25)]
+    [uFrame.Attributes.EventId(24)]
     public partial class LevelReset : object {
     }
 }
