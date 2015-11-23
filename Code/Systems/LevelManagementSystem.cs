@@ -73,7 +73,7 @@ namespace FlipCube {
         protected override void LevelManagementSystemOnRunningLevelCreated(RunningLevel data, RunningLevel @group)
         {
             base.LevelManagementSystemOnRunningLevelCreated(data, @group);
-            if (CurrentActiveLevel == null) CurrentActiveLevel = data.LevelData;
+            if (CurrentActiveLevel == null) CurrentActiveLevel = data.LevelData;  
             CurrentActiveLevel.State = LevelState.Loading;
             WaitingToLoad.AddRange(LevelDependencyScenes);
             WaitingToLoad.AddRange(data.LevelData.SceneDependencies);
@@ -120,6 +120,7 @@ namespace FlipCube {
 
         private void LoadScenesIfNotLoaded(IEnumerable<string> scenes)
         {
+            if (scenes == null) return;
             foreach (var gameScenes in scenes)
             {
                 this.Publish(new LoadSceneCommand()
@@ -132,6 +133,7 @@ namespace FlipCube {
 
         private void UnloadScenesIfLoaded(IEnumerable<string> scenes)
         {
+            if (scenes == null) return;
             foreach (var gameScenes in scenes)
             {
                 this.Publish(new UnloadSceneCommand()
