@@ -29,12 +29,13 @@ namespace FlipCube {
             system = this.AddSystem<NotificationSystem>();
             system = this.AddSystem<PlayerStatsSystem>();
             system = this.AddSystem<PlayerInputSystem>();
+            system = this.AddSystem<PlateFXSystem>();
             system = this.AddSystem<PlayfabTitleDataSystem>();
+            system = this.AddSystem<WinPlateSystem>();
             system = this.AddSystem<PlayerGravitySystem>();
             system = this.AddSystem<FlipCubeLevelSystem>();
             system = this.AddSystem<PlayFabPlayerDataSystem>();
             system = this.AddSystem<LevelSelectionUISystem>();
-            system = this.AddSystem<DemoPlayerSystem>();
             system = this.AddSystem<LevelSystem>();
             system = this.AddSystem<LoginSystem>();
             system = this.AddSystem<TeliporterPlateSystem>();

@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 
 namespace FlipCube {
+    using FlipCube;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -16,12 +17,171 @@ namespace FlipCube {
     using uFrame.ECS;
     using uFrame.Kernel;
     using UniRx;
+    using UnityEngine;
     
     
     public partial class SoundSystemBase : uFrame.ECS.EcsSystem {
         
+        private IEcsComponentManagerOf<Roller> _RollerManager;
+        
+        private IEcsComponentManagerOf<FlipCubeSounds> _FlipCubeSoundsManager;
+        
+        public IEcsComponentManagerOf<Roller> RollerManager {
+            get {
+                return _RollerManager;
+            }
+            set {
+                _RollerManager = value;
+            }
+        }
+        
+        public IEcsComponentManagerOf<FlipCubeSounds> FlipCubeSoundsManager {
+            get {
+                return _FlipCubeSoundsManager;
+            }
+            set {
+                _FlipCubeSoundsManager = value;
+            }
+        }
+        
         public override void Setup() {
             base.Setup();
+            RollerManager = ComponentSystem.RegisterComponent<Roller>(38);
+            FlipCubeSoundsManager = ComponentSystem.RegisterComponent<FlipCubeSounds>(48);
+            this.OnEvent<FlipCube.LevelComplete>().Subscribe(_=>{ SoundSystemLevelCompleteFilter(_); }).DisposeWith(this);
+            this.OnEvent<FlipCube.LevelFailed>().Subscribe(_=>{ SoundSystemLevelFailedFilter(_); }).DisposeWith(this);
+            this.OnEvent<FlipCube.RollStart>().Subscribe(_=>{ SoundSystemRollStartFilter(_); }).DisposeWith(this);
+            this.OnEvent<FlipCube.MoveLeft>().Subscribe(_=>{ SoundSystemMoveLeftFilter(_); }).DisposeWith(this);
+            this.OnEvent<FlipCube.MoveForward>().Subscribe(_=>{ SoundSystemMoveForwardFilter(_); }).DisposeWith(this);
+            this.OnEvent<FlipCube.MoveBackward>().Subscribe(_=>{ SoundSystemMoveBackwardFilter(_); }).DisposeWith(this);
+            this.OnEvent<FlipCube.MoveRight>().Subscribe(_=>{ SoundSystemMoveRightFilter(_); }).DisposeWith(this);
+            this.OnEvent<FlipCube.LevelReset>().Subscribe(_=>{ SoundSystemLevelResetFilter(_); }).DisposeWith(this);
+            this.OnEvent<FlipCube.RollComplete>().Subscribe(_=>{ PlayRollCompleteSoundFilter(_); }).DisposeWith(this);
+        }
+        
+        protected virtual void SoundSystemLevelCompleteHandler(FlipCube.LevelComplete data) {
+        }
+        
+        protected void SoundSystemLevelCompleteFilter(FlipCube.LevelComplete data) {
+            this.SoundSystemLevelCompleteHandler(data);
+        }
+        
+        protected virtual void SoundSystemLevelFailedHandler(FlipCube.LevelFailed data) {
+        }
+        
+        protected void SoundSystemLevelFailedFilter(FlipCube.LevelFailed data) {
+            this.SoundSystemLevelFailedHandler(data);
+        }
+        
+        protected virtual void SoundSystemRollStartHandler(FlipCube.RollStart data, Roller player) {
+        }
+        
+        protected void SoundSystemRollStartFilter(FlipCube.RollStart data) {
+            var PlayerRoller = RollerManager[data.Player];
+            if (PlayerRoller == null) {
+                return;
+            }
+            if (!PlayerRoller.Enabled) {
+                return;
+            }
+            this.SoundSystemRollStartHandler(data, PlayerRoller);
+        }
+        
+        protected virtual void SoundSystemMoveLeftHandler(FlipCube.MoveLeft data, Roller player) {
+            var handler = new SoundSystemMoveLeftHandler();
+            handler.System = this;
+            handler.Event = data;
+            handler.Player = player;
+            StartCoroutine(handler.Execute());
+        }
+        
+        protected void SoundSystemMoveLeftFilter(FlipCube.MoveLeft data) {
+            var PlayerRoller = RollerManager[data.Player];
+            if (PlayerRoller == null) {
+                return;
+            }
+            if (!PlayerRoller.Enabled) {
+                return;
+            }
+            this.SoundSystemMoveLeftHandler(data, PlayerRoller);
+        }
+        
+        protected virtual void SoundSystemMoveForwardHandler(FlipCube.MoveForward data, Roller player) {
+            var handler = new SoundSystemMoveForwardHandler();
+            handler.System = this;
+            handler.Event = data;
+            handler.Player = player;
+            StartCoroutine(handler.Execute());
+        }
+        
+        protected void SoundSystemMoveForwardFilter(FlipCube.MoveForward data) {
+            var PlayerRoller = RollerManager[data.Player];
+            if (PlayerRoller == null) {
+                return;
+            }
+            if (!PlayerRoller.Enabled) {
+                return;
+            }
+            this.SoundSystemMoveForwardHandler(data, PlayerRoller);
+        }
+        
+        protected virtual void SoundSystemMoveBackwardHandler(FlipCube.MoveBackward data, Roller player) {
+            var handler = new SoundSystemMoveBackwardHandler();
+            handler.System = this;
+            handler.Event = data;
+            handler.Player = player;
+            StartCoroutine(handler.Execute());
+        }
+        
+        protected void SoundSystemMoveBackwardFilter(FlipCube.MoveBackward data) {
+            var PlayerRoller = RollerManager[data.Player];
+            if (PlayerRoller == null) {
+                return;
+            }
+            if (!PlayerRoller.Enabled) {
+                return;
+            }
+            this.SoundSystemMoveBackwardHandler(data, PlayerRoller);
+        }
+        
+        protected virtual void SoundSystemMoveRightHandler(FlipCube.MoveRight data, Roller player) {
+            var handler = new SoundSystemMoveRightHandler();
+            handler.System = this;
+            handler.Event = data;
+            handler.Player = player;
+            StartCoroutine(handler.Execute());
+        }
+        
+        protected void SoundSystemMoveRightFilter(FlipCube.MoveRight data) {
+            var PlayerRoller = RollerManager[data.Player];
+            if (PlayerRoller == null) {
+                return;
+            }
+            if (!PlayerRoller.Enabled) {
+                return;
+            }
+            this.SoundSystemMoveRightHandler(data, PlayerRoller);
+        }
+        
+        protected virtual void SoundSystemLevelResetHandler(FlipCube.LevelReset data) {
+        }
+        
+        protected void SoundSystemLevelResetFilter(FlipCube.LevelReset data) {
+            this.SoundSystemLevelResetHandler(data);
+        }
+        
+        protected virtual void PlayRollCompleteSoundHandler(FlipCube.RollComplete data, Roller player) {
+        }
+        
+        protected void PlayRollCompleteSoundFilter(FlipCube.RollComplete data) {
+            var PlayerRoller = RollerManager[data.Player];
+            if (PlayerRoller == null) {
+                return;
+            }
+            if (!PlayerRoller.Enabled) {
+                return;
+            }
+            this.PlayRollCompleteSoundHandler(data, PlayerRoller);
         }
     }
     

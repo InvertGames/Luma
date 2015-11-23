@@ -48,6 +48,7 @@ namespace FlipCube {
             TeliporterPlateManager = ComponentSystem.RegisterComponent<TeliporterPlate>(44);
             PlayerRollerManager = ComponentSystem.RegisterGroup<PlayerRollerGroup,PlayerRoller>();
             this.OnEvent<FlipCube.RollCompleteStandingUp>().Subscribe(_=>{ TeliporterPlateSystemRollCompleteStandingUpFilter(_); }).DisposeWith(this);
+            this.OnEvent<FlipCube.TeliportRoller>().Subscribe(_=>{ TeliportFilter(_); }).DisposeWith(this);
         }
         
         protected virtual void TeliporterPlateSystemRollCompleteStandingUpHandler(FlipCube.RollCompleteStandingUp data, TeliporterPlate plate, PlayerRoller player) {
@@ -75,6 +76,13 @@ namespace FlipCube {
                 return;
             }
             this.TeliporterPlateSystemRollCompleteStandingUpHandler(data, PlateTeliporterPlate, PlayerItem);
+        }
+        
+        protected virtual void TeliportHandler(FlipCube.TeliportRoller data) {
+        }
+        
+        protected void TeliportFilter(FlipCube.TeliportRoller data) {
+            this.TeliportHandler(data);
         }
     }
     

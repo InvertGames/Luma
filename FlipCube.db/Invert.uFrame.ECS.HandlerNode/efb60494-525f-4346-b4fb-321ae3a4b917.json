@@ -1,0 +1,12 @@
+{
+	"CodeHandler":false	, 
+	"Custom":true	, 
+	"MetaType":"40bf9525-d7b8-40aa-9ff5-e75c3fd6ecb5"	, 
+	"VariableCount":0	, 
+	"VariableName":"HandlerNode0"	, 
+	"Name":"WinPlateRollCompleteStandingUp"	, 
+	"Order":0	, 
+	"Comments":"Signals LevelComplete"	, 
+	"GraphId":"90743f54-8364-4265-ab39-16b0e24ef3b2"	, 
+	"Identifier":"efb60494-525f-4346-b4fb-321ae3a4b917"	, 
+	"Expanded":false}
