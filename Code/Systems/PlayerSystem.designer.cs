@@ -64,11 +64,6 @@ namespace FlipCube {
         }
         
         protected virtual void ResetPlayerHandler(FlipCube.LevelReset data, PlayerRoller group) {
-            var handler = new ResetPlayerHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Group = group;
-            handler.Execute();
         }
         
         protected void ResetPlayerFilter(FlipCube.LevelReset data) {

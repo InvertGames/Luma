@@ -74,11 +74,6 @@ namespace FlipCube {
         }
         
         protected virtual void ResetDissolvePlateHandler(FlipCube.LevelReset data, DissolvePlate group) {
-            var handler = new ResetDissolvePlateHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Group = group;
-            handler.Execute();
         }
         
         protected void ResetDissolvePlateFilter(FlipCube.LevelReset data) {

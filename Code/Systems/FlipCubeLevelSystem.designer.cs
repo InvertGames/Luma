@@ -41,10 +41,6 @@ namespace FlipCube {
         }
         
         protected virtual void FlipCubeLevelSystemLevelFailedHandler(FlipCube.LevelFailed data) {
-            var handler = new FlipCubeLevelSystemLevelFailedHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Execute();
         }
         
         protected void FlipCubeLevelSystemLevelFailedFilter(FlipCube.LevelFailed data) {

@@ -88,11 +88,6 @@ namespace FlipCube {
         }
         
         protected virtual void SoundSystemMoveLeftHandler(FlipCube.MoveLeft data, Roller player) {
-            var handler = new SoundSystemMoveLeftHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Player = player;
-            handler.Execute();
         }
         
         protected void SoundSystemMoveLeftFilter(FlipCube.MoveLeft data) {
@@ -107,11 +102,6 @@ namespace FlipCube {
         }
         
         protected virtual void SoundSystemMoveForwardHandler(FlipCube.MoveForward data, Roller player) {
-            var handler = new SoundSystemMoveForwardHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Player = player;
-            handler.Execute();
         }
         
         protected void SoundSystemMoveForwardFilter(FlipCube.MoveForward data) {
@@ -126,11 +116,6 @@ namespace FlipCube {
         }
         
         protected virtual void SoundSystemMoveBackwardHandler(FlipCube.MoveBackward data, Roller player) {
-            var handler = new SoundSystemMoveBackwardHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Player = player;
-            handler.Execute();
         }
         
         protected void SoundSystemMoveBackwardFilter(FlipCube.MoveBackward data) {
@@ -145,11 +130,6 @@ namespace FlipCube {
         }
         
         protected virtual void SoundSystemMoveRightHandler(FlipCube.MoveRight data, Roller player) {
-            var handler = new SoundSystemMoveRightHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Player = player;
-            handler.Execute();
         }
         
         protected void SoundSystemMoveRightFilter(FlipCube.MoveRight data) {

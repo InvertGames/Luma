@@ -27,10 +27,6 @@ namespace FlipCube {
         }
         
         protected virtual void GameAudioSystemPlayAudioFXHandler(FlipCube.PlayAudioFX data) {
-            var handler = new GameAudioSystemPlayAudioFXHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Execute();
         }
         
         protected void GameAudioSystemPlayAudioFXFilter(FlipCube.PlayAudioFX data) {

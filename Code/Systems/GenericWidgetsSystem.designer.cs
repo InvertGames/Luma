@@ -52,13 +52,6 @@ namespace FlipCube {
         }
         
         protected virtual void OnLoadingPanelMessageChanged(LoadingPanelWidget data, LoadingPanelWidget group, PropertyChangedEvent<System.String> value) {
-            var handler = new OnLoadingPanelMessageChanged();
-            handler.System = this;
-            handler.Event = data;
-            handler.Group = group;
-            handler.OldValue = value.PreviousValue;
-            handler.NewValue = value.CurrentValue;
-            handler.Execute();
         }
         
         protected void OnLoadingPanelMessageChangedFilter(LoadingPanelWidget data, PropertyChangedEvent<System.String> value) {

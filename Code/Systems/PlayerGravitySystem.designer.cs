@@ -40,11 +40,6 @@ namespace FlipCube {
         }
         
         protected virtual void HandleGravityHandler(FlipCube.RollComplete data, Roller player) {
-            var handler = new HandleGravityHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Player = player;
-            handler.Execute();
         }
         
         protected void HandleGravityFilter(FlipCube.RollComplete data) {

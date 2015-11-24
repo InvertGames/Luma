@@ -81,11 +81,6 @@ namespace FlipCube {
         }
         
         protected virtual void ResetSwitchPlateTriggerHandler(FlipCube.LevelReset data, SwitchPlateTrigger group) {
-            var handler = new ResetSwitchPlateTriggerHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Group = group;
-            handler.Execute();
         }
         
         protected void ResetSwitchPlateTriggerFilter(FlipCube.LevelReset data) {
@@ -101,11 +96,6 @@ namespace FlipCube {
         }
         
         protected virtual void ResetSwitchPlateHandler(FlipCube.LevelReset data, SwitchPlate group) {
-            var handler = new ResetSwitchPlateHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Group = group;
-            handler.Execute();
         }
         
         protected void ResetSwitchPlateFilter(FlipCube.LevelReset data) {
@@ -121,12 +111,6 @@ namespace FlipCube {
         }
         
         protected virtual void LandedOnTriggerHandler(FlipCube.RollCompleteStandingUp data, SwitchPlateTrigger plate, Roller player) {
-            var handler = new LandedOnTriggerHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Plate = plate;
-            handler.Player = player;
-            handler.Execute();
         }
         
         protected void LandedOnTriggerFilter(FlipCube.RollCompleteStandingUp data) {

@@ -59,11 +59,6 @@ namespace FlipCube {
         }
         
         protected virtual void RollerCreated(Roller data, Roller group) {
-            var handler = new RollerCreated();
-            handler.System = this;
-            handler.Event = data;
-            handler.Group = group;
-            handler.Execute();
         }
         
         protected void RollerCreatedFilter(Roller data) {
@@ -78,10 +73,6 @@ namespace FlipCube {
         }
         
         protected virtual void CalculatePositionsHandler(Roller group) {
-            var handler = new CalculatePositionsHandler();
-            handler.System = this;
-            handler.Group = group;
-            handler.Execute();
         }
         
         protected void CalculatePositionsFilter() {
@@ -143,11 +134,6 @@ namespace FlipCube {
         }
         
         protected virtual void OnMoveRollerHandler(FlipCube.MoveRoller data, Roller roller) {
-            var handler = new OnMoveRollerHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Roller = roller;
-            handler.Execute();
         }
         
         protected void OnMoveRollerFilter(FlipCube.MoveRoller data) {

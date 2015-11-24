@@ -67,12 +67,6 @@ namespace FlipCube {
         }
         
         protected virtual void PlateSystemOnCollisionEnterStadingUpHandler(uFrame.ECS.OnCollisionEnterDispatcher data, Plate collider, PlayerStandingUp source) {
-            var handler = new PlateSystemOnCollisionEnterStadingUpHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Collider = collider;
-            handler.Source = source;
-            handler.Execute();
         }
         
         protected void PlateSystemOnCollisionEnterStadingUpFilter(uFrame.ECS.OnCollisionEnterDispatcher data) {
@@ -94,11 +88,6 @@ namespace FlipCube {
         }
         
         protected virtual void PlateSystemLevelResetHandler(FlipCube.LevelReset data, Plate group) {
-            var handler = new PlateSystemLevelResetHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Group = group;
-            handler.Execute();
         }
         
         protected void PlateSystemLevelResetFilter(FlipCube.LevelReset data) {
@@ -114,12 +103,6 @@ namespace FlipCube {
         }
         
         protected virtual void PlateSystemOnCollisionExitHandler(uFrame.ECS.OnCollisionExitDispatcher data, Plate collider, Player source) {
-            var handler = new PlateSystemOnCollisionExitHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Collider = collider;
-            handler.Source = source;
-            handler.Execute();
         }
         
         protected void PlateSystemOnCollisionExitFilter(uFrame.ECS.OnCollisionExitDispatcher data) {
@@ -141,12 +124,6 @@ namespace FlipCube {
         }
         
         protected virtual void PlateSystemOnCollisionEnterHandler(uFrame.ECS.OnCollisionEnterDispatcher data, Plate collider, Player source) {
-            var handler = new PlateSystemOnCollisionEnterHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Collider = collider;
-            handler.Source = source;
-            handler.Execute();
         }
         
         protected void PlateSystemOnCollisionEnterFilter(uFrame.ECS.OnCollisionEnterDispatcher data) {

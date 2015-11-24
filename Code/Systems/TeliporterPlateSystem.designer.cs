@@ -53,12 +53,6 @@ namespace FlipCube {
         }
         
         protected virtual void TeliporterPlateSystemRollCompleteStandingUpHandler(FlipCube.RollCompleteStandingUp data, TeliporterPlate plate, PlayerRoller player) {
-            var handler = new TeliporterPlateSystemRollCompleteStandingUpHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Plate = plate;
-            handler.Player = player;
-            handler.Execute();
         }
         
         protected void TeliporterPlateSystemRollCompleteStandingUpFilter(FlipCube.RollCompleteStandingUp data) {

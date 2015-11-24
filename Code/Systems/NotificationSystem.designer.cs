@@ -27,10 +27,6 @@ namespace FlipCube {
         }
         
         protected virtual void LogDebugMessageHandler(FlipCube.NotificationMessage data) {
-            var handler = new LogDebugMessageHandler();
-            handler.System = this;
-            handler.Event = data;
-            handler.Execute();
         }
         
         protected void LogDebugMessageFilter(FlipCube.NotificationMessage data) {
