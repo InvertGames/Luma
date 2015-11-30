@@ -1,0 +1,13 @@
+{
+	"PropertyInId":"a049e654-4395-4952-837f-7283f3fbe019"	, 
+	"OnlyWhenChanged":false	, 
+	"Immediate":true	, 
+	"CodeHandler":false	, 
+	"Custom":false	, 
+	"VariableCount":0	, 
+	"VariableName":"PropertyChangedNode0"	, 
+	"Name":"LoadingScreenProgressChanged"	, 
+	"Order":0	, 
+	"GraphId":"1ba365e3-352d-4f6d-8b4e-74e91f56deb6"	, 
+	"Identifier":"ab193a7c-067e-4ff9-8f39-5bdeddf93c24"	, 
+	"Expanded":false}

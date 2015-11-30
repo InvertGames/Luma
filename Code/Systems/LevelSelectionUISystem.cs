@@ -58,7 +58,7 @@ namespace FlipCube {
             if (level != null)
             {
                 data.gameObject.SetActive(true);
-                data.LevelNameText.text = level.name;
+                data.LevelNameText.text = (data.BoundLevel - 100) + ""; //level.name;
             }
             else
             {
@@ -100,6 +100,17 @@ namespace FlipCube {
             }
             //TODO : Publish Load Level Event
         }
+
+        protected override void LevelSelectionStateChanged(LevelSelectionWidget data, LevelSelectionWidget @group, PropertyChangedEvent<WidgetState> value)
+        {
+            base.LevelSelectionStateChanged(data, @group, value);
+            if(value.CurrentValue == WidgetState.Shown)
+            foreach (var uiWidget in data.Composite.Widgets)
+            {
+                uiWidget.IsActive = true;
+            }
+        }
+
 
         protected override void LevelGridItemCreated(LevelGridItemUI data, LevelGridItemUI @group)
         {
