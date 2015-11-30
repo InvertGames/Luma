@@ -51,13 +51,13 @@ namespace FlipCube {
             system = this.AddSystem<SoundSystem>();
             system = this.AddSystem<DialogUISystem>();
             system = this.AddSystem<RollerSystem>();
+            system = this.AddSystem<LoadingScreenUISystem>();
             system = this.AddSystem<LevelManagementSystem>();
             system = this.AddSystem<MainMenuUISystem>();
             system = this.AddSystem<IntroSceneSystem>();
             system = this.AddSystem<GameUISystem>();
             system = this.AddSystem<FlipCubeAudioSystem>();
             system = this.AddSystem<NotificationsUISystem>();
-            system = this.AddSystem<LoadingScreenUISystem>();
         }
     }
 }

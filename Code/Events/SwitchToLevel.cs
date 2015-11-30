@@ -22,14 +22,14 @@ namespace FlipCube {
     public partial class SwitchToLevel : object {
         
         [UnityEngine.SerializeField()]
-        private Int32 _Properties;
+        private Int32 _LevelId;
         
-        public Int32 Properties {
+        public Int32 LevelId {
             get {
-                return _Properties;
+                return _LevelId;
             }
             set {
-                _Properties = value;
+                _LevelId = value;
             }
         }
     }

@@ -27,9 +27,23 @@ namespace FlipCube {
         [UnityEngine.SerializeField()]
         private GeneralGameUIState _State;
         
+        [UnityEngine.SerializeField()]
+        private UIWidget _LoadingScreenWidget;
+        
+        [UnityEngine.SerializeField()]
+        private Boolean _ShowLoadingScreen;
+        
         private Subject<PropertyChangedEvent<GeneralGameUIState>> _StateObservable;
         
         private PropertyChangedEvent<GeneralGameUIState> _StateEvent;
+        
+        private Subject<PropertyChangedEvent<UIWidget>> _LoadingScreenWidgetObservable;
+        
+        private PropertyChangedEvent<UIWidget> _LoadingScreenWidgetEvent;
+        
+        private Subject<PropertyChangedEvent<Boolean>> _ShowLoadingScreenObservable;
+        
+        private PropertyChangedEvent<Boolean> _ShowLoadingScreenEvent;
         
         public override int ComponentId {
             get {
@@ -43,6 +57,18 @@ namespace FlipCube {
             }
         }
         
+        public IObservable<PropertyChangedEvent<UIWidget>> LoadingScreenWidgetObservable {
+            get {
+                return _LoadingScreenWidgetObservable ?? (_LoadingScreenWidgetObservable = new Subject<PropertyChangedEvent<UIWidget>>());
+            }
+        }
+        
+        public IObservable<PropertyChangedEvent<Boolean>> ShowLoadingScreenObservable {
+            get {
+                return _ShowLoadingScreenObservable ?? (_ShowLoadingScreenObservable = new Subject<PropertyChangedEvent<Boolean>>());
+            }
+        }
+        
         public GeneralGameUIState State {
             get {
                 return _State;
@@ -52,8 +78,34 @@ namespace FlipCube {
             }
         }
         
+        public UIWidget LoadingScreenWidget {
+            get {
+                return _LoadingScreenWidget;
+            }
+            set {
+                SetLoadingScreenWidget(value);
+            }
+        }
+        
+        public Boolean ShowLoadingScreen {
+            get {
+                return _ShowLoadingScreen;
+            }
+            set {
+                SetShowLoadingScreen(value);
+            }
+        }
+        
         public virtual void SetState(GeneralGameUIState value) {
             SetProperty(ref _State, value, ref _StateEvent, _StateObservable);
+        }
+        
+        public virtual void SetLoadingScreenWidget(UIWidget value) {
+            SetProperty(ref _LoadingScreenWidget, value, ref _LoadingScreenWidgetEvent, _LoadingScreenWidgetObservable);
+        }
+        
+        public virtual void SetShowLoadingScreen(Boolean value) {
+            SetProperty(ref _ShowLoadingScreen, value, ref _ShowLoadingScreenEvent, _ShowLoadingScreenObservable);
         }
     }
 }

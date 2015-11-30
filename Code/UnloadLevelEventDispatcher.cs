@@ -7,6 +7,7 @@ public class UnloadLevelEventDispatcher : uFrameComponent{
 
     public void UnloadCurrentLevel()
     {
+        Debug.Log("Dispatching");
         this.Publish(new FlipCube.UnloadLevel() { Source = 101});
     }
 

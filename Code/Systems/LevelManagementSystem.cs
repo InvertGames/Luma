@@ -29,15 +29,15 @@ namespace FlipCube {
 
         private void OnSceneUnloaded(SceneLoaderEvent evt)
         {
-            if (CurrentActiveLevel == null || evt.SceneRoot.Name == "Level"+(CurrentActiveLevel.EntityId - 100)) return;
-            if (WaitingToUnload.Contains(evt.SceneRoot.Name)) WaitingToUnload.Remove(evt.SceneRoot.Name);
+            if (CurrentActiveLevel == null || evt.SceneRoot.Name == CurrentActiveLevel.EntityId.ToLevelName()) return;
+            WaitingToUnload.Remove(evt.SceneRoot.Name);
             CheckIfLevelUnloaded();
         }
 
         private void OnSceneLoaded(SceneLoaderEvent evt)
         {
-            if (CurrentActiveLevel == null || evt.SceneRoot.Name == "Level" + (CurrentActiveLevel.EntityId - 100)) return;
-            if (WaitingToLoad.Contains(evt.SceneRoot.Name)) WaitingToLoad.Remove(evt.SceneRoot.Name);
+            if (CurrentActiveLevel == null || evt.SceneRoot.Name ==  CurrentActiveLevel.EntityId.ToLevelName()) return;
+            WaitingToLoad.Remove(evt.SceneRoot.Name);
             CheckIfLevelLoaded();
         }
 
@@ -77,7 +77,7 @@ namespace FlipCube {
             CurrentActiveLevel.State = LevelState.Loading;
             WaitingToLoad.AddRange(LevelDependencyScenes);
             WaitingToLoad.AddRange(data.LevelData.SceneDependencies);
-            LoadScenesIfNotLoaded(WaitingToLoad);
+            WaitingToLoad.LoadScenes(true);
             CheckIfLevelLoaded();
         }
 
@@ -87,14 +87,14 @@ namespace FlipCube {
             CurrentActiveLevel.State = LevelState.Unloading;
             WaitingToUnload.AddRange(LevelDependencyScenes);
             WaitingToUnload.AddRange(data.LevelData.SceneDependencies);
-            UnloadScenesIfLoaded(WaitingToUnload);
+            WaitingToUnload.UnloadScenes();
             CheckIfLevelUnloaded();
         }
         
         protected override void LevelManagementSystemOnGameReadyHandler(GameReadyEvent data)
         {
             base.LevelManagementSystemOnGameReadyHandler(data);
-            LoadScenesIfNotLoaded(GameDependencyScenes);
+            GameDependencyScenes.LoadScenes(true);
         }
 
         protected override void LevelManagementSystemLoadLevelHandler(LoadLevel data, LevelData source)
@@ -104,7 +104,7 @@ namespace FlipCube {
             CurrentActiveLevel.State = LevelState.Loading;
             this.Publish(new LoadSceneCommand()
             {
-                SceneName = ("Level"+(source.EntityId - 100))
+                SceneName = source.EntityId.ToLevelName()
             });
         }
 
@@ -114,37 +114,47 @@ namespace FlipCube {
             CurrentActiveLevel.State = LevelState.Unloading;
             this.Publish(new UnloadSceneCommand()
             {
-                SceneName = ("Level" + (CurrentActiveLevel.EntityId - 100))
+                SceneName = CurrentActiveLevel.EntityId.ToLevelName()
             });
         }
 
-        private void LoadScenesIfNotLoaded(IEnumerable<string> scenes)
-        {
-            if (scenes == null) return;
-            foreach (var gameScenes in scenes)
-            {
-                this.Publish(new LoadSceneCommand()
-                {
-                    SceneName = gameScenes,
-                    RestrictToSingleScene = true
-                });
-            }
-        }
+    }
 
-        private void UnloadScenesIfLoaded(IEnumerable<string> scenes)
+
+    public static class FlipCubeEntityExtensions
+    {
+        public static string ToLevelName(this int levelId)
+        {
+            return string.Format("Level{0}", levelId - 100);
+        }
+    }
+
+    public static class FlipCubeLevelManagementExtension
+    {
+        public static void UnloadScenes(this IEnumerable<string> scenes)
         {
             if (scenes == null) return;
             foreach (var gameScenes in scenes)
             {
-                this.Publish(new UnloadSceneCommand()
+                uFrameKernel.EventAggregator.Publish(new UnloadSceneCommand()
                 {
                     SceneName = gameScenes
                 });
             }
         }
 
-
+        public static void LoadScenes(this IEnumerable<string> scenes,bool single)
+        {
+            if (scenes == null) return;
+            foreach (var gameScenes in scenes)
+            {
+                uFrameKernel.EventAggregator.Publish(new LoadSceneCommand()
+                {
+                    SceneName = gameScenes,
+                    RestrictToSingleScene = single
+                });
+            }
+        }
     }
-
 
 }

@@ -1,3 +1,5 @@
+using System.Xml.Schema;
+
 namespace FlipCube {
     using FlipCube;
     using System;
@@ -22,6 +24,38 @@ namespace FlipCube {
             if(LevelManagementSystem.Instance.CurrentActiveLevel == null) Show<MainMenuUI>(@group);
             else HideAllGeneralMenus(@group);
 
+        }
+
+        protected override void ShowLoadingScreenChanged(GameUIWidget data, GameUIWidget @group, PropertyChangedEvent<bool> value)
+        {
+            base.ShowLoadingScreenChanged(data, @group, value);
+            data.GameUI.LoadingScreenWidget.IsActive = value.CurrentValue;
+        }
+
+        protected override void LevelDataLoadingStateChanged(LevelData data, LevelData @group, PropertyChangedEvent<LevelState> value)
+        {
+            base.LevelDataLoadingStateChanged(data, @group, value);
+
+            var gameUi = EcsComponentService.Instance.RegisterComponent(typeof (GameUIWidget)).All.FirstOrDefault() as GameUIWidget;
+            if (gameUi == null) return;
+            HideAllGeneralMenus(gameUi.As<GameUIWidget>());
+            switch (value.CurrentValue)
+            {
+                case LevelState.Inactive:
+                    gameUi.GameUI.ShowLoadingScreen = false;
+                    break;
+                case LevelState.Loaded:
+                    gameUi.GameUI.ShowLoadingScreen = false;
+                    break;
+                case LevelState.Loading:
+                    gameUi.GameUI.ShowLoadingScreen = true;
+                    break;
+                case LevelState.Unloading:
+                    gameUi.GameUI.ShowLoadingScreen = true;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         protected override void GameUISystemShowGeneralMenusHandler(ShowGeneralMenu data, GameUIWidget @group)

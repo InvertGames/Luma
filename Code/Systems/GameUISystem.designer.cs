@@ -24,6 +24,8 @@ namespace FlipCube {
         
         private IEcsComponentManagerOf<GameUIWidget> _GameUIWidgetManager;
         
+        private IEcsComponentManagerOf<LevelData> _LevelDataManager;
+        
         private IEcsComponentManagerOf<GameUI> _GameUIManager;
         
         public IEcsComponentManagerOf<GameUIWidget> GameUIWidgetManager {
@@ -32,6 +34,15 @@ namespace FlipCube {
             }
             set {
                 _GameUIWidgetManager = value;
+            }
+        }
+        
+        public IEcsComponentManagerOf<LevelData> LevelDataManager {
+            get {
+                return _LevelDataManager;
+            }
+            set {
+                _LevelDataManager = value;
             }
         }
         
@@ -47,10 +58,13 @@ namespace FlipCube {
         public override void Setup() {
             base.Setup();
             GameUIWidgetManager = ComponentSystem.RegisterGroup<GameUIWidgetGroup,GameUIWidget>();
+            LevelDataManager = ComponentSystem.RegisterComponent<LevelData>(38);
             GameUIManager = ComponentSystem.RegisterComponent<GameUI>(88);
             this.OnEvent<FlipCube.CloseAllGeneralMenus>().Subscribe(_=>{ GameUISystemCloseAllGeneralMenusFilter(_); }).DisposeWith(this);
+            this.PropertyChangedEvent<GameUIWidget,System.Boolean>(Group=>Group.GameUI.ShowLoadingScreenObservable, ShowLoadingScreenChangedFilter, Group=>Group.GameUI.ShowLoadingScreen, false);
             this.PropertyChangedEvent<GameUIWidget,FlipCube.GeneralGameUIState>(Group=>Group.GameUI.StateObservable, GameUIStateChangedFilter, Group=>Group.GameUI.State, false);
             GameUIWidgetManager.CreatedObservable.Subscribe(GameUICreatedFilter).DisposeWith(this);
+            this.PropertyChangedEvent<LevelData,FlipCube.LevelState>(Group=>Group.StateObservable, LevelDataLoadingStateChangedFilter, Group=>Group.State, false);
             this.OnEvent<FlipCube.ShowGeneralMenu>().Subscribe(_=>{ GameUISystemShowGeneralMenusFilter(_); }).DisposeWith(this);
             this.PropertyChangedEvent<GameUIWidget,FlipCube.WidgetState>(Group=>Group.UIWidget.StateObservable, GameUIWidgetStateChangedFilter, Group=>Group.UIWidget.State, false);
         }
@@ -68,6 +82,20 @@ namespace FlipCube {
                 }
                 this.GameUISystemCloseAllGeneralMenusHandler(data, GameUIWidgetItems[GameUIWidgetIndex]);
             }
+        }
+        
+        protected virtual void ShowLoadingScreenChanged(GameUIWidget data, GameUIWidget group, PropertyChangedEvent<System.Boolean> value) {
+        }
+        
+        protected void ShowLoadingScreenChangedFilter(GameUIWidget data, PropertyChangedEvent<System.Boolean> value) {
+            var GroupItem = GameUIWidgetManager[data.EntityId];
+            if (GroupItem == null) {
+                return;
+            }
+            if (!GroupItem.Enabled) {
+                return;
+            }
+            this.ShowLoadingScreenChanged(data, GroupItem, value);
         }
         
         protected virtual void GameUIStateChanged(GameUIWidget data, GameUIWidget group, PropertyChangedEvent<FlipCube.GeneralGameUIState> value) {
@@ -96,6 +124,20 @@ namespace FlipCube {
                 return;
             }
             this.GameUICreated(data, GroupItem);
+        }
+        
+        protected virtual void LevelDataLoadingStateChanged(LevelData data, LevelData group, PropertyChangedEvent<FlipCube.LevelState> value) {
+        }
+        
+        protected void LevelDataLoadingStateChangedFilter(LevelData data, PropertyChangedEvent<FlipCube.LevelState> value) {
+            var GroupLevelData = LevelDataManager[data.EntityId];
+            if (GroupLevelData == null) {
+                return;
+            }
+            if (!GroupLevelData.Enabled) {
+                return;
+            }
+            this.LevelDataLoadingStateChanged(data, GroupLevelData, value);
         }
         
         protected virtual void GameUISystemShowGeneralMenusHandler(FlipCube.ShowGeneralMenu data, GameUIWidget group) {
