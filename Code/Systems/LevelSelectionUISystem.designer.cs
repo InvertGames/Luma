@@ -97,6 +97,7 @@ namespace FlipCube {
             LevelGridWidgetManager = ComponentSystem.RegisterGroup<LevelGridWidgetGroup,LevelGridWidget>();
             LevelSelectionUIManager = ComponentSystem.RegisterComponent<LevelSelectionUI>(78);
             LevelGridUIManager = ComponentSystem.RegisterComponent<LevelGridUI>(79);
+            this.PropertyChangedEvent<LevelSelectionWidget,FlipCube.WidgetState>(Group=>Group.UIWidget.StateObservable, LevelSelectionStateChangedFilter, Group=>Group.UIWidget.State, false);
             this.PropertyChangedEvent<LevelGridItemUI,System.Int32>(Group=>Group.BoundLevelObservable, LevelGridItemBoundLevelChangedFilter, Group=>Group.BoundLevel, false);
             LevelDataManager.CreatedObservable.Subscribe(LevelDataCreatedFilter).DisposeWith(this);
             LevelGridItemUIManager.CreatedObservable.Subscribe(LevelGridItemCreatedFilter).DisposeWith(this);
@@ -105,6 +106,20 @@ namespace FlipCube {
             this.OnEvent<FlipCube.LevelGridTrySelectLevel>().Subscribe(_=>{ OnLevelGridTrySelectLevelFilter(_); }).DisposeWith(this);
             this.PropertyChangedEvent<LevelGridWidget,System.Int32>(Group=>Group.LevelGridUI.SkipObservable, LevelSelectionSkipChangedFilter, Group=>Group.LevelGridUI.Skip, false);
             this.PropertyChangedEvent<LevelGridWidget,FlipCube.WidgetState>(Group=>Group.UIWidget.StateObservable, LevelGridWidgetStateChangedFilter, Group=>Group.UIWidget.State, false);
+        }
+        
+        protected virtual void LevelSelectionStateChanged(LevelSelectionWidget data, LevelSelectionWidget group, PropertyChangedEvent<FlipCube.WidgetState> value) {
+        }
+        
+        protected void LevelSelectionStateChangedFilter(LevelSelectionWidget data, PropertyChangedEvent<FlipCube.WidgetState> value) {
+            var GroupItem = LevelSelectionWidgetManager[data.EntityId];
+            if (GroupItem == null) {
+                return;
+            }
+            if (!GroupItem.Enabled) {
+                return;
+            }
+            this.LevelSelectionStateChanged(data, GroupItem, value);
         }
         
         protected virtual void LevelGridItemBoundLevelChanged(LevelGridItemUI data, LevelGridItemUI group, PropertyChangedEvent<System.Int32> value) {

@@ -26,6 +26,7 @@ namespace FlipCube {
             system = this.AddSystem<PlayerDataSystem>();
             system = this.AddSystem<LevelSelectionUISystem>();
             system = this.AddSystem<SettingsSystem>();
+            system = this.AddSystem<SceneActivatorSystem>();
             system = this.AddSystem<DisolvePlateSystem>();
             system = this.AddSystem<NotificationSystem>();
             system = this.AddSystem<PlayerStatsSystem>();
@@ -51,8 +52,11 @@ namespace FlipCube {
             system = this.AddSystem<SoundSystem>();
             system = this.AddSystem<DialogUISystem>();
             system = this.AddSystem<RollerSystem>();
+            system = this.AddSystem<LoadingScreenUISystem>();
             system = this.AddSystem<LevelManagementSystem>();
+            system = this.AddSystem<MainMenuUISystem>();
             system = this.AddSystem<IntroSceneSystem>();
+            system = this.AddSystem<GameUISystem>();
             system = this.AddSystem<FlipCubeAudioSystem>();
             system = this.AddSystem<NotificationsUISystem>();
         }

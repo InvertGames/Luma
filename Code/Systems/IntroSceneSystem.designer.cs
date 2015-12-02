@@ -24,13 +24,13 @@ namespace FlipCube {
         
         private IEcsComponentManagerOf<Intro> _IntroManager;
         
+        private IEcsComponentManagerOf<LevelSceneData> _LevelSceneDataManager;
+        
         private IEcsComponentManagerOf<RunningLevel> _RunningLevelManager;
         
         private IEcsComponentManagerOf<LevelData> _LevelDataManager;
         
         private IEcsComponentManagerOf<UIScene> _UISceneManager;
-        
-        private IEcsComponentManagerOf<LevelScene> _LevelSceneManager;
         
         public IEcsComponentManagerOf<Intro> IntroManager {
             get {
@@ -38,6 +38,15 @@ namespace FlipCube {
             }
             set {
                 _IntroManager = value;
+            }
+        }
+        
+        public IEcsComponentManagerOf<LevelSceneData> LevelSceneDataManager {
+            get {
+                return _LevelSceneDataManager;
+            }
+            set {
+                _LevelSceneDataManager = value;
             }
         }
         
@@ -68,22 +77,13 @@ namespace FlipCube {
             }
         }
         
-        public IEcsComponentManagerOf<LevelScene> LevelSceneManager {
-            get {
-                return _LevelSceneManager;
-            }
-            set {
-                _LevelSceneManager = value;
-            }
-        }
-        
         public override void Setup() {
             base.Setup();
             IntroManager = ComponentSystem.RegisterComponent<Intro>(2);
+            LevelSceneDataManager = ComponentSystem.RegisterGroup<LevelSceneDataGroup,LevelSceneData>();
             RunningLevelManager = ComponentSystem.RegisterGroup<RunningLevelGroup,RunningLevel>();
             LevelDataManager = ComponentSystem.RegisterComponent<LevelData>(38);
             UISceneManager = ComponentSystem.RegisterComponent<UIScene>(41);
-            LevelSceneManager = ComponentSystem.RegisterComponent<LevelScene>(40);
             IntroManager.RemovedObservable.Subscribe(_=>IntroComponentDestroyed(_,_)).DisposeWith(this);
             IntroManager.CreatedObservable.Subscribe(OnPlayIntroFilter).DisposeWith(this);
         }

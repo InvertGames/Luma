@@ -1,0 +1,14 @@
+{
+	"Comments":"1. Create new scene, (or copy existing from FlipCube/Scenes/Levels), name it LevelX (where X is number of the level). \n\n2. Make a root GameObject (if there is none) and add SceneInstance component to it. Set KernelScene to \"BootScene\". Set EntityId to 100 + X\n\n3. Save the scene, add it to build list.\n\n4. Go to BootScene and find SceneActivatorSystem object. Find Levels object inside of SceneActivatorSystem add new empty child.\n\n5. add SceneData and LevelData to that object. Set EntityId to 100 + X\n\n6. Add optional dependencies to the list (like BackgroundScene1)"	, 
+	"MarkColor":37	, 
+	"HeaderText":"How to setup new Levels"	, 
+	"ShowMark":true	, 
+	"Size":	{
+		"x":"445.4"		, 
+		"y":"269.8"	}
+	, 
+	"Name":"NewNoteNode"	, 
+	"Order":0	, 
+	"GraphId":"706693e8-accc-444c-b18e-9d4a14a56a6a"	, 
+	"Identifier":"ec4e2dd2-1679-4f9a-ae6e-13e7f2925557"	, 
+	"Expanded":false}

@@ -22,13 +22,13 @@ namespace FlipCube {
         
         private IEcsComponentManagerOf<LevelData> _LevelDataManager;
         
-        private IEcsComponentManagerOf<LevelScene> _LevelSceneManager;
+        private IEcsComponentManagerOf<SceneInstance> _SceneInstanceManager;
         
         private int lastEntityId;
         
         private LevelData LevelData;
         
-        private LevelScene LevelScene;
+        private SceneInstance SceneInstance;
         
         public IEcsComponentManagerOf<LevelData> LevelDataManager {
             get {
@@ -39,12 +39,12 @@ namespace FlipCube {
             }
         }
         
-        public IEcsComponentManagerOf<LevelScene> LevelSceneManager {
+        public IEcsComponentManagerOf<SceneInstance> SceneInstanceManager {
             get {
-                return _LevelSceneManager;
+                return _SceneInstanceManager;
             }
             set {
-                _LevelSceneManager = value;
+                _SceneInstanceManager = value;
             }
         }
         
@@ -52,9 +52,9 @@ namespace FlipCube {
             LevelDataManager = componentSystem.RegisterComponent<LevelData>();
             yield return LevelDataManager.CreatedObservable.Select(_=>_.EntityId);;
             yield return LevelDataManager.RemovedObservable.Select(_=>_.EntityId);;
-            LevelSceneManager = componentSystem.RegisterComponent<LevelScene>();
-            yield return LevelSceneManager.CreatedObservable.Select(_=>_.EntityId);;
-            yield return LevelSceneManager.RemovedObservable.Select(_=>_.EntityId);;
+            SceneInstanceManager = componentSystem.RegisterComponent<SceneInstance>();
+            yield return SceneInstanceManager.CreatedObservable.Select(_=>_.EntityId);;
+            yield return SceneInstanceManager.RemovedObservable.Select(_=>_.EntityId);;
         }
         
         public override bool Match(int entityId) {
@@ -62,7 +62,7 @@ namespace FlipCube {
             if ((LevelData = LevelDataManager[entityId]) == null) {
                 return false;
             }
-            if ((LevelScene = LevelSceneManager[entityId]) == null) {
+            if ((SceneInstance = SceneInstanceManager[entityId]) == null) {
                 return false;
             }
             return true;
@@ -72,7 +72,7 @@ namespace FlipCube {
             var item = new RunningLevel();;
             item.EntityId = lastEntityId;
             item.LevelData = LevelData;
-            item.LevelScene = LevelScene;
+            item.SceneInstance = SceneInstance;
             return item;
         }
     }

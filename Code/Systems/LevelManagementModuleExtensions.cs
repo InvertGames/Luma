@@ -37,15 +37,15 @@ static
         
         #region 
 static
-        public uFrame.ECS.IEcsComponentManagerOf<LevelScene> LevelSceneManager(this uFrame.ECS.IEcsSystem system) {
-            return system.ComponentSystem.RegisterComponent<LevelScene>();
+        public uFrame.ECS.IEcsComponentManagerOf<LevelData> LevelDataManager(this uFrame.ECS.IEcsSystem system) {
+            return system.ComponentSystem.RegisterComponent<LevelData>();
         }
         #endregion
         
         #region 
 static
-        public uFrame.ECS.IEcsComponentManagerOf<LevelData> LevelDataManager(this uFrame.ECS.IEcsSystem system) {
-            return system.ComponentSystem.RegisterComponent<LevelData>();
+        public uFrame.ECS.IEcsComponentManagerOf<LevelSceneData> LevelSceneDataManager(this uFrame.ECS.IEcsSystem system) {
+            return system.ComponentSystem.RegisterComponent<LevelSceneData>();
         }
         #endregion
         
@@ -72,15 +72,15 @@ static
         
         #region 
 static
-        public List<LevelScene> LevelSceneComponents(this uFrame.ECS.IEcsSystem system) {
-            return system.ComponentSystem.RegisterComponent<LevelScene>().Components;
+        public List<LevelData> LevelDataComponents(this uFrame.ECS.IEcsSystem system) {
+            return system.ComponentSystem.RegisterComponent<LevelData>().Components;
         }
         #endregion
         
         #region 
 static
-        public List<LevelData> LevelDataComponents(this uFrame.ECS.IEcsSystem system) {
-            return system.ComponentSystem.RegisterComponent<LevelData>().Components;
+        public List<LevelSceneData> LevelSceneDataComponents(this uFrame.ECS.IEcsSystem system) {
+            return system.ComponentSystem.RegisterComponent<LevelSceneData>().Components;
         }
         #endregion
         

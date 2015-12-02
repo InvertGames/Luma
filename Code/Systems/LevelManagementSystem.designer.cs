@@ -24,13 +24,13 @@ namespace FlipCube {
         
         private IEcsComponentManagerOf<Intro> _IntroManager;
         
+        private IEcsComponentManagerOf<LevelSceneData> _LevelSceneDataManager;
+        
         private IEcsComponentManagerOf<RunningLevel> _RunningLevelManager;
         
         private IEcsComponentManagerOf<LevelData> _LevelDataManager;
         
         private IEcsComponentManagerOf<UIScene> _UISceneManager;
-        
-        private IEcsComponentManagerOf<LevelScene> _LevelSceneManager;
         
         public IEcsComponentManagerOf<Intro> IntroManager {
             get {
@@ -38,6 +38,15 @@ namespace FlipCube {
             }
             set {
                 _IntroManager = value;
+            }
+        }
+        
+        public IEcsComponentManagerOf<LevelSceneData> LevelSceneDataManager {
+            get {
+                return _LevelSceneDataManager;
+            }
+            set {
+                _LevelSceneDataManager = value;
             }
         }
         
@@ -68,61 +77,38 @@ namespace FlipCube {
             }
         }
         
-        public IEcsComponentManagerOf<LevelScene> LevelSceneManager {
-            get {
-                return _LevelSceneManager;
-            }
-            set {
-                _LevelSceneManager = value;
-            }
-        }
-        
         public override void Setup() {
             base.Setup();
             IntroManager = ComponentSystem.RegisterComponent<Intro>(2);
+            LevelSceneDataManager = ComponentSystem.RegisterGroup<LevelSceneDataGroup,LevelSceneData>();
             RunningLevelManager = ComponentSystem.RegisterGroup<RunningLevelGroup,RunningLevel>();
             LevelDataManager = ComponentSystem.RegisterComponent<LevelData>(38);
             UISceneManager = ComponentSystem.RegisterComponent<UIScene>(41);
-            LevelSceneManager = ComponentSystem.RegisterComponent<LevelScene>(40);
-            this.OnEvent<FlipCube.UnloadLevel>().Subscribe(_=>{ LevelManagementSystemUnloadLevelFilter(_); }).DisposeWith(this);
+            LevelSceneDataManager.CreatedObservable.Subscribe(LevelSceneDataCreatedFilter).DisposeWith(this);
+            RunningLevelManager.CreatedObservable.Subscribe(LevelStartedFilter).DisposeWith(this);
             this.OnEvent<FlipCube.LoadLevel>().Subscribe(_=>{ LevelManagementSystemLoadLevelFilter(_); }).DisposeWith(this);
-            RunningLevelManager.CreatedObservable.Subscribe(LevelManagementSystemOnRunningLevelCreatedFilter).DisposeWith(this);
             RunningLevelManager.RemovedObservable.Subscribe(_=>RunningLevelComponentDestroyed(_,_)).DisposeWith(this);
-            this.OnEvent<uFrame.Kernel.GameReadyEvent>().Subscribe(_=>{ LevelManagementSystemOnGameReadyFilter(_); }).DisposeWith(this);
+            this.OnEvent<FlipCube.UnloadAllLevels>().Subscribe(_=>{ LevelManagementSystemUnloadAllLevelsFilter(_); }).DisposeWith(this);
         }
         
-        protected virtual void LevelManagementSystemUnloadLevelHandler(FlipCube.UnloadLevel data, RunningLevel source) {
+        protected virtual void LevelSceneDataCreated(LevelSceneData data, LevelSceneData group) {
         }
         
-        protected void LevelManagementSystemUnloadLevelFilter(FlipCube.UnloadLevel data) {
-            var SourceItem = RunningLevelManager[data.Source];
-            if (SourceItem == null) {
+        protected void LevelSceneDataCreatedFilter(LevelSceneData data) {
+            var GroupItem = LevelSceneDataManager[data.EntityId];
+            if (GroupItem == null) {
                 return;
             }
-            if (!SourceItem.Enabled) {
+            if (!GroupItem.Enabled) {
                 return;
             }
-            this.LevelManagementSystemUnloadLevelHandler(data, SourceItem);
+            this.LevelSceneDataCreated(data, GroupItem);
         }
         
-        protected virtual void LevelManagementSystemLoadLevelHandler(FlipCube.LoadLevel data, LevelData source) {
+        protected virtual void LevelStarted(RunningLevel data, RunningLevel group) {
         }
         
-        protected void LevelManagementSystemLoadLevelFilter(FlipCube.LoadLevel data) {
-            var SourceLevelData = LevelDataManager[data.Source];
-            if (SourceLevelData == null) {
-                return;
-            }
-            if (!SourceLevelData.Enabled) {
-                return;
-            }
-            this.LevelManagementSystemLoadLevelHandler(data, SourceLevelData);
-        }
-        
-        protected virtual void LevelManagementSystemOnRunningLevelCreated(RunningLevel data, RunningLevel group) {
-        }
-        
-        protected void LevelManagementSystemOnRunningLevelCreatedFilter(RunningLevel data) {
+        protected void LevelStartedFilter(RunningLevel data) {
             var GroupItem = RunningLevelManager[data.EntityId];
             if (GroupItem == null) {
                 return;
@@ -130,7 +116,21 @@ namespace FlipCube {
             if (!GroupItem.Enabled) {
                 return;
             }
-            this.LevelManagementSystemOnRunningLevelCreated(data, GroupItem);
+            this.LevelStarted(data, GroupItem);
+        }
+        
+        protected virtual void LevelManagementSystemLoadLevelHandler(FlipCube.LoadLevel data, LevelData level) {
+        }
+        
+        protected void LevelManagementSystemLoadLevelFilter(FlipCube.LoadLevel data) {
+            var LevelLevelData = LevelDataManager[data.Level];
+            if (LevelLevelData == null) {
+                return;
+            }
+            if (!LevelLevelData.Enabled) {
+                return;
+            }
+            this.LevelManagementSystemLoadLevelHandler(data, LevelLevelData);
         }
         
         protected virtual void RunningLevelComponentDestroyed(RunningLevel data, RunningLevel group) {
@@ -147,11 +147,11 @@ namespace FlipCube {
             this.RunningLevelComponentDestroyed(data, GroupItem);
         }
         
-        protected virtual void LevelManagementSystemOnGameReadyHandler(uFrame.Kernel.GameReadyEvent data) {
+        protected virtual void LevelManagementSystemUnloadAllLevelsHandler(FlipCube.UnloadAllLevels data) {
         }
         
-        protected void LevelManagementSystemOnGameReadyFilter(uFrame.Kernel.GameReadyEvent data) {
-            this.LevelManagementSystemOnGameReadyHandler(data);
+        protected void LevelManagementSystemUnloadAllLevelsFilter(FlipCube.UnloadAllLevels data) {
+            this.LevelManagementSystemUnloadAllLevelsHandler(data);
         }
     }
     
@@ -161,13 +161,7 @@ namespace FlipCube {
         private static LevelManagementSystem _Instance;
         
         [UnityEngine.SerializeField()]
-        private List<string> _GameDependencyScenes;
-        
-        [UnityEngine.SerializeField()]
-        private List<string> _LevelDependencyScenes;
-        
-        [UnityEngine.SerializeField()]
-        private List<string> _MenuDependencyScenes;
+        private List<SceneData> _LevelDependencies;
         
         public LevelManagementSystem() {
             Instance = this;
@@ -182,30 +176,12 @@ namespace FlipCube {
             }
         }
         
-        public List<string> GameDependencyScenes {
+        public List<SceneData> LevelDependencies {
             get {
-                return _GameDependencyScenes;
+                return _LevelDependencies;
             }
             set {
-                _GameDependencyScenes = value;
-            }
-        }
-        
-        public List<string> LevelDependencyScenes {
-            get {
-                return _LevelDependencyScenes;
-            }
-            set {
-                _LevelDependencyScenes = value;
-            }
-        }
-        
-        public List<string> MenuDependencyScenes {
-            get {
-                return _MenuDependencyScenes;
-            }
-            set {
-                _MenuDependencyScenes = value;
+                _LevelDependencies = value;
             }
         }
     }

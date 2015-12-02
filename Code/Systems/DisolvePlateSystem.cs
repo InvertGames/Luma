@@ -51,6 +51,7 @@ namespace FlipCube
                 rb2.useGravity = true;
                 rb2.AddExplosionForce(1f, rb.transform.position, 0.1f);
                 rb2.transform.parent = null;
+                Destroy(rb2.gameObject, 2f);
                 yield return new WaitForSeconds(0.05f);
 
             }
