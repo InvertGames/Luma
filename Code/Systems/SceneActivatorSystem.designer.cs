@@ -22,13 +22,28 @@ namespace FlipCube {
     
     public partial class SceneActivatorSystemBase : uFrame.ECS.EcsSystem {
         
+        private IEcsComponentManagerOf<UserLoginInfo> _UserLoginInfoManager;
+        
         private IEcsComponentManagerOf<SceneData> _SceneDataManager;
+        
+        private IEcsComponentManagerOf<GameDependencySceneData> _GameDependencySceneDataManager;
         
         private IEcsComponentManagerOf<SceneInstance> _SceneInstanceManager;
         
+        private IEcsComponentManagerOf<SwitchPlate> _SwitchPlateManager;
+        
+        private IEcsComponentManagerOf<FlipCubeSounds> _FlipCubeSoundsManager;
+        
         private IEcsComponentManagerOf<GameDependency> _GameDependencyManager;
         
-        private IEcsComponentManagerOf<GameDependencySceneData> _GameDependencySceneDataManager;
+        public IEcsComponentManagerOf<UserLoginInfo> UserLoginInfoManager {
+            get {
+                return _UserLoginInfoManager;
+            }
+            set {
+                _UserLoginInfoManager = value;
+            }
+        }
         
         public IEcsComponentManagerOf<SceneData> SceneDataManager {
             get {
@@ -36,24 +51,6 @@ namespace FlipCube {
             }
             set {
                 _SceneDataManager = value;
-            }
-        }
-        
-        public IEcsComponentManagerOf<SceneInstance> SceneInstanceManager {
-            get {
-                return _SceneInstanceManager;
-            }
-            set {
-                _SceneInstanceManager = value;
-            }
-        }
-        
-        public IEcsComponentManagerOf<GameDependency> GameDependencyManager {
-            get {
-                return _GameDependencyManager;
-            }
-            set {
-                _GameDependencyManager = value;
             }
         }
         
@@ -66,17 +63,61 @@ namespace FlipCube {
             }
         }
         
+        public IEcsComponentManagerOf<SceneInstance> SceneInstanceManager {
+            get {
+                return _SceneInstanceManager;
+            }
+            set {
+                _SceneInstanceManager = value;
+            }
+        }
+        
+        public IEcsComponentManagerOf<SwitchPlate> SwitchPlateManager {
+            get {
+                return _SwitchPlateManager;
+            }
+            set {
+                _SwitchPlateManager = value;
+            }
+        }
+        
+        public IEcsComponentManagerOf<FlipCubeSounds> FlipCubeSoundsManager {
+            get {
+                return _FlipCubeSoundsManager;
+            }
+            set {
+                _FlipCubeSoundsManager = value;
+            }
+        }
+        
+        public IEcsComponentManagerOf<GameDependency> GameDependencyManager {
+            get {
+                return _GameDependencyManager;
+            }
+            set {
+                _GameDependencyManager = value;
+            }
+        }
+        
         public override void Setup() {
             base.Setup();
+            UserLoginInfoManager = ComponentSystem.RegisterComponent<UserLoginInfo>(23);
             SceneDataManager = ComponentSystem.RegisterComponent<SceneData>(94);
-            SceneInstanceManager = ComponentSystem.RegisterComponent<SceneInstance>(95);
-            GameDependencyManager = ComponentSystem.RegisterComponent<GameDependency>(96);
             GameDependencySceneDataManager = ComponentSystem.RegisterGroup<GameDependencySceneDataGroup,GameDependencySceneData>();
+            SceneInstanceManager = ComponentSystem.RegisterComponent<SceneInstance>(95);
+            SwitchPlateManager = ComponentSystem.RegisterComponent<SwitchPlate>(45);
+            FlipCubeSoundsManager = ComponentSystem.RegisterComponent<FlipCubeSounds>(48);
+            GameDependencyManager = ComponentSystem.RegisterComponent<GameDependency>(96);
             SceneDataManager.CreatedObservable.Subscribe(SceneDataCreatedFilter).DisposeWith(this);
             SceneInstanceManager.CreatedObservable.Subscribe(SceneInstanceCreatedFilter).DisposeWith(this);
+            UserLoginInfoManager.CreatedObservable.Subscribe(UserLoginInfoCreatedFilter).DisposeWith(this);
             SceneInstanceManager.RemovedObservable.Subscribe(_=>SceneInstanceComponentDestroyed(_,_)).DisposeWith(this);
             this.OnEvent<FlipCube.ConstructScene>().Subscribe(_=>{ SceneActivatorSystemConstructSceneFilter(_); }).DisposeWith(this);
+            GameDependencySceneDataManager.CreatedObservable.Subscribe(GameDependencySceneDataCreatedFilter).DisposeWith(this);
             this.OnEvent<FlipCube.DeconstructScene>().Subscribe(_=>{ SceneActivatorSystemDeconstructSceneFilter(_); }).DisposeWith(this);
+            this.OnEvent<FlipCube.ExchangeScenes>().Subscribe(_=>{ SceneActivatorSystemExchangeScenesFilter(_); }).DisposeWith(this);
+            SwitchPlateManager.CreatedObservable.Subscribe(SwitchTemplateCreatedFilter).DisposeWith(this);
+            FlipCubeSoundsManager.CreatedObservable.Subscribe(NewComponentCreatedNodeFilter).DisposeWith(this);
         }
         
         protected virtual void SceneDataCreated(SceneData data, SceneData group) {
@@ -107,6 +148,20 @@ namespace FlipCube {
             this.SceneInstanceCreated(data, GroupSceneInstance);
         }
         
+        protected virtual void UserLoginInfoCreated(UserLoginInfo data, UserLoginInfo group) {
+        }
+        
+        protected void UserLoginInfoCreatedFilter(UserLoginInfo data) {
+            var GroupUserLoginInfo = UserLoginInfoManager[data.EntityId];
+            if (GroupUserLoginInfo == null) {
+                return;
+            }
+            if (!GroupUserLoginInfo.Enabled) {
+                return;
+            }
+            this.UserLoginInfoCreated(data, GroupUserLoginInfo);
+        }
+        
         protected virtual void SceneInstanceComponentDestroyed(SceneInstance data, SceneInstance group) {
         }
         
@@ -135,6 +190,20 @@ namespace FlipCube {
             this.SceneActivatorSystemConstructSceneHandler(data, SceneDataSceneData);
         }
         
+        protected virtual void GameDependencySceneDataCreated(GameDependencySceneData data, GameDependencySceneData group) {
+        }
+        
+        protected void GameDependencySceneDataCreatedFilter(GameDependencySceneData data) {
+            var GroupItem = GameDependencySceneDataManager[data.EntityId];
+            if (GroupItem == null) {
+                return;
+            }
+            if (!GroupItem.Enabled) {
+                return;
+            }
+            this.GameDependencySceneDataCreated(data, GroupItem);
+        }
+        
         protected virtual void SceneActivatorSystemDeconstructSceneHandler(FlipCube.DeconstructScene data, SceneInstance sceneinstance) {
         }
         
@@ -147,6 +216,55 @@ namespace FlipCube {
                 return;
             }
             this.SceneActivatorSystemDeconstructSceneHandler(data, SceneInstanceSceneInstance);
+        }
+        
+        protected virtual void SceneActivatorSystemExchangeScenesHandler(FlipCube.ExchangeScenes data, SceneInstance unload, SceneData load) {
+        }
+        
+        protected void SceneActivatorSystemExchangeScenesFilter(FlipCube.ExchangeScenes data) {
+            var UnloadSceneInstance = SceneInstanceManager[data.Unload];
+            if (UnloadSceneInstance == null) {
+                return;
+            }
+            if (!UnloadSceneInstance.Enabled) {
+                return;
+            }
+            var LoadSceneData = SceneDataManager[data.Load];
+            if (LoadSceneData == null) {
+                return;
+            }
+            if (!LoadSceneData.Enabled) {
+                return;
+            }
+            this.SceneActivatorSystemExchangeScenesHandler(data, UnloadSceneInstance, LoadSceneData);
+        }
+        
+        protected virtual void SwitchTemplateCreated(SwitchPlate data, SwitchPlate group) {
+        }
+        
+        protected void SwitchTemplateCreatedFilter(SwitchPlate data) {
+            var GroupSwitchPlate = SwitchPlateManager[data.EntityId];
+            if (GroupSwitchPlate == null) {
+                return;
+            }
+            if (!GroupSwitchPlate.Enabled) {
+                return;
+            }
+            this.SwitchTemplateCreated(data, GroupSwitchPlate);
+        }
+        
+        protected virtual void NewComponentCreatedNode(FlipCubeSounds data, FlipCubeSounds group) {
+        }
+        
+        protected void NewComponentCreatedNodeFilter(FlipCubeSounds data) {
+            var GroupFlipCubeSounds = FlipCubeSoundsManager[data.EntityId];
+            if (GroupFlipCubeSounds == null) {
+                return;
+            }
+            if (!GroupFlipCubeSounds.Enabled) {
+                return;
+            }
+            this.NewComponentCreatedNode(data, GroupFlipCubeSounds);
         }
     }
     

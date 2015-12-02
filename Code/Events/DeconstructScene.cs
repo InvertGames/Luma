@@ -18,11 +18,23 @@ namespace FlipCube {
     using UniRx;
     
     
-    [uFrame.Attributes.EventId(36)]
+    [uFrame.Attributes.EventId(33)]
     public partial class DeconstructScene : object {
         
         [UnityEngine.SerializeField()]
+        private Boolean _DeconstructDependencies;
+        
+        [UnityEngine.SerializeField()]
         private Int32 _SceneInstance;
+        
+        public Boolean DeconstructDependencies {
+            get {
+                return _DeconstructDependencies;
+            }
+            set {
+                _DeconstructDependencies = value;
+            }
+        }
         
         public Int32 SceneInstance {
             get {

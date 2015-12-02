@@ -23,7 +23,7 @@ namespace FlipCube {
         
         private LevelData _LevelData;
         
-        private LevelScene _LevelScene;
+        private SceneInstance _SceneInstance;
         
         public LevelData LevelData {
             get {
@@ -34,12 +34,12 @@ namespace FlipCube {
             }
         }
         
-        public LevelScene LevelScene {
+        public SceneInstance SceneInstance {
             get {
-                return _LevelScene;
+                return _SceneInstance;
             }
             set {
-                _LevelScene = value;
+                _SceneInstance = value;
             }
         }
         

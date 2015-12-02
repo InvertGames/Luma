@@ -16,9 +16,10 @@ namespace FlipCube {
     using System.Linq;
     using uFrame.ECS;
     using UniRx;
+    using UnityEngine.UI;
     
     
-    [uFrame.Attributes.EventId(33)]
+    [uFrame.Attributes.EventId(30)]
     public partial class CloseAllGeneralMenus : object {
     }
 }

@@ -18,7 +18,7 @@ namespace FlipCube {
     using UniRx;
     
     
-    [uFrame.Attributes.EventId(35)]
+    [uFrame.Attributes.EventId(32)]
     public partial class ConstructScene : object {
         
         [UnityEngine.SerializeField()]

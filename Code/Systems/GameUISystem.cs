@@ -13,6 +13,8 @@ namespace FlipCube {
     
     
     public partial class GameUISystem {
+        private SceneActivatorSystem _sceneActivatorSystem;
+
         protected override void GameUICreated(GameUIWidget data, GameUIWidget @group)
         {
             base.GameUICreated(data, @group);
@@ -32,30 +34,37 @@ namespace FlipCube {
             data.GameUI.LoadingScreenWidget.IsActive = value.CurrentValue;
         }
 
-        protected override void LevelDataLoadingStateChanged(LevelData data, LevelData @group, PropertyChangedEvent<LevelState> value)
-        {
-            base.LevelDataLoadingStateChanged(data, @group, value);
+        //protected override void LevelDataLoadingStateChanged(LevelData data, LevelData @group, PropertyChangedEvent<LevelState> value)
+        //{
+        //    base.LevelDataLoadingStateChanged(data, @group, value);
 
-            var gameUi = EcsComponentService.Instance.RegisterComponent(typeof (GameUIWidget)).All.FirstOrDefault() as GameUIWidget;
-            if (gameUi == null) return;
-            HideAllGeneralMenus(gameUi.As<GameUIWidget>());
-            switch (value.CurrentValue)
-            {
-                case LevelState.Inactive:
-                    gameUi.GameUI.ShowLoadingScreen = false;
-                    break;
-                case LevelState.Loaded:
-                    gameUi.GameUI.ShowLoadingScreen = false;
-                    break;
-                case LevelState.Loading:
-                    gameUi.GameUI.ShowLoadingScreen = true;
-                    break;
-                case LevelState.Unloading:
-                    gameUi.GameUI.ShowLoadingScreen = true;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+        //    var gameUi = EcsComponentService.Instance.RegisterComponent(typeof (GameUIWidget)).All.FirstOrDefault() as GameUIWidget;
+        //    if (gameUi == null) return;
+        //    HideAllGeneralMenus(gameUi.As<GameUIWidget>());
+        //    switch (value.CurrentValue)
+        //    {
+        //        case LevelState.Inactive:
+        //            gameUi.GameUI.ShowLoadingScreen = false;
+        //            break;
+        //        case LevelState.Loaded:
+        //            gameUi.GameUI.ShowLoadingScreen = false;
+        //            break;
+        //        case LevelState.Loading:
+        //            gameUi.GameUI.ShowLoadingScreen = true;
+        //            break;
+        //        case LevelState.Unloading:
+        //            gameUi.GameUI.ShowLoadingScreen = true;
+        //            break;
+        //        default:
+        //            throw new ArgumentOutOfRangeException();
+        //    }
+        //}
+
+
+        public SceneActivatorSystem SceneActivatorSystem
+        {
+            get { return _sceneActivatorSystem ?? (_sceneActivatorSystem = SceneActivatorSystem.Instance); }
+            set { _sceneActivatorSystem = value; }
         }
 
         protected override void GameUISystemShowGeneralMenusHandler(ShowGeneralMenu data, GameUIWidget @group)
@@ -98,6 +107,35 @@ namespace FlipCube {
                 var cWidget = widget.As<T>();
                 widget.IsActive = cWidget != null;
             }
+        }
+
+        protected override void GameUISystemSceneOperationsStartedHandler(SceneOperationsStarted data, GameUI @group)
+        {
+            base.GameUISystemSceneOperationsStartedHandler(data, @group);
+            @group.ShowLoadingScreen = true;
+            HideAllGeneralMenus(@group.As<GameUIWidget>());
+        }
+
+        protected override void GameUISystemSceneOperationsFinishedHandler(SceneOperationsFinished data, GameUI @group)
+        {
+            base.GameUISystemSceneOperationsFinishedHandler(data, @group);
+            @group.ShowLoadingScreen = false;
+        }
+
+        protected override void GameUISystemSceneOperationsProgressHandler(SceneOperationsProgress data, LoadingScreenUI @group)
+        {
+            base.GameUISystemSceneOperationsProgressHandler(data, @group);
+            if (data.Loading)
+            {
+                @group.Message = string.Format("Loading {0}...", data.TargetData.Name);
+            }
+            else
+            {
+                @group.Message = string.Format("Unloading {0}...", data.TargetInstance.SceneData.Name);
+            }
+
+            @group.Progress = data.OperationsProgress;
+
         }
     }
 }

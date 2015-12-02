@@ -18,15 +18,16 @@ namespace FlipCube {
     using uFrame.Kernel;
     using UniRx;
     using UnityEngine;
+    using UnityEngine.UI;
     
     
     public partial class GameUISystemBase : uFrame.ECS.EcsSystem {
         
         private IEcsComponentManagerOf<GameUIWidget> _GameUIWidgetManager;
         
-        private IEcsComponentManagerOf<LevelData> _LevelDataManager;
-        
         private IEcsComponentManagerOf<GameUI> _GameUIManager;
+        
+        private IEcsComponentManagerOf<LoadingScreenUI> _LoadingScreenUIManager;
         
         public IEcsComponentManagerOf<GameUIWidget> GameUIWidgetManager {
             get {
@@ -34,15 +35,6 @@ namespace FlipCube {
             }
             set {
                 _GameUIWidgetManager = value;
-            }
-        }
-        
-        public IEcsComponentManagerOf<LevelData> LevelDataManager {
-            get {
-                return _LevelDataManager;
-            }
-            set {
-                _LevelDataManager = value;
             }
         }
         
@@ -55,17 +47,28 @@ namespace FlipCube {
             }
         }
         
+        public IEcsComponentManagerOf<LoadingScreenUI> LoadingScreenUIManager {
+            get {
+                return _LoadingScreenUIManager;
+            }
+            set {
+                _LoadingScreenUIManager = value;
+            }
+        }
+        
         public override void Setup() {
             base.Setup();
             GameUIWidgetManager = ComponentSystem.RegisterGroup<GameUIWidgetGroup,GameUIWidget>();
-            LevelDataManager = ComponentSystem.RegisterComponent<LevelData>(38);
             GameUIManager = ComponentSystem.RegisterComponent<GameUI>(88);
+            LoadingScreenUIManager = ComponentSystem.RegisterComponent<LoadingScreenUI>(92);
             this.OnEvent<FlipCube.CloseAllGeneralMenus>().Subscribe(_=>{ GameUISystemCloseAllGeneralMenusFilter(_); }).DisposeWith(this);
             this.PropertyChangedEvent<GameUIWidget,System.Boolean>(Group=>Group.GameUI.ShowLoadingScreenObservable, ShowLoadingScreenChangedFilter, Group=>Group.GameUI.ShowLoadingScreen, false);
             this.PropertyChangedEvent<GameUIWidget,FlipCube.GeneralGameUIState>(Group=>Group.GameUI.StateObservable, GameUIStateChangedFilter, Group=>Group.GameUI.State, false);
             GameUIWidgetManager.CreatedObservable.Subscribe(GameUICreatedFilter).DisposeWith(this);
-            this.PropertyChangedEvent<LevelData,FlipCube.LevelState>(Group=>Group.StateObservable, LevelDataLoadingStateChangedFilter, Group=>Group.State, false);
+            this.OnEvent<FlipCube.SceneOperationsFinished>().Subscribe(_=>{ GameUISystemSceneOperationsFinishedFilter(_); }).DisposeWith(this);
             this.OnEvent<FlipCube.ShowGeneralMenu>().Subscribe(_=>{ GameUISystemShowGeneralMenusFilter(_); }).DisposeWith(this);
+            this.OnEvent<FlipCube.SceneOperationsStarted>().Subscribe(_=>{ GameUISystemSceneOperationsStartedFilter(_); }).DisposeWith(this);
+            this.OnEvent<FlipCube.SceneOperationsProgress>().Subscribe(_=>{ GameUISystemSceneOperationsProgressFilter(_); }).DisposeWith(this);
             this.PropertyChangedEvent<GameUIWidget,FlipCube.WidgetState>(Group=>Group.UIWidget.StateObservable, GameUIWidgetStateChangedFilter, Group=>Group.UIWidget.State, false);
         }
         
@@ -126,18 +129,19 @@ namespace FlipCube {
             this.GameUICreated(data, GroupItem);
         }
         
-        protected virtual void LevelDataLoadingStateChanged(LevelData data, LevelData group, PropertyChangedEvent<FlipCube.LevelState> value) {
+        protected virtual void GameUISystemSceneOperationsFinishedHandler(FlipCube.SceneOperationsFinished data, GameUI group) {
         }
         
-        protected void LevelDataLoadingStateChangedFilter(LevelData data, PropertyChangedEvent<FlipCube.LevelState> value) {
-            var GroupLevelData = LevelDataManager[data.EntityId];
-            if (GroupLevelData == null) {
-                return;
+        protected void GameUISystemSceneOperationsFinishedFilter(FlipCube.SceneOperationsFinished data) {
+            var GameUIItems = GameUIManager.Components;
+            for (var GameUIIndex = 0
+            ; GameUIIndex < GameUIItems.Count; GameUIIndex++
+            ) {
+                if (!GameUIItems[GameUIIndex].Enabled) {
+                    continue;
+                }
+                this.GameUISystemSceneOperationsFinishedHandler(data, GameUIItems[GameUIIndex]);
             }
-            if (!GroupLevelData.Enabled) {
-                return;
-            }
-            this.LevelDataLoadingStateChanged(data, GroupLevelData, value);
         }
         
         protected virtual void GameUISystemShowGeneralMenusHandler(FlipCube.ShowGeneralMenu data, GameUIWidget group) {
@@ -152,6 +156,36 @@ namespace FlipCube {
                     continue;
                 }
                 this.GameUISystemShowGeneralMenusHandler(data, GameUIWidgetItems[GameUIWidgetIndex]);
+            }
+        }
+        
+        protected virtual void GameUISystemSceneOperationsStartedHandler(FlipCube.SceneOperationsStarted data, GameUI group) {
+        }
+        
+        protected void GameUISystemSceneOperationsStartedFilter(FlipCube.SceneOperationsStarted data) {
+            var GameUIItems = GameUIManager.Components;
+            for (var GameUIIndex = 0
+            ; GameUIIndex < GameUIItems.Count; GameUIIndex++
+            ) {
+                if (!GameUIItems[GameUIIndex].Enabled) {
+                    continue;
+                }
+                this.GameUISystemSceneOperationsStartedHandler(data, GameUIItems[GameUIIndex]);
+            }
+        }
+        
+        protected virtual void GameUISystemSceneOperationsProgressHandler(FlipCube.SceneOperationsProgress data, LoadingScreenUI group) {
+        }
+        
+        protected void GameUISystemSceneOperationsProgressFilter(FlipCube.SceneOperationsProgress data) {
+            var LoadingScreenUIItems = LoadingScreenUIManager.Components;
+            for (var LoadingScreenUIIndex = 0
+            ; LoadingScreenUIIndex < LoadingScreenUIItems.Count; LoadingScreenUIIndex++
+            ) {
+                if (!LoadingScreenUIItems[LoadingScreenUIIndex].Enabled) {
+                    continue;
+                }
+                this.GameUISystemSceneOperationsProgressHandler(data, LoadingScreenUIItems[LoadingScreenUIIndex]);
             }
         }
         

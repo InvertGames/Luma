@@ -11,7 +11,6 @@ namespace FlipCube {
         {
             if (!uFrameKernel.IsKernelLoaded)
             {
-                SceneDataName = Application.loadedLevelName;
                 StartCoroutine(uFrameKernel.InstantiateSceneAsyncAdditively(KernelScene));
             }
 

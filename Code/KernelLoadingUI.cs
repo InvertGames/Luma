@@ -23,21 +23,16 @@ public class KernelLoadingUI : MonoBehaviour {
         if (evt.State == ServiceState.Loading)
         {
             Message = string.Format("Loading {0}", evt.Service.GetType().Name);
+            MessageText.text = Message;
             Progress = evt.GlobalProgress;
+            Image.fillAmount = Progress;
+            PercentText.text = string.Format("{0}%", (int)(Progress * 100));
             if (Progress >= 1f)
             {
                 Destroy(gameObject);
             }
         }
 
-    }
-
-
-    void Update()
-    {
-        if (MessageText != null) MessageText.text = Message;
-        if (Image != null) Image.fillAmount = Progress;
-        if (PercentText != null) PercentText.text = string.Format("{0}%",(int)(Progress*100));
     }
 
 }

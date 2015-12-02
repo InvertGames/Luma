@@ -29,13 +29,13 @@ namespace FlipCube {
         private Text _MessageText;
         
         [UnityEngine.SerializeField()]
-        private String _Message;
+        private Text _PersentsText;
         
         [UnityEngine.SerializeField()]
         private Single _Progress;
         
         [UnityEngine.SerializeField()]
-        private Text _PersentsText;
+        private String _Message;
         
         [UnityEngine.SerializeField()]
         private Image _FilledProgressBar;
@@ -44,17 +44,17 @@ namespace FlipCube {
         
         private PropertyChangedEvent<Text> _MessageTextEvent;
         
-        private Subject<PropertyChangedEvent<String>> _MessageObservable;
+        private Subject<PropertyChangedEvent<Text>> _PersentsTextObservable;
         
-        private PropertyChangedEvent<String> _MessageEvent;
+        private PropertyChangedEvent<Text> _PersentsTextEvent;
         
         private Subject<PropertyChangedEvent<Single>> _ProgressObservable;
         
         private PropertyChangedEvent<Single> _ProgressEvent;
         
-        private Subject<PropertyChangedEvent<Text>> _PersentsTextObservable;
+        private Subject<PropertyChangedEvent<String>> _MessageObservable;
         
-        private PropertyChangedEvent<Text> _PersentsTextEvent;
+        private PropertyChangedEvent<String> _MessageEvent;
         
         private Subject<PropertyChangedEvent<Image>> _FilledProgressBarObservable;
         
@@ -72,9 +72,9 @@ namespace FlipCube {
             }
         }
         
-        public IObservable<PropertyChangedEvent<String>> MessageObservable {
+        public IObservable<PropertyChangedEvent<Text>> PersentsTextObservable {
             get {
-                return _MessageObservable ?? (_MessageObservable = new Subject<PropertyChangedEvent<String>>());
+                return _PersentsTextObservable ?? (_PersentsTextObservable = new Subject<PropertyChangedEvent<Text>>());
             }
         }
         
@@ -84,9 +84,9 @@ namespace FlipCube {
             }
         }
         
-        public IObservable<PropertyChangedEvent<Text>> PersentsTextObservable {
+        public IObservable<PropertyChangedEvent<String>> MessageObservable {
             get {
-                return _PersentsTextObservable ?? (_PersentsTextObservable = new Subject<PropertyChangedEvent<Text>>());
+                return _MessageObservable ?? (_MessageObservable = new Subject<PropertyChangedEvent<String>>());
             }
         }
         
@@ -105,12 +105,12 @@ namespace FlipCube {
             }
         }
         
-        public String Message {
+        public Text PersentsText {
             get {
-                return _Message;
+                return _PersentsText;
             }
             set {
-                SetMessage(value);
+                SetPersentsText(value);
             }
         }
         
@@ -123,12 +123,12 @@ namespace FlipCube {
             }
         }
         
-        public Text PersentsText {
+        public String Message {
             get {
-                return _PersentsText;
+                return _Message;
             }
             set {
-                SetPersentsText(value);
+                SetMessage(value);
             }
         }
         
@@ -145,16 +145,16 @@ namespace FlipCube {
             SetProperty(ref _MessageText, value, ref _MessageTextEvent, _MessageTextObservable);
         }
         
-        public virtual void SetMessage(String value) {
-            SetProperty(ref _Message, value, ref _MessageEvent, _MessageObservable);
+        public virtual void SetPersentsText(Text value) {
+            SetProperty(ref _PersentsText, value, ref _PersentsTextEvent, _PersentsTextObservable);
         }
         
         public virtual void SetProgress(Single value) {
             SetProperty(ref _Progress, value, ref _ProgressEvent, _ProgressObservable);
         }
         
-        public virtual void SetPersentsText(Text value) {
-            SetProperty(ref _PersentsText, value, ref _PersentsTextEvent, _PersentsTextObservable);
+        public virtual void SetMessage(String value) {
+            SetProperty(ref _Message, value, ref _MessageEvent, _MessageObservable);
         }
         
         public virtual void SetFilledProgressBar(Image value) {

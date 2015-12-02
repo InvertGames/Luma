@@ -95,10 +95,9 @@ namespace FlipCube {
             {
                 this.Publish(new LoadLevel()
                 {
-                    Source = level.EntityId
+                    Level = level.EntityId
                 });
             }
-            //TODO : Publish Load Level Event
         }
 
         protected override void LevelSelectionStateChanged(LevelSelectionWidget data, LevelSelectionWidget @group, PropertyChangedEvent<WidgetState> value)

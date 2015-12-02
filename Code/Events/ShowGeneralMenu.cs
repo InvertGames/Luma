@@ -16,9 +16,10 @@ namespace FlipCube {
     using System.Linq;
     using uFrame.ECS;
     using UniRx;
+    using UnityEngine.UI;
     
     
-    [uFrame.Attributes.EventId(34)]
+    [uFrame.Attributes.EventId(31)]
     public partial class ShowGeneralMenu : object {
         
         [UnityEngine.SerializeField()]
